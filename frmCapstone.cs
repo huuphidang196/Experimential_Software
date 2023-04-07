@@ -27,6 +27,8 @@ namespace Experimential_Software
         private List<LineConnect> lineConnectList;
         public List<LineConnect> LineConnectList => lineConnectList;
 
+        protected float penWidth; // độ rộng mong muốn
+
         public frmCapstone()
         {
             InitializeComponent();
@@ -37,6 +39,7 @@ namespace Experimential_Software
             this.EPowers = new List<ConnectableE>();
             this._iEPowers = new List<IMouseOnEndsControl>();
             this.lineConnectList = new List<LineConnect>();
+
         }
 
         #region Reference_OutSide
@@ -62,6 +65,15 @@ namespace Experimential_Software
 
             return null;
         }
+
+        //Remove isselect another ConnectionE
+        public virtual void SetIsSelected(ConnectableE ePower_Focused)
+        {
+            foreach (ConnectableE ePower in this.EPowers)
+            {
+                if (ePower != ePower_Focused) ePower.IsSelected = false;
+            }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -77,6 +89,7 @@ namespace Experimential_Software
             {
                 Point startPoint = line.StartPoint;
                 Point endPoint = line.EndPoint;
+
                 pnlMain.CreateGraphics().DrawLine(Pens.Black, startPoint, endPoint);
             }
         }
@@ -109,6 +122,24 @@ namespace Experimential_Software
             this.ButtonMouseDown(sender, e, btnBus, databaseE);
         }
 
+        /// <summary>
+        /// Panel Main 
+
+        private void pnlMain_MouseDown(object sender, MouseEventArgs e)
+        {
+            //Determine Line is selected
+            bool isContainLine = this.processPowerConn.ProcessMain_MouseClick(sender, e, this.lineConnectList);
+
+            if (isContainLine) this.SetIsSelected(null);//select line in Panel, set isSelected false for all btn
+        }
+
+
+
+        private void frmCapstone_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
         private void pnlMain_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Move;
@@ -134,6 +165,7 @@ namespace Experimential_Software
                 control.Dispose();
             }
         }
+        /// Panel Main
 
         #endregion Control_On_Form
 
@@ -171,6 +203,8 @@ namespace Experimential_Software
             this.previousMouseLocation = this.processPowerConn.PreviousMouseLocation;
             this.processPowerConn.form = this;
             this.processPowerConn.ButtonInstance_MouseDown(sender, e, pnlMain);
+            this.SetIsSelected(sender as ConnectableE);
+            this.processPowerConn.SetFalseSelectedALLLine(this.LineConnectList);
         }
 
         protected virtual void ButtonInstance_MouseMove(object sender, MouseEventArgs e)
@@ -202,7 +236,12 @@ namespace Experimential_Software
             }
         }
 
+
+
+
+
         #endregion ButtonInstance
+
 
     }
 }
@@ -229,69 +268,69 @@ namespace Experimential_Software
 
 
 
-    //private void ButtonInstance_MouseDown(object sender, MouseEventArgs e)
-    //{
-    //    if (e.Button == MouseButtons.Left)
-    //    {
-    //        isDragging = true;
-    //        previousMouseLocation = e.Location;
-    //    }
-    //}
+//private void ButtonInstance_MouseDown(object sender, MouseEventArgs e)
+//{
+//    if (e.Button == MouseButtons.Left)
+//    {
+//        isDragging = true;
+//        previousMouseLocation = e.Location;
+//    }
+//}
 
-    //private void ButtonInstance_MouseMove(object sender, MouseEventArgs e)
-    //{
-    //    if (!isDragging) return;
+//private void ButtonInstance_MouseMove(object sender, MouseEventArgs e)
+//{
+//    if (!isDragging) return;
 
-    //    //Control is moved
-    //    Button button1Instance = sender as Button;
+//    //Control is moved
+//    Button button1Instance = sender as Button;
 
-    //    Point pMouseTopnlMain = this.TransferPosMouseToControl(sender, e, pnlMain);
+//    Point pMouseTopnlMain = this.TransferPosMouseToControl(sender, e, pnlMain);
 
-    //    bool isOnMain = pnlMain.ClientRectangle.Contains(pMouseTopnlMain);
+//    bool isOnMain = pnlMain.ClientRectangle.Contains(pMouseTopnlMain);
 
-    //    if (!isOnMain) return;
+//    if (!isOnMain) return;
 
-    //    button1Instance.Location = pMouseTopnlMain;
-    //}
+//    button1Instance.Location = pMouseTopnlMain;
+//}
 
-    //private void ButtonInstance_MouseUp(object sender, MouseEventArgs e)
-    //{
+//private void ButtonInstance_MouseUp(object sender, MouseEventArgs e)
+//{
 
-    //    if (e.Button == MouseButtons.Right) return;
+//    if (e.Button == MouseButtons.Right) return;
 
-    //    Button button1Instance = sender as Button;
-    //    isDragging = false;
+//    Button button1Instance = sender as Button;
+//    isDragging = false;
 
-    //    Point pMouseTopnlMain = this.TransferPosMouseToControl(sender, e, pnlMain);
+//    Point pMouseTopnlMain = this.TransferPosMouseToControl(sender, e, pnlMain);
 
-    //    bool isOnMain = pnlMain.ClientRectangle.Contains(pMouseTopnlMain);
+//    bool isOnMain = pnlMain.ClientRectangle.Contains(pMouseTopnlMain);
 
-    //    if (!isOnMain)
-    //    {
-    //        button1Instance.Location = previousMouseLocation;
-    //        return;
-    //    }
+//    if (!isOnMain)
+//    {
+//        button1Instance.Location = previousMouseLocation;
+//        return;
+//    }
 
-    //    button1Instance.Location = pMouseTopnlMain;
-    //}
+//    button1Instance.Location = pMouseTopnlMain;
+//}
 
-    ////Trả về vị vị điểm 
-    //protected virtual Point TransferPosMouseToControl(object sender, MouseEventArgs e, object ControlDes)
-    //{
-    //    //Control is moved
-    //    Button button1Instance = sender as Button;
+////Trả về vị vị điểm 
+//protected virtual Point TransferPosMouseToControl(object sender, MouseEventArgs e, object ControlDes)
+//{
+//    //Control is moved
+//    Button button1Instance = sender as Button;
 
-    //    //Get pos center of button Instance in order to smoothly move
-    //    Point posCenter = new Point(e.Location.X - button1Instance.Width / 2, e.Location.Y - button1Instance.Height / 2);
-    //    //=> transfer Location to screen
-    //    Point dropToScreen = button1Instance.PointToScreen(posCenter);
+//    //Get pos center of button Instance in order to smoothly move
+//    Point posCenter = new Point(e.Location.X - button1Instance.Width / 2, e.Location.Y - button1Instance.Height / 2);
+//    //=> transfer Location to screen
+//    Point dropToScreen = button1Instance.PointToScreen(posCenter);
 
-    //    Control ctrlDes = ControlDes as Control;
-    //    //=> transfer posMouse to Control Destionation
-    //    Point pMouseTopnlMain = ctrlDes.PointToClient(dropToScreen);
+//    Control ctrlDes = ControlDes as Control;
+//    //=> transfer posMouse to Control Destionation
+//    Point pMouseTopnlMain = ctrlDes.PointToClient(dropToScreen);
 
-    //    return pMouseTopnlMain;
-    //}
+//    return pMouseTopnlMain;
+//}
 
 
 

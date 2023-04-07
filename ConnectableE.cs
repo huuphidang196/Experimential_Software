@@ -36,7 +36,17 @@ namespace Experimential_Software
         public DatabaseEPower DatabaseE => databaseE;
 
         public bool isOnTool { get; set; }
-        public bool isSelected { get; set; }
+
+        private bool isSelected;
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set
+            {
+                isSelected = value;
+                Invalidate();
+            }
+        }
 
         private int _radiusPoint = 7;
 
@@ -84,8 +94,6 @@ namespace Experimential_Software
             }
         }
 
-
-
         private bool mouseEnter = false;
 
         #region Constructor_Class
@@ -130,7 +138,7 @@ namespace Experimential_Software
             if (this.databaseE.objectType == ObjectType.MF)
             {
                 this.pHead = new Point(Width / 2, Height - 4);
-                this.pTail = new Point(0, 0);
+                this.pTail = Point.Empty;
                 this.isContainPtail = true;
                 return;
             }
@@ -158,7 +166,8 @@ namespace Experimential_Software
             // it is on tool not flicker//nhấp nháy
             if (this.isOnTool) return;
 
-            if (this.isSelected) this.DrawRectangleAround(e);
+            //Drawn Read or remove color when press and not press => update 
+            this.DrawRectangleAround(e);
 
             if (this.mouseEnter && !this.isMove)
             {
@@ -180,7 +189,6 @@ namespace Experimential_Software
                 var rectWBigH = new Rectangle(PointDrawm, (Height - this._radiusPoint) / 2, this._radiusPoint, this._radiusPoint);
                 var rectWLessH = new Rectangle((Width - this._radiusPoint) / 2, PointDrawm, this._radiusPoint, this._radiusPoint);
 
-
                 var rectEnds = this.Width > this.Height ? rectWBigH : rectWLessH;
 
                 e.Graphics.DrawRectangle(pen, rectEnds);
@@ -191,12 +199,13 @@ namespace Experimential_Software
         //Mouse Down Light around
         protected virtual void DrawRectangleAround(PaintEventArgs e)
         {
-            using (var pen = new Pen(Color.Red, 5))
+            var pen = this.isSelected ? new Pen(Color.Red, 5) : new Pen(Color.Transparent, 5);
+            using (pen)
             {
                 var rect = new Rectangle(0, 0, Width, Height);
                 e.Graphics.DrawRectangle(pen, rect);
                 e.Graphics.FillRectangle(Brushes.Transparent, rect);
-            } 
+            }
 
         }
         #endregion Drawn
@@ -255,10 +264,15 @@ namespace Experimential_Software
             return true;
         }
 
-
+        /// <summary>
+        /// Don't remove isOntool beacause objectype isn't set
+        /// </summary>
+        /// <param name=" this.databaseE.objectType == ObjectType.MF"></param>
+        /// <returns></returns>
         public virtual bool IsOnPHead(Point ePoint)
         {
             if (ePoint.X > this.pHead.X + 10 && this.Width > this.Height) return false;
+            if (ePoint.Y < this.pHead.Y - 10 && !this.isOnTool && this.databaseE.objectType == ObjectType.MF) return false;
             if (ePoint.Y > this.pHead.Y + 10 && this.Width <= this.Height) return false;
 
             return true;
@@ -267,6 +281,7 @@ namespace Experimential_Software
         public virtual bool IsOnPTail(Point ePoint)
         {
             if (ePoint.X < this.pTail.X - 10 && this.Width > this.Height) return false;
+            if (!this.isOnTool && this.databaseE.objectType == ObjectType.MF) return false;
             if (ePoint.Y < this.pTail.Y - 10 && this.Width <= this.Height) return false;
 
             return true;
@@ -280,6 +295,7 @@ namespace Experimential_Software
             double distanceHead = this.Distance(pointHeadtoScreen);
             double distanceTail = this.Distance(pointTailtoScreen);
 
+            if (this.databaseE.objectType == ObjectType.MF) distanceTail = 10000;
             if (distanceHead < distanceTail) return true;
             return false;
         }

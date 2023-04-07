@@ -52,6 +52,7 @@ namespace Experimential_Software
             this.pnlMain.TabIndex = 0;
             this.pnlMain.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragDrop);
             this.pnlMain.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragEnter);
+            this.pnlMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlMain_MouseDown);
             // 
             // panel2
             // 
@@ -101,6 +102,8 @@ namespace Experimential_Software
             this.btnBus.IsContainPhead = false;
             this.btnBus.IsContainPtail = false;
             this.btnBus.IsMove = false;
+            this.btnBus.isOnTool = true;
+            this.btnBus.IsSelected = false;
             this.btnBus.Location = new System.Drawing.Point(29, 214);
             this.btnBus.Name = "btnBus";
             this.btnBus.PHead = new System.Drawing.Point(25, 0);
@@ -118,6 +121,8 @@ namespace Experimential_Software
             this.btnMF.IsContainPhead = false;
             this.btnMF.IsContainPtail = false;
             this.btnMF.IsMove = false;
+            this.btnMF.isOnTool = true;
+            this.btnMF.IsSelected = false;
             this.btnMF.Location = new System.Drawing.Point(29, 118);
             this.btnMF.Name = "btnMF";
             this.btnMF.PHead = new System.Drawing.Point(25, 0);
@@ -135,6 +140,8 @@ namespace Experimential_Software
             this.btnLineEPower.IsContainPhead = false;
             this.btnLineEPower.IsContainPtail = false;
             this.btnLineEPower.IsMove = false;
+            this.btnLineEPower.isOnTool = true;
+            this.btnLineEPower.IsSelected = false;
             this.btnLineEPower.Location = new System.Drawing.Point(29, 31);
             this.btnLineEPower.Name = "btnLineEPower";
             this.btnLineEPower.PHead = new System.Drawing.Point(25, 0);
@@ -159,6 +166,7 @@ namespace Experimential_Software
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.frmCapstone_KeyDown);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.pnlTool.ResumeLayout(false);

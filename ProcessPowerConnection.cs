@@ -69,13 +69,13 @@ namespace Experimential_Software
         public virtual void ButtonInstance_MouseMove(object sender, MouseEventArgs e, Object pnlDes)
         {
             //Xử lí draw line        
-            if (!IsDragging) return; 
+            if (!IsDragging) return;
 
             if (!this.isMove)
             {
                 if (this.allowCreatLine)    //Drawn Line
                     this._endPLinetemp = this.processConnect.GenerateLine(sender, e, pnlDes, this._startPLineTemp);
-     
+
                 this.form.ShowPointConnect();
                 return;
             }
@@ -109,7 +109,7 @@ namespace Experimential_Software
 
             this.IsDragging = false;
 
-            if (!this.isMove )
+            if (!this.isMove)
             {
                 if (this.allowCreatLine) this.CheckAndAddLineConnet(buttonInstance, pnlDes);
                 return;
@@ -154,7 +154,7 @@ namespace Experimential_Software
             LineConnect newLineConnect = new LineConnect(buttonInstance, EndEPower, this._startPLineTemp, this._endPLinetemp, pnlMain);
             //add Line 
             this.form.AddLine(newLineConnect);
-            
+
             EndEPower.containPreEpower = (pointEndToBtn == EndEPower.PHead) ? ContainPreEpower.ContainPhead : ContainPreEpower.ContainPTail;
 
             //set 2 Contain Phead or Ptail 2 button
@@ -177,10 +177,58 @@ namespace Experimential_Software
                 return;
             }
             btnSet.IsContainPtail = true;
-                
+
         }
         #endregion Mouse Up
 
+
+        #region Line
+        public bool ProcessMain_MouseClick(object sender, MouseEventArgs e, List<LineConnect> lineConnectList)
+        {
+            Panel pnlMain = sender as Panel;
+            foreach (LineConnect lineConnect in lineConnectList)
+            {
+                Point startLine = lineConnect.StartPoint;
+                Point endLine = lineConnect.EndPoint;
+                // kiểm tra vị trí click có nằm trên đường Line không
+                if (!IsPointOnLine(e.Location, startLine, endLine)) continue;
+
+                lineConnect.IsSelected = !lineConnect.IsSelected;
+                // thay đổi màu của Pen thành màu đen
+                if (lineConnect.IsSelected)
+                {
+                    pnlMain.CreateGraphics().DrawLine(Pens.Black, startLine, endLine);
+                    return true;
+                }
+
+                // thay đổi màu của Pen thành màu đỏ
+                pnlMain.CreateGraphics().DrawLine(Pens.Red, startLine, endLine);
+            }
+            return false;
+        }
+        //when press ConnectionE
+        public virtual void SetFalseSelectedALLLine( List<LineConnect> lineConnectList)
+        {
+            foreach (LineConnect lineConnect in lineConnectList)
+            {
+                lineConnect.IsSelected = false;
+            }
+        }
+
+        private bool IsPointOnLine(Point p, Point start, Point end)
+        {
+            double dis_AB = Math.Sqrt(Math.Pow((p.X - end.X), 2) + Math.Pow((p.Y - end.Y), 2));
+            double dis_AC = Math.Sqrt(Math.Pow((p.X - start.X), 2) + Math.Pow((p.Y - start.Y), 2));
+            double dis_BC = Math.Sqrt(Math.Pow((end.X - start.X), 2) + Math.Pow((end.Y - start.Y), 2));
+
+            double part_CV = (dis_AB + dis_AC + dis_BC) / 2;
+            double S_DT = Math.Sqrt(part_CV * (part_CV - dis_AB) * (part_CV - dis_AC) * (part_CV - dis_BC));
+
+            double distance = S_DT / dis_BC; // tính khoảng cách từ điểm đến đường Line
+            return Math.Abs(distance) < 5; // nếu khoảng cách nhỏ hơn 5 thì coi như nằm trên đường Line
+        }
+
+        #endregion Line
         #region Overall Function
         protected virtual ConnectableE ConvertInstance(object sender)
         {

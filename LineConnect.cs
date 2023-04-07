@@ -21,6 +21,16 @@ namespace Experimential_Software
         private Panel pnlMain;
         public Panel PanelMain => pnlMain;
 
+        private bool isSelected;
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set
+            {
+                isSelected = value;
+            }
+        }
+
         private ConnectableE _startEPower;
         public ConnectableE StartEPower { get => _startEPower; set => _startEPower = value; }
 
@@ -68,6 +78,8 @@ namespace Experimential_Software
             this._endEPower = EndEPower;
             this._endPoint = end;
             this._endPointEPower = this.CheckPointEndIsPHeadOrPTail(this._endEPower, this._endPoint);
+
+            this.isSelected = false;
         }
 
         protected virtual PointOfEnds CheckPointEndIsPHeadOrPTail(ConnectableE EPower, Point point)

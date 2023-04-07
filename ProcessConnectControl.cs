@@ -9,14 +9,13 @@ using System.Drawing.Drawing2D;
 
 namespace Experimential_Software
 {
-    public partial class ProcessConnectControl 
+    public partial class ProcessConnectControl
     {
         private Point _startOldLine;
         private Point _endOldLine;
 
         Panel pnlMain;
 
-        //startPointLine is on coordinate pnlMain system
         public virtual Point GenerateLine(object sender, MouseEventArgs e, Object pnlDes, Point startPointLine)
         {
             ConnectableE buttonInstance = sender as ConnectableE;
@@ -24,7 +23,6 @@ namespace Experimential_Software
 
             // Xóa các line cũ bằng cách vẽ lại nền của panel
             this.ClearOldLine();
-            //pnlMain.CreateGraphics().Clear(pnlMain.BackColor);
 
             // Lấy vị trí con trỏ chuột trên pnlMain
             Point mousePoint = pnlMain.PointToClient(Cursor.Position);
@@ -72,7 +70,7 @@ namespace Experimential_Software
             return pointMain;
         }
 
-       
+
     }
 
 
