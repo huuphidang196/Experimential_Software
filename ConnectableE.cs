@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Experimential_Software.Class_Small;
 
 namespace Experimential_Software
 {
@@ -17,9 +18,26 @@ namespace Experimential_Software
         ContainPhead = 1,
         ContainPTail = 2,
     }
+
+    public enum ObjectType
+    {
+        NoType = 0,
+
+        MF = 1,
+        Bus = 2,
+        MBA = 3,
+        LineEPower = 4,
+        Load = 5
+    }
+
     public partial class ConnectableE : Button, IMouseOnEndsControl
     {
-        private int _offSetLength = 15;
+        private DatabaseEPower databaseE;
+        public DatabaseEPower DatabaseE => databaseE;
+
+        public bool isOnTool { get; set; }
+        public bool isSelected { get; set; }
+
         private int _radiusPoint = 7;
 
         private Point pHead;
@@ -66,7 +84,12 @@ namespace Experimential_Software
             }
         }
 
+
+
         private bool mouseEnter = false;
+
+        #region Constructor_Class
+
         public ConnectableE()
         {
             InitializeComponent();
@@ -74,14 +97,45 @@ namespace Experimential_Software
             BackColor = Color.Transparent;
             DoubleBuffered = true;
 
-            Width = 30;
-            Height = 80;
+            Width = 50;
+            Height = 50;
+            this.isOnTool = true;
+        }
 
+        public ConnectableE(DatabaseEPower databaseEPower)
+        {
+            //Set variable
+            this.SetVariableOnEPower(databaseEPower);
+
+            InitializeComponent();
+            SetStyle(ControlStyles.SupportsTransparentBackColor, true);
+            BackColor = Color.Transparent;
+            DoubleBuffered = true;
+        }
+
+        protected virtual void SetVariableOnEPower(DatabaseEPower databaseEPower)
+        {
+            this.databaseE = databaseEPower;
+
+            this.Width = this.databaseE.Width;
+            this.Height = this.databaseE.Height;
+
+            this.isOnTool = true;
+            this.isSelected = false;
             this.isContainPhead = false;
             this.isContainPtail = false;
             this.containPreEpower = ContainPreEpower.NoContain;
 
-            //Circle => MF, Line Width > Height
+            //MF
+            if (this.databaseE.objectType == ObjectType.MF)
+            {
+                this.pHead = new Point(Width / 2, Height - 4);
+                this.pTail = new Point(0, 0);
+                this.isContainPtail = true;
+                return;
+            }
+
+            //Circle => MBA, Line Width > Height
             if (this.Width <= this.Height)
             {
                 this.pHead = new Point(Width / 2, 0);
@@ -89,84 +143,69 @@ namespace Experimential_Software
                 return;
             }
             //=> Bus
-            this.pHead = new Point(0, Height / 2);
-            this.pTail = new Point(Width, Height / 2);
+            this.pHead = new Point(Width / 2 - 20, Height / 2);
+            this.pTail = new Point(Width / 2 + 20, Height / 2);
+
+
         }
 
+        #endregion Constructor_Class
+
+        #region Drawn
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+            // it is on tool not flicker//nhấp nháy
+            if (this.isOnTool) return;
+
+            if (this.isSelected) this.DrawRectangleAround(e);
+
             if (this.mouseEnter && !this.isMove)
             {
                 this.nearPhead = this.IsOnNearPHead();
                 Point pEnds = this.nearPhead ? this.pHead : this.pTail;
 
+                if (this.databaseE.objectType == ObjectType.MF) pEnds = this.pHead;
                 this.DrawCubePinkMouseNearEnds(e, pEnds);
             }
-            // Draw the rectangle
-            using (var pen = new Pen(Color.Black, 3))
-            {
-                // this.DrawRectangleAndPoint(pen, e);
-            }
+
         }
-
-        protected virtual void DrawRectangleAndPoint(Pen pen, PaintEventArgs e)
-        {
-            int offSetBothside = this._offSetLength + this._radiusPoint;
-            var rect = new Rectangle(offSetBothside, 10, Width - (2 * offSetBothside), Height - 20);
-            e.Graphics.DrawRectangle(pen, rect);
-            e.Graphics.FillRectangle(Brushes.Transparent, rect);
-
-            //// Calculate the midpoint of the short sides of the rectangle
-            //Point midpoint1 = new Point(rect.X, rect.Y + rect.Height / 2);
-            //Point midpoint2 = new Point(rect.X + rect.Width, rect.Y + rect.Height / 2);
-
-            //// Draw the first point
-            //var rectPHead = new Rectangle(this.pHead.X, (Height - this._radiusPoint) / 2, this._radiusPoint, this._radiusPoint);
-            //e.Graphics.FillEllipse(Brushes.Red, rectPHead);
-            //e.Graphics.DrawEllipse(Pens.Black, rectPHead);
-
-            //// Draw the second point
-            //var rectPTail = new Rectangle(this.pTail.X - this._radiusPoint, (Height - this._radiusPoint) / 2, this._radiusPoint, this._radiusPoint);
-            //e.Graphics.FillEllipse(Brushes.Green, rectPTail);
-            //e.Graphics.DrawEllipse(Pens.Black, rectPTail);
-
-            //Point connectA1 = new Point(this.pHead.X + this._radiusPoint, this.pHead.Y);
-            //Point connectA2 = new Point(this.pTail.X - this._radiusPoint, this.pTail.Y);
-
-
-            //// Draw lines from the midpoints to the start and end points
-            //e.Graphics.DrawLine(pen, midpoint1, connectA1);
-            //e.Graphics.DrawLine(pen, midpoint2, connectA2);
-        }
-
         protected virtual void DrawCubePinkMouseNearEnds(PaintEventArgs e, Point pEnds)
         {
             using (var pen = new Pen(Color.Pink, 3))
             {
-                int PointDrawm;
-                var rectEnds = new Rectangle();
-                if (this.Width > this.Height)
-                {
-                    PointDrawm = this.nearPhead ? pEnds.X : pEnds.X - this._radiusPoint;
-                    rectEnds = new Rectangle(PointDrawm, (Height - this._radiusPoint) / 2, this._radiusPoint, this._radiusPoint);
-                }
-                else
-                {
-                    PointDrawm = this.nearPhead ? pEnds.Y: pEnds.Y - this._radiusPoint - 3;// this._radiusPoint;
-                    rectEnds = new Rectangle((Width - this._radiusPoint) / 2, PointDrawm, this._radiusPoint, this._radiusPoint);
-                }
+                int Point_Oxy = this.Width > this.Height ? pEnds.X : pEnds.Y;
+                int PointDrawm = this.nearPhead ? Point_Oxy : Point_Oxy - this._radiusPoint;
+
+                var rectWBigH = new Rectangle(PointDrawm, (Height - this._radiusPoint) / 2, this._radiusPoint, this._radiusPoint);
+                var rectWLessH = new Rectangle((Width - this._radiusPoint) / 2, PointDrawm, this._radiusPoint, this._radiusPoint);
+
+
+                var rectEnds = this.Width > this.Height ? rectWBigH : rectWLessH;
 
                 e.Graphics.DrawRectangle(pen, rectEnds);
                 e.Graphics.FillRectangle(Brushes.Pink, rectEnds);
             }
 
         }
+        //Mouse Down Light around
+        protected virtual void DrawRectangleAround(PaintEventArgs e)
+        {
+            using (var pen = new Pen(Color.Red, 5))
+            {
+                var rect = new Rectangle(0, 0, Width, Height);
+                e.Graphics.DrawRectangle(pen, rect);
+                e.Graphics.FillRectangle(Brushes.Transparent, rect);
+            } 
 
+        }
+        #endregion Drawn
+
+        #region Mouse
         protected override void OnMouseDown(MouseEventArgs e)
         {
             this.isMove = !this.IsConnection(e.Location);
-
+            this.isSelected = !this.isSelected;
             //nhớ OnMouseDown chỉ để move Point in order to Connect
 
             base.OnMouseDown(e);
@@ -201,6 +240,10 @@ namespace Experimential_Software
             this.mouseEnter = false;
             Invalidate();
         }
+
+        #endregion Mouse
+
+        #region Function_Overall
 
         public virtual bool IsConnection(Point ePoint)
         {
@@ -255,5 +298,91 @@ namespace Experimential_Software
             this.mouseEnter = true;
             Invalidate();
         }
+
+        #endregion Function_Overall
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//protected override void OnPaint(PaintEventArgs e)
+//{
+//    base.OnPaint(e);
+//    if (this.mouseEnter && !this.isMove)
+//    {
+//        this.nearPhead = this.IsOnNearPHead();
+//        Point pEnds = this.nearPhead ? this.pHead : this.pTail;
+
+//        this.DrawCubePinkMouseNearEnds(e, pEnds);
+//    }
+//    // Draw the rectangle
+//    using (var pen = new Pen(Color.Black, 3))
+//    {
+//        // this.DrawRectangleAndPoint(pen, e);
+//    }
+//}
+
+//protected virtual void DrawRectangleAndPoint(Pen pen, PaintEventArgs e)
+//{
+//    int offSetBothside = this._offSetLength + this._radiusPoint;
+//    var rect = new Rectangle(offSetBothside, 10, Width - (2 * offSetBothside), Height - 20);
+//    e.Graphics.DrawRectangle(pen, rect);
+//    e.Graphics.FillRectangle(Brushes.Transparent, rect);
+
+//}
+
+
+
+
+//// Calculate the midpoint of the short sides of the rectangle
+//Point midpoint1 = new Point(rect.X, rect.Y + rect.Height / 2);
+//Point midpoint2 = new Point(rect.X + rect.Width, rect.Y + rect.Height / 2);
+
+//// Draw the first point
+//var rectPHead = new Rectangle(this.pHead.X, (Height - this._radiusPoint) / 2, this._radiusPoint, this._radiusPoint);
+//e.Graphics.FillEllipse(Brushes.Red, rectPHead);
+//e.Graphics.DrawEllipse(Pens.Black, rectPHead);
+
+//// Draw the second point
+//var rectPTail = new Rectangle(this.pTail.X - this._radiusPoint, (Height - this._radiusPoint) / 2, this._radiusPoint, this._radiusPoint);
+//e.Graphics.FillEllipse(Brushes.Green, rectPTail);
+//e.Graphics.DrawEllipse(Pens.Black, rectPTail);
+
+//Point connectA1 = new Point(this.pHead.X + this._radiusPoint, this.pHead.Y);
+//Point connectA2 = new Point(this.pTail.X - this._radiusPoint, this.pTail.Y);
+
+
+//// Draw lines from the midpoints to the start and end points
+//e.Graphics.DrawLine(pen, midpoint1, connectA1);
+//e.Graphics.DrawLine(pen, midpoint2, connectA2);

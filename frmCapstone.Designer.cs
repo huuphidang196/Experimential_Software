@@ -34,9 +34,9 @@ namespace Experimential_Software
             this.lblLine = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pnlTool = new System.Windows.Forms.Panel();
-            this.btnEPower = new Experimential_Software.ConnectableE();
-            this.connectableE1 = new Experimential_Software.ConnectableE();
-            this.connectableE2 = new Experimential_Software.ConnectableE();
+            this.btnBus = new Experimential_Software.ConnectableE();
+            this.btnMF = new Experimential_Software.ConnectableE();
+            this.btnLineEPower = new Experimential_Software.ConnectableE();
             this.panel2.SuspendLayout();
             this.pnlTool.SuspendLayout();
             this.SuspendLayout();
@@ -85,61 +85,65 @@ namespace Experimential_Software
             // pnlTool
             // 
             this.pnlTool.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.pnlTool.Controls.Add(this.connectableE2);
-            this.pnlTool.Controls.Add(this.connectableE1);
-            this.pnlTool.Controls.Add(this.btnEPower);
+            this.pnlTool.Controls.Add(this.btnBus);
+            this.pnlTool.Controls.Add(this.btnMF);
+            this.pnlTool.Controls.Add(this.btnLineEPower);
             this.pnlTool.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlTool.Location = new System.Drawing.Point(907, 127);
             this.pnlTool.Name = "pnlTool";
             this.pnlTool.Size = new System.Drawing.Size(121, 633);
             this.pnlTool.TabIndex = 1;
             // 
-            // btnEPower
+            // btnBus
             // 
-            this.btnEPower.BackColor = System.Drawing.Color.Transparent;
-            this.btnEPower.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.btnEPower.IsContainPhead = false;
-            this.btnEPower.IsContainPtail = false;
-            this.btnEPower.IsMove = false;
-            this.btnEPower.Location = new System.Drawing.Point(24, 74);
-            this.btnEPower.Name = "btnEPower";
-            this.btnEPower.PHead = new System.Drawing.Point(15, 0);
-            this.btnEPower.PTail = new System.Drawing.Point(15, 80);
-            this.btnEPower.Size = new System.Drawing.Size(30, 80);
-            this.btnEPower.TabIndex = 0;
-            this.btnEPower.UseVisualStyleBackColor = false;
-            this.btnEPower.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnEPower_MouseDown);
+            this.btnBus.BackColor = System.Drawing.Color.Transparent;
+            this.btnBus.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnBus.IsContainPhead = false;
+            this.btnBus.IsContainPtail = false;
+            this.btnBus.IsMove = false;
+            this.btnBus.Location = new System.Drawing.Point(29, 214);
+            this.btnBus.Name = "btnBus";
+            this.btnBus.PHead = new System.Drawing.Point(25, 0);
+            this.btnBus.PTail = new System.Drawing.Point(25, 50);
+            this.btnBus.Size = new System.Drawing.Size(50, 50);
+            this.btnBus.TabIndex = 2;
+            this.btnBus.Text = "Bus";
+            this.btnBus.UseVisualStyleBackColor = false;
+            this.btnBus.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnBus_MouseDown);
             // 
-            // connectableE1
+            // btnMF
             // 
-            this.connectableE1.BackColor = System.Drawing.Color.Transparent;
-            this.connectableE1.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.connectableE1.IsContainPhead = false;
-            this.connectableE1.IsContainPtail = false;
-            this.connectableE1.IsMove = false;
-            this.connectableE1.Location = new System.Drawing.Point(23, 213);
-            this.connectableE1.Name = "connectableE1";
-            this.connectableE1.PHead = new System.Drawing.Point(25, 0);
-            this.connectableE1.PTail = new System.Drawing.Point(25, 50);
-            this.connectableE1.Size = new System.Drawing.Size(50, 50);
-            this.connectableE1.TabIndex = 1;
-            this.connectableE1.UseVisualStyleBackColor = false;
+            this.btnMF.BackColor = System.Drawing.Color.Transparent;
+            this.btnMF.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnMF.IsContainPhead = false;
+            this.btnMF.IsContainPtail = false;
+            this.btnMF.IsMove = false;
+            this.btnMF.Location = new System.Drawing.Point(29, 118);
+            this.btnMF.Name = "btnMF";
+            this.btnMF.PHead = new System.Drawing.Point(25, 0);
+            this.btnMF.PTail = new System.Drawing.Point(25, 50);
+            this.btnMF.Size = new System.Drawing.Size(50, 50);
+            this.btnMF.TabIndex = 1;
+            this.btnMF.Text = "MF";
+            this.btnMF.UseVisualStyleBackColor = false;
+            this.btnMF.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnMF_MouseDown);
             // 
-            // connectableE2
+            // btnLineEPower
             // 
-            this.connectableE2.BackColor = System.Drawing.Color.Transparent;
-            this.connectableE2.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.connectableE2.IsContainPhead = false;
-            this.connectableE2.IsContainPtail = false;
-            this.connectableE2.IsMove = false;
-            this.connectableE2.Location = new System.Drawing.Point(23, 316);
-            this.connectableE2.Name = "connectableE2";
-            this.connectableE2.PHead = new System.Drawing.Point(0, 15);
-            this.connectableE2.PTail = new System.Drawing.Point(80, 15);
-            this.connectableE2.Size = new System.Drawing.Size(80, 30);
-            this.connectableE2.TabIndex = 2;
-            this.connectableE2.Text = "connectableE2";
-            this.connectableE2.UseVisualStyleBackColor = false;
+            this.btnLineEPower.BackColor = System.Drawing.Color.Transparent;
+            this.btnLineEPower.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnLineEPower.IsContainPhead = false;
+            this.btnLineEPower.IsContainPtail = false;
+            this.btnLineEPower.IsMove = false;
+            this.btnLineEPower.Location = new System.Drawing.Point(29, 31);
+            this.btnLineEPower.Name = "btnLineEPower";
+            this.btnLineEPower.PHead = new System.Drawing.Point(25, 0);
+            this.btnLineEPower.PTail = new System.Drawing.Point(25, 50);
+            this.btnLineEPower.Size = new System.Drawing.Size(50, 50);
+            this.btnLineEPower.TabIndex = 0;
+            this.btnLineEPower.Text = "Line";
+            this.btnLineEPower.UseVisualStyleBackColor = false;
+            this.btnLineEPower.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLineEPower_MouseDown);
             // 
             // frmCapstone
             // 
@@ -169,9 +173,9 @@ namespace Experimential_Software
         public System.Windows.Forms.Panel pnlMain;
         public System.Windows.Forms.Panel pnlTool;
         public System.Windows.Forms.Label lblLine;
-        private ConnectableE btnEPower;
-        private ConnectableE connectableE1;
-        private ConnectableE connectableE2;
+        private ConnectableE btnLineEPower;
+        private ConnectableE btnMF;
+        private ConnectableE btnBus;
     }
 }
 

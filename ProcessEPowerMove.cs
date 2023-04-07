@@ -20,45 +20,36 @@ namespace Experimential_Software
         public virtual void ProcessEPowerMoveOverall(ConnectableE btnEPower, frmCapstone form, ProcessConnectControl processConnect)
         {
             // Not use PHead PTail because Now Phead and PTail is changed
+            List<LineConnect> lineListConnected = this.GetLineStageEPower(btnEPower);
 
-            //Find line connect with btnEPower
-            LineConnect lineConPHeadE = this.GetLineStageEPower(btnEPower, null);
-            //In oder to not same 
-            LineConnect lineConPTailE = this.GetLineStageEPower(btnEPower, lineConPHeadE);
-
-            // if btn don't connect then no thing
-            if (lineConPHeadE == null && lineConPHeadE == null) return;
-
-            //Update Ends of Line => certain Line contain btnEPower if it difference null
-
-            if (lineConPHeadE != null)
+            //Update Pos Point
+            foreach (LineConnect lineConnect in lineListConnected)
             {
-                processConnect.ClearTwoOldLineWhenMove(lineConPHeadE, lineConPHeadE.PanelMain);
-                lineConPHeadE.UpdateEndsPointAfterEPowerMove(btnEPower);
+                processConnect.ClearTwoOldLineWhenMove(lineConnect, lineConnect.PanelMain);
+                lineConnect.UpdateEndsPointAfterEPowerMove(btnEPower);
             }
 
-            if (lineConPTailE != null)
-            {
-                processConnect.ClearTwoOldLineWhenMove(lineConPTailE, lineConPTailE.PanelMain);
-                lineConPTailE.UpdateEndsPointAfterEPowerMove(btnEPower);
-            }
             //Drawn All Line 
             form.DrawAllLineOnPanel();
         }
 
-        protected virtual LineConnect GetLineStageEPower(ConnectableE btnEPower, LineConnect lineConPHeadE)
+        protected virtual List<LineConnect> GetLineStageEPower(ConnectableE btnEPower)
         {
+            LineConnect lineConPre = null;
+            List<LineConnect> lineListConnected = new List<LineConnect>();
+
             foreach (LineConnect lineConnect in this.lineConnectList)
             {
                 ConnectableE ePower = this.CheckEndsEPowerOfLine(lineConnect, btnEPower);
                 if (ePower == null) continue;
 
-                if (lineConnect == lineConPHeadE) continue;
+                if (lineConnect == lineConPre) continue;
 
-                return lineConnect;
+                lineConPre = lineConnect;
+                lineListConnected.Add(lineConnect);
             }
 
-            return null;
+            return lineListConnected;
         }
 
         protected virtual ConnectableE CheckEndsEPowerOfLine(LineConnect lineConnect, ConnectableE btnEPower)
@@ -71,8 +62,8 @@ namespace Experimential_Software
 
             return null;
         }
-      
-     
+
+
         protected virtual Point TransferPointToMain(ConnectableE connectableE, Point point, Panel pnlMain)
         {
             Point pointToScreen = connectableE.PointToScreen(point);
@@ -110,4 +101,51 @@ namespace Experimential_Software
 //    if (lineConnect.StartPoint == pEndsToMain || lineConnect.EndPoint == pEndsToMain) return true;
 
 //    return false;
+//}
+
+
+
+//public virtual void ProcessEPowerMoveOverall(ConnectableE btnEPower, frmCapstone form, ProcessConnectControl processConnect)
+//{
+//    // Not use PHead PTail because Now Phead and PTail is changed
+
+
+//    //Find line connect with btnEPower
+//    LineConnect lineConPHeadE = this.GetLineStageEPower(btnEPower, null);
+//    //In oder to not same 
+//    LineConnect lineConPTailE = this.GetLineStageEPower(btnEPower, lineConPHeadE);
+
+//    // if btn don't connect then no thing
+//    if (lineConPHeadE == null && lineConPHeadE == null) return;
+
+//    //Update Ends of Line => certain Line contain btnEPower if it difference null
+
+//    if (lineConPHeadE != null)
+//    {
+//        processConnect.ClearTwoOldLineWhenMove(lineConPHeadE, lineConPHeadE.PanelMain);
+//        lineConPHeadE.UpdateEndsPointAfterEPowerMove(btnEPower);
+//    }
+
+//    if (lineConPTailE != null)
+//    {
+//        processConnect.ClearTwoOldLineWhenMove(lineConPTailE, lineConPTailE.PanelMain);
+//        lineConPTailE.UpdateEndsPointAfterEPowerMove(btnEPower);
+//    }
+//    //Drawn All Line 
+//    form.DrawAllLineOnPanel();
+//}
+
+//protected virtual LineConnect GetLineStageEPower(ConnectableE btnEPower, LineConnect lineConPHeadE)
+//{
+//    foreach (LineConnect lineConnect in this.lineConnectList)
+//    {
+//        ConnectableE ePower = this.CheckEndsEPowerOfLine(lineConnect, btnEPower);
+//        if (ePower == null) continue;
+
+//        if (lineConnect == lineConPHeadE) continue;
+
+//        return lineConnect;
+//    }
+
+//    return null;
 //}
