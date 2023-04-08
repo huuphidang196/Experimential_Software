@@ -123,7 +123,7 @@ namespace Experimential_Software
             this.isOnTool = true;
         }
 
-        public ConnectableE(frmCapstone form , Panel pnlMain,DatabaseEPower databaseEPower)
+        public ConnectableE(frmCapstone form, Panel pnlMain, DatabaseEPower databaseEPower)
         {
             this._formCap = form;
             this.pnlMain = pnlMain;
@@ -131,7 +131,7 @@ namespace Experimential_Software
             //Set variable
             this.SetVariableOnEPower(databaseEPower);
 
-           // InitializeComponent();
+            // InitializeComponent();
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             BackColor = Color.Transparent;
             DoubleBuffered = true;
@@ -141,7 +141,7 @@ namespace Experimential_Software
 
 
         protected virtual void SetVariableOnEPower(DatabaseEPower databaseEPower)
-        { 
+        {
             this.databaseE = databaseEPower;
 
             this.Width = this.databaseE.Width;
@@ -154,8 +154,8 @@ namespace Experimential_Software
             this.containPreEpower = ContainPreEpower.NoContain;
 
             this.GenerateClassProcessChild();
-          
-            this.SetPHeadAndPtail();        
+
+            this.SetPHeadAndPtail();
         }
         protected virtual void GenerateClassProcessChild()
         {
@@ -244,11 +244,21 @@ namespace Experimential_Software
         protected override void OnMouseDown(MouseEventArgs e)
         {
             base.OnMouseDown(e);
-
-            this.isMove = !this.IsConnection(e.Location);
-            this.isSelected = !this.isSelected;
+            if (e.Button == MouseButtons.Right) return;
 
             if (this._ePowerMouse == null) return;
+
+            this.isMove = !this.IsConnection(e.Location);
+
+            this.isSelected = !this.isSelected;
+
+            //If selected this then remove other EPower
+            if (this.isSelected)
+            {
+                this._formCap.SetIsSelected(this);
+                //=> Coincide Selected Line = false
+                this._formCap.PanelMainMouse.SetFalseSelectedALLLine();
+            }
             //nhớ OnMouseDown chỉ để move Point in order to Connect
             this._ePowerMouse.ButtonInstance_MouseDown(e);
             Invalidate();
@@ -257,21 +267,32 @@ namespace Experimential_Software
         protected override void OnMouseMove(MouseEventArgs e)
         {
             base.OnMouseMove(e);
-            this.mouseEnter = true;
+
+            if (e.Button == MouseButtons.Right) return;
 
             if (this._ePowerMouse == null) return;
+
+            if (this.isOnTool) return;
+
+            this.mouseEnter = true;
+
             this._ePowerMouse.ButtonInstance_MouseMove(e);
-           Invalidate();
+            Invalidate();
         }
 
         protected override void OnMouseUp(MouseEventArgs e)
         {
-            //=> Check if ko move trước đó thì ko set Pos  
             base.OnMouseUp(e);
-            this.isMove = false;
+
+            if (e.Button == MouseButtons.Right) return;
 
             if (this._ePowerMouse == null) return;
+
+            //=> Check if ko move trước đó thì ko set Pos  
+
             this._ePowerMouse.ButtonInstance_MouseUp(e);
+            this.isMove = false;        
+
         }
 
         protected override void OnMouseEnter(EventArgs e)
@@ -300,6 +321,7 @@ namespace Experimential_Software
 
             if (this._ePowerKey == null) return;
             this._ePowerKey.EPowerInstance_KeyDown(e);
+           
         }
 
         #endregion Key
@@ -328,7 +350,7 @@ namespace Experimential_Software
             if (ePoint.Y > this.pHead.Y + 10 && this.Width <= this.Height) return false;
 
             return true;
-        }    
+        }
 
 
         public virtual bool IsOnPTail(Point ePoint)
@@ -339,7 +361,7 @@ namespace Experimential_Software
 
             return true;
         }
-       
+
         public virtual bool IsOnNearPHead()
         {
             Point pointHeadtoScreen = this.PointToScreen(this.pHead);
@@ -348,7 +370,7 @@ namespace Experimential_Software
             double distanceHead = this.Distance(pointHeadtoScreen);
             double distanceTail = this.Distance(pointTailtoScreen);
 
-           // if (this.databaseE.objectType == ObjectType.MF) distanceTail = 10000;=> Generator
+            // if (this.databaseE.objectType == ObjectType.MF) distanceTail = 10000;=> Generator
             if (distanceHead < distanceTail) return true;
             return false;
         }
@@ -359,7 +381,8 @@ namespace Experimential_Software
             return distance;
         }
 
-        public void MouseMoveEnds()
+
+        public virtual void MouseMoveEnds()
         {
             Point mouseLocal = this.Parent.PointToClient(Cursor.Position);
             if (!this.Bounds.Contains(mouseLocal)) return;

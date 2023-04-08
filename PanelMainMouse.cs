@@ -10,11 +10,22 @@ namespace Experimential_Software
 {
     public class PanelMainMouse
     {
-        #region Line
-        public bool ProcessMain_MouseClick(object sender, MouseEventArgs e, List<LineConnect> lineConnectList)
+        protected frmCapstone _frmCap;
+
+        protected Panel pnlMain;
+
+        public PanelMainMouse(frmCapstone frmCapstone, Panel pnlMain)
         {
-            Panel pnlMain = sender as Panel;
-            foreach (LineConnect lineConnect in lineConnectList)
+            this._frmCap = frmCapstone;
+            this.pnlMain = pnlMain;
+        }
+
+        #region Line
+        public bool ProcessMain_MouseClick( MouseEventArgs e)
+        {
+            //Click empty or have line correct
+
+            foreach (LineConnect lineConnect in this._frmCap.LineConnectList)
             {
                 Point startLine = lineConnect.StartPoint;
                 Point endLine = lineConnect.EndPoint;
@@ -22,26 +33,39 @@ namespace Experimential_Software
                 if (!IsPointOnLine(e.Location, startLine, endLine)) continue;
 
                 lineConnect.IsSelected = !lineConnect.IsSelected;
-                // thay đổi màu của Pen thành màu đen
-                if (lineConnect.IsSelected)
-                {
-                    pnlMain.CreateGraphics().DrawLine(Pens.Black, startLine, endLine);
-                    return true;
-                }
-
-                // thay đổi màu của Pen thành màu đỏ
-                pnlMain.CreateGraphics().DrawLine(Pens.Red, startLine, endLine);
+                return this.AdjustmentColorSelected(lineConnect);
             }
             return false;
         }
-        //when press ConnectionE
-        public virtual void SetFalseSelectedALLLine(List<LineConnect> lineConnectList)
+
+        protected virtual bool AdjustmentColorSelected(LineConnect lineConnect)
         {
-            foreach (LineConnect lineConnect in lineConnectList)
+            Point startLine = lineConnect.StartPoint;
+            Point endLine = lineConnect.EndPoint;
+
+            // thay đổi màu của Pen thành màu đen => Line is selected before => not set null EPower
+            if (!lineConnect.IsSelected)
+            {
+                pnlMain.CreateGraphics().DrawLine(Pens.Black, startLine, endLine);
+                return false;
+            }
+
+            // thay đổi màu của Pen thành màu đỏ =>  Line isn't selected before =>  set null EPower
+            pnlMain.CreateGraphics().DrawLine(Pens.Red, startLine, endLine);
+            return true;
+        }
+
+        //when press ConnectionE
+        public virtual void SetFalseSelectedALLLine()
+        {
+            foreach (LineConnect lineConnect in this._frmCap.LineConnectList)
             {
                 lineConnect.IsSelected = false;
+                this.AdjustmentColorSelected(lineConnect);
             }
         }
+
+       
 
         public virtual LineConnect FindLineConnectIsSelected(List<LineConnect> lineConnectList)
         {

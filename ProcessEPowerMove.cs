@@ -18,11 +18,16 @@ namespace Experimential_Software
         public ProcessEPowerMove(EPowerProcessMouse ePowerMouse)
         {
             this._formCap = ePowerMouse.EPower_Instance.FormCapstone;
+            this._ePowerInstance = ePowerMouse.EPower_Instance;
             this.lineConnectList = ePowerMouse.EPower_Instance.FormCapstone.LineConnectList;
         }
 
         public virtual void ProcessEPowerMoveOverall( EPowerProcessLineTemp EPowerProcessLinetemp)
         {
+            if (this.lineConnectList.Count == 0) return;
+
+            if (this._ePowerInstance == null) return;
+
             // Not use PHead PTail because Now Phead and PTail is changed
             List<LineConnect> lineListConnected = this.GetLineStageEPower(this._ePowerInstance);
 

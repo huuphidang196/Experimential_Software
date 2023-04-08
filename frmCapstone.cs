@@ -24,11 +24,10 @@ namespace Experimential_Software
         public List<LineConnect> LineConnectList => lineConnectList;
 
         protected PanelMainMouse _pnlMainMouse;
+        public PanelMainMouse PanelMainMouse => _pnlMainMouse;
 
-        private List<IMouseOnEndsControl> _iEPowers = new List<IMouseOnEndsControl>();
-        public List<IMouseOnEndsControl> IEPowers1 => _iEPowers;
-
-
+        private List<IMouseOnEndsControl> iEPowers = new List<IMouseOnEndsControl>();
+        public List<IMouseOnEndsControl> IEPowers1 => iEPowers;
 
         protected float penWidth; // độ rộng mong muốn
 
@@ -39,9 +38,7 @@ namespace Experimential_Software
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // this.ePowers = new List<ConnectableE>();
-            //   this._iEPowers = new List<IMouseOnEndsControl>();
-            //  this.lineConnectList = new List<LineConnect>();
+           this._pnlMainMouse = new PanelMainMouse(this, pnlMain);
         }
 
         #region Reference_OutSide
@@ -67,6 +64,19 @@ namespace Experimential_Software
             this.DrawAllLineOnPanel();
         }
 
+        public virtual void RemoveIMouseOnEndsAfterDelete(IMouseOnEndsControl mouseOnEnds)
+        {
+            this.iEPowers.Remove(mouseOnEnds);
+        }
+
+        public virtual void ShowPointConnect()
+        {
+            foreach (IMouseOnEndsControl ePower in this.iEPowers)
+            {
+                ePower.MouseMoveEnds();
+            }
+        }
+
         public virtual ConnectableE CheckEndLineIsOnEPower(Point endLinePoint)
         {
             if (endLinePoint == Point.Empty) return null;
@@ -89,6 +99,7 @@ namespace Experimential_Software
             {
                 if (ePower != ePower_Focused) ePower.IsSelected = false;
             }
+
         }
 
         public virtual void SetIsContainEPower(LineConnect lineSelected)
@@ -140,15 +151,21 @@ namespace Experimential_Software
             this.ButtonMouseDown(sender, e, btnMFPower, databaseE);
         }
 
+        private void btnTransformer_MouseDown(object sender, MouseEventArgs e)
+        {
+            DatabaseEPower databaseE = new DatabaseEPower() { objectType = ObjectType.LineEPower, Width = 40, Height = 60 };
+            this.ButtonMouseDown(sender, e, btnTransformer, databaseE);
+        }
         /// <summary>
         /// Panel Main 
 
         private void pnlMain_MouseDown(object sender, MouseEventArgs e)
         {
-            this._pnlMainMouse = new PanelMainMouse();
+            this.SetIsSelected(null);
+
             if (this.lineConnectList.Count == 0) return;
             //Determine Line is selected
-            bool isContainLine = this._pnlMainMouse.ProcessMain_MouseClick(sender, e, this.lineConnectList);
+            bool isContainLine = this._pnlMainMouse.ProcessMain_MouseClick(e);
 
             if (isContainLine) this.SetIsSelected(null);//select line in Panel, set isSelected false for all btn
 
@@ -179,7 +196,7 @@ namespace Experimential_Software
                 control.Location = dropLocation;
                 ConnectableE ePower = control as ConnectableE;
                 this.ePowers.Add(ePower);
-                this._iEPowers.Add(ePower);
+                this.iEPowers.Add(ePower);
                 ePower.isOnTool = false;
             }
             else
@@ -210,14 +227,7 @@ namespace Experimential_Software
             }
         }
 
-        public virtual void ShowPointConnect()
-        {
-            foreach (IMouseOnEndsControl ePower in this._iEPowers)
-            {
-                ePower.MouseMoveEnds();
-            }
-        }
-
+       
         private void frmCapstone_KeyDown(object sender, KeyEventArgs e)
         {
             //LineConnect lineSelected = this.processPowerConn.FindLineConnectIsSelected(this.lineConnectList);
@@ -233,7 +243,7 @@ namespace Experimential_Software
 
         }
 
-
+       
     }
 }
 

@@ -26,19 +26,18 @@ namespace Experimential_Software
         private Point _endPLinetemp;
 
 
-        protected ProcessEPowerMove processEPowerMoveAndDeleted;
+        protected ProcessEPowerMove processEPowerMove;
 
         public EPowerProcessMouse(ConnectableE ePower)
         {
             this._ePower = ePower;
-            this.processEPowerMoveAndDeleted = new ProcessEPowerMove(this);
+            this.processEPowerMove = new ProcessEPowerMove(this);
         }
+
         #region Mouse Down
 
         public virtual void ButtonInstance_MouseDown(MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Right) return; //=> sau này chỉnh sau nếu thêm contextstrip
-
             //Check to see move or don't move in order to Draw connectLine when button move
 
             this.IsDragging = true;
@@ -84,19 +83,20 @@ namespace Experimential_Software
                 return;
             }
 
-            // button move will remove line. So Drawn all circumstance
-            this._ePower.FormCapstone.DrawAllLineOnPanel();
             bool isOnMain = this.IsOnPanelMain(e);
 
             if (!isOnMain) return;
 
             this._ePower.Location = this.TransferPosMouseToControl(e);
 
-            //btnmove then Check end set line follow btnEPower that it connect 
-            List<LineConnect> lineConnectList = this._ePower.FormCapstone.LineConnectList;
+            ////btnmove then Check end set line follow btnEPower that it connect 
+            //List<LineConnect> lineConnectList = this._ePower.FormCapstone.LineConnectList;
 
             //When btn move then update , if don't move not update line
-            this.processEPowerMoveAndDeleted.ProcessEPowerMoveOverall(this._ePower.EPowerLineTemp);
+            this.processEPowerMove.ProcessEPowerMoveOverall(this._ePower.EPowerLineTemp);
+
+            // button move will remove line. So Drawn all circumstance
+            this._ePower.FormCapstone.DrawAllLineOnPanel();
 
         }
 

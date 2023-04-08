@@ -37,6 +37,7 @@ namespace Experimential_Software
             this.btnMFPower = new Experimential_Software.ConnectableE();
             this.btnLinePower = new Experimential_Software.ConnectableE();
             this.btnBusPower = new Experimential_Software.ConnectableE();
+            this.btnTransformer = new Experimential_Software.ConnectableE();
             this.panel2.SuspendLayout();
             this.pnlTool.SuspendLayout();
             this.SuspendLayout();
@@ -87,6 +88,7 @@ namespace Experimential_Software
             // 
             this.pnlTool.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.pnlTool.Controls.Add(this.btnMFPower);
+            this.pnlTool.Controls.Add(this.btnTransformer);
             this.pnlTool.Controls.Add(this.btnLinePower);
             this.pnlTool.Controls.Add(this.btnBusPower);
             this.pnlTool.Dock = System.Windows.Forms.DockStyle.Right;
@@ -104,7 +106,7 @@ namespace Experimential_Software
             this.btnMFPower.IsMove = false;
             this.btnMFPower.isOnTool = true;
             this.btnMFPower.IsSelected = false;
-            this.btnMFPower.Location = new System.Drawing.Point(30, 212);
+            this.btnMFPower.Location = new System.Drawing.Point(30, 37);
             this.btnMFPower.Name = "btnMFPower";
             this.btnMFPower.PHead = new System.Drawing.Point(0, 0);
             this.btnMFPower.PTail = new System.Drawing.Point(0, 0);
@@ -123,7 +125,7 @@ namespace Experimential_Software
             this.btnLinePower.IsMove = false;
             this.btnLinePower.isOnTool = true;
             this.btnLinePower.IsSelected = false;
-            this.btnLinePower.Location = new System.Drawing.Point(30, 132);
+            this.btnLinePower.Location = new System.Drawing.Point(30, 373);
             this.btnLinePower.Name = "btnLinePower";
             this.btnLinePower.PHead = new System.Drawing.Point(0, 0);
             this.btnLinePower.PTail = new System.Drawing.Point(0, 0);
@@ -142,7 +144,7 @@ namespace Experimential_Software
             this.btnBusPower.IsMove = false;
             this.btnBusPower.isOnTool = true;
             this.btnBusPower.IsSelected = false;
-            this.btnBusPower.Location = new System.Drawing.Point(30, 48);
+            this.btnBusPower.Location = new System.Drawing.Point(30, 258);
             this.btnBusPower.Name = "btnBusPower";
             this.btnBusPower.PHead = new System.Drawing.Point(0, 0);
             this.btnBusPower.PTail = new System.Drawing.Point(0, 0);
@@ -151,6 +153,25 @@ namespace Experimential_Software
             this.btnBusPower.Text = "Bus";
             this.btnBusPower.UseVisualStyleBackColor = false;
             this.btnBusPower.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnBusPower_MouseDown);
+            // 
+            // btnTransformer
+            // 
+            this.btnTransformer.BackColor = System.Drawing.Color.Transparent;
+            this.btnTransformer.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnTransformer.IsContainPhead = false;
+            this.btnTransformer.IsContainPtail = false;
+            this.btnTransformer.IsMove = false;
+            this.btnTransformer.isOnTool = true;
+            this.btnTransformer.IsSelected = false;
+            this.btnTransformer.Location = new System.Drawing.Point(30, 160);
+            this.btnTransformer.Name = "btnTransformer";
+            this.btnTransformer.PHead = new System.Drawing.Point(0, 0);
+            this.btnTransformer.PTail = new System.Drawing.Point(0, 0);
+            this.btnTransformer.Size = new System.Drawing.Size(50, 50);
+            this.btnTransformer.TabIndex = 0;
+            this.btnTransformer.Text = "Transfoner";
+            this.btnTransformer.UseVisualStyleBackColor = false;
+            this.btnTransformer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTransformer_MouseDown);
             // 
             // frmCapstone
             // 
@@ -184,6 +205,7 @@ namespace Experimential_Software
         private ConnectableE btnBusPower;
         private ConnectableE btnLinePower;
         private ConnectableE btnMFPower;
+        private ConnectableE btnTransformer;
     }
 }
 

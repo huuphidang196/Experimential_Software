@@ -29,7 +29,8 @@ namespace Experimential_Software
             if (e.KeyCode != Keys.Delete) return;
 
             this.ProcessEPowerDeleted(e);
-
+            //remove observer 
+            this._ePowerInstance.FormCapstone.RemoveIMouseOnEndsAfterDelete(this._ePowerInstance);
         }
         #endregion Key_Down
 
