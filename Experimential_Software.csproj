@@ -72,6 +72,7 @@
     <Compile Include="ConnectableE.Designer.cs">
       <DependentUpon>ConnectableE.cs</DependentUpon>
     </Compile>
+    <Compile Include="EPowerProcessKey.cs" />
     <Compile Include="frmCapstone.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,13 +80,11 @@
       <DependentUpon>frmCapstone.cs</DependentUpon>
     </Compile>
     <Compile Include="LineConnect.cs" />
-    <Compile Include="LinePowerBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="MouseOnEndsControl.cs" />
-    <Compile Include="ProcessConnectControl.cs" />
+    <Compile Include="IMouseOnEndsControl.cs" />
+    <Compile Include="PanelMainMouse.cs" />
+    <Compile Include="EPowerProcessLineTemp.cs" />
     <Compile Include="ProcessEPowerMove.cs" />
-    <Compile Include="ProcessPowerConnection.cs" />
+    <Compile Include="EPowerProcessMouse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmCapstone.resx">

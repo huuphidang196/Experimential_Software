@@ -10,30 +10,34 @@ namespace Experimential_Software
 {
     public class ProcessEPowerMove
     {
-        public ProcessEPowerMove(List<LineConnect> lineConnectList)
-        {
-            this.lineConnectList = lineConnectList;
-        }
+        protected ConnectableE _ePowerInstance;
 
+        protected frmCapstone _formCap;
         protected List<LineConnect> lineConnectList;
 
-        public virtual void ProcessEPowerMoveOverall(ConnectableE btnEPower, frmCapstone form, ProcessConnectControl processConnect)
+        public ProcessEPowerMove(EPowerProcessMouse ePowerMouse)
+        {
+            this._formCap = ePowerMouse.EPower_Instance.FormCapstone;
+            this.lineConnectList = ePowerMouse.EPower_Instance.FormCapstone.LineConnectList;
+        }
+
+        public virtual void ProcessEPowerMoveOverall( EPowerProcessLineTemp EPowerProcessLinetemp)
         {
             // Not use PHead PTail because Now Phead and PTail is changed
-            List<LineConnect> lineListConnected = this.GetLineStageEPower(btnEPower);
+            List<LineConnect> lineListConnected = this.GetLineStageEPower(this._ePowerInstance);
 
             //Update Pos Point
             foreach (LineConnect lineConnect in lineListConnected)
             {
-                processConnect.ClearTwoOldLineWhenMove(lineConnect, lineConnect.PanelMain);
-                lineConnect.UpdateEndsPointAfterEPowerMove(btnEPower);
+                EPowerProcessLinetemp.ClearTwoOldLineWhenMove(lineConnect, lineConnect.PanelMain);
+                lineConnect.UpdateEndsPointAfterEPowerMove(this._ePowerInstance);
             }
 
             //Drawn All Line 
-            form.DrawAllLineOnPanel();
+            this._ePowerInstance.FormCapstone.DrawAllLineOnPanel();
         }
 
-        protected virtual List<LineConnect> GetLineStageEPower(ConnectableE btnEPower)
+        public virtual List<LineConnect> GetLineStageEPower(ConnectableE btnEPower)
         {
             LineConnect lineConPre = null;
             List<LineConnect> lineListConnected = new List<LineConnect>();

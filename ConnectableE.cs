@@ -32,12 +32,25 @@ namespace Experimential_Software
 
     public partial class ConnectableE : Button, IMouseOnEndsControl
     {
-        private DatabaseEPower databaseE;
+        protected frmCapstone _formCap;
+        public frmCapstone FormCapstone => _formCap;
+
+        protected Panel pnlMain;
+        public Panel PanelMain => pnlMain;
+
+        protected DatabaseEPower databaseE;
         public DatabaseEPower DatabaseE => databaseE;
+
+        protected EPowerProcessMouse _ePowerMouse;
+
+        protected EPowerProcessLineTemp _ePowerLineTemp;
+        public EPowerProcessLineTemp EPowerLineTemp => _ePowerLineTemp;
+
+        protected EPowerProcessKey _ePowerKey;
 
         public bool isOnTool { get; set; }
 
-        private bool isSelected;
+        protected bool isSelected;
         public bool IsSelected
         {
             get { return isSelected; }
@@ -48,10 +61,10 @@ namespace Experimential_Software
             }
         }
 
-        private int _radiusPoint = 7;
+        protected int _radiusPoint = 7;
 
-        private Point pHead;
-        private Point pTail;
+        protected Point pHead;
+        protected Point pTail;
 
         public Point PHead
         {
@@ -72,19 +85,19 @@ namespace Experimential_Software
             }
         }
 
-        private bool isContainPhead;
+        protected bool isContainPhead;
         public bool IsContainPhead { get => isContainPhead; set => isContainPhead = value; }
 
-        private bool isContainPtail;
+        protected bool isContainPtail;
         public bool IsContainPtail { get => isContainPtail; set => isContainPtail = value; }
 
         public ContainPreEpower containPreEpower { get; set; }
 
-        private bool isPHead = false;
-        private bool isPtail = false;
+        protected bool isPHead = false;
+        protected bool isPtail = false;
 
-        private bool nearPhead = false;
-        private bool isMove = false;
+        protected bool nearPhead = false;
+        protected bool isMove = false;
         public bool IsMove
         {
             get { return isMove; }
@@ -94,13 +107,13 @@ namespace Experimential_Software
             }
         }
 
-        private bool mouseEnter = false;
+        protected bool mouseEnter = false;
 
         #region Constructor_Class
 
         public ConnectableE()
         {
-            InitializeComponent();
+            //InitializeComponent();
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             BackColor = Color.Transparent;
             DoubleBuffered = true;
@@ -110,19 +123,25 @@ namespace Experimential_Software
             this.isOnTool = true;
         }
 
-        public ConnectableE(DatabaseEPower databaseEPower)
+        public ConnectableE(frmCapstone form , Panel pnlMain,DatabaseEPower databaseEPower)
         {
+            this._formCap = form;
+            this.pnlMain = pnlMain;
+
             //Set variable
             this.SetVariableOnEPower(databaseEPower);
 
-            InitializeComponent();
+           // InitializeComponent();
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             BackColor = Color.Transparent;
             DoubleBuffered = true;
+
+
         }
 
+
         protected virtual void SetVariableOnEPower(DatabaseEPower databaseEPower)
-        {
+        { 
             this.databaseE = databaseEPower;
 
             this.Width = this.databaseE.Width;
@@ -134,6 +153,18 @@ namespace Experimential_Software
             this.isContainPtail = false;
             this.containPreEpower = ContainPreEpower.NoContain;
 
+            this.GenerateClassProcessChild();
+          
+            this.SetPHeadAndPtail();        
+        }
+        protected virtual void GenerateClassProcessChild()
+        {
+            this._ePowerMouse = new EPowerProcessMouse(this);
+            this._ePowerKey = new EPowerProcessKey(this);
+            this._ePowerLineTemp = new EPowerProcessLineTemp(this);
+        }
+        protected virtual void SetPHeadAndPtail()
+        {
             //MF
             if (this.databaseE.objectType == ObjectType.MF)
             {
@@ -153,7 +184,6 @@ namespace Experimential_Software
             //=> Bus
             this.pHead = new Point(Width / 2 - 20, Height / 2);
             this.pTail = new Point(Width / 2 + 20, Height / 2);
-
 
         }
 
@@ -213,11 +243,14 @@ namespace Experimential_Software
         #region Mouse
         protected override void OnMouseDown(MouseEventArgs e)
         {
+            base.OnMouseDown(e);
+
             this.isMove = !this.IsConnection(e.Location);
             this.isSelected = !this.isSelected;
-            //nhớ OnMouseDown chỉ để move Point in order to Connect
 
-            base.OnMouseDown(e);
+            if (this._ePowerMouse == null) return;
+            //nhớ OnMouseDown chỉ để move Point in order to Connect
+            this._ePowerMouse.ButtonInstance_MouseDown(e);
             Invalidate();
         }
 
@@ -225,14 +258,20 @@ namespace Experimential_Software
         {
             base.OnMouseMove(e);
             this.mouseEnter = true;
-            Invalidate();
+
+            if (this._ePowerMouse == null) return;
+            this._ePowerMouse.ButtonInstance_MouseMove(e);
+           Invalidate();
         }
 
-        protected override void OnMouseUp(MouseEventArgs mevent)
+        protected override void OnMouseUp(MouseEventArgs e)
         {
             //=> Check if ko move trước đó thì ko set Pos  
-            base.OnMouseUp(mevent);
+            base.OnMouseUp(e);
             this.isMove = false;
+
+            if (this._ePowerMouse == null) return;
+            this._ePowerMouse.ButtonInstance_MouseUp(e);
         }
 
         protected override void OnMouseEnter(EventArgs e)
@@ -251,6 +290,19 @@ namespace Experimential_Software
         }
 
         #endregion Mouse
+
+
+        #region Key
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            if (this._ePowerKey == null) return;
+            this._ePowerKey.EPowerInstance_KeyDown(e);
+        }
+
+        #endregion Key
 
         #region Function_Overall
 
@@ -276,7 +328,8 @@ namespace Experimential_Software
             if (ePoint.Y > this.pHead.Y + 10 && this.Width <= this.Height) return false;
 
             return true;
-        }
+        }    
+
 
         public virtual bool IsOnPTail(Point ePoint)
         {
@@ -286,7 +339,7 @@ namespace Experimential_Software
 
             return true;
         }
-
+       
         public virtual bool IsOnNearPHead()
         {
             Point pointHeadtoScreen = this.PointToScreen(this.pHead);
@@ -295,7 +348,7 @@ namespace Experimential_Software
             double distanceHead = this.Distance(pointHeadtoScreen);
             double distanceTail = this.Distance(pointTailtoScreen);
 
-            if (this.databaseE.objectType == ObjectType.MF) distanceTail = 10000;
+           // if (this.databaseE.objectType == ObjectType.MF) distanceTail = 10000;=> Generator
             if (distanceHead < distanceTail) return true;
             return false;
         }
@@ -348,6 +401,27 @@ namespace Experimential_Software
 
 
 
+
+
+//}
+
+//public virtual bool IsOnPHead(Point ePoint)
+//{
+//    if (ePoint.X > this.pHead.X + 10 && this.Width > this.Height) return false;
+//    if (ePoint.Y < this.pHead.Y - 10 && !this.isOnTool && this.databaseE.objectType == ObjectType.MF) return false;
+//    if (ePoint.Y > this.pHead.Y + 10 && this.Width <= this.Height) return false;
+
+//    return true;
+//}
+
+//public virtual bool IsOnPTail(Point ePoint)
+//{
+//    if (ePoint.X < this.pTail.X - 10 && this.Width > this.Height) return false;
+//    if (!this.isOnTool && this.databaseE.objectType == ObjectType.MF) return false;
+//    if (ePoint.Y < this.pTail.Y - 10 && this.Width <= this.Height) return false;
+
+//    return true;
+//}
 
 
 

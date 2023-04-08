@@ -9,18 +9,22 @@ using System.Drawing.Drawing2D;
 
 namespace Experimential_Software
 {
-    public partial class ProcessConnectControl
+    public partial class EPowerProcessLineTemp
     {
+        protected ConnectableE _ePower;
+
         private Point _startOldLine;
         private Point _endOldLine;
 
-        Panel pnlMain;
-
-        public virtual Point GenerateLine(object sender, MouseEventArgs e, Object pnlDes, Point startPointLine)
+        protected Panel pnlMain;
+        public EPowerProcessLineTemp(ConnectableE ePowerInstance)
         {
-            ConnectableE buttonInstance = sender as ConnectableE;
-            this.pnlMain = pnlDes as Panel;
+            this._ePower = ePowerInstance;
+            this.pnlMain = ePowerInstance.PanelMain;
+        }
 
+        public virtual Point GenerateLine( MouseEventArgs e, Point startPointLine)
+        {
             // Xóa các line cũ bằng cách vẽ lại nền của panel
             this.ClearOldLine();
 
@@ -62,6 +66,9 @@ namespace Experimential_Software
                 pnlMain.CreateGraphics().DrawLine(Pens.White, startLine, endLine);
             }
         }
+
+
+        // not reference, => final check then remove if not reference
         protected virtual Point TransferPointToMain(ConnectableE btnOrigin, Point pointN)
         {
             Point pointForm = btnOrigin.PointToScreen(pointN);
