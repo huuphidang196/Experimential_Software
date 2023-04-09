@@ -38,7 +38,7 @@ namespace Experimential_Software
 
         private void Form1_Load(object sender, EventArgs e)
         {
-           this._pnlMainMouse = new PanelMainMouse(this, pnlMain);
+            this._pnlMainMouse = new PanelMainMouse(this, pnlMain);
         }
 
         #region Reference_OutSide
@@ -48,6 +48,7 @@ namespace Experimential_Software
             this.lineConnectList.Add(lineConnect);
             //Draw All Line
             this.DrawAllLineOnPanel();
+
         }
 
         public virtual void RemoveLine(LineConnect lineConnect)
@@ -156,6 +157,13 @@ namespace Experimential_Software
             DatabaseEPower databaseE = new DatabaseEPower() { objectType = ObjectType.LineEPower, Width = 40, Height = 60 };
             this.ButtonMouseDown(sender, e, btnTransformer, databaseE);
         }
+
+        private void btnLoad_MouseDown(object sender, MouseEventArgs e)
+        {
+            DatabaseEPower databaseE = new DatabaseEPower() { objectType = ObjectType.Load, Width = 50, Height = 50 };
+            this.ButtonMouseDown(sender, e, btnLoad, databaseE);
+        }
+
         /// <summary>
         /// Panel Main 
 
@@ -227,7 +235,7 @@ namespace Experimential_Software
             }
         }
 
-       
+
         private void frmCapstone_KeyDown(object sender, KeyEventArgs e)
         {
             //LineConnect lineSelected = this.processPowerConn.FindLineConnectIsSelected(this.lineConnectList);
@@ -243,7 +251,7 @@ namespace Experimential_Software
 
         }
 
-       
+        
     }
 }
 
