@@ -27,7 +27,7 @@ namespace Experimential_Software
         Bus = 2,
         MBA = 3,
         LineEPower = 4,
-        Load = 5
+        Load = 5,
     }
 
     public partial class ConnectableE : Button, IMouseOnEndsControl
@@ -169,6 +169,15 @@ namespace Experimential_Software
             if (this.databaseE.objectType == ObjectType.MF)
             {
                 this.pHead = new Point(Width / 2, Height - 4);
+                this.pTail = Point.Empty;
+                this.isContainPtail = true;
+                return;
+            }
+
+            //MF
+            if (this.databaseE.objectType == ObjectType.Load)
+            {
+                this.pHead = new Point(Width / 2, 0);
                 this.pTail = Point.Empty;
                 this.isContainPtail = true;
                 return;
@@ -357,6 +366,7 @@ namespace Experimential_Software
         {
             if (ePoint.X < this.pTail.X - 10 && this.Width > this.Height) return false;
             if (!this.isOnTool && this.databaseE.objectType == ObjectType.MF) return false;
+            if (!this.isOnTool && this.databaseE.objectType == ObjectType.Load) return false;
             if (ePoint.Y < this.pTail.Y - 10 && this.Width <= this.Height) return false;
 
             return true;

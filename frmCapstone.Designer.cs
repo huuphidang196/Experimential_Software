@@ -34,10 +34,11 @@ namespace Experimential_Software
             this.lblLine = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pnlTool = new System.Windows.Forms.Panel();
+            this.btnLoad = new Experimential_Software.ConnectableE();
             this.btnMFPower = new Experimential_Software.ConnectableE();
+            this.btnTransformer = new Experimential_Software.ConnectableE();
             this.btnLinePower = new Experimential_Software.ConnectableE();
             this.btnBusPower = new Experimential_Software.ConnectableE();
-            this.btnTransformer = new Experimential_Software.ConnectableE();
             this.panel2.SuspendLayout();
             this.pnlTool.SuspendLayout();
             this.SuspendLayout();
@@ -87,6 +88,7 @@ namespace Experimential_Software
             // pnlTool
             // 
             this.pnlTool.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.pnlTool.Controls.Add(this.btnLoad);
             this.pnlTool.Controls.Add(this.btnMFPower);
             this.pnlTool.Controls.Add(this.btnTransformer);
             this.pnlTool.Controls.Add(this.btnLinePower);
@@ -96,6 +98,25 @@ namespace Experimential_Software
             this.pnlTool.Name = "pnlTool";
             this.pnlTool.Size = new System.Drawing.Size(121, 633);
             this.pnlTool.TabIndex = 1;
+            // 
+            // btnLoad
+            // 
+            this.btnLoad.BackColor = System.Drawing.Color.Transparent;
+            this.btnLoad.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnLoad.IsContainPhead = false;
+            this.btnLoad.IsContainPtail = false;
+            this.btnLoad.IsMove = false;
+            this.btnLoad.isOnTool = true;
+            this.btnLoad.IsSelected = false;
+            this.btnLoad.Location = new System.Drawing.Point(30, 464);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.PHead = new System.Drawing.Point(0, 0);
+            this.btnLoad.PTail = new System.Drawing.Point(0, 0);
+            this.btnLoad.Size = new System.Drawing.Size(50, 50);
+            this.btnLoad.TabIndex = 0;
+            this.btnLoad.Text = "Load";
+            this.btnLoad.UseVisualStyleBackColor = false;
+            this.btnLoad.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLoad_MouseDown);
             // 
             // btnMFPower
             // 
@@ -115,6 +136,25 @@ namespace Experimential_Software
             this.btnMFPower.Text = "MF";
             this.btnMFPower.UseVisualStyleBackColor = false;
             this.btnMFPower.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnMFPower_MouseDown);
+            // 
+            // btnTransformer
+            // 
+            this.btnTransformer.BackColor = System.Drawing.Color.Transparent;
+            this.btnTransformer.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnTransformer.IsContainPhead = false;
+            this.btnTransformer.IsContainPtail = false;
+            this.btnTransformer.IsMove = false;
+            this.btnTransformer.isOnTool = true;
+            this.btnTransformer.IsSelected = false;
+            this.btnTransformer.Location = new System.Drawing.Point(30, 160);
+            this.btnTransformer.Name = "btnTransformer";
+            this.btnTransformer.PHead = new System.Drawing.Point(0, 0);
+            this.btnTransformer.PTail = new System.Drawing.Point(0, 0);
+            this.btnTransformer.Size = new System.Drawing.Size(50, 50);
+            this.btnTransformer.TabIndex = 0;
+            this.btnTransformer.Text = "Transfoner";
+            this.btnTransformer.UseVisualStyleBackColor = false;
+            this.btnTransformer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTransformer_MouseDown);
             // 
             // btnLinePower
             // 
@@ -154,25 +194,6 @@ namespace Experimential_Software
             this.btnBusPower.UseVisualStyleBackColor = false;
             this.btnBusPower.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnBusPower_MouseDown);
             // 
-            // btnTransformer
-            // 
-            this.btnTransformer.BackColor = System.Drawing.Color.Transparent;
-            this.btnTransformer.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.btnTransformer.IsContainPhead = false;
-            this.btnTransformer.IsContainPtail = false;
-            this.btnTransformer.IsMove = false;
-            this.btnTransformer.isOnTool = true;
-            this.btnTransformer.IsSelected = false;
-            this.btnTransformer.Location = new System.Drawing.Point(30, 160);
-            this.btnTransformer.Name = "btnTransformer";
-            this.btnTransformer.PHead = new System.Drawing.Point(0, 0);
-            this.btnTransformer.PTail = new System.Drawing.Point(0, 0);
-            this.btnTransformer.Size = new System.Drawing.Size(50, 50);
-            this.btnTransformer.TabIndex = 0;
-            this.btnTransformer.Text = "Transfoner";
-            this.btnTransformer.UseVisualStyleBackColor = false;
-            this.btnTransformer.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTransformer_MouseDown);
-            // 
             // frmCapstone
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -206,6 +227,7 @@ namespace Experimential_Software
         private ConnectableE btnLinePower;
         private ConnectableE btnMFPower;
         private ConnectableE btnTransformer;
+        private ConnectableE btnLoad;
     }
 }
 
