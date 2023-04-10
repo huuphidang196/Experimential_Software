@@ -177,13 +177,13 @@ namespace Experimential_Software
         #region Control_On_Form
         protected void btnBusPower_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { objectType = ObjectType.Bus, Width = 100, Height = 50 };
+            DatabaseEPower databaseE = new DatabaseEPower() { objectType = ObjectType.Bus, Width = 100, Height = 30 };
             this.ButtonMouseDown(sender, e, btnBusPower, databaseE);
         }
 
         protected void btnLinePower_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { objectType = ObjectType.LineEPower, Width = 64, Height = 64 };
+            DatabaseEPower databaseE = new DatabaseEPower() { objectType = ObjectType.LineEPower, Width = 16, Height = 64 };
             this.ButtonMouseDown(sender, e, btnLinePower, databaseE);
         }
 
@@ -262,25 +262,20 @@ namespace Experimential_Software
 
         protected virtual void ButtonMouseDown(object sender, MouseEventArgs e, ConnectableE btnTool, DatabaseEPower databaseE)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                // Create instance of button1 and start drag-and-drop operation
-                ConnectableE ctrlInstance = new ConnectableE(this, pnlMain, databaseE, this.imgListEPower);
-                countElement++;
-                ctrlInstance.Name = btnTool.Name + "_" + this.countElement;
-                // ctrlInstance.Text = btnTool.Text + "_" + this.countElement;
-                ctrlInstance.Location = btnTool.Location;
+            if (e.Button == MouseButtons.Right) return;
+            // Create instance of button1 and start drag-and-drop operation
+            ConnectableE ctrlInstance = new ConnectableE(this, pnlMain, databaseE, this.imgListEPower);
+            countElement++;
+            ctrlInstance.Name = btnTool.Name + "_" + this.countElement;
+            // ctrlInstance.Text = btnTool.Text + "_" + this.countElement;
+            ctrlInstance.Location = btnTool.Location;
 
-                ctrlInstance.DoDragDrop(ctrlInstance, DragDropEffects.Move);
-                pnlMain.Controls.Add(ctrlInstance);
-                ctrlInstance.BringToFront();
+            ctrlInstance.DoDragDrop(ctrlInstance, DragDropEffects.Move);
+            pnlMain.Controls.Add(ctrlInstance);
+            ctrlInstance.BringToFront();
 
-            }
+
         }
-
-
-
-
 
 
         #endregion Button_Instance
