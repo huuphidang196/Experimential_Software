@@ -73,9 +73,49 @@ namespace Experimential_Software.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Line_ {
+            get {
+                object obj = ResourceManager.GetObject("Line ", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mba_2_cuộn_dây {
+            get {
+                object obj = ResourceManager.GetObject("mba 2 cuộn dây", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap MF {
+            get {
+                object obj = ResourceManager.GetObject("MF", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Tranmisson_line {
             get {
                 object obj = ResourceManager.GetObject("Tranmisson line", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Tranmisson_line1 {
+            get {
+                object obj = ResourceManager.GetObject("Tranmisson line1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

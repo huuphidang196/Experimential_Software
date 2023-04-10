@@ -10,7 +10,11 @@ namespace Experimential_Software.Class_Small
     public class DatabaseEPower
     {
         public ObjectType objectType { get; set; }
+
+        public int NumberImage => (int)objectType;
+
         public int Width { get; set; }
         public int Height { get; set; }
+      
     }
 }

@@ -73,10 +73,10 @@ namespace Experimential_Software
         }
 
 
-        protected virtual Point TransferPointToMain(ConnectableE connectableE, Point point, Panel pnlMain)
+        protected virtual Point TransferPointToMain(ConnectableE connectableE, Point point, PanelMain pnlMainDrawn)
         {
             Point pointToScreen = connectableE.PointToScreen(point);
-            Point pointToMain = pnlMain.PointToClient(pointToScreen);
+            Point pointToMain = pnlMainDrawn.PointToClient(pointToScreen);
 
             return pointToMain;
         }

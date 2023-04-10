@@ -18,8 +18,8 @@ namespace Experimential_Software
     // Lớp đối tượng Line
     public class LineConnect
     {
-        private Panel pnlMain;
-        public Panel PanelMain => pnlMain;
+        private PanelMain pnlMainDrawn;
+        public PanelMain PanelMain => pnlMainDrawn;
 
         private bool isSelected;
         public bool IsSelected
@@ -66,9 +66,9 @@ namespace Experimential_Software
         }
 
         //Point Input is phead or pTail of ConnectableE
-        public LineConnect(ConnectableE StartEPower, ConnectableE EndEPower, Point start, Point end, Panel pnlMain)
+        public LineConnect(ConnectableE StartEPower, ConnectableE EndEPower, Point start, Point end, PanelMain pnlMainDrawn)
         {
-            this.pnlMain = pnlMain;
+            this.pnlMainDrawn = pnlMainDrawn;
 
             this._startEPower = StartEPower;
             this._startPoint = start;
@@ -95,7 +95,7 @@ namespace Experimential_Software
 
         protected virtual Point TransferPointToEPower(ConnectableE connectableE, Point point)
         {
-            Point pointToScreen = this.pnlMain.PointToScreen(point);
+            Point pointToScreen = this.pnlMainDrawn.PointToScreen(point);
             Point pointToEPower = connectableE.PointToClient(pointToScreen);
 
             return pointToEPower;
@@ -104,16 +104,14 @@ namespace Experimential_Software
         protected virtual Point TransferPointToMain(ConnectableE connectableE, Point point)
         {
             Point pointToScreen = connectableE.PointToScreen(point);
-            Point pointToMain = this.pnlMain.PointToClient(pointToScreen);
+            Point pointToMain = this.pnlMainDrawn.PointToClient(pointToScreen);
          
            return pointToMain;
         }
 
+     
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="EPowerUpdated"></param>
-        /// <param name="numberPoint">< /param> numberPoint is update where. 0 then update startPoint, 1 update endPoint
+        //numberPoint is update where. 0 then update startPoint, 1 update endPoint
         protected virtual void UpDateEndsPointInSideLine(ConnectableE EPowerUpdated, int numberPoint)
         {
             PointOfEnds GetPointOne = numberPoint == 0 ? this._startPointEPower : this._endPointEPower;
@@ -132,6 +130,8 @@ namespace Experimential_Software
 
             this._endPoint = pointToMain;
         }
+
+
         #region Reference_OutSide
         public virtual void UpdateEndsPointAfterEPowerMove(ConnectableE btnEPower)
         {

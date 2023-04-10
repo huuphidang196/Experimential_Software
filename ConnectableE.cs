@@ -35,8 +35,9 @@ namespace Experimential_Software
         protected frmCapstone _formCap;
         public frmCapstone FormCapstone => _formCap;
 
-        protected Panel pnlMain;
-        public Panel PanelMain => pnlMain;
+        protected PanelMain pnlMain_Drawn;
+        public PanelMain PanelMain => pnlMain_Drawn;
+
 
         protected DatabaseEPower databaseE;
         public DatabaseEPower DatabaseE => databaseE;
@@ -72,7 +73,7 @@ namespace Experimential_Software
             set
             {
                 pHead = value;
-                Invalidate();
+                //  Invalidate();
             }
         }
         public Point PTail
@@ -81,7 +82,7 @@ namespace Experimential_Software
             set
             {
                 pTail = value;
-                Invalidate();
+                //  Invalidate();
             }
         }
 
@@ -123,13 +124,13 @@ namespace Experimential_Software
             this.isOnTool = true;
         }
 
-        public ConnectableE(frmCapstone form, Panel pnlMain, DatabaseEPower databaseEPower)
+        public ConnectableE(frmCapstone form, PanelMain pnlMain, DatabaseEPower databaseEPower, ImageList imgList)
         {
             this._formCap = form;
-            this.pnlMain = pnlMain;
+            this.pnlMain_Drawn = pnlMain;
 
             //Set variable
-            this.SetVariableOnEPower(databaseEPower);
+            this.SetVariableOnEPower(databaseEPower, imgList);
 
             // InitializeComponent();
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
@@ -139,8 +140,7 @@ namespace Experimential_Software
 
         }
 
-
-        protected virtual void SetVariableOnEPower(DatabaseEPower databaseEPower)
+        protected virtual void SetVariableOnEPower(DatabaseEPower databaseEPower, ImageList imgList)
         {
             this.databaseE = databaseEPower;
 
@@ -152,6 +152,25 @@ namespace Experimential_Software
             this.isContainPhead = false;
             this.isContainPtail = false;
             this.containPreEpower = ContainPreEpower.NoContain;
+
+            int numberImage = databaseE.NumberImage;
+            Image originalImage = imgList.Images[numberImage];
+
+            // Tính toán tỉ lệ giữa kích thước control và kích thước ảnh gốc
+            float ratioX = (float)this.Width / (float)originalImage.Width;
+            float ratioY = (float)this.Height / (float)originalImage.Height;
+            float ratio = Math.Min(ratioX, ratioY);
+
+            // Tính toán kích thước ảnh mới
+            int newWidth = (int)(originalImage.Width * ratio);
+            int newHeight = (int)(originalImage.Height * ratio);
+
+            Image resizedImage = originalImage.GetThumbnailImage(newWidth, newHeight, null, IntPtr.Zero);
+
+            this.Image = resizedImage;
+
+            // Vẽ ảnh lên control với kích thước mới
+            //MessageBox.Show(this.ImageList.ImageSize + "");
 
             this.GenerateClassProcessChild();
 
@@ -191,8 +210,8 @@ namespace Experimential_Software
                 return;
             }
             //=> Bus
-            this.pHead = new Point(Width / 2 - 20, Height / 2);
-            this.pTail = new Point(Width / 2 + 20, Height / 2);
+            this.pHead = new Point(Width / 2 - Width / 4, Height / 2);
+            this.pTail = new Point(Width / 2 + Width / 4, Height / 2);
 
         }
 
@@ -212,14 +231,20 @@ namespace Experimential_Software
             {
                 this.nearPhead = this.IsOnNearPHead();
                 Point pEnds = this.nearPhead ? this.pHead : this.pTail;
+                bool contained = this.nearPhead ? this.isContainPhead : this.isContainPtail;
+
+                if (contained && this.databaseE.objectType != ObjectType.Bus) pEnds = Point.Empty;
 
                 if (this.databaseE.objectType == ObjectType.MF) pEnds = this.pHead;
                 this.DrawCubePinkMouseNearEnds(e, pEnds);
             }
 
+           
         }
         protected virtual void DrawCubePinkMouseNearEnds(PaintEventArgs e, Point pEnds)
         {
+            if (pEnds == Point.Empty) return;
+
             using (var pen = new Pen(Color.Pink, 3))
             {
                 int Point_Oxy = this.Width > this.Height ? pEnds.X : pEnds.Y;
@@ -264,9 +289,9 @@ namespace Experimential_Software
             //If selected this then remove other EPower
             if (this.isSelected)
             {
-                this._formCap.SetIsSelected(this);
+                this._formCap.SetIsSelectedEPower(this);
                 //=> Coincide Selected Line = false
-                this._formCap.PanelMainMouse.SetFalseSelectedALLLine();
+                this.pnlMain_Drawn.PanelMainMouse.SetFalseSelectedOtherLine(null, this._formCap.LineConnectList);
             }
             //nhớ OnMouseDown chỉ để move Point in order to Connect
             this._ePowerMouse.ButtonInstance_MouseDown(e);
@@ -300,7 +325,7 @@ namespace Experimential_Software
             //=> Check if ko move trước đó thì ko set Pos  
 
             this._ePowerMouse.ButtonInstance_MouseUp(e);
-            this.isMove = false;        
+            this.isMove = false;
 
         }
 
@@ -329,8 +354,11 @@ namespace Experimential_Software
             base.OnKeyDown(e);
 
             if (this._ePowerKey == null) return;
+
+            //Only allow remove When btn is selected
+            if (!this.isSelected) return;
             this._ePowerKey.EPowerInstance_KeyDown(e);
-           
+
         }
 
         #endregion Key

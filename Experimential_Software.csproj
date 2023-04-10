@@ -84,6 +84,12 @@
     </Compile>
     <Compile Include="LineConnect.cs" />
     <Compile Include="IMouseOnEndsControl.cs" />
+    <Compile Include="PanelMain.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PanelMain.Designer.cs">
+      <DependentUpon>PanelMain.cs</DependentUpon>
+    </Compile>
     <Compile Include="PanelMainMouse.cs" />
     <Compile Include="EPowerProcessLineTemp.cs" />
     <Compile Include="ProcessEPowerMove.cs" />
@@ -133,6 +139,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\BUS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Tranmisson line1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\MF.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\mba 2 cuộn dây.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Line .png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

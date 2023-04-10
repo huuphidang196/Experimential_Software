@@ -21,7 +21,7 @@ namespace Experimential_Software
         protected Point previousMouseLocation;
         public Point PreviousMouseLocation => previousMouseLocation;
 
-        //Coordinate pnlMain system
+        //Coordinate pnlMain_Drawn system
         private Point _startPLineTemp;
         private Point _endPLinetemp;
 
@@ -88,9 +88,6 @@ namespace Experimential_Software
             if (!isOnMain) return;
 
             this._ePower.Location = this.TransferPosMouseToControl(e);
-
-            ////btnmove then Check end set line follow btnEPower that it connect 
-            //List<LineConnect> lineConnectList = this._ePower.FormCapstone.LineConnectList;
 
             //When btn move then update , if don't move not update line
             this.processEPowerMove.ProcessEPowerMoveOverall(this._ePower.EPowerLineTemp);

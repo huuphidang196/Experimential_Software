@@ -16,11 +16,11 @@ namespace Experimential_Software
         private Point _startOldLine;
         private Point _endOldLine;
 
-        protected Panel pnlMain;
+        protected PanelMain pnlMain_Drawn;
         public EPowerProcessLineTemp(ConnectableE ePowerInstance)
         {
             this._ePower = ePowerInstance;
-            this.pnlMain = ePowerInstance.PanelMain;
+            this.pnlMain_Drawn = ePowerInstance.PanelMain;
         }
 
         public virtual Point GenerateLine( MouseEventArgs e, Point startPointLine)
@@ -29,13 +29,13 @@ namespace Experimential_Software
             this.ClearOldLine();
 
             // Lấy vị trí con trỏ chuột trên pnlMain
-            Point mousePoint = pnlMain.PointToClient(Cursor.Position);
+            Point mousePoint = pnlMain_Drawn.PointToClient(Cursor.Position);
 
             this._startOldLine = startPointLine;
             this._endOldLine = mousePoint;
 
             //// Vẽ new line 
-            pnlMain.CreateGraphics().DrawLine(Pens.Black, startPointLine, mousePoint);
+            pnlMain_Drawn.CreateGraphics().DrawLine(Pens.Black, startPointLine, mousePoint);
 
             return mousePoint;
 
@@ -45,13 +45,13 @@ namespace Experimential_Software
         {
             if (this._startOldLine != Point.Empty && this._endOldLine != Point.Empty)
             {
-                pnlMain.CreateGraphics().DrawLine(Pens.White, this._startOldLine, this._endOldLine);
+                pnlMain_Drawn.CreateGraphics().DrawLine(Pens.White, this._startOldLine, this._endOldLine);
             }
         }
 
-        public virtual void ClearTwoOldLineWhenMove(LineConnect LineRemove, Panel pnlMain)
+        public virtual void ClearTwoOldLineWhenMove(LineConnect LineRemove, PanelMain pnlMainDrawn)
         {
-            this.pnlMain = pnlMain;
+            this.pnlMain_Drawn = pnlMainDrawn;
 
             Point startLine = LineRemove.StartPoint;
             Point endLine = LineRemove.EndPoint;
@@ -63,7 +63,7 @@ namespace Experimential_Software
         {
             if (startLine != Point.Empty && endLine != Point.Empty)
             {
-                pnlMain.CreateGraphics().DrawLine(Pens.White, startLine, endLine);
+                pnlMain_Drawn.CreateGraphics().DrawLine(Pens.White, startLine, endLine);
             }
         }
 
@@ -72,7 +72,7 @@ namespace Experimential_Software
         protected virtual Point TransferPointToMain(ConnectableE btnOrigin, Point pointN)
         {
             Point pointForm = btnOrigin.PointToScreen(pointN);
-            Point pointMain = pnlMain.PointToClient(pointForm);
+            Point pointMain = pnlMain_Drawn.PointToClient(pointForm);
 
             return pointMain;
         }
