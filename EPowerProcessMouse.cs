@@ -50,7 +50,7 @@ namespace Experimential_Software
                 bool isPhead = this._ePower.IsOnPHead(e.Location);
                 bool isContainEnds = (isPhead == true) ? this._ePower.IsContainPhead : this._ePower.IsContainPtail;
 
-                if (this._ePower.DatabaseE.objectType == ObjectType.Bus) isContainEnds = true;//=?Bus can not point start line
+                if (this._ePower.DatabaseE.ObjectType == ObjectType.Bus) isContainEnds = true;//=?Bus can not point start line
                 if (isContainEnds) return;
 
                 //Coordinate button system
@@ -140,7 +140,7 @@ namespace Experimential_Software
             //get bool contain Phead or Ptail
             bool isContainEnds = (pointEndToBtn == EndEPower.PHead) ? EndEPower.IsContainPhead : EndEPower.IsContainPtail;
 
-            if (EndEPower.DatabaseE.objectType == ObjectType.Bus) isContainEnds = false;//=?Bus can add > 2
+            if (EndEPower.DatabaseE.ObjectType == ObjectType.Bus) isContainEnds = false;//=?Bus can add > 2
             if (isContainEnds) return; //=> EndPoint has LineConnect 
 
             //Transfer EndMouse to Point of pnlMain system. EndMouse = pointEndToBtn = Phead or PTail of EndEPower not Instance

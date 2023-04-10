@@ -12,7 +12,7 @@ namespace Experimential_Software
     {
         protected PanelMain pnlMainDrawn;
 
-        public PanelMainMouse( PanelMain pnlMainDrawn)
+        public PanelMainMouse(PanelMain pnlMainDrawn)
         {
             this.pnlMainDrawn = pnlMainDrawn;
         }
@@ -99,8 +99,31 @@ namespace Experimential_Software
             return null;
         }
 
+
         #endregion Line
 
-        
+        public virtual void ProcessSetNumberObjetEPower(ConnectableE EPower_Instance)
+        {
+            // Lấy danh sách tất cả các ConnectionE control có trong pnlMain
+            List<ConnectableE> EPowers = this.GetListEPowerOnMain();
+
+            ObjectType type_Instance = EPower_Instance.DatabaseE.ObjectType;
+            int count = (int)type_Instance * 100;
+            // Duyệt qua danh sách các ConnectionE control và thực hiện các xử lý cần thiết
+            foreach (ConnectableE ePower in EPowers)
+            {
+                // Code xử lý cho từng ConnectionE control
+                if (ePower.DatabaseE.ObjectType == type_Instance) count++;
+            }
+            // set Obj number = count current + 1;
+
+            EPower_Instance.DatabaseE.ObjectNumber = count + 1;
+        }
+
+        protected virtual List<ConnectableE> GetListEPowerOnMain()
+        {
+            return this.pnlMainDrawn.Controls.OfType<ConnectableE>().ToList();
+        }
+       
     }
 }

@@ -9,9 +9,11 @@ namespace Experimential_Software.Class_Small
     [Serializable]
     public class DatabaseEPower
     {
-        public ObjectType objectType { get; set; }
+        public ObjectType ObjectType { get; set; }
 
-        public int NumberImage => (int)objectType;
+        public int ObjectNumber { get; set; }
+
+        public int NumberImage => (int)ObjectType;
 
         public int Width { get; set; }
         public int Height { get; set; }

@@ -32,12 +32,17 @@ namespace Experimential_Software
             this.panel1 = new System.Windows.Forms.Panel();
             this.BusRecTab = new System.Windows.Forms.TabControl();
             this.PowerFlow = new System.Windows.Forms.TabPage();
-            this.grbBasicData = new System.Windows.Forms.GroupBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.grbBasicData = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtObjName = new System.Windows.Forms.TextBox();
+            this.lblObjNum = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.BusRecTab.SuspendLayout();
             this.PowerFlow.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.grbBasicData.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -77,18 +82,6 @@ namespace Experimential_Software
             this.PowerFlow.Text = "Power Flow";
             this.PowerFlow.UseVisualStyleBackColor = true;
             // 
-            // grbBasicData
-            // 
-            this.grbBasicData.BackColor = System.Drawing.SystemColors.Control;
-            this.grbBasicData.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grbBasicData.Font = new System.Drawing.Font("Times New Roman", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grbBasicData.Location = new System.Drawing.Point(0, 0);
-            this.grbBasicData.Name = "grbBasicData";
-            this.grbBasicData.Size = new System.Drawing.Size(682, 286);
-            this.grbBasicData.TabIndex = 0;
-            this.grbBasicData.TabStop = false;
-            this.grbBasicData.Text = "Basic Data";
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.grbBasicData);
@@ -97,6 +90,59 @@ namespace Experimential_Software
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(682, 286);
             this.panel2.TabIndex = 1;
+            // 
+            // grbBasicData
+            // 
+            this.grbBasicData.BackColor = System.Drawing.SystemColors.Control;
+            this.grbBasicData.Controls.Add(this.lblObjNum);
+            this.grbBasicData.Controls.Add(this.txtObjName);
+            this.grbBasicData.Controls.Add(this.label2);
+            this.grbBasicData.Controls.Add(this.label1);
+            this.grbBasicData.Dock = System.Windows.Forms.DockStyle.Left;
+            this.grbBasicData.Font = new System.Drawing.Font("Times New Roman", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grbBasicData.Location = new System.Drawing.Point(0, 0);
+            this.grbBasicData.Name = "grbBasicData";
+            this.grbBasicData.Size = new System.Drawing.Size(346, 286);
+            this.grbBasicData.TabIndex = 0;
+            this.grbBasicData.TabStop = false;
+            this.grbBasicData.Text = "Basic Data";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(24, 33);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(95, 16);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Object Number";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Times New Roman", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(203, 33);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(82, 16);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Object Name";
+            // 
+            // txtObjName
+            // 
+            this.txtObjName.Location = new System.Drawing.Point(206, 63);
+            this.txtObjName.Name = "txtObjName";
+            this.txtObjName.Size = new System.Drawing.Size(115, 24);
+            this.txtObjName.TabIndex = 1;
+            // 
+            // lblObjNum
+            // 
+            this.lblObjNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblObjNum.Location = new System.Drawing.Point(27, 62);
+            this.lblObjNum.Name = "lblObjNum";
+            this.lblObjNum.Size = new System.Drawing.Size(95, 24);
+            this.lblObjNum.TabIndex = 2;
+            this.lblObjNum.Text = "label3";
+            this.lblObjNum.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // frmDataBus
             // 
@@ -112,6 +158,8 @@ namespace Experimential_Software
             this.BusRecTab.ResumeLayout(false);
             this.PowerFlow.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
+            this.grbBasicData.ResumeLayout(false);
+            this.grbBasicData.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -123,5 +171,9 @@ namespace Experimential_Software
         private System.Windows.Forms.TabPage PowerFlow;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox grbBasicData;
+        private System.Windows.Forms.Label lblObjNum;
+        private System.Windows.Forms.TextBox txtObjName;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }

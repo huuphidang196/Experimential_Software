@@ -45,6 +45,9 @@ namespace Experimential_Software
             //remove this out EPowers
             this._ePowerInstance.FormCapstone.RemoveEPower(this._ePowerInstance);
             this._ePowerInstance.Dispose();
+            this._ePowerInstance.LblInfoE.Dispose();
+            //Set all numberObject
+            this._ePowerInstance.PanelMain.PanelMainMouse.ProcessSetNumberObjetEPower(this._ePowerInstance);
 
             if (lineListConnected.Count == 0) return;
             foreach (LineConnect lineConnect in lineListConnected)

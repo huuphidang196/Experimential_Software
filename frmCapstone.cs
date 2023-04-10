@@ -177,31 +177,31 @@ namespace Experimential_Software
         #region Control_On_Form
         protected void btnBusPower_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { objectType = ObjectType.Bus, Width = 100, Height = 30 };
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Bus, Width = 100, Height = 30 };
             this.ButtonMouseDown(sender, e, btnBusPower, databaseE);
         }
 
         protected void btnLinePower_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { objectType = ObjectType.LineEPower, Width = 16, Height = 64 };
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.LineEPower, Width = 16, Height = 64 };
             this.ButtonMouseDown(sender, e, btnLinePower, databaseE);
         }
 
         protected void btnMFPower_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { objectType = ObjectType.MF, Width = 40, Height = 40 };
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MF, Width = 40, Height = 40 };
             this.ButtonMouseDown(sender, e, btnMFPower, databaseE);
         }
 
         private void btnTransformer_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { objectType = ObjectType.MBA, Width = 40, Height = 40 };
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MBA, Width = 40, Height = 40 };
             this.ButtonMouseDown(sender, e, btnTransformer, databaseE);
         }
 
         private void btnLoad_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { objectType = ObjectType.Load, Width = 40, Height = 40 };
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Load, Width = 40, Height = 40 };
             this.ButtonMouseDown(sender, e, btnLoad, databaseE);
         }
 
@@ -247,6 +247,7 @@ namespace Experimential_Software
                 this.ePowers.Add(ePower);
                 this.iEPowers.Add(ePower);
                 ePower.isOnTool = false;
+
             }
             else
             {
@@ -254,6 +255,9 @@ namespace Experimential_Software
                 control.Dispose();
             }
         }
+
+       
+
         /// <summary>
 
         #endregion Control_On_Form
@@ -273,13 +277,11 @@ namespace Experimential_Software
             ctrlInstance.DoDragDrop(ctrlInstance, DragDropEffects.Move);
             pnlMain.Controls.Add(ctrlInstance);
             ctrlInstance.BringToFront();
-
-
         }
-
 
         #endregion Button_Instance
 
+    
     }
 }
 

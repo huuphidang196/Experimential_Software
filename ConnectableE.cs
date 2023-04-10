@@ -49,6 +49,9 @@ namespace Experimential_Software
 
         protected EPowerProcessKey _ePowerKey;
 
+        protected Label lblInfo;
+        public Label LblInfoE => lblInfo;
+
         public bool isOnTool { get; set; }
 
         protected bool isSelected;
@@ -140,6 +143,10 @@ namespace Experimential_Software
 
         }
 
+        public ConnectableE(DatabaseEPower databaseEPower)
+        {
+        }
+
         protected virtual void SetVariableOnEPower(DatabaseEPower databaseEPower, ImageList imgList)
         {
             this.databaseE = databaseEPower;
@@ -171,6 +178,8 @@ namespace Experimential_Software
 
             // Vẽ ảnh lên control với kích thước mới
             //MessageBox.Show(this.ImageList.ImageSize + "");
+            // Set Object Number
+            this.pnlMain_Drawn.PanelMainMouse.ProcessSetNumberObjetEPower(this);
 
             this.GenerateClassProcessChild();
 
@@ -181,11 +190,32 @@ namespace Experimential_Software
             this._ePowerMouse = new EPowerProcessMouse(this);
             this._ePowerKey = new EPowerProcessKey(this);
             this._ePowerLineTemp = new EPowerProcessLineTemp(this);
+
+            this.SetDataLabelInfo();
+        }
+
+        private void SetDataLabelInfo()
+        {
+            this.lblInfo = new Label();
+            lblInfo.Font = new Font("Sans-serif", 10, FontStyle.Regular);
+
+            ObjectType objType = this.databaseE.ObjectType;
+            int objNumber = this.databaseE.ObjectNumber;
+            lblInfo.Text = objType + " " + objNumber;
+            // Set Pos lbl
+            this.UpdatePositonLabelInfo();
+
+            this.pnlMain_Drawn.Controls.Add(lblInfo);
+        }
+
+        protected virtual void UpdatePositonLabelInfo()
+        {
+            lblInfo.Location = new Point(this.Location.X - 20, this.Location.Y - 20);
         }
         protected virtual void SetPHeadAndPtail()
         {
             //MF
-            if (this.databaseE.objectType == ObjectType.MF)
+            if (this.databaseE.ObjectType == ObjectType.MF)
             {
                 this.pHead = new Point(Width / 2, Height - 4);
                 this.pTail = Point.Empty;
@@ -194,7 +224,7 @@ namespace Experimential_Software
             }
 
             //Load
-            if (this.databaseE.objectType == ObjectType.Load)
+            if (this.databaseE.ObjectType == ObjectType.Load)
             {
                 this.pHead = new Point(Width / 2, 0);
                 this.pTail = Point.Empty;
@@ -233,9 +263,9 @@ namespace Experimential_Software
                 Point pEnds = this.nearPhead ? this.pHead : this.pTail;
                 bool contained = this.nearPhead ? this.isContainPhead : this.isContainPtail;
 
-                if (contained && this.databaseE.objectType != ObjectType.Bus) pEnds = Point.Empty;
+                if (contained && this.databaseE.ObjectType != ObjectType.Bus) pEnds = Point.Empty;
 
-                if (this.databaseE.objectType == ObjectType.MF) pEnds = this.pHead;
+                if (this.databaseE.ObjectType == ObjectType.MF) pEnds = this.pHead;
                 this.DrawCubePinkMouseNearEnds(e, pEnds);
             }
 
@@ -311,6 +341,8 @@ namespace Experimential_Software
             this.mouseEnter = true;
 
             this._ePowerMouse.ButtonInstance_MouseMove(e);
+            // Set Pos lbl
+            this.UpdatePositonLabelInfo();
             Invalidate();
         }
 
@@ -383,7 +415,7 @@ namespace Experimential_Software
         public virtual bool IsOnPHead(Point ePoint)
         {
             if (ePoint.X > this.pHead.X + 10 && this.Width > this.Height) return false;
-            if (ePoint.Y < this.pHead.Y - 10 && !this.isOnTool && this.databaseE.objectType == ObjectType.MF) return false;
+            if (ePoint.Y < this.pHead.Y - 10 && !this.isOnTool && this.databaseE.ObjectType == ObjectType.MF) return false;
             if (ePoint.Y > this.pHead.Y + 10 && this.Width <= this.Height) return false;
 
             return true;
@@ -393,8 +425,8 @@ namespace Experimential_Software
         public virtual bool IsOnPTail(Point ePoint)
         {
             if (ePoint.X < this.pTail.X - 10 && this.Width > this.Height) return false;
-            if (!this.isOnTool && this.databaseE.objectType == ObjectType.MF) return false;
-            if (!this.isOnTool && this.databaseE.objectType == ObjectType.Load) return false;
+            if (!this.isOnTool && this.databaseE.ObjectType == ObjectType.MF) return false;
+            if (!this.isOnTool && this.databaseE.ObjectType == ObjectType.Load) return false;
             if (ePoint.Y < this.pTail.Y - 10 && this.Width <= this.Height) return false;
 
             return true;
