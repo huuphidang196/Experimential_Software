@@ -118,8 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Tranmisson line" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Tranmisson line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Line " type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Line .png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BUS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\BUS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -127,13 +127,16 @@
   <data name="MF" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\MF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Tranmisson line" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Tranmisson line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="mba 2 cuộn dây" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mba 2 cuộn dây.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Tranmisson line1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Tranmisson line1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Line " type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Line .png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Load_Tool" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Load_Tool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

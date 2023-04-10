@@ -83,6 +83,16 @@ namespace Experimential_Software.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Load_Tool {
+            get {
+                object obj = ResourceManager.GetObject("Load_Tool", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mba_2_cuộn_dây {
             get {
                 object obj = ResourceManager.GetObject("mba 2 cuộn dây", resourceCulture);
