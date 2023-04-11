@@ -13,8 +13,6 @@ namespace Experimential_Software
 {
     public partial class frmCapstone : Form
     {
-        protected Point previousMouseLocation;
-        protected bool isDragging = false;
         protected int countElement = 0;
 
         // protected PanelMain pnlMainDrawn;
@@ -29,7 +27,6 @@ namespace Experimential_Software
         private List<IMouseOnEndsControl> iEPowers = new List<IMouseOnEndsControl>();
         public List<IMouseOnEndsControl> IEPowers => iEPowers;
 
-        protected float penWidth; // độ rộng mong muốn
 
         public frmCapstone()
         {
@@ -39,6 +36,22 @@ namespace Experimential_Software
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.FixScaleSizeForm();
+            this.LoadImageMenuFile();
+
+        }
+
+        protected virtual void LoadImageMenuFile()
+        {
+            if (this.imgListIconCtrl.Images.Count == 0) return;
+
+            this.mnuFileNew.Image = this.imgListIconCtrl.Images[0];
+            this.mnuFileOpen.Image = this.imgListIconCtrl.Images[1];
+            this.mnuFileSave.Image = this.imgListIconCtrl.Images[2];
+        }
+
+        protected virtual void FixScaleSizeForm()
+        {
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
 
             // fix form không thể thu nhỏ hoặc phóng to
@@ -47,9 +60,7 @@ namespace Experimential_Software
             this.MaximumSize = this.Size; // giới hạn kích thước lớn nhất bằng kích thước hiện tại
             this.MinimumSize = this.Size; // giới hạn kích thước nhỏ nhất bằng kích thước hiện tại
                                           //Experimental by Form Data Bus. After set again
-          
         }
-
 
         private void frmCapstone_Resize(object sender, EventArgs e)
         {
@@ -173,36 +184,34 @@ namespace Experimential_Software
         }
         #endregion Reference_OutSide
 
-
-
         #region Control_On_Form
         protected void btnBusPower_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Bus, Width = 100, Height = 30 };
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Bus };
             this.ButtonMouseDown(sender, e, btnBusPower, databaseE);
         }
 
         protected void btnLinePower_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.LineEPower, Width = 16, Height = 64 };
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.LineEPower };
             this.ButtonMouseDown(sender, e, btnLinePower, databaseE);
         }
 
         protected void btnMFPower_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MF, Width = 40, Height = 40 };
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MF };
             this.ButtonMouseDown(sender, e, btnMFPower, databaseE);
         }
 
         private void btnTransformer_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MBA, Width = 40, Height = 40 };
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MBA };
             this.ButtonMouseDown(sender, e, btnTransformer, databaseE);
         }
 
         private void btnLoad_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Load, Width = 40, Height = 40 };
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Load };
             this.ButtonMouseDown(sender, e, btnLoad, databaseE);
         }
 
@@ -256,9 +265,6 @@ namespace Experimential_Software
                 control.Dispose();
             }
         }
-
-       
-
         /// <summary>
 
         #endregion Control_On_Form
@@ -281,6 +287,124 @@ namespace Experimential_Software
         }
 
         #endregion Button_Instance
+
+
+
+        #region MenuStrip
+
+        private void mnuFileNew_Click(object sender, EventArgs e)
+        {
+            this.ClearAllEPowerAndLineOnMain();
+        }
+
+        protected virtual void ClearAllEPowerAndLineOnMain()
+        {
+            this.pnlMain.Controls.Clear();
+            this.ePowers.Clear();
+            this.IEPowers.Clear();
+            this.lineConnectList.Clear();
+            this.countElement = 0;
+        }
+
+        //openFile
+        private void mnuFileOpen_Click(object sender, EventArgs e)
+        {
+            //Question Before Open;
+            bool saveBefore = this.QuestionSaveBeforeOpen();
+
+            if (saveBefore) return;
+
+            OpenFileDialog openFileDialogMaain = new OpenFileDialog();
+            openFileDialogMaain.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            openFileDialogMaain.FilterIndex = 1;
+            //FilterIndex cho biết định dạng mặc định khi mở hộp thoại
+            openFileDialogMaain.RestoreDirectory = true;
+            //RestoreDirectory cho phép hộp thoại khôi phục đường dẫn trước đó khi được mở lên.
+
+            if (openFileDialogMaain.ShowDialog() != DialogResult.OK) return;
+
+            string path = openFileDialogMaain.FileName;
+
+            //Clear All 
+            this.ClearAllEPowerAndLineOnMain();
+            //Add EPower
+            this.ProcessOpenFile(path);
+
+            if (this.ePowers == null) return;
+
+            //  MessageBox.Show("Open Successed , count = " + this.ePowers.Count);
+        }
+
+        protected virtual bool QuestionSaveBeforeOpen()
+        {
+            if (pnlMain.Controls.Count < 0) return false;
+
+            DialogResult result = MessageBox.Show("Do you want to Save this File", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.Yes)
+            {
+                this.mnuFileSave.PerformClick();
+                return true;
+            }
+
+             this.mnuFileNew.PerformClick();
+            return false;
+        }
+
+        protected virtual void ProcessOpenFile(string path)
+        {
+            List<DatabaseEPower> databaseEPowers = FileFoctory.ReadDatabaseEPower(path);
+
+            foreach (DatabaseEPower databaseE in databaseEPowers)
+            {
+                ConnectableE ePower = new ConnectableE(this, this.pnlMain, databaseE, this.imgListEPower);
+                this.EPowers.Add(ePower);
+                this.iEPowers.Add(ePower);
+                ePower.isOnTool = false;
+
+                pnlMain.Controls.Add(ePower);
+                ePower.BringToFront();
+
+                ePower.Location = this.GetPointOldInDatabaseEpower(databaseE);
+
+            }
+        }
+
+        protected virtual Point GetPointOldInDatabaseEpower(DatabaseEPower databaseE)
+        {
+            Point oldLocation = databaseE.OldLocation;
+            return oldLocation;
+        }
+
+
+
+        //save File
+        private void mnuFileSave_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveFileDialogMaain = new SaveFileDialog();
+            saveFileDialogMaain.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            saveFileDialogMaain.FilterIndex = 1;
+            saveFileDialogMaain.RestoreDirectory = true;
+
+            if (saveFileDialogMaain.ShowDialog() != DialogResult.OK) return;
+
+            string path = saveFileDialogMaain.FileName;
+            this.ProcessSaveOldPostionEPower(this.ePowers);
+            bool saveSuccess = FileFoctory.SaveDataBaseEPower(this.ePowers, path);
+
+            if (!saveSuccess) return;
+            MessageBox.Show("Save Successed");
+        }
+
+        protected virtual void ProcessSaveOldPostionEPower(List<ConnectableE> EPowersSave)
+        {
+            foreach (ConnectableE ePower in EPowersSave)
+            {
+                DatabaseEPower databaseE = ePower.DatabaseE;
+                databaseE.OldLocation = ePower.Location;
+            }
+        }
+
+        #endregion MenuStrip
 
 
     }

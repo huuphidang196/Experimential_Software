@@ -145,11 +145,7 @@ namespace Experimential_Software
             // Gán sự kiện DoubleClick cho custom button
 
         }
-
-        public ConnectableE(DatabaseEPower databaseEPower)
-        {
-        }
-
+  
         protected virtual void SetVariableOnEPower(DatabaseEPower databaseEPower, ImageList imgList)
         {
             this.databaseE = databaseEPower;
@@ -214,10 +210,7 @@ namespace Experimential_Software
 
         public virtual void SetDataLabelInfo()
         {
-            ObjectType objType = this.databaseE.ObjectType;
-            string objName = this.databaseE.ObjectName;
-            int objNumber = this.databaseE.ObjectNumber;
-            lblInfo.Text = objType + " " + objNumber + ", Name : " + objName;
+            lblInfo.Text = this.ToString();
         }
 
         protected virtual void UpdatePositonLabelInfo()
@@ -473,6 +466,14 @@ namespace Experimential_Software
 
             this.mouseEnter = true;
             Invalidate();
+        }
+
+        public override string ToString()
+        {
+            ObjectType objType = this.databaseE.ObjectType;
+            string objName = this.databaseE.ObjectName;
+            int objNumber = this.databaseE.ObjectNumber;
+            return objType + " " + objNumber + ", Name : " + objName;
         }
 
         #endregion Function_Overall

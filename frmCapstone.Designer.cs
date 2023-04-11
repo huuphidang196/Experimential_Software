@@ -33,15 +33,16 @@ namespace Experimential_Software
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCapstone));
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblLine = new System.Windows.Forms.Label();
-            this.mnuFileBar = new System.Windows.Forms.MenuStrip();
+            this.mnuStripBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileNew = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuOpen = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileOpen = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileSave = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pnlTool = new System.Windows.Forms.Panel();
             this.imgListTool = new System.Windows.Forms.ImageList(this.components);
             this.imgListEPower = new System.Windows.Forms.ImageList(this.components);
+            this.imgListIconCtrl = new System.Windows.Forms.ImageList(this.components);
             this.pnlMain = new Experimential_Software.PanelMain();
             this.btnLoad = new Experimential_Software.ConnectableE();
             this.btnMFPower = new Experimential_Software.ConnectableE();
@@ -49,7 +50,7 @@ namespace Experimential_Software
             this.btnLinePower = new Experimential_Software.ConnectableE();
             this.btnBusPower = new Experimential_Software.ConnectableE();
             this.panel2.SuspendLayout();
-            this.mnuFileBar.SuspendLayout();
+            this.mnuStripBar.SuspendLayout();
             this.pnlTool.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -57,7 +58,7 @@ namespace Experimential_Software
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.panel2.Controls.Add(this.lblLine);
-            this.panel2.Controls.Add(this.mnuFileBar);
+            this.panel2.Controls.Add(this.mnuStripBar);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
@@ -74,23 +75,23 @@ namespace Experimential_Software
             this.lblLine.TabIndex = 2;
             this.lblLine.Text = "Command is here";
             // 
-            // mnuFileBar
+            // mnuStripBar
             // 
-            this.mnuFileBar.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.mnuFileBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuStripBar.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.mnuStripBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFile});
-            this.mnuFileBar.Location = new System.Drawing.Point(0, 0);
-            this.mnuFileBar.Name = "mnuFileBar";
-            this.mnuFileBar.Size = new System.Drawing.Size(1028, 24);
-            this.mnuFileBar.TabIndex = 3;
-            this.mnuFileBar.Text = "menuStrip1";
+            this.mnuStripBar.Location = new System.Drawing.Point(0, 0);
+            this.mnuStripBar.Name = "mnuStripBar";
+            this.mnuStripBar.Size = new System.Drawing.Size(1028, 24);
+            this.mnuStripBar.TabIndex = 3;
+            this.mnuStripBar.Text = "menuStrip1";
             // 
             // mnuFile
             // 
             this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFileNew,
-            this.mnuOpen,
-            this.mnuSave});
+            this.mnuFileOpen,
+            this.mnuFileSave});
             this.mnuFile.Name = "mnuFile";
             this.mnuFile.Size = new System.Drawing.Size(37, 20);
             this.mnuFile.Text = "File";
@@ -98,20 +99,26 @@ namespace Experimential_Software
             // mnuFileNew
             // 
             this.mnuFileNew.Name = "mnuFileNew";
-            this.mnuFileNew.Size = new System.Drawing.Size(143, 22);
-            this.mnuFileNew.Text = "New Project";
+            this.mnuFileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.mnuFileNew.Size = new System.Drawing.Size(180, 22);
+            this.mnuFileNew.Text = "New File";
+            this.mnuFileNew.Click += new System.EventHandler(this.mnuFileNew_Click);
             // 
-            // mnuOpen
+            // mnuFileOpen
             // 
-            this.mnuOpen.Name = "mnuOpen";
-            this.mnuOpen.Size = new System.Drawing.Size(143, 22);
-            this.mnuOpen.Text = "Open Project";
+            this.mnuFileOpen.Name = "mnuFileOpen";
+            this.mnuFileOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+            this.mnuFileOpen.Size = new System.Drawing.Size(180, 22);
+            this.mnuFileOpen.Text = "Open File";
+            this.mnuFileOpen.Click += new System.EventHandler(this.mnuFileOpen_Click);
             // 
-            // mnuSave
+            // mnuFileSave
             // 
-            this.mnuSave.Name = "mnuSave";
-            this.mnuSave.Size = new System.Drawing.Size(143, 22);
-            this.mnuSave.Text = "Save";
+            this.mnuFileSave.Name = "mnuFileSave";
+            this.mnuFileSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.mnuFileSave.Size = new System.Drawing.Size(180, 22);
+            this.mnuFileSave.Text = "Save";
+            this.mnuFileSave.Click += new System.EventHandler(this.mnuFileSave_Click);
             // 
             // panel3
             // 
@@ -157,6 +164,14 @@ namespace Experimential_Software
             this.imgListEPower.Images.SetKeyName(4, "Line .png");
             this.imgListEPower.Images.SetKeyName(5, "Load_Run.png");
             // 
+            // imgListIconCtrl
+            // 
+            this.imgListIconCtrl.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListIconCtrl.ImageStream")));
+            this.imgListIconCtrl.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgListIconCtrl.Images.SetKeyName(0, "icon_NewFile.png");
+            this.imgListIconCtrl.Images.SetKeyName(1, "icon_OpenFile.png");
+            this.imgListIconCtrl.Images.SetKeyName(2, "icon_SaveFile.png");
+            // 
             // pnlMain
             // 
             this.pnlMain.AllowDrop = true;
@@ -175,6 +190,7 @@ namespace Experimential_Software
             // 
             this.btnLoad.BackColor = System.Drawing.Color.Transparent;
             this.btnLoad.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnLoad.Flag = 0;
             this.btnLoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLoad.ImageIndex = 4;
             this.btnLoad.ImageList = this.imgListTool;
@@ -197,6 +213,7 @@ namespace Experimential_Software
             // 
             this.btnMFPower.BackColor = System.Drawing.Color.Transparent;
             this.btnMFPower.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnMFPower.Flag = 0;
             this.btnMFPower.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMFPower.ImageIndex = 0;
             this.btnMFPower.ImageList = this.imgListTool;
@@ -219,6 +236,7 @@ namespace Experimential_Software
             // 
             this.btnTransformer.BackColor = System.Drawing.Color.Transparent;
             this.btnTransformer.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnTransformer.Flag = 0;
             this.btnTransformer.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransformer.ImageIndex = 2;
             this.btnTransformer.ImageList = this.imgListTool;
@@ -242,6 +260,7 @@ namespace Experimential_Software
             // 
             this.btnLinePower.BackColor = System.Drawing.Color.Transparent;
             this.btnLinePower.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnLinePower.Flag = 0;
             this.btnLinePower.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLinePower.ImageIndex = 3;
             this.btnLinePower.ImageList = this.imgListTool;
@@ -265,6 +284,7 @@ namespace Experimential_Software
             // 
             this.btnBusPower.BackColor = System.Drawing.Color.Transparent;
             this.btnBusPower.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnBusPower.Flag = 0;
             this.btnBusPower.ImageIndex = 1;
             this.btnBusPower.ImageList = this.imgListTool;
             this.btnBusPower.IsContainPhead = false;
@@ -291,7 +311,7 @@ namespace Experimential_Software
             this.Controls.Add(this.pnlTool);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
-            this.MainMenuStrip = this.mnuFileBar;
+            this.MainMenuStrip = this.mnuStripBar;
             this.Name = "frmCapstone";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Phần mềm tính trào lưu công suất";
@@ -300,8 +320,8 @@ namespace Experimential_Software
             this.Resize += new System.EventHandler(this.frmCapstone_Resize);
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            this.mnuFileBar.ResumeLayout(false);
-            this.mnuFileBar.PerformLayout();
+            this.mnuStripBar.ResumeLayout(false);
+            this.mnuStripBar.PerformLayout();
             this.pnlTool.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -320,12 +340,13 @@ namespace Experimential_Software
         private ConnectableE btnLoad;
         public PanelMain pnlMain;
         public System.Windows.Forms.ImageList imgListEPower;
-        private System.Windows.Forms.MenuStrip mnuFileBar;
+        private System.Windows.Forms.MenuStrip mnuStripBar;
         private System.Windows.Forms.ToolStripMenuItem mnuFile;
         private System.Windows.Forms.ToolStripMenuItem mnuFileNew;
-        private System.Windows.Forms.ToolStripMenuItem mnuOpen;
-        private System.Windows.Forms.ToolStripMenuItem mnuSave;
+        private System.Windows.Forms.ToolStripMenuItem mnuFileOpen;
+        private System.Windows.Forms.ToolStripMenuItem mnuFileSave;
         private System.Windows.Forms.ImageList imgListTool;
+        private System.Windows.Forms.ImageList imgListIconCtrl;
     }
 }
 
