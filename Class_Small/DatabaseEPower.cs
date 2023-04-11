@@ -11,12 +11,14 @@ namespace Experimential_Software.Class_Small
     {
         public ObjectType ObjectType { get; set; }
 
+        public string ObjectName { get; set; }
+
         public int ObjectNumber { get; set; }
 
         public int NumberImage => (int)ObjectType;
 
         public int Width { get; set; }
         public int Height { get; set; }
-      
+     
     }
 }

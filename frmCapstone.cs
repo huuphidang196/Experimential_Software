@@ -46,7 +46,8 @@ namespace Experimential_Software
             this.MaximizeBox = false;
             this.MaximumSize = this.Size; // giới hạn kích thước lớn nhất bằng kích thước hiện tại
             this.MinimumSize = this.Size; // giới hạn kích thước nhỏ nhất bằng kích thước hiện tại
-
+                                          //Experimental by Form Data Bus. After set again
+          
         }
 
 
@@ -281,7 +282,7 @@ namespace Experimential_Software
 
         #endregion Button_Instance
 
-    
+
     }
 }
 

@@ -109,21 +109,44 @@ namespace Experimential_Software
 
             ObjectType type_Instance = EPower_Instance.DatabaseE.ObjectType;
             int count = (int)type_Instance * 100;
+
             // Duyệt qua danh sách các ConnectionE control và thực hiện các xử lý cần thiết
             foreach (ConnectableE ePower in EPowers)
             {
                 // Code xử lý cho từng ConnectionE control
-                if (ePower.DatabaseE.ObjectType == type_Instance) count++;
+                if (ePower.DatabaseE.ObjectType == type_Instance) count++; 
+
             }
             // set Obj number = count current + 1;
-
             EPower_Instance.DatabaseE.ObjectNumber = count + 1;
+        }
+
+        public virtual void ProcessSetNumberEPowerAfterDelete(ConnectableE EPower_Deleted)
+        {
+            // Lấy danh sách tất cả các ConnectionE control có trong pnlMain
+            List<ConnectableE> EPowers = this.GetListEPowerOnMain();
+
+            ObjectType type_Instance = EPower_Deleted.DatabaseE.ObjectType;
+            // Duyệt qua danh sách các ConnectionE control và thực hiện các xử lý cần thiết
+            foreach (ConnectableE ePower in EPowers)
+            {
+                // Code xử lý cho từng ConnectionE control
+                if (ePower.DatabaseE.ObjectType != type_Instance) continue;
+
+                int numberObj = ePower.DatabaseE.ObjectNumber;
+                if (numberObj < EPower_Deleted.DatabaseE.ObjectNumber) continue;
+
+                //Reduce number obj
+                ePower.DatabaseE.ObjectNumber -= 1;
+                // //Set data show on EPower
+                ePower.SetDataLabelInfo();
+            }
         }
 
         protected virtual List<ConnectableE> GetListEPowerOnMain()
         {
             return this.pnlMainDrawn.Controls.OfType<ConnectableE>().ToList();
         }
-       
+
     }
 }

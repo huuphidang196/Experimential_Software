@@ -65,6 +65,9 @@ namespace Experimential_Software
             }
         }
 
+        protected int _flag = 0;
+        public int Flag { get => _flag; set => _flag = value; }
+
         protected int _radiusPoint = 7;
 
         protected Point pHead;
@@ -139,7 +142,7 @@ namespace Experimential_Software
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             BackColor = Color.Transparent;
             DoubleBuffered = true;
-
+            // Gán sự kiện DoubleClick cho custom button
 
         }
 
@@ -191,27 +194,37 @@ namespace Experimential_Software
             this._ePowerKey = new EPowerProcessKey(this);
             this._ePowerLineTemp = new EPowerProcessLineTemp(this);
 
-            this.SetDataLabelInfo();
+            this.GenerateDataLabelInfo();
         }
 
-        private void SetDataLabelInfo()
+        protected virtual void GenerateDataLabelInfo()
         {
             this.lblInfo = new Label();
-            lblInfo.Font = new Font("Sans-serif", 10, FontStyle.Regular);
+            lblInfo.Font = new Font("Sans-serif", 8, FontStyle.Regular);
+            lblInfo.AutoSize = true;
 
-            ObjectType objType = this.databaseE.ObjectType;
-            int objNumber = this.databaseE.ObjectNumber;
-            lblInfo.Text = objType + " " + objNumber;
+            //Set data show on EPower
+            this.SetDataLabelInfo();
+           
             // Set Pos lbl
             this.UpdatePositonLabelInfo();
 
             this.pnlMain_Drawn.Controls.Add(lblInfo);
         }
 
+        public virtual void SetDataLabelInfo()
+        {
+            ObjectType objType = this.databaseE.ObjectType;
+            string objName = this.databaseE.ObjectName;
+            int objNumber = this.databaseE.ObjectNumber;
+            lblInfo.Text = objType + " " + objNumber + ", Name : " + objName;
+        }
+
         protected virtual void UpdatePositonLabelInfo()
         {
-            lblInfo.Location = new Point(this.Location.X - 20, this.Location.Y - 20);
+            lblInfo.Location = new Point(this.Location.X - 120, this.Location.Y - 20);
         }
+
         protected virtual void SetPHeadAndPtail()
         {
             //MF
@@ -269,7 +282,7 @@ namespace Experimential_Software
                 this.DrawCubePinkMouseNearEnds(e, pEnds);
             }
 
-           
+
         }
         protected virtual void DrawCubePinkMouseNearEnds(PaintEventArgs e, Point pEnds)
         {
@@ -323,6 +336,7 @@ namespace Experimential_Software
                 //=> Coincide Selected Line = false
                 this.pnlMain_Drawn.PanelMainMouse.SetFalseSelectedOtherLine(null, this._formCap.LineConnectList);
             }
+
             //nhớ OnMouseDown chỉ để move Point in order to Connect
             this._ePowerMouse.ButtonInstance_MouseDown(e);
             Invalidate();
@@ -358,7 +372,7 @@ namespace Experimential_Software
 
             this._ePowerMouse.ButtonInstance_MouseUp(e);
             this.isMove = false;
-
+            this._flag = 0;
         }
 
         protected override void OnMouseEnter(EventArgs e)

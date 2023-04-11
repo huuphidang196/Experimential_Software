@@ -25,9 +25,13 @@ namespace Experimential_Software
         private Point _startPLineTemp;
         private Point _endPLinetemp;
 
+        private int _clickCount = 0;
 
         protected ProcessEPowerMove processEPowerMove;
 
+        protected const double DoubleClickTime = 0.3; // Thời gian tối thiểu giữa 2 lần nhấn chuột để xem như là double click (theo đơn vị millisecond)
+        protected DateTime _firstClickTime; // Thời gian của lần nhấn chuột cuối cùng
+        protected DateTime _lastClickTime; // Thời gian của lần nhấn chuột cuối cùng
         public EPowerProcessMouse(ConnectableE ePower)
         {
             this._ePower = ePower;
@@ -40,29 +44,45 @@ namespace Experimential_Software
         {
             //Check to see move or don't move in order to Draw connectLine when button move
 
-            this.IsDragging = true;
+            this.isDragging = true;
             this.previousMouseLocation = e.Location;
 
             this.isMove = this._ePower.IsMove;
             // both move and not move use
-            if (!this.isMove)
+            if (this.isMove)
             {
-                bool isPhead = this._ePower.IsOnPHead(e.Location);
-                bool isContainEnds = (isPhead == true) ? this._ePower.IsContainPhead : this._ePower.IsContainPtail;
-
-                if (this._ePower.DatabaseE.ObjectType == ObjectType.Bus) isContainEnds = true;//=?Bus can not point start line
-                if (isContainEnds) return;
-
-                //Coordinate button system
-                Point pointStartOnButton = isPhead == true ? this._ePower.PHead : this._ePower.PTail;
-
-
-                //coordinate pnlMain system
-                this._startPLineTemp = this.TransferPosFindToControl(this._ePower, pointStartOnButton);
-                this.allowCreatLine = true;
-
-                this._ePower.containPreEpower = isPhead == true ? ContainPreEpower.ContainPhead : ContainPreEpower.ContainPTail;
+                this._clickCount++;
+                if (this._clickCount == 1) this._firstClickTime = DateTime.Now;
+                if (this._clickCount == 2)
+                {
+                    this._lastClickTime = DateTime.Now;
+                    this.isDragging = false;//Avoid after set data EPower follow Mouse
+                    this.ButtonInstance_DoubleMouseClick(e);
+                }
+                return;
             }
+
+            // If EPower move
+            this.ProcessButtonInstanceMouseDown_Move(e);
+        }
+
+        protected virtual void ProcessButtonInstanceMouseDown_Move(MouseEventArgs e)
+        {
+            bool isPhead = this._ePower.IsOnPHead(e.Location);
+            bool isContainEnds = (isPhead == true) ? this._ePower.IsContainPhead : this._ePower.IsContainPtail;
+
+            if (this._ePower.DatabaseE.ObjectType == ObjectType.Bus) isContainEnds = true;//=?Bus can not point start line
+            if (isContainEnds) return;
+
+            //Coordinate button system
+            Point pointStartOnButton = isPhead == true ? this._ePower.PHead : this._ePower.PTail;
+
+
+            //coordinate pnlMain system
+            this._startPLineTemp = this.TransferPosFindToControl(this._ePower, pointStartOnButton);
+            this.allowCreatLine = true;
+
+            this._ePower.containPreEpower = isPhead == true ? ContainPreEpower.ContainPhead : ContainPreEpower.ContainPTail;
         }
 
         #endregion Mouse Down
@@ -71,8 +91,10 @@ namespace Experimential_Software
 
         public virtual void ButtonInstance_MouseMove(MouseEventArgs e)
         {
+            if (this._clickCount == 2) return;
+
             //Xử lí draw line        
-            if (!IsDragging) return;
+            if (!this.isDragging) return;
 
             if (!this.isMove)
             {
@@ -104,7 +126,7 @@ namespace Experimential_Software
         {
             if (e.Button == MouseButtons.Right) return;
 
-            this.IsDragging = false;
+            this.isDragging = false;
 
             if (!this.isMove)
             {
@@ -176,8 +198,30 @@ namespace Experimential_Software
 
         }
         #endregion Mouse Up
-       
 
+
+        #region Mouse_Click
+        //Open Form Set Data
+        public virtual void ButtonInstance_DoubleMouseClick(MouseEventArgs e)
+        {
+            //go here then don't confused count click. => certainly put here
+            this._clickCount = 0;
+            // Tính thời gian giữa 2 lần nhấn chuột
+            TimeSpan timeSinceLastClick = this._lastClickTime - this._firstClickTime;
+            if (timeSinceLastClick.TotalSeconds > DoubleClickTime) return;
+
+            frmDataBus frmData = new frmDataBus();
+            frmData.EPowerFixed = this._ePower;
+
+            ///***   => Experimental => Update database 
+            if (frmData.ShowDialog() == DialogResult.OK)
+            {
+                this._ePower.SetDataLabelInfo();
+               // MessageBox.Show("first = " + this._firstClickTime + ", last = " + this._lastClickTime + ", Span = " + timeSinceLastClick);
+            }
+        }
+
+        #endregion Mouse_Click
         #region Overall Function
 
         protected virtual bool IsOnPanelMain(MouseEventArgs e)
