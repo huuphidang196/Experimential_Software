@@ -40,15 +40,15 @@ namespace Experimential_Software
             this.mnuFileSave = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pnlTool = new System.Windows.Forms.Panel();
-            this.imgListTool = new System.Windows.Forms.ImageList(this.components);
-            this.imgListEPower = new System.Windows.Forms.ImageList(this.components);
-            this.imgListIconCtrl = new System.Windows.Forms.ImageList(this.components);
-            this.pnlMain = new Experimential_Software.PanelMain();
             this.btnLoad = new Experimential_Software.ConnectableE();
+            this.imgListTool = new System.Windows.Forms.ImageList(this.components);
             this.btnMFPower = new Experimential_Software.ConnectableE();
             this.btnTransformer = new Experimential_Software.ConnectableE();
             this.btnLinePower = new Experimential_Software.ConnectableE();
             this.btnBusPower = new Experimential_Software.ConnectableE();
+            this.imgListEPower = new System.Windows.Forms.ImageList(this.components);
+            this.imgListIconCtrl = new System.Windows.Forms.ImageList(this.components);
+            this.pnlMain = new Experimential_Software.PanelMain();
             this.panel2.SuspendLayout();
             this.mnuStripBar.SuspendLayout();
             this.pnlTool.SuspendLayout();
@@ -143,49 +143,6 @@ namespace Experimential_Software
             this.pnlTool.Size = new System.Drawing.Size(121, 633);
             this.pnlTool.TabIndex = 1;
             // 
-            // imgListTool
-            // 
-            this.imgListTool.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListTool.ImageStream")));
-            this.imgListTool.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgListTool.Images.SetKeyName(0, "MF_Tool.png");
-            this.imgListTool.Images.SetKeyName(1, "BUS_Tool.png");
-            this.imgListTool.Images.SetKeyName(2, "MBA2_Tool.png");
-            this.imgListTool.Images.SetKeyName(3, "Line_Tool.png");
-            this.imgListTool.Images.SetKeyName(4, "Load_Tool.png");
-            // 
-            // imgListEPower
-            // 
-            this.imgListEPower.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListEPower.ImageStream")));
-            this.imgListEPower.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgListEPower.Images.SetKeyName(0, "imgNoType.png");
-            this.imgListEPower.Images.SetKeyName(1, "MF.png");
-            this.imgListEPower.Images.SetKeyName(2, "BUS-export.png");
-            this.imgListEPower.Images.SetKeyName(3, "MBA 3 cuộn dây-export.png");
-            this.imgListEPower.Images.SetKeyName(4, "Line .png");
-            this.imgListEPower.Images.SetKeyName(5, "Load_Run.png");
-            // 
-            // imgListIconCtrl
-            // 
-            this.imgListIconCtrl.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListIconCtrl.ImageStream")));
-            this.imgListIconCtrl.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgListIconCtrl.Images.SetKeyName(0, "icon_NewFile.png");
-            this.imgListIconCtrl.Images.SetKeyName(1, "icon_OpenFile.png");
-            this.imgListIconCtrl.Images.SetKeyName(2, "icon_SaveFile.png");
-            // 
-            // pnlMain
-            // 
-            this.pnlMain.AllowDrop = true;
-            this.pnlMain.BackColor = System.Drawing.Color.White;
-            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(115, 127);
-            this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(792, 633);
-            this.pnlMain.TabIndex = 3;
-            this.pnlMain.TabStop = true;
-            this.pnlMain.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragDrop);
-            this.pnlMain.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragEnter);
-            this.pnlMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlMain_MouseDown);
-            // 
             // btnLoad
             // 
             this.btnLoad.BackColor = System.Drawing.Color.Transparent;
@@ -208,6 +165,16 @@ namespace Experimential_Software
             this.btnLoad.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.btnLoad.UseVisualStyleBackColor = false;
             this.btnLoad.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLoad_MouseDown);
+            // 
+            // imgListTool
+            // 
+            this.imgListTool.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListTool.ImageStream")));
+            this.imgListTool.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgListTool.Images.SetKeyName(0, "MF_Tool.png");
+            this.imgListTool.Images.SetKeyName(1, "BUS_Tool.png");
+            this.imgListTool.Images.SetKeyName(2, "MBA2_Tool.png");
+            this.imgListTool.Images.SetKeyName(3, "Line_Tool.png");
+            this.imgListTool.Images.SetKeyName(4, "Load_Tool.png");
             // 
             // btnMFPower
             // 
@@ -301,6 +268,39 @@ namespace Experimential_Software
             this.btnBusPower.UseVisualStyleBackColor = false;
             this.btnBusPower.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnBusPower_MouseDown);
             // 
+            // imgListEPower
+            // 
+            this.imgListEPower.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListEPower.ImageStream")));
+            this.imgListEPower.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgListEPower.Images.SetKeyName(0, "imgNoType.png");
+            this.imgListEPower.Images.SetKeyName(1, "MF.png");
+            this.imgListEPower.Images.SetKeyName(2, "BUS-export.png");
+            this.imgListEPower.Images.SetKeyName(3, "MBA 3 cuộn dây-export.png");
+            this.imgListEPower.Images.SetKeyName(4, "Line .png");
+            this.imgListEPower.Images.SetKeyName(5, "Load_Run.png");
+            // 
+            // imgListIconCtrl
+            // 
+            this.imgListIconCtrl.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListIconCtrl.ImageStream")));
+            this.imgListIconCtrl.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgListIconCtrl.Images.SetKeyName(0, "icon_NewFile.png");
+            this.imgListIconCtrl.Images.SetKeyName(1, "icon_OpenFile.png");
+            this.imgListIconCtrl.Images.SetKeyName(2, "icon_SaveFile.png");
+            // 
+            // pnlMain
+            // 
+            this.pnlMain.AllowDrop = true;
+            this.pnlMain.BackColor = System.Drawing.Color.White;
+            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMain.Location = new System.Drawing.Point(115, 127);
+            this.pnlMain.Name = "pnlMain";
+            this.pnlMain.Size = new System.Drawing.Size(792, 633);
+            this.pnlMain.TabIndex = 3;
+            this.pnlMain.TabStop = true;
+            this.pnlMain.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragDrop);
+            this.pnlMain.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragEnter);
+            this.pnlMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlMain_MouseDown);
+            // 
             // frmCapstone
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -340,13 +340,13 @@ namespace Experimential_Software
         private ConnectableE btnLoad;
         public PanelMain pnlMain;
         public System.Windows.Forms.ImageList imgListEPower;
-        private System.Windows.Forms.MenuStrip mnuStripBar;
         private System.Windows.Forms.ToolStripMenuItem mnuFile;
-        private System.Windows.Forms.ToolStripMenuItem mnuFileNew;
-        private System.Windows.Forms.ToolStripMenuItem mnuFileOpen;
-        private System.Windows.Forms.ToolStripMenuItem mnuFileSave;
         private System.Windows.Forms.ImageList imgListTool;
         private System.Windows.Forms.ImageList imgListIconCtrl;
+        public System.Windows.Forms.MenuStrip mnuStripBar;
+        public System.Windows.Forms.ToolStripMenuItem mnuFileNew;
+        public System.Windows.Forms.ToolStripMenuItem mnuFileOpen;
+        public System.Windows.Forms.ToolStripMenuItem mnuFileSave;
     }
 }
 

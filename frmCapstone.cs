@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Experimential_Software.Class_Small;
+using Experimential_Software.Class_Process_MnuFile;
 
 namespace Experimential_Software
 {
@@ -27,6 +28,8 @@ namespace Experimential_Software
         private List<IMouseOnEndsControl> iEPowers = new List<IMouseOnEndsControl>();
         public List<IMouseOnEndsControl> IEPowers => iEPowers;
 
+        //Process new file, open, save
+        private ProcessMnuFile _processMnuFile;
 
         public frmCapstone()
         {
@@ -38,7 +41,7 @@ namespace Experimential_Software
         {
             this.FixScaleSizeForm();
             this.LoadImageMenuFile();
-
+            this._processMnuFile = new ProcessMnuFile(this, this.pnlMain, this.ePowers, this.lineConnectList, this.iEPowers, ref countElement);
         }
 
         protected virtual void LoadImageMenuFile()
@@ -294,114 +297,19 @@ namespace Experimential_Software
 
         private void mnuFileNew_Click(object sender, EventArgs e)
         {
-            this.ClearAllEPowerAndLineOnMain();
+            this._processMnuFile.FunctionMnuFileNew_Click(sender, e);
         }
-
-        protected virtual void ClearAllEPowerAndLineOnMain()
-        {
-            this.pnlMain.Controls.Clear();
-            this.ePowers.Clear();
-            this.IEPowers.Clear();
-            this.lineConnectList.Clear();
-            this.countElement = 0;
-        }
-
+     
         //openFile
         private void mnuFileOpen_Click(object sender, EventArgs e)
         {
-            //Question Before Open;
-            bool saveBefore = this.QuestionSaveBeforeOpen();
-
-            if (saveBefore) return;
-
-            OpenFileDialog openFileDialogMaain = new OpenFileDialog();
-            openFileDialogMaain.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-            openFileDialogMaain.FilterIndex = 1;
-            //FilterIndex cho biết định dạng mặc định khi mở hộp thoại
-            openFileDialogMaain.RestoreDirectory = true;
-            //RestoreDirectory cho phép hộp thoại khôi phục đường dẫn trước đó khi được mở lên.
-
-            if (openFileDialogMaain.ShowDialog() != DialogResult.OK) return;
-
-            string path = openFileDialogMaain.FileName;
-
-            //Clear All 
-            this.ClearAllEPowerAndLineOnMain();
-            //Add EPower
-            this.ProcessOpenFile(path);
-
-            if (this.ePowers == null) return;
-
-            //  MessageBox.Show("Open Successed , count = " + this.ePowers.Count);
+            this._processMnuFile.FunctionMnuFileOpen_Click(sender, e);
         }
-
-        protected virtual bool QuestionSaveBeforeOpen()
-        {
-            if (pnlMain.Controls.Count < 0) return false;
-
-            DialogResult result = MessageBox.Show("Do you want to Save this File", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                this.mnuFileSave.PerformClick();
-                return true;
-            }
-
-             this.mnuFileNew.PerformClick();
-            return false;
-        }
-
-        protected virtual void ProcessOpenFile(string path)
-        {
-            List<DatabaseEPower> databaseEPowers = FileFoctory.ReadDatabaseEPower(path);
-
-            foreach (DatabaseEPower databaseE in databaseEPowers)
-            {
-                ConnectableE ePower = new ConnectableE(this, this.pnlMain, databaseE, this.imgListEPower);
-                this.EPowers.Add(ePower);
-                this.iEPowers.Add(ePower);
-                ePower.isOnTool = false;
-
-                pnlMain.Controls.Add(ePower);
-                ePower.BringToFront();
-
-                ePower.Location = this.GetPointOldInDatabaseEpower(databaseE);
-
-            }
-        }
-
-        protected virtual Point GetPointOldInDatabaseEpower(DatabaseEPower databaseE)
-        {
-            Point oldLocation = databaseE.OldLocation;
-            return oldLocation;
-        }
-
-
 
         //save File
         private void mnuFileSave_Click(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialogMaain = new SaveFileDialog();
-            saveFileDialogMaain.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-            saveFileDialogMaain.FilterIndex = 1;
-            saveFileDialogMaain.RestoreDirectory = true;
-
-            if (saveFileDialogMaain.ShowDialog() != DialogResult.OK) return;
-
-            string path = saveFileDialogMaain.FileName;
-            this.ProcessSaveOldPostionEPower(this.ePowers);
-            bool saveSuccess = FileFoctory.SaveDataBaseEPower(this.ePowers, path);
-
-            if (!saveSuccess) return;
-            MessageBox.Show("Save Successed");
-        }
-
-        protected virtual void ProcessSaveOldPostionEPower(List<ConnectableE> EPowersSave)
-        {
-            foreach (ConnectableE ePower in EPowersSave)
-            {
-                DatabaseEPower databaseE = ePower.DatabaseE;
-                databaseE.OldLocation = ePower.Location;
-            }
+            this._processMnuFile.FunctionMnuFileSave_Click(sender, e);
         }
 
         #endregion MenuStrip
@@ -619,3 +527,116 @@ namespace Experimential_Software
 
 
 
+//#region MenuStrip
+
+//private void mnuFileNew_Click(object sender, EventArgs e)
+//{
+//    this.ClearAllEPowerAndLineOnMain();
+//}
+
+//protected virtual void ClearAllEPowerAndLineOnMain()
+//{
+//    this.pnlMain.Controls.Clear();
+//    this.ePowers.Clear();
+//    this.IEPowers.Clear();
+//    this.lineConnectList.Clear();
+//    this.countElement = 0;
+//}
+
+////openFile
+//private void mnuFileOpen_Click(object sender, EventArgs e)
+//{
+//    //Question Before Open;
+//    bool saveBefore = this.QuestionSaveBeforeOpen();
+
+//    if (saveBefore) return;
+
+//    OpenFileDialog openFileDialogMaain = new OpenFileDialog();
+//    openFileDialogMaain.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+//    openFileDialogMaain.FilterIndex = 1;
+//    //FilterIndex cho biết định dạng mặc định khi mở hộp thoại
+//    openFileDialogMaain.RestoreDirectory = true;
+//    //RestoreDirectory cho phép hộp thoại khôi phục đường dẫn trước đó khi được mở lên.
+
+//    if (openFileDialogMaain.ShowDialog() != DialogResult.OK) return;
+
+//    string path = openFileDialogMaain.FileName;
+
+//    //Clear All 
+//    this.ClearAllEPowerAndLineOnMain();
+//    //Add EPower
+//    this.ProcessOpenFile(path);
+
+//    if (this.ePowers == null) return;
+
+//    //  MessageBox.Show("Open Successed , count = " + this.ePowers.Count);
+//}
+
+//protected virtual bool QuestionSaveBeforeOpen()
+//{
+//    if (pnlMain.Controls.Count < 0) return false;
+
+//    DialogResult result = MessageBox.Show("Do you want to Save this File", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+//    if (result == DialogResult.Yes)
+//    {
+//        this.mnuFileSave.PerformClick();
+//        return true;
+//    }
+
+//    this.mnuFileNew.PerformClick();
+//    return false;
+//}
+
+//protected virtual void ProcessOpenFile(string path)
+//{
+//    List<DatabaseEPower> databaseEPowers = FileFoctory.ReadDatabaseEPower(path);
+
+//    foreach (DatabaseEPower databaseE in databaseEPowers)
+//    {
+//        ConnectableE ePower = new ConnectableE(this, this.pnlMain, databaseE, this.imgListEPower);
+//        this.EPowers.Add(ePower);
+//        this.iEPowers.Add(ePower);
+//        ePower.isOnTool = false;
+
+//        pnlMain.Controls.Add(ePower);
+//        ePower.BringToFront();
+
+//        ePower.Location = this.GetPointOldInDatabaseEpower(databaseE);
+
+//    }
+//}
+
+//protected virtual Point GetPointOldInDatabaseEpower(DatabaseEPower databaseE)
+//{
+//    Point oldLocation = databaseE.OldLocation;
+//    return oldLocation;
+//}
+
+
+
+////save File
+//private void mnuFileSave_Click(object sender, EventArgs e)
+//{
+//    SaveFileDialog saveFileDialogMaain = new SaveFileDialog();
+//    saveFileDialogMaain.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+//    saveFileDialogMaain.FilterIndex = 1;
+//    saveFileDialogMaain.RestoreDirectory = true;
+
+//    if (saveFileDialogMaain.ShowDialog() != DialogResult.OK) return;
+
+//    string path = saveFileDialogMaain.FileName;
+//    this.ProcessSaveOldPostionEPower(this.ePowers);
+//    bool saveSuccess = FileFoctory.SaveDataBaseEPower(this.ePowers, path);
+
+//    if (!saveSuccess) return;
+//    MessageBox.Show("Save Successed");
+//}
+
+//protected virtual void ProcessSaveOldPostionEPower(List<ConnectableE> EPowersSave)
+//{
+//    foreach (ConnectableE ePower in EPowersSave)
+//    {
+//        DatabaseEPower databaseE = ePower.DatabaseE;
+//        databaseE.OldLocation = ePower.Location;
+//    }
+//}
