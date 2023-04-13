@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -6,11 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Experimential_Software
+namespace Experimential_Software.CustomControl
 {
     public class PanelMainMouse
     {
         protected PanelMain pnlMainDrawn;
+        protected frmCapstone _frmCapstone;
+
+        public frmCapstone FrmCapstone { get => _frmCapstone; set => _frmCapstone = value; }
 
         public PanelMainMouse(PanelMain pnlMainDrawn)
         {
@@ -114,7 +118,7 @@ namespace Experimential_Software
             foreach (ConnectableE ePower in EPowers)
             {
                 // Code xử lý cho từng ConnectionE control
-                if (ePower.DatabaseE.ObjectType == type_Instance) count++; 
+                if (ePower.DatabaseE.ObjectType == type_Instance) count++;
 
             }
             // set Obj number = count current + 1;
@@ -145,6 +149,8 @@ namespace Experimential_Software
 
         protected virtual List<ConnectableE> GetListEPowerOnMain()
         {
+            if (this._frmCapstone != null) return this._frmCapstone.EPowers;
+
             return this.pnlMainDrawn.Controls.OfType<ConnectableE>().ToList();
         }
 

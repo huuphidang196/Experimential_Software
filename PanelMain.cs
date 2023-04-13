@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Experimential_Software.CustomControl;
 
 namespace Experimential_Software
 {
@@ -23,7 +24,7 @@ namespace Experimential_Software
 
 
         #region Key
-
+      
         public virtual void ProcessDeleteLine(frmCapstone frmCapstone, KeyEventArgs e)
         {
             //Find Line is Seleted

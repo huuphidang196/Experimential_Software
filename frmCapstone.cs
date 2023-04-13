@@ -7,41 +7,43 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Experimential_Software.Class_Small;
+using Experimential_Software.Class_Database;
 using Experimential_Software.Class_Process_MnuFile;
+using Experimential_Software.CustomControl;
 
 namespace Experimential_Software
 {
     public partial class frmCapstone : Form
     {
         protected int countElement = 0;
-
+        public int CountElement { get => countElement; set => countElement = value; }
         // protected PanelMain pnlMainDrawn;
 
         protected List<ConnectableE> ePowers = new List<ConnectableE>();
-        public List<ConnectableE> EPowers => ePowers;
+        public List<ConnectableE> EPowers { get => ePowers; set => ePowers = value; }
 
-        private List<LineConnect> lineConnectList = new List<LineConnect>();
-        public List<LineConnect> LineConnectList => lineConnectList;
+        //Remember sam ProcessMnuFile must fix List by directly add, not generate List after equal that this is not reference
+        protected List<LineConnect> lineConnectList = new List<LineConnect>();
+        public List<LineConnect> LineConnectList { get => lineConnectList; set => lineConnectList = value; }
 
 
-        private List<IMouseOnEndsControl> iEPowers = new List<IMouseOnEndsControl>();
-        public List<IMouseOnEndsControl> IEPowers => iEPowers;
+        protected List<IMouseOnEndsControl> iEPowers = new List<IMouseOnEndsControl>();
+        public List<IMouseOnEndsControl> IEPowers { get => iEPowers; set => iEPowers = value; }
 
         //Process new file, open, save
-        private ProcessMnuFile _processMnuFile;
+        protected ProcessMnuFile _processMnuFile;
 
         public frmCapstone()
         {
-            InitializeComponent();
-            // this.pnlMain = new PanelMain(this); 
+            InitializeComponent();       
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             this.FixScaleSizeForm();
             this.LoadImageMenuFile();
-            this._processMnuFile = new ProcessMnuFile(this, this.pnlMain, this.ePowers, this.lineConnectList, this.iEPowers, ref countElement);
+            this._processMnuFile = new ProcessMnuFile(this);
+            this.pnlMain.PanelMainMouse.FrmCapstone = this;
         }
 
         protected virtual void LoadImageMenuFile()
@@ -74,9 +76,7 @@ namespace Experimential_Software
 
         public virtual void AddLine(LineConnect lineConnect)
         {
-            this.lineConnectList.Add(lineConnect);
-            //Draw All Line
-            this.DrawAllLineOnPanel();
+            this.lineConnectList.Add(lineConnect);       
 
         }
 
@@ -92,6 +92,7 @@ namespace Experimential_Software
             this.ePowers.Add(ePower);
         }
 
+  
         public virtual void RemoveEPower(ConnectableE ePower)
         {
             this.ePowers.Remove(ePower);
@@ -99,7 +100,7 @@ namespace Experimential_Software
             this.DrawAllLineOnPanel();
         }
 
-        public virtual void AddIMouseOnEndsAfterDelete(IMouseOnEndsControl mouseOnEnds)
+        public virtual void AddIMouseOnEnds(IMouseOnEndsControl mouseOnEnds)
         {
             this.iEPowers.Add(mouseOnEnds);
         }
@@ -191,31 +192,31 @@ namespace Experimential_Software
         protected void btnBusPower_MouseDown(object sender, MouseEventArgs e)
         {
             DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Bus };
-            this.ButtonMouseDown(sender, e, btnBusPower, databaseE);
+            this.ButtonMouseDown(sender, e, btnBusPower, databaseE, GenerateMode.Instance);
         }
 
         protected void btnLinePower_MouseDown(object sender, MouseEventArgs e)
         {
             DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.LineEPower };
-            this.ButtonMouseDown(sender, e, btnLinePower, databaseE);
+            this.ButtonMouseDown(sender, e, btnLinePower, databaseE, GenerateMode.Instance);
         }
 
         protected void btnMFPower_MouseDown(object sender, MouseEventArgs e)
         {
             DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MF };
-            this.ButtonMouseDown(sender, e, btnMFPower, databaseE);
+            this.ButtonMouseDown(sender, e, btnMFPower, databaseE, GenerateMode.Instance);
         }
 
         private void btnTransformer_MouseDown(object sender, MouseEventArgs e)
         {
             DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MBA };
-            this.ButtonMouseDown(sender, e, btnTransformer, databaseE);
+            this.ButtonMouseDown(sender, e, btnTransformer, databaseE, GenerateMode.Instance);
         }
 
         private void btnLoad_MouseDown(object sender, MouseEventArgs e)
         {
             DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Load };
-            this.ButtonMouseDown(sender, e, btnLoad, databaseE);
+            this.ButtonMouseDown(sender, e, btnLoad, databaseE, GenerateMode.Instance);
         }
 
 
@@ -274,13 +275,13 @@ namespace Experimential_Software
 
         #region Button_Instance
 
-        protected virtual void ButtonMouseDown(object sender, MouseEventArgs e, ConnectableE btnTool, DatabaseEPower databaseE)
+        protected virtual void ButtonMouseDown(object sender, MouseEventArgs e, ConnectableE btnTool, DatabaseEPower databaseE, GenerateMode generateMode)
         {
             if (e.Button == MouseButtons.Right) return;
             // Create instance of button1 and start drag-and-drop operation
-            ConnectableE ctrlInstance = new ConnectableE(this, pnlMain, databaseE, this.imgListEPower);
-            countElement++;
-            ctrlInstance.Name = btnTool.Name + "_" + this.countElement;
+            ConnectableE ctrlInstance = new ConnectableE(this, pnlMain, databaseE, this.imgListEPower, generateMode);
+            countElement = this.ePowers.Count + 1;
+         //   ctrlInstance.Name = btnTool.Name + "_" + this.countElement;
             // ctrlInstance.Text = btnTool.Text + "_" + this.countElement;
             ctrlInstance.Location = btnTool.Location;
 
@@ -299,11 +300,13 @@ namespace Experimential_Software
         {
             this._processMnuFile.FunctionMnuFileNew_Click(sender, e);
         }
-     
+
         //openFile
         private void mnuFileOpen_Click(object sender, EventArgs e)
         {
             this._processMnuFile.FunctionMnuFileOpen_Click(sender, e);
+            //Drawn Line On Panel Main After Have Info Line
+            this.DrawAllLineOnPanel();
         }
 
         //save File
@@ -312,9 +315,8 @@ namespace Experimential_Software
             this._processMnuFile.FunctionMnuFileSave_Click(sender, e);
         }
 
+
         #endregion MenuStrip
-
-
     }
 }
 
@@ -373,17 +375,6 @@ namespace Experimential_Software
 
 
 /// Panel Main 
-
-//private void pnlMain_MouseDown(object sender, MouseEventArgs e)
-//{
-//    this.SetIsSelected(null);
-
-//    if (this.lineConnectList.Count == 0) return;
-//    //Determine Line is selected
-//    bool isContainLine = this.pnlMain.ProcessMain_MouseClick(e);
-
-//    if (isContainLine) this.SetIsSelected(null);//select line in Panel, set isSelected false for all btn
-//}
 
 
 

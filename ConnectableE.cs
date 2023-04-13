@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Experimential_Software.Class_Small;
+using Experimential_Software.Class_Database;
+using Experimential_Software.EPowerProcess;
 
 namespace Experimential_Software
 {
@@ -30,6 +31,12 @@ namespace Experimential_Software
         Load = 5,
     }
 
+    public enum GenerateMode
+    {
+        Instance = 1,
+
+        LoadDatabase = 2,
+    }
     public partial class ConnectableE : Button, IMouseOnEndsControl
     {
         protected frmCapstone _formCap;
@@ -120,7 +127,7 @@ namespace Experimential_Software
 
         public ConnectableE()
         {
-            //InitializeComponent();
+            InitializeComponent();
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             BackColor = Color.Transparent;
             DoubleBuffered = true;
@@ -130,23 +137,22 @@ namespace Experimential_Software
             this.isOnTool = true;
         }
 
-        public ConnectableE(frmCapstone form, PanelMain pnlMain, DatabaseEPower databaseEPower, ImageList imgList)
+        public ConnectableE(frmCapstone form, PanelMain pnlMain, DatabaseEPower databaseEPower, ImageList imgList, GenerateMode generateMode)
         {
             this._formCap = form;
             this.pnlMain_Drawn = pnlMain;
 
-            //Set variable
-            this.SetVariableOnEPower(databaseEPower, imgList);
-
-            // InitializeComponent();
+            InitializeComponent();
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             BackColor = Color.Transparent;
             DoubleBuffered = true;
-            // Gán sự kiện DoubleClick cho custom button
+
+            //Set variable
+            this.SetVariableOnEPower(databaseEPower, imgList, generateMode);  
 
         }
-  
-        protected virtual void SetVariableOnEPower(DatabaseEPower databaseEPower, ImageList imgList)
+
+        protected virtual void SetVariableOnEPower(DatabaseEPower databaseEPower, ImageList imgList, GenerateMode generateMode)
         {
             this.databaseE = databaseEPower;
 
@@ -155,10 +161,43 @@ namespace Experimential_Software
 
             this.isOnTool = true;
             this.isSelected = false;
-            this.isContainPhead = false;
-            this.isContainPtail = false;
-            this.containPreEpower = ContainPreEpower.NoContain;
 
+            //Case new Generate diffrence Load from database
+            this.ProcessBoolState(generateMode);
+           
+
+            //Set Size
+            this.SetSizeImageForEPower(databaseE, imgList);      
+
+            // Vẽ ảnh lên control với kích thước mới
+            //MessageBox.Show(this.ImageList.ImageSize + "");
+            // Set Object Number
+            this.pnlMain_Drawn.PanelMainMouse.ProcessSetNumberObjetEPower(this);
+
+            this.GenerateDataLabelInfo();
+
+            this.GenerateClassProcessChild();
+
+            this.SetPHeadAndPtail();
+        }
+
+        protected virtual void ProcessBoolState(GenerateMode generateMode)
+        {
+            if (generateMode == GenerateMode.Instance)
+            {
+                this.isContainPhead = false;
+                this.isContainPtail = false;
+                this.containPreEpower = ContainPreEpower.NoContain;
+                return;
+            }
+
+            this.isContainPhead = this.databaseE.IsContainPhead;
+            this.isContainPtail = this.databaseE.IsContainPtail;
+            this.containPreEpower = this.databaseE.ContainPreEpower;
+        }
+
+        protected virtual void SetSizeImageForEPower(DatabaseEPower databaseEPower, ImageList imgList)
+        {
             int numberImage = databaseE.NumberImage;
             Image originalImage = imgList.Images[numberImage];
 
@@ -174,23 +213,12 @@ namespace Experimential_Software
             Image resizedImage = originalImage.GetThumbnailImage(newWidth, newHeight, null, IntPtr.Zero);
 
             this.Image = resizedImage;
-
-            // Vẽ ảnh lên control với kích thước mới
-            //MessageBox.Show(this.ImageList.ImageSize + "");
-            // Set Object Number
-            this.pnlMain_Drawn.PanelMainMouse.ProcessSetNumberObjetEPower(this);
-
-            this.GenerateClassProcessChild();
-
-            this.SetPHeadAndPtail();
         }
         protected virtual void GenerateClassProcessChild()
         {
             this._ePowerMouse = new EPowerProcessMouse(this);
             this._ePowerKey = new EPowerProcessKey(this);
             this._ePowerLineTemp = new EPowerProcessLineTemp(this);
-
-            this.GenerateDataLabelInfo();
         }
 
         protected virtual void GenerateDataLabelInfo()
@@ -201,7 +229,7 @@ namespace Experimential_Software
 
             //Set data show on EPower
             this.SetDataLabelInfo();
-           
+
             // Set Pos lbl
             this.UpdatePositonLabelInfo();
 
@@ -211,11 +239,20 @@ namespace Experimential_Software
         public virtual void SetDataLabelInfo()
         {
             lblInfo.Text = this.ToString();
+            this.Name = this.ToString();
         }
 
         protected virtual void UpdatePositonLabelInfo()
         {
             lblInfo.Location = new Point(this.Location.X - 120, this.Location.Y - 20);
+        }
+
+        public override string ToString()
+        {
+            ObjectType objType = this.databaseE.ObjectType;
+            string objName = this.databaseE.ObjectName;
+            int objNumber = this.databaseE.ObjectNumber;
+            return objType + " " + objNumber + ", Name : " + objName;
         }
 
         protected virtual void SetPHeadAndPtail()
@@ -468,13 +505,7 @@ namespace Experimential_Software
             Invalidate();
         }
 
-        public override string ToString()
-        {
-            ObjectType objType = this.databaseE.ObjectType;
-            string objName = this.databaseE.ObjectName;
-            int objNumber = this.databaseE.ObjectNumber;
-            return objType + " " + objNumber + ", Name : " + objName;
-        }
+       
 
         #endregion Function_Overall
     }

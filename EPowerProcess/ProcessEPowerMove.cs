@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Experimential_Software.CustomControl;
+using Experimential_Software.EPowerProcess;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -6,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Experimential_Software
+namespace Experimential_Software.EPowerProcess
 {
     public class ProcessEPowerMove
     {

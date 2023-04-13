@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Experimential_Software.CustomControl;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Experimential_Software
+namespace Experimential_Software.EPowerProcess
 {
     public class EPowerProcessKey
     {

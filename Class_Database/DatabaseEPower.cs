@@ -1,11 +1,12 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Experimential_Software.Class_Small
+namespace Experimential_Software.Class_Database
 {
     [Serializable]
     public class DatabaseEPower
@@ -16,11 +17,17 @@ namespace Experimential_Software.Class_Small
 
         public int ObjectNumber { get; set; }
 
+        public bool IsContainPhead { get; set; }
+
+        public bool IsContainPtail { get; set; }
+
+        public ContainPreEpower ContainPreEpower { get; set; }
+
         public int NumberImage => (int)ObjectType;
 
         public int Width
         {
-            get 
+            get
             {
                 if (ObjectType == ObjectType.MF) return 40;
                 if (ObjectType == ObjectType.Bus) return 100;
@@ -45,6 +52,8 @@ namespace Experimential_Software.Class_Small
             }
         }
 
-        public Point OldLocation { get; set; } 
+        public Point OldLocation { get; set; }
+
+
     }
 }

@@ -69,15 +69,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class_Process_MnuFile\ProcessMnuFile.cs" />
-    <Compile Include="Class_Small\DatabaseEPower.cs" />
+    <Compile Include="Class_Database\DatabaseLineConnect.cs" />
+    <Compile Include="Class_Database\DatabaseEPower.cs" />
     <Compile Include="ConnectableE.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ConnectableE.Designer.cs">
       <DependentUpon>ConnectableE.cs</DependentUpon>
     </Compile>
-    <Compile Include="EPowerProcessKey.cs" />
-    <Compile Include="Class_Small\FileFoctory.cs" />
+    <Compile Include="EPowerProcess\EPowerProcessKey.cs" />
+    <Compile Include="Class_Database\FileFoctory.cs" />
     <Compile Include="frmCapstone.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,7 +91,7 @@
     <Compile Include="frmDataBus.Designer.cs">
       <DependentUpon>frmDataBus.cs</DependentUpon>
     </Compile>
-    <Compile Include="LineConnect.cs" />
+    <Compile Include="CustomControl\LineConnect.cs" />
     <Compile Include="IMouseOnEndsControl.cs" />
     <Compile Include="PanelMain.cs">
       <SubType>Component</SubType>
@@ -98,10 +99,10 @@
     <Compile Include="PanelMain.Designer.cs">
       <DependentUpon>PanelMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="PanelMainMouse.cs" />
-    <Compile Include="EPowerProcessLineTemp.cs" />
-    <Compile Include="ProcessEPowerMove.cs" />
-    <Compile Include="EPowerProcessMouse.cs" />
+    <Compile Include="CustomControl\PanelMainMouse.cs" />
+    <Compile Include="EPowerProcess\EPowerProcessLineTemp.cs" />
+    <Compile Include="EPowerProcess\ProcessEPowerMove.cs" />
+    <Compile Include="EPowerProcess\EPowerProcessMouse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmCapstone.resx">

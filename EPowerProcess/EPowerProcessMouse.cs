@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
-using Experimential_Software.Class_Small;
+using Experimential_Software.Class_Database;
+using Experimential_Software.CustomControl;
 
-namespace Experimential_Software
+namespace Experimential_Software.EPowerProcess
 {
     public partial class EPowerProcessMouse
     {
@@ -172,6 +173,7 @@ namespace Experimential_Software
             LineConnect newLineConnect = new LineConnect(buttonInstance, EndEPower, this._startPLineTemp, this._endPLinetemp, this._ePower.PanelMain);
             //add Line 
             this._ePower.FormCapstone.AddLine(newLineConnect);
+            this._ePower.FormCapstone.DrawAllLineOnPanel();
 
             EndEPower.containPreEpower = (pointEndToBtn == EndEPower.PHead) ? ContainPreEpower.ContainPhead : ContainPreEpower.ContainPTail;
 

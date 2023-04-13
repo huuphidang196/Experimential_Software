@@ -6,8 +6,9 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization;
 using System.Drawing.Drawing2D;
+using Experimential_Software.CustomControl;
 
-namespace Experimential_Software
+namespace Experimential_Software.EPowerProcess
 {
     public partial class EPowerProcessLineTemp
     {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Experimential_Software.Class_Small;
+using Experimential_Software.Class_Database;
 
 namespace Experimential_Software
 {

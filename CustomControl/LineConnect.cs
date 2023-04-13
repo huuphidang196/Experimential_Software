@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Experimential_Software
+namespace Experimential_Software.CustomControl
 {
     public enum PointOfEnds
     {
@@ -15,6 +15,7 @@ namespace Experimential_Software
         PointOfHead = 1,
         PointOfTail = 2,
     }
+
     // Lớp đối tượng Line
     public class LineConnect
     {
