@@ -50,10 +50,8 @@ namespace Experimential_Software.EPowerProcess
             }
         }
 
-        public virtual void ClearTwoOldLineWhenMove(LineConnect LineRemove, PanelMain pnlMainDrawn)
+        public virtual void ClearTwoOldLineWhenMove(LineConnect LineRemove)
         {
-            this.pnlMain_Drawn = pnlMainDrawn;
-
             Point startLine = LineRemove.StartPoint;
             Point endLine = LineRemove.EndPoint;
             //Clean

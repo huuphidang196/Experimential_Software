@@ -22,9 +22,9 @@ namespace Experimential_Software
             this._pnlMainMouse = new PanelMainMouse(this);
         }
 
-
+           
         #region Key
-      
+
         public virtual void ProcessDeleteLine(frmCapstone frmCapstone, KeyEventArgs e)
         {
             //Find Line is Seleted

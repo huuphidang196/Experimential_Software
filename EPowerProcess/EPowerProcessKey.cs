@@ -53,7 +53,7 @@ namespace Experimential_Software.EPowerProcess
             if (lineListConnected.Count == 0) return;
             foreach (LineConnect lineConnect in lineListConnected)
             {
-                this._ePowerInstance.EPowerLineTemp.ClearTwoOldLineWhenMove(lineConnect, lineConnect.PanelMain);
+                this._ePowerInstance.EPowerLineTemp.ClearTwoOldLineWhenMove(lineConnect);
                 //Determine ConnectionE connect with line => set iscontainPHead or Tail
                 this._ePowerInstance.FormCapstone.SetIsContainEPower(lineConnect);
                 this._ePowerInstance.FormCapstone.RemoveLine(lineConnect);

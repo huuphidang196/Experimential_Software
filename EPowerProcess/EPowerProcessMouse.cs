@@ -117,7 +117,6 @@ namespace Experimential_Software.EPowerProcess
 
             // button move will remove line. So Drawn all circumstance
             this._ePower.FormCapstone.DrawAllLineOnPanel();
-
         }
 
         #endregion Mouse_Move
@@ -154,7 +153,7 @@ namespace Experimential_Software.EPowerProcess
             this.allowCreatLine = false;
 
             // Find have button contain endpoint of Line
-            ConnectableE EndEPower = this._ePower.FormCapstone.CheckEndLineIsOnEPower(this._endPLinetemp);
+            ConnectableE EndEPower = this._ePower.FormCapstone.CheckEndLineIsOnEPower(this._endPLinetemp, this._ePower);
             if (EndEPower == null) return;
 
             //Check endPoint is near Pheah or Ptail. not use isOnpHead or Patil beacause endLocation use mouse of other button
@@ -174,6 +173,7 @@ namespace Experimential_Software.EPowerProcess
             //add Line 
             this._ePower.FormCapstone.AddLine(newLineConnect);
             this._ePower.FormCapstone.DrawAllLineOnPanel();
+
 
             EndEPower.containPreEpower = (pointEndToBtn == EndEPower.PHead) ? ContainPreEpower.ContainPhead : ContainPreEpower.ContainPTail;
 

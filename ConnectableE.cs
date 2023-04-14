@@ -121,6 +121,7 @@ namespace Experimential_Software
             }
         }
 
+
         protected bool mouseEnter = false;
 
         #region Constructor_Class
@@ -295,11 +296,9 @@ namespace Experimential_Software
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+
             // it is on tool not flicker//nhấp nháy
             if (this.isOnTool) return;
-
-            //Drawn Read or remove color when press and not press => update 
-            this.DrawRectangleAround(e);
 
             if (this.mouseEnter && !this.isMove)
             {
@@ -312,9 +311,11 @@ namespace Experimential_Software
                 if (this.databaseE.ObjectType == ObjectType.MF) pEnds = this.pHead;
                 this.DrawCubePinkMouseNearEnds(e, pEnds);
             }
-
-
+            //Drawn Read or remove color when press and not press => update 
+            this.DrawRectangleAround(e);
         }
+
+
         protected virtual void DrawCubePinkMouseNearEnds(PaintEventArgs e, Point pEnds)
         {
             if (pEnds == Point.Empty) return;
@@ -347,6 +348,8 @@ namespace Experimential_Software
 
         }
         #endregion Drawn
+
+        
 
         #region Mouse
         protected override void OnMouseDown(MouseEventArgs e)
@@ -388,6 +391,7 @@ namespace Experimential_Software
             this._ePowerMouse.ButtonInstance_MouseMove(e);
             // Set Pos lbl
             this.UpdatePositonLabelInfo();
+
             Invalidate();
         }
 

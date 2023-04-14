@@ -36,7 +36,7 @@ namespace Experimential_Software.EPowerProcess
             //Update Pos Point
             foreach (LineConnect lineConnect in lineListConnected)
             {
-                EPowerProcessLinetemp.ClearTwoOldLineWhenMove(lineConnect, lineConnect.PanelMain);
+                EPowerProcessLinetemp.ClearTwoOldLineWhenMove(lineConnect);
                 lineConnect.UpdateEndsPointAfterEPowerMove(this._ePowerInstance);
             }
 

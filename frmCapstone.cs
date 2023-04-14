@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Experimential_Software.Class_Database;
 using Experimential_Software.Class_Process_MnuFile;
 using Experimential_Software.CustomControl;
+using Experimential_Software.Class_Calculate;
 
 namespace Experimential_Software
 {
@@ -35,16 +36,35 @@ namespace Experimential_Software
 
         public frmCapstone()
         {
-            InitializeComponent();       
+            InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //Experimental Calculate YBus
+            this.ExperimentalYBus();
+          
             this.FixScaleSizeForm();
             this.LoadImageMenuFile();
             this._processMnuFile = new ProcessMnuFile(this);
             this.pnlMain.PanelMainMouse.FrmCapstone = this;
         }
+
+        protected virtual void ExperimentalYBus()
+        {
+            int number_BusJ = 6; //<=> bus 7
+            // Role all number have value = value - 1. Ex : numberF = 3 => numberF = 2 <=> 3 Bus MF 
+            int number_FBus = 2; //<=> 3 MF
+
+            Label lblYBus = new Label();
+            lblYBus.AutoSize = true;
+            pnlMain.Controls.Add(lblYBus);
+            lblYBus.Location = new Point(50, 50);
+            lblYBus.Font = new Font("Sans-serif", 12, FontStyle.Regular);
+            lblYBus.Text = CalculateYBus.ShowYBus(number_FBus, number_BusJ);
+         //   MessageBox.Show(CalculateYBus.ShowYBus(number_BusJ, number_FBus));
+        }
+
 
         protected virtual void LoadImageMenuFile()
         {
@@ -76,7 +96,7 @@ namespace Experimential_Software
 
         public virtual void AddLine(LineConnect lineConnect)
         {
-            this.lineConnectList.Add(lineConnect);       
+            this.lineConnectList.Add(lineConnect);
 
         }
 
@@ -92,7 +112,7 @@ namespace Experimential_Software
             this.ePowers.Add(ePower);
         }
 
-  
+
         public virtual void RemoveEPower(ConnectableE ePower)
         {
             this.ePowers.Remove(ePower);
@@ -118,7 +138,7 @@ namespace Experimential_Software
             }
         }
 
-        public virtual ConnectableE CheckEndLineIsOnEPower(Point endLinePoint)
+        public virtual ConnectableE CheckEndLineIsOnEPower(Point endLinePoint, ConnectableE ePower_Origin)
         {
             if (endLinePoint == Point.Empty) return null;
 
@@ -126,6 +146,8 @@ namespace Experimential_Software
             {
                 bool isOnPower = ePower.Bounds.Contains(endLinePoint);
                 if (!isOnPower) continue;
+
+                if (ePower == ePower_Origin) return null;
 
                 return ePower;
             }
@@ -162,10 +184,24 @@ namespace Experimential_Software
             //not Clear All => Clear then will have one line because all not added in list line 
             foreach (LineConnect line in this.lineConnectList)
             {
-                Point startPoint = line.StartPoint;
-                Point endPoint = line.EndPoint;
+                this.DrawnLinesConnectOnPanel(line);
+            }
+        }
 
-                pnlMain.CreateGraphics().DrawLine(Pens.Black, startPoint, endPoint);
+        public virtual void DrawnLinesConnectOnPanel(LineConnect lineConnect)
+        {
+            //not Clear All => Clear then will have one line because all not added in list line 
+            Point startPoint = lineConnect.StartPoint;
+            Point endPoint = lineConnect.EndPoint;
+
+            pnlMain.CreateGraphics().DrawLine(Pens.Black, startPoint, endPoint);
+        }
+
+        public virtual void DrawStableAllEPowerOnPanel()
+        {
+            foreach (ConnectableE ePower in this.EPowers)
+            {
+                // ePower.Invalidate(); 
             }
         }
 
@@ -281,7 +317,7 @@ namespace Experimential_Software
             // Create instance of button1 and start drag-and-drop operation
             ConnectableE ctrlInstance = new ConnectableE(this, pnlMain, databaseE, this.imgListEPower, generateMode);
             countElement = this.ePowers.Count + 1;
-         //   ctrlInstance.Name = btnTool.Name + "_" + this.countElement;
+            //   ctrlInstance.Name = btnTool.Name + "_" + this.countElement;
             // ctrlInstance.Text = btnTool.Text + "_" + this.countElement;
             ctrlInstance.Location = btnTool.Location;
 
