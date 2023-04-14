@@ -43,7 +43,7 @@ namespace Experimential_Software
             //Drawn all line
             frmCapstone.DrawAllLineOnPanel();
         }
-     
+
 
 
         #endregion Key
@@ -51,8 +51,7 @@ namespace Experimential_Software
 
         #region Function_Overall
 
-
-
+      
         #endregion Function_Overall
     }
 }

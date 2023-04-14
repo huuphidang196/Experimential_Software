@@ -57,7 +57,7 @@ namespace Experimential_Software
         protected EPowerProcessKey _ePowerKey;
 
         protected Label lblInfo;
-        public Label LblInfoE => lblInfo;
+        public Label LblInfoE { get => lblInfo; set => lblInfo = value; }
 
         public bool isOnTool { get; set; }
 
@@ -224,16 +224,17 @@ namespace Experimential_Software
         protected virtual void GenerateDataLabelInfo()
         {
             this.lblInfo = new Label();
-            lblInfo.Font = new Font("Sans-serif", 8, FontStyle.Regular);
-            lblInfo.AutoSize = true;
+            this.lblInfo.Font = new Font("Sans-serif", 8, FontStyle.Regular);
+            this.lblInfo.AutoSize = true;
+            this.lblInfo.Visible = true;
 
             //Set data show on EPower
             this.SetDataLabelInfo();
 
+            this.pnlMain_Drawn.Controls.Add(lblInfo);
+
             // Set Pos lbl
             this.UpdatePositonLabelInfo();
-
-            this.pnlMain_Drawn.Controls.Add(lblInfo);
         }
 
         public virtual void SetDataLabelInfo()
@@ -242,9 +243,9 @@ namespace Experimential_Software
             this.Name = this.ToString();
         }
 
-        protected virtual void UpdatePositonLabelInfo()
+        public virtual void UpdatePositonLabelInfo()
         {
-            lblInfo.Location = new Point(this.Location.X - 120, this.Location.Y - 20);
+           this.lblInfo.Location = new Point(this.Location.X - 120, this.Location.Y - 20);
         }
 
         public override string ToString()
@@ -428,7 +429,7 @@ namespace Experimential_Software
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
-
+ 
             if (this._ePowerKey == null) return;
 
             //Only allow remove When btn is selected
@@ -535,83 +536,3 @@ namespace Experimential_Software
 
 
 
-
-
-
-
-
-
-
-//}
-
-//public virtual bool IsOnPHead(Point ePoint)
-//{
-//    if (ePoint.X > this.pHead.X + 10 && this.Width > this.Height) return false;
-//    if (ePoint.Y < this.pHead.Y - 10 && !this.isOnTool && this.databaseE.objectType == ObjectType.MF) return false;
-//    if (ePoint.Y > this.pHead.Y + 10 && this.Width <= this.Height) return false;
-
-//    return true;
-//}
-
-//public virtual bool IsOnPTail(Point ePoint)
-//{
-//    if (ePoint.X < this.pTail.X - 10 && this.Width > this.Height) return false;
-//    if (!this.isOnTool && this.databaseE.objectType == ObjectType.MF) return false;
-//    if (ePoint.Y < this.pTail.Y - 10 && this.Width <= this.Height) return false;
-
-//    return true;
-//}
-
-
-
-
-//protected override void OnPaint(PaintEventArgs e)
-//{
-//    base.OnPaint(e);
-//    if (this.mouseEnter && !this.isMove)
-//    {
-//        this.nearPhead = this.IsOnNearPHead();
-//        Point pEnds = this.nearPhead ? this.pHead : this.pTail;
-
-//        this.DrawCubePinkMouseNearEnds(e, pEnds);
-//    }
-//    // Draw the rectangle
-//    using (var pen = new Pen(Color.Black, 3))
-//    {
-//        // this.DrawRectangleAndPoint(pen, e);
-//    }
-//}
-
-//protected virtual void DrawRectangleAndPoint(Pen pen, PaintEventArgs e)
-//{
-//    int offSetBothside = this._offSetLength + this._radiusPoint;
-//    var rect = new Rectangle(offSetBothside, 10, Width - (2 * offSetBothside), Height - 20);
-//    e.Graphics.DrawRectangle(pen, rect);
-//    e.Graphics.FillRectangle(Brushes.Transparent, rect);
-
-//}
-
-
-
-
-//// Calculate the midpoint of the short sides of the rectangle
-//Point midpoint1 = new Point(rect.X, rect.Y + rect.Height / 2);
-//Point midpoint2 = new Point(rect.X + rect.Width, rect.Y + rect.Height / 2);
-
-//// Draw the first point
-//var rectPHead = new Rectangle(this.pHead.X, (Height - this._radiusPoint) / 2, this._radiusPoint, this._radiusPoint);
-//e.Graphics.FillEllipse(Brushes.Red, rectPHead);
-//e.Graphics.DrawEllipse(Pens.Black, rectPHead);
-
-//// Draw the second point
-//var rectPTail = new Rectangle(this.pTail.X - this._radiusPoint, (Height - this._radiusPoint) / 2, this._radiusPoint, this._radiusPoint);
-//e.Graphics.FillEllipse(Brushes.Green, rectPTail);
-//e.Graphics.DrawEllipse(Pens.Black, rectPTail);
-
-//Point connectA1 = new Point(this.pHead.X + this._radiusPoint, this.pHead.Y);
-//Point connectA2 = new Point(this.pTail.X - this._radiusPoint, this.pTail.Y);
-
-
-//// Draw lines from the midpoints to the start and end points
-//e.Graphics.DrawLine(pen, midpoint1, connectA1);
-//e.Graphics.DrawLine(pen, midpoint2, connectA2);

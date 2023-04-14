@@ -113,18 +113,17 @@ namespace Experimential_Software.Class_Process_MnuFile
             foreach (DatabaseEPower databaseE in databaseEPowers)
             {
                 ConnectableE ePower = new ConnectableE(this._frmCap, this._frmCap.pnlMain, databaseE, this._frmCap.imgListEPower, GenerateMode.LoadDatabase);
-                ePower.isOnTool = false;
+               
                 ePower.DoDragDrop(ePower, DragDropEffects.Move);
-
-                //  this._frmCap.AddEPower(ePower);
-                //this._frmCap.AddIMouseOnEnds(ePower); ==> not add because Panel have event in frm.cs pnlMain_DragDrop . When addmain => do event
+                ePower.Location = this.GetPointOldInDatabaseEpower(databaseE);
+                ePower.BringToFront();
 
                 this._frmCap.pnlMain.Controls.Add(ePower);
 
-                ePower.BringToFront();
-                ePower.Location = this.GetPointOldInDatabaseEpower(databaseE);
-
+                ePower.UpdatePositonLabelInfo(); //=> use show label. I don;t know it not show on panel, need code row
                 this._frmCap.CountElement = this._frmCap.EPowers.Count;
+
+                // ==> not add to List because Panel have event in frm.cs pnlMain_DragDrop . When addmain => do event
             }
         }
         protected virtual Point GetPointOldInDatabaseEpower(DatabaseEPower databaseE)
@@ -143,8 +142,7 @@ namespace Experimential_Software.Class_Process_MnuFile
             //Read DataLine From FileFactory
             List<DatabaseLineConnect> databaseLines = FileFoctory.ReadDataAllLineConnect(path);
             //Set List LineConnect On Main
-            this.GenerateLineConnectFromDataSave(databaseLines);
-
+            this.GenerateLineConnectFromDataSave(databaseLines);;    
         }
 
      
@@ -154,7 +152,7 @@ namespace Experimential_Software.Class_Process_MnuFile
             {
                 ConnectableE StartEPower = this.GetEPowerByNameToString( dataline.NameStartEPower);
                 ConnectableE EndEPower = this.GetEPowerByNameToString(dataline.NameEndEPower);
-                //MessageBox.Show("StartEPower = " + StartEPower.ToString() + "EndEPower read = " + EndEPower.ToString());
+
                 //Point Start and End Line
                 Point StartPoint = dataline.StartPoint;
                 Point EndPoint = dataline.EndPoint;
