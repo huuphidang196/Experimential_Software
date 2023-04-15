@@ -16,13 +16,97 @@ namespace Experimential_Software
         protected PanelMainMouse _pnlMainMouse;
         public PanelMainMouse PanelMainMouse => _pnlMainMouse;
 
+        protected double _minZoom = Math.Pow(1 / 1.1, 6);
+
+        protected double _maxZooom = Math.Pow(1.1, 10);
+
+        protected double _zoomFactor = 1;
+        public double ZoomFactor => _zoomFactor;
+
         public PanelMain()
         {
             InitializeComponent();
             this._pnlMainMouse = new PanelMainMouse(this);
         }
 
-           
+
+
+        protected override void OnMouseWheel(MouseEventArgs e)
+        {
+            base.OnMouseWheel(e);
+
+            if (Control.ModifierKeys != Keys.Control)
+            {
+                this.AutoScroll = true;
+                return;
+            }
+
+            this.AutoScroll = false;
+            // Lấy vị trí con trỏ chuột trong control
+            Point mouseLocation = e.Location;
+
+            // Tính toán độ zoom hiện tại
+            double zoomPer = e.Delta > 0 ? 1.1 : 1 / 1.1;  // e.Delta là giá trị của bánh xe chuột
+            this._zoomFactor *= zoomPer;
+            this._zoomFactor = Math.Round(this._zoomFactor, 9);
+
+            this._zoomFactor = Math.Max(this._zoomFactor, this._minZoom);
+            this._zoomFactor = Math.Min(this._zoomFactor, this._maxZooom);
+
+            this._pnlMainMouse.FrmCapstone.lblLine.Text = "zoom = " + this._zoomFactor;
+
+            if (this._zoomFactor == this._minZoom || this._zoomFactor == this._maxZooom) return;
+
+            List<ConnectableE> EPowers = this.PanelMainMouse.FrmCapstone.EPowers;
+            // Phóng to hoặc thu nhỏ các control trong panel
+            foreach (ConnectableE ePower in EPowers)
+            {
+                this.SetNewSizeAndNewPostion(mouseLocation, ePower);
+                ePower.EPowerProcessMouse.UpdateLineWhenMove();
+            }
+        }
+
+
+
+        public virtual void SetNewSizeAndNewPostion(Point mouseLocation, ConnectableE ePower)
+        {
+            //int oldX = this.OldLocationsEPowers[ePower.ToString()].X;
+            //int oldY = this.OldLocationsEPowers[ePower.ToString()].Y;
+
+            int oldX = ePower.OldLocation.X;
+            int oldY = ePower.OldLocation.Y;
+
+            int newX = (int)mouseLocation.X + (int)((oldX - (int)mouseLocation.X) * this._zoomFactor);
+            int newY = (int)mouseLocation.Y + (int)((oldY - (int)mouseLocation.Y) * this._zoomFactor);
+
+            newX = Math.Max(newX, 1 + newX);
+            newY = Math.Max(newY, 1 + newY);
+
+            // Set lại vị trí và kích thước của control
+            ePower.Location = new Point(newX, newY);
+            this.SetInsideEPower(ePower);
+        }
+
+        public virtual void SetInsideEPower(ConnectableE ePower)
+        {
+            // Tính toán vị trí và kích thước mới của control
+            int newWidth = (int)(ePower.DatabaseE.Width * this._zoomFactor);
+            int newHeight = (int)(ePower.DatabaseE.Height * this._zoomFactor);
+
+            ePower.Size = new Size(newWidth, newHeight);
+            ePower.BackgroundImageLayout = ImageLayout.Zoom;
+
+            int numberImage = ePower.DatabaseE.NumberImage;
+            Image originalImage = this._pnlMainMouse.FrmCapstone.imgListEPower.Images[numberImage];
+            ePower.UpdateScaleImage(originalImage, (float)this._zoomFactor);
+
+            ePower.LblInfoE.Font = new Font("Sans-serif", (int)(8 * this._zoomFactor), FontStyle.Regular);
+
+            ePower.SetPHeadAndPtail();
+
+            ePower.UpdatePositonLabelInfo();
+        }
+
         #region Key
 
         public virtual void ProcessDeleteLine(frmCapstone frmCapstone, KeyEventArgs e)
@@ -51,7 +135,7 @@ namespace Experimential_Software
 
         #region Function_Overall
 
-      
+
         #endregion Function_Overall
     }
 }

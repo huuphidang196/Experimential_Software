@@ -112,6 +112,12 @@ namespace Experimential_Software.EPowerProcess
 
             this._ePower.Location = this.TransferPosMouseToControl(e);
 
+            this.UpdateLineWhenMove();
+
+        }
+
+        public virtual void UpdateLineWhenMove()
+        {
             //When btn move then update , if don't move not update line
             this.processEPowerMove.ProcessEPowerMoveOverall(this._ePower.EPowerLineTemp);
 

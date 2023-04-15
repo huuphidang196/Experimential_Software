@@ -34,6 +34,8 @@ namespace Experimential_Software
         //Process new file, open, save
         protected ProcessMnuFile _processMnuFile;
 
+        protected double zoomFactor = 1;
+
         public frmCapstone()
         {
             InitializeComponent();
@@ -42,14 +44,16 @@ namespace Experimential_Software
         private void Form1_Load(object sender, EventArgs e)
         {
             //Experimental Calculate YBus
-            this.ExperimentalYBus();
-          
+            //this.ExperimentalYBus();
+
             this.FixScaleSizeForm();
             this.LoadImageMenuFile();
             this._processMnuFile = new ProcessMnuFile(this);
             this.pnlMain.PanelMainMouse.FrmCapstone = this;
+
         }
 
+        #region Load_Form
         protected virtual void ExperimentalYBus()
         {
             int number_BusJ = 6; //<=> bus 7
@@ -62,7 +66,7 @@ namespace Experimential_Software
             lblYBus.Location = new Point(50, 50);
             lblYBus.Font = new Font("Sans-serif", 12, FontStyle.Regular);
             lblYBus.Text = CalculateYBus.ShowYBus(number_FBus, number_BusJ);
-         //   MessageBox.Show(CalculateYBus.ShowYBus(number_BusJ, number_FBus));
+            //   MessageBox.Show(CalculateYBus.ShowYBus(number_BusJ, number_FBus));
         }
 
 
@@ -91,6 +95,8 @@ namespace Experimential_Software
         {
             this.WindowState = FormWindowState.Maximized; // set window state to normal
         }
+
+        #endregion Load_Form
 
         #region Reference_OutSide
 
@@ -256,7 +262,7 @@ namespace Experimential_Software
         }
 
 
-        //Panel Main
+        //Panel Main  
         private void pnlMain_MouseDown(object sender, MouseEventArgs e)
         {
             //select line in Panel, set isSelected false for all btn
@@ -294,9 +300,13 @@ namespace Experimential_Software
                 control.Location = dropLocation;
                 ConnectableE ePower = control as ConnectableE;
 
+                ePower.OldLocation = dropLocation;
                 this.ePowers.Add(ePower);
                 this.iEPowers.Add(ePower);
                 ePower.isOnTool = false;
+
+                this.zoomFactor = pnlMain.ZoomFactor;
+                pnlMain.SetInsideEPower(ePower);
 
             }
             else

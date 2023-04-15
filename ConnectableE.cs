@@ -50,6 +50,7 @@ namespace Experimential_Software
         public DatabaseEPower DatabaseE => databaseE;
 
         protected EPowerProcessMouse _ePowerMouse;
+        public EPowerProcessMouse EPowerProcessMouse => _ePowerMouse;
 
         protected EPowerProcessLineTemp _ePowerLineTemp;
         public EPowerProcessLineTemp EPowerLineTemp => _ePowerLineTemp;
@@ -58,6 +59,9 @@ namespace Experimential_Software
 
         protected Label lblInfo;
         public Label LblInfoE { get => lblInfo; set => lblInfo = value; }
+
+        protected Point _oldLocation;
+        public Point OldLocation { get => _oldLocation; set => _oldLocation = value; }
 
         public bool isOnTool { get; set; }
 
@@ -149,7 +153,7 @@ namespace Experimential_Software
             DoubleBuffered = true;
 
             //Set variable
-            this.SetVariableOnEPower(databaseEPower, imgList, generateMode);  
+            this.SetVariableOnEPower(databaseEPower, imgList, generateMode);
 
         }
 
@@ -165,10 +169,10 @@ namespace Experimential_Software
 
             //Case new Generate diffrence Load from database
             this.ProcessBoolState(generateMode);
-           
+
 
             //Set Size
-            this.SetSizeImageForEPower(databaseE, imgList);      
+            this.SetSizeImageForEPower(databaseE, imgList);
 
             // Vẽ ảnh lên control với kích thước mới
             //MessageBox.Show(this.ImageList.ImageSize + "");
@@ -180,6 +184,7 @@ namespace Experimential_Software
             this.GenerateClassProcessChild();
 
             this.SetPHeadAndPtail();
+
         }
 
         protected virtual void ProcessBoolState(GenerateMode generateMode)
@@ -207,6 +212,12 @@ namespace Experimential_Software
             float ratioY = (float)this.Height / (float)originalImage.Height;
             float ratio = Math.Min(ratioX, ratioY);
 
+            this.UpdateScaleImage(originalImage, ratio);
+
+        }
+
+        public virtual void UpdateScaleImage(Image originalImage, float ratio)
+        {
             // Tính toán kích thước ảnh mới
             int newWidth = (int)(originalImage.Width * ratio);
             int newHeight = (int)(originalImage.Height * ratio);
@@ -236,6 +247,7 @@ namespace Experimential_Software
 
             // Set Pos lbl
             this.UpdatePositonLabelInfo();
+
         }
 
         public virtual void SetDataLabelInfo()
@@ -246,7 +258,7 @@ namespace Experimential_Software
 
         public virtual void UpdatePositonLabelInfo()
         {
-           this.lblInfo.Location = new Point(this.Location.X - 120, this.Location.Y - 20);
+            this.lblInfo.Location = new Point(this.Location.X - 120, this.Location.Y - 20);
         }
 
         public override string ToString()
@@ -257,7 +269,7 @@ namespace Experimential_Software
             return objType + " " + objNumber + ", Name : " + objName;
         }
 
-        protected virtual void SetPHeadAndPtail()
+        public virtual void SetPHeadAndPtail()
         {
             //MF
             if (this.databaseE.ObjectType == ObjectType.MF)
@@ -288,6 +300,15 @@ namespace Experimential_Software
             this.pHead = new Point(Width / 2 - Width / 4, Height / 2);
             this.pTail = new Point(Width / 2 + Width / 4, Height / 2);
 
+        }
+
+        protected virtual void SetValueOldLocation(Point mouseLocation)
+        {
+            // Trong sự kiện MouseUp của ConnectionE
+            Point screenPoint = this.PointToScreen(mouseLocation); // Chuyển đổi tọa độ chuột so với ConnectionE sang tọa độ trên màn hình
+            Point panelCoords = this.pnlMain_Drawn.PointToClient(screenPoint); // Chuyển đổi tọa độ trên màn hình sang tọa độ trên panel chứa ConnectionE
+            this._oldLocation = panelCoords; // Lưu trữ tọa độ của ConnectionE trên panel
+           // MessageBox.Show("OldLocation = " + this._oldLocation);
         }
 
         #endregion Constructor_Class
@@ -349,7 +370,7 @@ namespace Experimential_Software
         }
         #endregion Drawn
 
-        
+
 
         #region Mouse
         protected override void OnMouseDown(MouseEventArgs e)
@@ -408,7 +429,12 @@ namespace Experimential_Software
             this._ePowerMouse.ButtonInstance_MouseUp(e);
             this.isMove = false;
             this._flag = 0;
+
+            //After move update again postion of Epower
+            this.SetValueOldLocation(e.Location);
         }
+
+
 
         protected override void OnMouseEnter(EventArgs e)
         {
@@ -433,7 +459,7 @@ namespace Experimential_Software
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
- 
+
             if (this._ePowerKey == null) return;
 
             //Only allow remove When btn is selected
@@ -510,7 +536,7 @@ namespace Experimential_Software
             Invalidate();
         }
 
-       
+
 
         #endregion Function_Overall
     }
