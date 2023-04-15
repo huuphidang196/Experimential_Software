@@ -32,7 +32,7 @@ namespace Experimential_Software.Class_Database
                 if (ObjectType == ObjectType.MF) return 40;
                 if (ObjectType == ObjectType.Bus) return 100;
                 if (ObjectType == ObjectType.MBA) return 40;
-                if (ObjectType == ObjectType.LineEPower) return 25;
+                if (ObjectType == ObjectType.LineEPower) return 20;
                 if (ObjectType == ObjectType.Load) return 40;
 
                 return 0;
@@ -45,7 +45,7 @@ namespace Experimential_Software.Class_Database
                 if (ObjectType == ObjectType.MF) return 40;
                 if (ObjectType == ObjectType.Bus) return 25;
                 if (ObjectType == ObjectType.MBA) return 40;
-                if (ObjectType == ObjectType.LineEPower) return 75;
+                if (ObjectType == ObjectType.LineEPower) return 60;
                 if (ObjectType == ObjectType.Load) return 40;
 
                 return 0;

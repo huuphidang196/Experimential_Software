@@ -147,7 +147,6 @@ namespace Experimential_Software
             // 
             this.btnLoad.BackColor = System.Drawing.Color.Transparent;
             this.btnLoad.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.btnLoad.Flag = 0;
             this.btnLoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLoad.ImageIndex = 4;
             this.btnLoad.ImageList = this.imgListTool;
@@ -181,7 +180,6 @@ namespace Experimential_Software
             // 
             this.btnMFPower.BackColor = System.Drawing.Color.Transparent;
             this.btnMFPower.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.btnMFPower.Flag = 0;
             this.btnMFPower.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMFPower.ImageIndex = 0;
             this.btnMFPower.ImageList = this.imgListTool;
@@ -205,7 +203,6 @@ namespace Experimential_Software
             // 
             this.btnTransformer.BackColor = System.Drawing.Color.Transparent;
             this.btnTransformer.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.btnTransformer.Flag = 0;
             this.btnTransformer.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransformer.ImageIndex = 2;
             this.btnTransformer.ImageList = this.imgListTool;
@@ -230,7 +227,6 @@ namespace Experimential_Software
             // 
             this.btnLinePower.BackColor = System.Drawing.Color.Transparent;
             this.btnLinePower.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.btnLinePower.Flag = 0;
             this.btnLinePower.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLinePower.ImageIndex = 3;
             this.btnLinePower.ImageList = this.imgListTool;
@@ -255,7 +251,6 @@ namespace Experimential_Software
             // 
             this.btnBusPower.BackColor = System.Drawing.Color.Transparent;
             this.btnBusPower.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.btnBusPower.Flag = 0;
             this.btnBusPower.ImageIndex = 1;
             this.btnBusPower.ImageList = this.imgListTool;
             this.btnBusPower.IsContainPhead = false;

@@ -300,7 +300,8 @@ namespace Experimential_Software
                 control.Location = dropLocation;
                 ConnectableE ePower = control as ConnectableE;
 
-                ePower.OldLocation = dropLocation;
+                ePower.OldLocation = dropLocation;      
+               
                 this.ePowers.Add(ePower);
                 this.iEPowers.Add(ePower);
                 ePower.isOnTool = false;

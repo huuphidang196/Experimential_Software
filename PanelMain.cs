@@ -70,9 +70,6 @@ namespace Experimential_Software
 
         public virtual void SetNewSizeAndNewPostion(Point mouseLocation, ConnectableE ePower)
         {
-            //int oldX = this.OldLocationsEPowers[ePower.ToString()].X;
-            //int oldY = this.OldLocationsEPowers[ePower.ToString()].Y;
-
             int oldX = ePower.OldLocation.X;
             int oldY = ePower.OldLocation.Y;
 

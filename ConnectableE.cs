@@ -60,6 +60,8 @@ namespace Experimential_Software
         protected Label lblInfo;
         public Label LblInfoE { get => lblInfo; set => lblInfo = value; }
 
+
+        //Use for Proccessing Zoom
         protected Point _oldLocation;
         public Point OldLocation { get => _oldLocation; set => _oldLocation = value; }
 
@@ -75,9 +77,6 @@ namespace Experimential_Software
                 Invalidate();
             }
         }
-
-        protected int _flag = 0;
-        public int Flag { get => _flag; set => _flag = value; }
 
         protected int _radiusPoint = 7;
 
@@ -302,7 +301,7 @@ namespace Experimential_Software
 
         }
 
-        protected virtual void SetValueOldLocation(Point mouseLocation)
+        public virtual void SetValueOldLocation(Point mouseLocation)
         {
             // Trong sự kiện MouseUp của ConnectionE
             Point screenPoint = this.PointToScreen(mouseLocation); // Chuyển đổi tọa độ chuột so với ConnectionE sang tọa độ trên màn hình
@@ -428,7 +427,6 @@ namespace Experimential_Software
 
             this._ePowerMouse.ButtonInstance_MouseUp(e);
             this.isMove = false;
-            this._flag = 0;
 
             //After move update again postion of Epower
             this.SetValueOldLocation(e.Location);

@@ -30,9 +30,6 @@ namespace Experimential_Software.EPowerProcess
 
         protected ProcessEPowerMove processEPowerMove;
 
-        protected const double DoubleClickTime = 0.3; // Thời gian tối thiểu giữa 2 lần nhấn chuột để xem như là double click (theo đơn vị millisecond)
-        protected DateTime _firstClickTime; // Thời gian của lần nhấn chuột cuối cùng
-        protected DateTime _lastClickTime; // Thời gian của lần nhấn chuột cuối cùng
         public EPowerProcessMouse(ConnectableE ePower)
         {
             this._ePower = ePower;
@@ -52,14 +49,10 @@ namespace Experimential_Software.EPowerProcess
             // both move and not move use
             if (this.isMove)
             {
-                this._clickCount++;
-                if (this._clickCount == 1) this._firstClickTime = DateTime.Now;
-                if (this._clickCount == 2)
-                {
-                    this._lastClickTime = DateTime.Now;
-                    this.isDragging = false;//Avoid after set data EPower follow Mouse
-                    this.ButtonInstance_DoubleMouseClick(e);
-                }
+                if (Control.ModifierKeys != Keys.Control) return;
+
+                this.isDragging = false;//Avoid after set data EPower follow Mouse
+                this.ButtonInstance_DoubleMouseClick(e);
                 return;
             }
 
@@ -212,12 +205,6 @@ namespace Experimential_Software.EPowerProcess
         //Open Form Set Data
         public virtual void ButtonInstance_DoubleMouseClick(MouseEventArgs e)
         {
-            //go here then don't confused count click. => certainly put here
-            this._clickCount = 0;
-            // Tính thời gian giữa 2 lần nhấn chuột
-            TimeSpan timeSinceLastClick = this._lastClickTime - this._firstClickTime;
-            if (timeSinceLastClick.TotalSeconds > DoubleClickTime) return;
-
             frmDataBus frmData = new frmDataBus();
             frmData.EPowerFixed = this._ePower;
 
