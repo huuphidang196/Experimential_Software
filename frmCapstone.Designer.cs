@@ -158,6 +158,7 @@ namespace Experimential_Software
             this.btnLoad.LblInfoE = null;
             this.btnLoad.Location = new System.Drawing.Point(30, 449);
             this.btnLoad.Name = "btnLoad";
+            this.btnLoad.OldLocation = new System.Drawing.Point(0, 0);
             this.btnLoad.PHead = new System.Drawing.Point(0, 0);
             this.btnLoad.PTail = new System.Drawing.Point(0, 0);
             this.btnLoad.Size = new System.Drawing.Size(50, 50);
@@ -191,6 +192,7 @@ namespace Experimential_Software
             this.btnMFPower.LblInfoE = null;
             this.btnMFPower.Location = new System.Drawing.Point(30, 37);
             this.btnMFPower.Name = "btnMFPower";
+            this.btnMFPower.OldLocation = new System.Drawing.Point(0, 0);
             this.btnMFPower.PHead = new System.Drawing.Point(0, 0);
             this.btnMFPower.PTail = new System.Drawing.Point(0, 0);
             this.btnMFPower.Size = new System.Drawing.Size(50, 50);
@@ -214,6 +216,7 @@ namespace Experimential_Software
             this.btnTransformer.LblInfoE = null;
             this.btnTransformer.Location = new System.Drawing.Point(30, 227);
             this.btnTransformer.Name = "btnTransformer";
+            this.btnTransformer.OldLocation = new System.Drawing.Point(0, 0);
             this.btnTransformer.PHead = new System.Drawing.Point(0, 0);
             this.btnTransformer.PTail = new System.Drawing.Point(0, 0);
             this.btnTransformer.Size = new System.Drawing.Size(50, 50);
@@ -238,6 +241,7 @@ namespace Experimential_Software
             this.btnLinePower.LblInfoE = null;
             this.btnLinePower.Location = new System.Drawing.Point(30, 336);
             this.btnLinePower.Name = "btnLinePower";
+            this.btnLinePower.OldLocation = new System.Drawing.Point(0, 0);
             this.btnLinePower.PHead = new System.Drawing.Point(0, 0);
             this.btnLinePower.PTail = new System.Drawing.Point(0, 0);
             this.btnLinePower.Size = new System.Drawing.Size(50, 50);
@@ -261,6 +265,7 @@ namespace Experimential_Software
             this.btnBusPower.LblInfoE = null;
             this.btnBusPower.Location = new System.Drawing.Point(30, 134);
             this.btnBusPower.Name = "btnBusPower";
+            this.btnBusPower.OldLocation = new System.Drawing.Point(0, 0);
             this.btnBusPower.PHead = new System.Drawing.Point(0, 0);
             this.btnBusPower.PTail = new System.Drawing.Point(0, 0);
             this.btnBusPower.Size = new System.Drawing.Size(50, 50);
@@ -291,6 +296,7 @@ namespace Experimential_Software
             // 
             this.pnlMain.AllowDrop = true;
             this.pnlMain.AutoScroll = true;
+            this.pnlMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlMain.BackColor = System.Drawing.Color.White;
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(115, 127);
@@ -298,6 +304,7 @@ namespace Experimential_Software
             this.pnlMain.Size = new System.Drawing.Size(792, 633);
             this.pnlMain.TabIndex = 3;
             this.pnlMain.TabStop = true;
+            this.pnlMain.ZoomFactor = 1D;
             this.pnlMain.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragDrop);
             this.pnlMain.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragEnter);
             this.pnlMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlMain_MouseDown);

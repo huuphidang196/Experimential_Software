@@ -44,29 +44,44 @@ namespace Experimential_Software
         private void Form1_Load(object sender, EventArgs e)
         {
             //Experimental Calculate YBus
-            //this.ExperimentalYBus();
+            this.ExperimentalYBus();
 
             this.FixScaleSizeForm();
             this.LoadImageMenuFile();
             this._processMnuFile = new ProcessMnuFile(this);
             this.pnlMain.PanelMainMouse.FrmCapstone = this;
-
+            this.lblLine.Text = "Zoom = " + this.pnlMain.ZoomFactor;
         }
 
         #region Load_Form
         protected virtual void ExperimentalYBus()
         {
-            int number_BusJ = 6; //<=> bus 7
-            // Role all number have value = value - 1. Ex : numberF = 3 => numberF = 2 <=> 3 Bus MF 
-            int number_FBus = 2; //<=> 3 MF
+            TestResult test = new TestResult();
 
-            Label lblYBus = new Label();
+            int number_BusJ = 7; //<=> bus 7
+            // Role all number have value = value - 1. Ex : numberF = 3 => numberF = 2 <=> 3 Bus MF 
+            int Count_FBus = 3; //<=> 3 MF
+
+/*            Label lblYBus = new Label();
             lblYBus.AutoSize = true;
             pnlMain.Controls.Add(lblYBus);
             lblYBus.Location = new Point(50, 50);
-            lblYBus.Font = new Font("Sans-serif", 12, FontStyle.Regular);
-            lblYBus.Text = CalculateYBus.ShowYBus(number_FBus, number_BusJ);
-            //   MessageBox.Show(CalculateYBus.ShowYBus(number_BusJ, number_FBus));
+            lblYBus.Font = new Font("Sans-serif", 10, FontStyle.Regular);
+            lblYBus.Text = test.ShowYBus(Count_FBus, number_BusJ);
+
+            Label lblZBus = new Label();
+            lblZBus.AutoSize = true;
+            pnlMain.Controls.Add(lblZBus);
+            lblZBus.Location = new Point(50, 350);
+            lblZBus.Font = new Font("Sans-serif", 10, FontStyle.Regular);
+            lblZBus.Text = test.ShowZBus( Count_FBus, number_BusJ);
+*/
+            Label lblUj = new Label();
+            lblUj.AutoSize = true;
+            pnlMain.Controls.Add(lblUj);
+            lblUj.Location = new Point(50, 350);
+            lblUj.Font = new Font("Sans-serif", 10, FontStyle.Regular);
+            lblUj.Text = test.ShowUj(number_BusJ);
         }
 
 
@@ -300,8 +315,8 @@ namespace Experimential_Software
                 control.Location = dropLocation;
                 ConnectableE ePower = control as ConnectableE;
 
-                ePower.OldLocation = dropLocation;      
-               
+                ePower.OldLocation = dropLocation;
+
                 this.ePowers.Add(ePower);
                 this.iEPowers.Add(ePower);
                 ePower.isOnTool = false;
@@ -354,6 +369,13 @@ namespace Experimential_Software
             this._processMnuFile.FunctionMnuFileOpen_Click(sender, e);
             //Drawn Line On Panel Main After Have Info Line
             this.DrawAllLineOnPanel();
+
+            if (this.pnlMain.ZoomFactor == 1) return;
+            foreach (ConnectableE ePower in EPowers)
+            {
+                ePower.EPowerProcessMouse.UpdateLineWhenMove();
+            }
+            this.lblLine.Text = "Zoom = " + this.pnlMain.ZoomFactor;
         }
 
         //save File

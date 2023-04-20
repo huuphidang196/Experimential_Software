@@ -116,7 +116,10 @@ namespace Experimential_Software.Class_Process_MnuFile
                
                 ePower.DoDragDrop(ePower, DragDropEffects.Move);
                 ePower.Location = this.GetPointOldInDatabaseEpower(databaseE);
+                ePower.OldLocation = databaseE.OldLocation;
                 ePower.BringToFront();
+
+                if (this._frmCap.pnlMain.ZoomFactor == 1) this._frmCap.pnlMain.ZoomFactor = databaseE.ZoomFactor;
 
                 this._frmCap.pnlMain.Controls.Add(ePower);
 
@@ -223,7 +226,8 @@ namespace Experimential_Software.Class_Process_MnuFile
             foreach (ConnectableE ePower in EPowersSave)
             {
                 DatabaseEPower databaseE = ePower.DatabaseE;
-                databaseE.OldLocation = ePower.Location;
+                databaseE.OldLocation = ePower.OldLocation;
+                databaseE.ZoomFactor = ePower.PanelMain.ZoomFactor;
             }
         }
 

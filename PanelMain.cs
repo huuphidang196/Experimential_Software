@@ -16,17 +16,19 @@ namespace Experimential_Software
         protected PanelMainMouse _pnlMainMouse;
         public PanelMainMouse PanelMainMouse => _pnlMainMouse;
 
-        protected double _minZoom = Math.Pow(1 / 1.1, 6);
+        protected double _minZoom = Math.Pow((1 / 1.1), 6);
 
-        protected double _maxZooom = Math.Pow(1.1, 10);
+        protected double _maxZooom = Math.Pow(1.1, 6);
 
-        protected double _zoomFactor = 1;
-        public double ZoomFactor => _zoomFactor;
+        protected double _zoomFactor;
+        public double ZoomFactor { get => _zoomFactor; set => _zoomFactor = value; }
 
         public PanelMain()
         {
             InitializeComponent();
             this._pnlMainMouse = new PanelMainMouse(this);
+            this.AutoScroll = true;
+            if (this._zoomFactor == 0) this._zoomFactor = 1;
         }
 
 
@@ -34,19 +36,15 @@ namespace Experimential_Software
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             base.OnMouseWheel(e);
+           
 
-            if (Control.ModifierKeys != Keys.Control)
-            {
-                this.AutoScroll = true;
-                return;
-            }
+            if (Control.ModifierKeys != Keys.Control) return;
 
-            this.AutoScroll = false;
             // Lấy vị trí con trỏ chuột trong control
             Point mouseLocation = e.Location;
 
             // Tính toán độ zoom hiện tại
-            double zoomPer = e.Delta > 0 ? 1.1 : 1 / 1.1;  // e.Delta là giá trị của bánh xe chuột
+            double zoomPer = e.Delta > 0 ? 1.1 : (1 / 1.1);  // e.Delta là giá trị của bánh xe chuột
             this._zoomFactor *= zoomPer;
             this._zoomFactor = Math.Round(this._zoomFactor, 9);
 
@@ -66,8 +64,6 @@ namespace Experimential_Software
             }
         }
 
-
-
         public virtual void SetNewSizeAndNewPostion(Point mouseLocation, ConnectableE ePower)
         {
             int oldX = ePower.OldLocation.X;
@@ -75,9 +71,6 @@ namespace Experimential_Software
 
             int newX = (int)mouseLocation.X + (int)((oldX - (int)mouseLocation.X) * this._zoomFactor);
             int newY = (int)mouseLocation.Y + (int)((oldY - (int)mouseLocation.Y) * this._zoomFactor);
-
-            newX = Math.Max(newX, 1 + newX);
-            newY = Math.Max(newY, 1 + newY);
 
             // Set lại vị trí và kích thước của control
             ePower.Location = new Point(newX, newY);

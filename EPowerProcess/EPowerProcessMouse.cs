@@ -43,7 +43,8 @@ namespace Experimential_Software.EPowerProcess
             //Check to see move or don't move in order to Draw connectLine when button move
 
             this.isDragging = true;
-            this.previousMouseLocation = e.Location;
+            //Transfer to point Panel Main
+            this.previousMouseLocation =this.TransferPosFindOnInstance( e.Location);
 
             this.isMove = this._ePower.IsMove;
             // both move and not move use
@@ -104,7 +105,6 @@ namespace Experimential_Software.EPowerProcess
             if (!isOnMain) return;
 
             this._ePower.Location = this.TransferPosMouseToControl(e);
-
             this.UpdateLineWhenMove();
 
         }
@@ -143,6 +143,9 @@ namespace Experimential_Software.EPowerProcess
             }
 
             this._ePower.Location = this.TransferPosMouseToControl(e);
+            //After move update again postion of Epower. When move difference Zoom
+            this._ePower.OldLocation = this._ePower.Location;
+           // MessageBox.Show("After Old Location = " + this._ePower.OldLocation);
         }
 
         protected virtual void CheckAndAddLineConnet(ConnectableE buttonInstance)

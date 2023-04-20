@@ -5,7 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Experimential_Software.Class_Calculate
+namespace Experimential_Software.Class_Calculate.Calculate_Y
 {
     public class CalculateYState
     {

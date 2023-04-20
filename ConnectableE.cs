@@ -301,15 +301,6 @@ namespace Experimential_Software
 
         }
 
-        public virtual void SetValueOldLocation(Point mouseLocation)
-        {
-            // Trong sự kiện MouseUp của ConnectionE
-            Point screenPoint = this.PointToScreen(mouseLocation); // Chuyển đổi tọa độ chuột so với ConnectionE sang tọa độ trên màn hình
-            Point panelCoords = this.pnlMain_Drawn.PointToClient(screenPoint); // Chuyển đổi tọa độ trên màn hình sang tọa độ trên panel chứa ConnectionE
-            this._oldLocation = panelCoords; // Lưu trữ tọa độ của ConnectionE trên panel
-           // MessageBox.Show("OldLocation = " + this._oldLocation);
-        }
-
         #endregion Constructor_Class
 
         #region Drawn
@@ -427,9 +418,6 @@ namespace Experimential_Software
 
             this._ePowerMouse.ButtonInstance_MouseUp(e);
             this.isMove = false;
-
-            //After move update again postion of Epower
-            this.SetValueOldLocation(e.Location);
         }
 
 

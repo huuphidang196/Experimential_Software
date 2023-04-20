@@ -11,6 +11,8 @@ namespace Experimential_Software.Class_Database
     [Serializable]
     public class DatabaseEPower
     {
+        public double ZoomFactor { get; set; }
+
         public ObjectType ObjectType { get; set; }
 
         public string ObjectName { get; set; }
