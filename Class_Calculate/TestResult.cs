@@ -41,6 +41,10 @@ namespace Experimential_Software.Class_Calculate
             dataInputPower.AddRadThetaEMF(-0.0456);
             dataInputPower.AddRadThetaEMF(-0.0398);
 
+            dataInputPower.AddReactPowerQLimit(-100, 200);
+            dataInputPower.AddReactPowerQLimit(-100, 150);
+            dataInputPower.AddReactPowerQLimit(-100, 150);
+
             this.pointCurve = new CalculatePointCurve(dataInputPower, 1, number_BusJ);
             this.Ybus = this.pointCurve.YBusIsoval;
             this.ZBus = this.pointCurve.ZBusIsoval;
@@ -89,7 +93,7 @@ namespace Experimential_Software.Class_Calculate
         public string ShowUj()
         {
             string s = "";
-            double PLj_Run = 0.001;
+            double PLj_Run = 1;
 
             Func<double, double, double> F_UJ = (Uj, PLj_Run) => this.pointCurve.FuncFAByVoltageULoad(Uj, PLj_Run);
 
@@ -99,9 +103,19 @@ namespace Experimential_Software.Class_Calculate
 
             // double UJ_Found = Bisection.FindRoot(F_UJ, a, b, PLj_Run, eps);
             double UJ_Found = BruteForceSearch(F_UJ, a, b, PLj_Run, eps);
+            //double UJ_Found = this.Secant(F_UJ, a, b, PLj_Run, eps);
             double Q_Lj = this.pointCurve.CalculateReactivePowerQLJStepOne(UJ_Found, PLj_Run);
 
             s = "Uj = " + UJ_Found + ", Q_Lj = " + Q_Lj;
+
+            //Calculate Q_KJ_K upstream 
+            for (int k = 0; k < dataInputPower.E_AllMF.Count; k++)
+            {
+                double Q_KJ_K = this.pointCurve.CalculatePowerQKJKUpStreamStepOne(UJ_Found, k);
+                bool isAboutLimit = this.pointCurve.CheckLimitQKJK(Q_KJ_K, k);
+                s += isAboutLimit + " ";
+            }
+
             return s;
         }
 
@@ -114,14 +128,26 @@ namespace Experimential_Software.Class_Calculate
                 fx = F_UJ(x, P_lj_Run);
                 if (Math.Abs(fx) < eps)
                 {
-                    MessageBox.Show("x = " + x);
+                    MessageBox.Show("UJ_Found = " + x);
                     break;
                 }
-                x += 0.0001; // or any other small step size
+                x += 1e-5; // or any other small step size
             }
             return x;
         }
 
+        protected virtual double Secant(Func<double, double, double> F_UJ, double a, double b, double P_lj_Run, double eps)
+        {
+            double x1 = b - F_UJ(b, P_lj_Run) * (b - a) / (F_UJ(b, P_lj_Run) - F_UJ(a, P_lj_Run));
+            double x2 = x1 - F_UJ(x1, P_lj_Run) * (x1 - b) / (F_UJ(x1, P_lj_Run) - F_UJ(b, P_lj_Run));
+            while (Math.Abs(x2 - x1) > eps)
+            {
+                x1 = x2;
+                x2 = x1 - F_UJ(x1, P_lj_Run) * (x1 - b) / (F_UJ(x1, P_lj_Run) - F_UJ(b, P_lj_Run));
+            }
+            return x2;
+        }
+      
     }
     public static class Bisection
     {

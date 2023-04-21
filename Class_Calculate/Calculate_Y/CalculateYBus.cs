@@ -46,7 +46,7 @@ namespace Experimential_Software.Class_Calculate.Calculate_Y
 
             //Remove All Coulumn and Row have value Elements = 0. In spite of this case is not nescessary cause from F + 2
 
-            Complex[,] Y_Bus = CalculateYBus.GetYBusFromYTransferByRemoveZero(Y_Temp);
+            Complex[,] Y_Bus = CalculateYBus.PruneMatrixByRemoveZero(Y_Temp);
 
             // Trả về ma trận đẳng trị
             return Y_Bus;
@@ -80,6 +80,94 @@ namespace Experimential_Software.Class_Calculate.Calculate_Y
             return Y_Transfer;
         }
 
+
+        private static Complex[,] PruneMatrixByRemoveZero(Complex[,] Y_Temp)
+        {
+            DenseMatrix Y_Tem_RMZ = DenseMatrix.OfArray(Y_Temp);
+
+            // Rút gọn ma trận bằng cách loại bỏ các hàng và cột có giá trị bằng 0
+            for (int i = Y_Tem_RMZ.RowCount - 1; i >= 0; i--)
+            {
+                if (Y_Tem_RMZ.Row(i).All(x => x == Complex.Zero))
+                {
+                    Y_Tem_RMZ = (DenseMatrix)Y_Tem_RMZ.RemoveRow(i);
+                }
+            }
+
+            for (int j = Y_Tem_RMZ.ColumnCount - 1; j >= 0; j--)
+            {
+                if (Y_Tem_RMZ.Column(j).All(x => x == Complex.Zero))
+                {
+                    Y_Tem_RMZ = (DenseMatrix)Y_Tem_RMZ.RemoveColumn(j);
+                }
+            }
+
+            return Y_Tem_RMZ.ToArray();
+        }
+        // Ybus isoval    
+        #endregion YBus_Isoval
+
+        #region Z_Bus_Isoval
+        // Chuyển ma trận tổng dẫn sang ma trận tổng trở
+        public static Complex[,] ConvertFormYBusToZBus(Complex[,] YBus)
+        {
+            //Chuyển ma trận số phức thành ma trận DenseMatrix:
+            DenseMatrix denseMatrix = DenseMatrix.OfArray(YBus);
+
+            //Tìm ma trận nghịch đảo:
+            DenseMatrix inverseMatrix = (DenseMatrix)denseMatrix.Inverse();
+
+            //Chuyển ma trận nghịch đảo từ kiểu DenseMatrix sang kiểu Complex[,] (nếu cần):
+            Complex[,] ZBus = inverseMatrix.ToArray();
+
+            return ZBus;
+        }
+
+        // Z_ko , k = 1 --> F + 1, j default = 3 (<=> 4)
+        public static Complex GetZIOFromYBus(int branchI, Complex[,] YBus)
+        {
+            //branch i input = stt run 1- F standard with diagram
+            Complex Y_ii = YBus[branchI - 1, branchI - 1];
+            Complex Y_io = Y_ii;
+            for (int j = 0; j < YBus.GetLength(1); j++)
+            {
+                if (j != branchI - 1) Y_io -= YBus[branchI - 1, j];
+            }
+
+            Complex Z_io = 1 / Y_io;
+            return Z_io;
+        }
+
+
+        #endregion Zbus_Isoval
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ *
         private static Complex[,] GetYBusFromYTransferByRemoveZero(Complex[,] Y_Temp)
         {
             int n = Y_Temp.GetLength(0); // lấy kích thước của ma trận vuông
@@ -152,65 +240,4 @@ namespace Experimential_Software.Class_Calculate.Calculate_Y
             //Row và colum ++ là lấy các hàng cột xem giữa các hàng cột ko phải All Elenment là 0. Mặc dù vậy trường hợp này không cần cũng được 
 
         }
-        // Ybus isoval    
-        #endregion YBus_Isoval
-
-        #region Z_Bus_Isoval
-        // Chuyển ma trận tổng dẫn sang ma trận tổng trở
-        public static Complex[,] ConvertFormYBusToZBus(Complex[,] YBus)
-        {
-            //Chuyển ma trận số phức thành ma trận DenseMatrix:
-            DenseMatrix denseMatrix = DenseMatrix.OfArray(YBus);
-
-            //Tìm ma trận nghịch đảo:
-            DenseMatrix inverseMatrix = (DenseMatrix)denseMatrix.Inverse();
-
-            //Chuyển ma trận nghịch đảo từ kiểu DenseMatrix sang kiểu Complex[,] (nếu cần):
-            Complex[,] ZBus = inverseMatrix.ToArray();
-
-            return ZBus;
-        }
-
-        // Z_ko , k = 1 --> F + 1, j default = 3 (<=> 4)
-        public static Complex GetZIOFromYBus(int branchI, Complex[,] YBus)
-        {
-            //branch i input = stt run 1- F standard with diagram
-            Complex Y_ii = YBus[branchI - 1, branchI - 1];
-            Complex Y_io = Y_ii;
-            for (int j = 0; j < YBus.GetLength(1); j++)
-            {
-                if (j != branchI - 1) Y_io -= YBus[branchI - 1, j];
-            }
-
-            Complex Z_io = 1 / Y_io;
-            return Z_io;
-        }
-
-     
-        #endregion Zbus_Isoval
-
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ */

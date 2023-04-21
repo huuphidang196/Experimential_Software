@@ -14,13 +14,18 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
         //protected Complex Sj_Load;
 
         protected List<double> _e_AllMF;
+
         protected List<double> _rad_ThetaK_All;
+
         protected double Pj_Ori;
+
         protected Complex[,] YBus;
         public Complex[,] YBusIsoval => YBus;
 
         protected Complex[,] ZBus;
         public Complex[,] ZBusIsoval => ZBus;
+
+        protected List<ReactPowerQLimit> _power_Q_GK_Limits;
 
         Complex Z_j0_Complex = 1;
 
@@ -28,9 +33,12 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
         {
             this._e_AllMF = dataInputPS.E_AllMF;
             this._rad_ThetaK_All = dataInputPS.Rad_ThetaK_All;
+            this._power_Q_GK_Limits = dataInputPS.Q_GK_Limits;
             this.Pj_Ori = Pj_Ori;
+
             this.YBus = CalculateYBus.CalculateYBusIsoval(this._e_AllMF.Count, numberLoad);
             this.ZBus = CalculateYBus.ConvertFormYBusToZBus(YBus);
+
             this.Z_j0_Complex = CalculateYBus.GetZIOFromYBus(dataInputPS.E_AllMF.Count + 1, this.YBus);
         }
 
@@ -237,8 +245,8 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
 
         #endregion Calculate_Ar_Uj_Step1
 
-        #region Cal_QL(j)
-        //After assign value for Plj and find Uj
+        #region Cal_QL(j)_OutSide_Ref
+        //After assign value for Plj and find Uj => Q_L(j)
         public double CalculateReactivePowerQLJStepOne(double Uj, double P_Lj_Run)
         {
             //Now, YBus is count x count matrix => i = 1, j = count + 1. But run from 0 => i =0, j = count
@@ -279,21 +287,56 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
             return Q_Lj;
         }
 
-        #endregion Cal_QL
+        //Calculate Q_KJ_K 
+        public virtual double CalculatePowerQKJKUpStreamStepOne(double UJ_Found, int k)
+        {
+            double alpha_K = this.GetAlphaKJ(k);
+            double Z_kj = this.GetAlphaKJ(k);
+            double E_K = this._e_AllMF[k];
+            double Pkj_k = ((Math.Sin(alpha_K) * Math.Pow(E_K, 2)) / Z_kj) + ((E_K * UJ_Found * Math.Sin(this._rad_ThetaK_All[k] - alpha_K)) / Z_kj);
+
+            double Q_Kj_K_Ele1 = Math.Cos(alpha_K) * (Math.Pow(E_K, 2) / Z_kj);
+
+            double Q_Kj_K_Ele2A = Math.Pow((E_K * UJ_Found) / Z_kj, 2);
+            double Q_Kj_K_Ele2B = Math.Pow(Pkj_k - (Math.Sin(alpha_K) * E_K * E_K) / Z_kj, 2);
+            double Q_Kj_K_Ele2 = Math.Sqrt(Q_Kj_K_Ele2A - Q_Kj_K_Ele2B);
+
+            double Q_Kj_K = Q_Kj_K_Ele1 - Q_Kj_K_Ele2;
+
+            return Q_Kj_K;
+        }
+
+        //check limit Q_Kj_k
+        public virtual bool CheckLimitQKJK(double Q_KJ_K, int k)
+        {
+            ReactPowerQLimit powerQLimit = this._power_Q_GK_Limits[k];
+            double Q_GK_Max = powerQLimit.Q_Gk_Max;
+            double Q_GK_Min = powerQLimit.Q_Gk_Min;
+
+            //Qk_min
+            double Q_K_Min = Q_GK_Min - this.GetRectPowerQKZero(k);
+            //Qk_max
+            double Q_K_Max = Q_GK_Max - this.GetRectPowerQKZero(k);
+
+            if (Q_KJ_K > Q_K_Min && Q_KJ_K < Q_K_Max) return true;
+
+            return false;
+        }
+
+        #endregion Cal_QL(j)_OutSide_Ref
 
         #region Func_Overrall
-
 
         //Tk1 k is parameter
         protected virtual double CalculateTK1(int k, double Uj)
         {
             double Z_kj = this.GetAbsZKJ(k);
-            double alphaK = this.GetAlphaKJ(k);
-            double E_k = this._e_AllMF[k];
+            double alpha_K = this.GetAlphaKJ(k);
+            double E_K = this._e_AllMF[k];
 
-            double Pkj_k = ((Math.Sin(alphaK) * Math.Pow(E_k, 2)) / Z_kj) + ((E_k * Uj * Math.Sin(this._rad_ThetaK_All[k] - alphaK)) / Z_kj);
+            double Pkj_k = ((Math.Sin(alpha_K) * Math.Pow(E_K, 2)) / Z_kj) + ((E_K * Uj * Math.Sin(this._rad_ThetaK_All[k] - alpha_K)) / Z_kj);
 
-            double T_K1 = Pkj_k - ((Math.Sin(alphaK) * Math.Pow(E_k, 2)) / Z_kj);
+            double T_K1 = Pkj_k - ((Math.Sin(alpha_K) * Math.Pow(E_K, 2)) / Z_kj);
 
             return T_K1;
         }
@@ -345,6 +388,41 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
             return Q_AK;
         }
         //Q_AK
+
+        //Q_K0
+        protected virtual double GetRectPowerQKZero(int k)
+        {
+            // Qk0 -> Ek, Zk0, alpha_k0
+            double Z_K0 = this.GetZK0FormYBusAndK(k);
+            //alpha_K0
+            double alpha_K0 = this.GetAlphaK0(k);
+            //EK
+            double E_K = this._e_AllMF[k];
+
+            double Q_K0 = Math.Cos(alpha_K0) * (Math.Pow(E_K, 2) / Z_K0);
+
+            return Q_K0;
+        }
+        //Q_K0
+
+        //ZK0
+        protected virtual double GetZK0FormYBusAndK(int k)
+        {
+            Complex Z_K0_Complex = CalculateYBus.GetZIOFromYBus(k + 1, this.YBus);
+            double Z_K0 = Complex.Abs(Z_K0_Complex);
+            return Z_K0;
+        }
+        //ZK0
+
+        // alpha_K0
+        protected virtual double GetAlphaK0(int k)
+        {
+            Complex Z_K0_Complex = CalculateYBus.GetZIOFromYBus(k + 1, this.YBus);
+
+            return (Math.PI / 2) - Math.Atan2(Z_K0_Complex.Imaginary, Z_K0_Complex.Real);
+        }
+        //alpha_K0
+
         #endregion Func_Overrall
     }
 }
