@@ -22,9 +22,34 @@ namespace Experimential_Software.Class_Calculate
 {
     public class TestResult
     {
-        public string ShowYBus(int Count_FBus, int number_BusJ)
+        DataInputPowerSystem dataInputPower;
+        CalculatePointCurve pointCurve;
+        protected Complex[,] Ybus;
+        protected Complex[,] ZBus;
+
+        protected int number_BusJ;
+
+        public TestResult(int number_BusJ)
         {
-            Complex[,] Ybus = CalculateYBus.CalculateYBusIsoval(Count_FBus, number_BusJ);
+            this.dataInputPower = new DataInputPowerSystem();
+
+            dataInputPower.AddEMF(1.05);
+            dataInputPower.AddEMF(0.9848);
+            dataInputPower.AddEMF(1.0007);
+
+            dataInputPower.AddRadThetaEMF(0);
+            dataInputPower.AddRadThetaEMF(-0.0456);
+            dataInputPower.AddRadThetaEMF(-0.0398);
+
+            this.pointCurve = new CalculatePointCurve(dataInputPower, 1, number_BusJ);
+            this.Ybus = this.pointCurve.YBusIsoval;
+            this.ZBus = this.pointCurve.ZBusIsoval;
+            this.number_BusJ = number_BusJ;
+
+        }
+        public string ShowYBus()
+        {
+            int Count_FBus = this.dataInputPower.E_AllMF.Count;
             string s = "";
             for (int i = 0; i < Ybus.GetLength(0); i++)
             {
@@ -43,66 +68,76 @@ namespace Experimential_Software.Class_Calculate
 
         public string ShowZBus(int Count_FBus, int number_BusJ)
         {
-            Complex[,] Ybus = CalculateYBus.CalculateYBusIsoval(Count_FBus, number_BusJ);
-            Complex[,] ZBus = CalculateYBus.ConvertFormYBusToZBus(Ybus);
+            //this.Ybus = CalculateYBus.CalculateYBusIsoval(Count_FBus, number_BusJ);
+            //this.ZBus = CalculateYBus.ConvertFormYBusToZBus(this.Ybus);
             string s = "";
-            for (int i = 0; i < ZBus.GetLength(0); i++)
+            for (int i = 0; i < this.ZBus.GetLength(0); i++)
             {
-                for (int j = 0; j < ZBus.GetLength(1); j++)
+                for (int j = 0; j < this.ZBus.GetLength(1); j++)
                 {
-                    s += double.Parse(ZBus[i, j].Real.ToString("N6")) + " + j" + double.Parse(ZBus[i, j].Imaginary.ToString("N4")) + new string(' ', 15);
+                    s += double.Parse(this.ZBus[i, j].Real.ToString("N6")) + " + j" + double.Parse(this.ZBus[i, j].Imaginary.ToString("N4")) + new string(' ', 15);
                 }
                 s += "\n";
             }
 
-                var matrix = DenseMatrix.OfArray(ZBus);
+            var matrix = DenseMatrix.OfArray(this.ZBus);
             // MessageBox.Show(matrix.ToString("F5"));
-            //     s = matrix.ToString("F5");
+            s = matrix.ToString("F5");
             return s;
         }
 
-        public string ShowUj( int number_BusJ)
+        public string ShowUj()
         {
-            DataInputPowerSystem dataInputPower = new DataInputPowerSystem();
-
-            dataInputPower.AddEMF(new Complex(1.05, 0));
-            dataInputPower.AddEMF(new Complex(0.9848, -0.0456));
-            dataInputPower.AddEMF(new Complex(1.0007, -0.0398));
-
-            CalculatePointCurve pointCurve = new CalculatePointCurve(dataInputPower, 1, number_BusJ);
             string s = "";
-            Complex PLj_Run = 0.001;
+            double PLj_Run = 0.001;
 
-            Func<Complex, Complex, Complex> F_UJ = (Uj, P_lj_Run) => pointCurve.FuncFAByVoltageULoad(Uj, PLj_Run);
+            Func<double, double, double> F_UJ = (Uj, PLj_Run) => this.pointCurve.FuncFAByVoltageULoad(Uj, PLj_Run);
 
-            Complex a = new Complex(-0.1, -0.1);
-            Complex b = new Complex(2, 2);
-            Complex eps = new Complex(1e-8, 0);
+            double a = 0.0000001;
+            double b = 2;
+            double eps = 1e-3;
 
-            Complex root = Bisection.FindRoot(F_UJ, a, b, PLj_Run, eps);
+            // double UJ_Found = Bisection.FindRoot(F_UJ, a, b, PLj_Run, eps);
+            double UJ_Found = BruteForceSearch(F_UJ, a, b, PLj_Run, eps);
+            double Q_Lj = this.pointCurve.CalculateReactivePowerQLJStepOne(UJ_Found, PLj_Run);
 
-            Console.WriteLine($"The root is {root}");
-
-            s = root + "";
+            s = "Uj = " + UJ_Found + ", Q_Lj = " + Q_Lj;
             return s;
+        }
+
+        protected virtual double BruteForceSearch(Func<double, double, double> F_UJ, double a, double b, double P_lj_Run, double eps)
+        {
+            double x = a;
+            double fx = 0;
+            while (x <= b)
+            {
+                fx = F_UJ(x, P_lj_Run);
+                if (Math.Abs(fx) < eps)
+                {
+                    MessageBox.Show("x = " + x);
+                    break;
+                }
+                x += 0.0001; // or any other small step size
+            }
+            return x;
         }
 
     }
     public static class Bisection
     {
-        public static Complex FindRoot(Func<Complex, Complex, Complex> F_UJ, Complex a, Complex b, Complex P_lj_Run, Complex eps)
+        public static double FindRoot(Func<double, double, double> F_UJ, double a, double b, double P_lj_Run, double eps)
         {
-            if (F_UJ(a, P_lj_Run).Real * F_UJ(b, P_lj_Run).Real > 0)
+            if (F_UJ(a, P_lj_Run) * F_UJ(b, P_lj_Run) > 0)
                 throw new ArgumentException("The function has the same sign at a and b.");
 
-            Complex c = new Complex();
-            while (Complex.Abs(b - a) > Complex.Abs(eps))
+            double c = 0;
+            while (Math.Abs(b - a) > eps)
             {
-                c = (a + b) / new Complex(2, 0);
+                c = (a + b) / 2;
 
-                if (F_UJ(c, P_lj_Run).Real == 0)
+                if (F_UJ(c, P_lj_Run) == 0)
                     break;
-                else if (F_UJ(a, P_lj_Run).Real * F_UJ(c, P_lj_Run).Real < 0)
+                else if (F_UJ(a, P_lj_Run) * F_UJ(c, P_lj_Run) < 0)
                     b = c;
                 else
                     a = c;

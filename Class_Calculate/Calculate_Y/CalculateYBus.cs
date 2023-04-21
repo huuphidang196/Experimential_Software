@@ -45,6 +45,7 @@ namespace Experimential_Software.Class_Calculate.Calculate_Y
             }
 
             //Remove All Coulumn and Row have value Elements = 0. In spite of this case is not nescessary cause from F + 2
+
             Complex[,] Y_Bus = CalculateYBus.GetYBusFromYTransferByRemoveZero(Y_Temp);
 
             // Trả về ma trận đẳng trị
@@ -175,15 +176,17 @@ namespace Experimential_Software.Class_Calculate.Calculate_Y
         {
             //branch i input = stt run 1- F standard with diagram
             Complex Y_ii = YBus[branchI - 1, branchI - 1];
-            Complex Y_io = 0;
+            Complex Y_io = Y_ii;
             for (int j = 0; j < YBus.GetLength(1); j++)
             {
-                if (j != branchI - 1) Y_io = Y_ii - YBus[branchI - 1, j];
+                if (j != branchI - 1) Y_io -= YBus[branchI - 1, j];
             }
 
             Complex Z_io = 1 / Y_io;
             return Z_io;
         }
+
+     
         #endregion Zbus_Isoval
 
     }
@@ -211,13 +214,3 @@ namespace Experimential_Software.Class_Calculate.Calculate_Y
 
 
 
-
-////remove row and columns equal 0
-//Complex[,] Y_Bus = new Complex[Count_FBus + 1, Count_FBus + 1];// because numberFBus now equal real value - 1
-//for (int i = 0; i < Y_Bus.GetLength(0); i++)
-//{
-//    for (int j = 0; j < Y_Bus.GetLength(1); j++)
-//    {
-//        Y_Bus[i, j] = Y_Temp[i, j];
-//    }
-//}

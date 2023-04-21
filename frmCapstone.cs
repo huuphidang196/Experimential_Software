@@ -56,32 +56,33 @@ namespace Experimential_Software
         #region Load_Form
         protected virtual void ExperimentalYBus()
         {
-            TestResult test = new TestResult();
-
             int number_BusJ = 7; //<=> bus 7
             // Role all number have value = value - 1. Ex : numberF = 3 => numberF = 2 <=> 3 Bus MF 
             int Count_FBus = 3; //<=> 3 MF
 
-/*            Label lblYBus = new Label();
+            TestResult test = new TestResult(number_BusJ);
+
+            Label lblYBus = new Label();
             lblYBus.AutoSize = true;
             pnlMain.Controls.Add(lblYBus);
             lblYBus.Location = new Point(50, 50);
             lblYBus.Font = new Font("Sans-serif", 10, FontStyle.Regular);
-            lblYBus.Text = test.ShowYBus(Count_FBus, number_BusJ);
+            lblYBus.Text = test.ShowYBus();
 
             Label lblZBus = new Label();
             lblZBus.AutoSize = true;
             pnlMain.Controls.Add(lblZBus);
             lblZBus.Location = new Point(50, 350);
             lblZBus.Font = new Font("Sans-serif", 10, FontStyle.Regular);
-            lblZBus.Text = test.ShowZBus( Count_FBus, number_BusJ);
-*/
+            lblZBus.Text = test.ShowZBus(Count_FBus, number_BusJ);
+
             Label lblUj = new Label();
             lblUj.AutoSize = true;
             pnlMain.Controls.Add(lblUj);
-            lblUj.Location = new Point(50, 350);
+            lblUj.Location = new Point(350, 500);
             lblUj.Font = new Font("Sans-serif", 10, FontStyle.Regular);
-            lblUj.Text = test.ShowUj(number_BusJ);
+            lblUj.Text = test.ShowUj();
+
         }
 
 
