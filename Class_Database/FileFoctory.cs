@@ -12,6 +12,7 @@ using Experimential_Software.CustomControl;
 
 namespace Experimential_Software.Class_Database
 {
+    //DAO
     public class FileFoctory
     {
         #region EPower

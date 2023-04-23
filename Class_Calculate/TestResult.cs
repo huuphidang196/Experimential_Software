@@ -23,7 +23,7 @@ namespace Experimential_Software.Class_Calculate
     public class TestResult
     {
         DataInputPowerSystem dataInputPower;
-        CalculatePointCurve pointCurve;
+        CalPointCurveStepOne pointCurve;
         protected Complex[,] Ybus;
         protected Complex[,] ZBus;
 
@@ -42,10 +42,10 @@ namespace Experimential_Software.Class_Calculate
             dataInputPower.AddRadThetaEMF(-0.0398);
 
             dataInputPower.AddReactPowerQLimit(-100, 200);
-            dataInputPower.AddReactPowerQLimit(-100, 150);
+            dataInputPower.AddReactPowerQLimit(-100, 20);
             dataInputPower.AddReactPowerQLimit(-100, 150);
 
-            this.pointCurve = new CalculatePointCurve(dataInputPower, 1, number_BusJ);
+            this.pointCurve = new CalPointCurveStepOne(dataInputPower, 1, number_BusJ);
             this.Ybus = this.pointCurve.YBusIsoval;
             this.ZBus = this.pointCurve.ZBusIsoval;
             this.number_BusJ = number_BusJ;
@@ -94,27 +94,7 @@ namespace Experimential_Software.Class_Calculate
         {
             string s = "";
             double PLj_Run = 1;
-
-            Func<double, double, double> F_UJ = (Uj, PLj_Run) => this.pointCurve.FuncFAByVoltageULoad(Uj, PLj_Run);
-
-            double a = 0.0000001;
-            double b = 2;
-            double eps = 1e-3;
-
-            // double UJ_Found = Bisection.FindRoot(F_UJ, a, b, PLj_Run, eps);
-            double UJ_Found = BruteForceSearch(F_UJ, a, b, PLj_Run, eps);
-            //double UJ_Found = this.Secant(F_UJ, a, b, PLj_Run, eps);
-            double Q_Lj = this.pointCurve.CalculateReactivePowerQLJStepOne(UJ_Found, PLj_Run);
-
-            s = "Uj = " + UJ_Found + ", Q_Lj = " + Q_Lj;
-
-            //Calculate Q_KJ_K upstream 
-            for (int k = 0; k < dataInputPower.E_AllMF.Count; k++)
-            {
-                double Q_KJ_K = this.pointCurve.CalculatePowerQKJKUpStreamStepOne(UJ_Found, k);
-                bool isAboutLimit = this.pointCurve.CheckLimitQKJK(Q_KJ_K, k);
-                s += isAboutLimit + " ";
-            }
+            double QLj = this.pointCurve.GetQLjSuitableForStablePower(PLj_Run);
 
             return s;
         }

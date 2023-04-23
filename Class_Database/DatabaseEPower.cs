@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Experimential_Software.Class_Database
 {
+    //DTO
     [Serializable]
     public class DatabaseEPower
     {

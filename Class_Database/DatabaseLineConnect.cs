@@ -8,6 +8,7 @@ using Experimential_Software;
 
 namespace Experimential_Software.Class_Database
 {
+    //DTO
     [Serializable]
     public class DatabaseLineConnect
     {
