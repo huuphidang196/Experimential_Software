@@ -1,4 +1,5 @@
-﻿using MathNet.Numerics.LinearAlgebra;
+﻿using Experimential_Software.Class_Calculate.CalculateCurve;
+using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Complex;
 using System;
 using System.Collections.Generic;
@@ -12,14 +13,15 @@ namespace Experimential_Software.Class_Calculate.Calculate_Y
 {
     public class CalculateYBus
     {
+
         #region YBus_Isoval
 
         // Ybus isoval
-        public static Complex[,] CalculateYBusIsoval(int Count_FBus, int number_BusJ)
+        public static  Complex[,] CalculateYBusIsoval(int Count_FBus, int number_BusJ, Complex[,] YSate)
         {
             //swap row order j with f + 1, same with column
 
-            Complex[,] Y_Transfer = CalculateYBus.GetYTransferRowAndCol(Count_FBus, number_BusJ);
+            Complex[,] Y_Transfer = CalculateYBus.GetYTransferRowAndCol(Count_FBus, number_BusJ, YSate);
 
             //Clone Y bus temp = Y state
             Complex[,] Y_Temp = (Complex[,])Y_Transfer.Clone();
@@ -52,10 +54,10 @@ namespace Experimential_Software.Class_Calculate.Calculate_Y
             return Y_Bus;
         }
 
-        private static Complex[,] GetYTransferRowAndCol(int Count_FBus, int number_BusJ)
+        private static Complex[,] GetYTransferRowAndCol(int Count_FBus, int number_BusJ ,Complex[,] YSate)
         {
             // Transfer Y_State to YTransfer by swapping row order j with f = 1, do same with column 
-            Complex[,] Y_Transfer = CalculateYState.CalculateMatrixYState(9);
+            Complex[,] Y_Transfer = YSate;
 
             int j = number_BusJ - 1;
             int f = Count_FBus - 1;

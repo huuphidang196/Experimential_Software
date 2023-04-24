@@ -4,12 +4,23 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using Experimential_Software.Class_Calculate.CalculateCurve;
 
 namespace Experimential_Software.Class_Calculate.Calculate_Y
 {
     public class CalculateYState
     {
-        public static Complex[,] CalculateMatrixYState(int N)
+        protected CalPointCurveStepOne _curveStepOne;
+
+        protected DataInputPowerSystem _dataInputPower;
+
+        public CalculateYState(CalPointCurveStepOne CalPointCurveStepOne)
+        {
+            this._curveStepOne = CalPointCurveStepOne;
+            this._dataInputPower = CalPointCurveStepOne.DataInputPS;
+        }
+
+        public virtual Complex[,] CalculateMatrixYState(int N)
         {
 
             Random rd = new Random();

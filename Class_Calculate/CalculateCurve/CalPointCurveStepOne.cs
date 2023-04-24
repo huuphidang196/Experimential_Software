@@ -10,15 +10,23 @@ using System.Windows.Forms;
 namespace Experimential_Software.Class_Calculate.CalculateCurve
 {
     public class CalPointCurveStepOne
-    {     
+    {
+        protected DataInputPowerSystem _dataInputPS;
+        public DataInputPowerSystem DataInputPS => _dataInputPS;
+
+        protected CalculateYState _calYState;
+        
         protected List<double> _e_AllMF;
 
-        public List<double> E_AllMF  => _e_AllMF; 
+        public List<double> E_AllMF => _e_AllMF;
 
         protected List<double> _rad_ThetaK_All;
-        public List<double> Rad_ThetaK_All  => _rad_ThetaK_All; 
+        public List<double> Rad_ThetaK_All => _rad_ThetaK_All;
 
         protected double Pj_Ori;
+
+        protected Complex[,] YState;
+        public Complex[,] YStateGenerated => YState;
 
         protected Complex[,] YBus;
         public Complex[,] YBusIsoval => YBus;
@@ -49,50 +57,128 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
 
         public CalPointCurveStepOne(DataInputPowerSystem dataInputPS, double Pj_Ori, int numberLoad)
         {
+            this._dataInputPS = dataInputPS;
             this._e_AllMF = dataInputPS.E_AllMF;
             this._rad_ThetaK_All = dataInputPS.Rad_ThetaK_All;
             this._power_Q_GK_Limits = dataInputPS.Q_GK_Limits;
             this.Pj_Ori = Pj_Ori;
 
-            this.YBus = CalculateYBus.CalculateYBusIsoval(this.E_AllMF.Count, numberLoad);
+            this._calYState = new CalculateYState(this);
+
+            this.YState = this._calYState.CalculateMatrixYState(9);
+            this.YBus = CalculateYBus.CalculateYBusIsoval(this.E_AllMF.Count, numberLoad, this.YState);
             this.ZBus = CalculateYBus.ConvertFormYBusToZBus(YBus);
         }
 
         #region Process_Generate_QLj
         public virtual double GetQLjSuitableForStablePower(double P_Lj_Run)
         {
-            double Uj_Min = 0.0000001;
+            double Uj_Min = 1e-6;
             double Uj_Max = 2;
             double eps = 1e-3;
+            double Q_Lj_Found = 0;
 
-            Func<double, double, double> F_UJ = (Uj, PLj_Run) => this.FuncFAByVoltageULoad(Uj, PLj_Run);
+            Func<double, double, double> F_UJ = this.FuncFAByVoltageULoad;
 
             // Use BruteForceSearch method in order to Find UJ variable
             double UJ_Found = BruteForceSearch(F_UJ, Uj_Min, Uj_Max, P_Lj_Run, eps);
+            //Binary search
+            //   double UJ_Found = Bisection.FindRoot(F_UJ, Uj_Min, Uj_Max, P_Lj_Run, eps);
+
             MessageBox.Show("UJ_Found1 = " + UJ_Found);
 
             //Check Condition of 2.2 Equation
             bool isCurveLimit = this.CheckQLJStepOneIsOnCurve(UJ_Found);
-            MessageBox.Show("Check = " + isCurveLimit);
-            if (isCurveLimit && UJ_Found < Uj_Max)
+
+            this.ExperimentalPrintValueOfLists();
+            if (isCurveLimit)
             {
                 // Calculate QlJ step1. Check=> true return, false then implement step 2
-                double Q_Lj_Step1 = this.CalculateReactivePowerQLJStepOne(UJ_Found, P_Lj_Run);
-                return Q_Lj_Step1;
+                Q_Lj_Found = this.CalculateReactivePowerQLJStepOne(UJ_Found, P_Lj_Run);
+                return Q_Lj_Found;
             }
 
-            this._UJ_StepOne_Found = UJ_Found;
             CalPointCurveStepTwo curveStepTwo = new CalPointCurveStepTwo(this);
-           
-            //FunctionB = 0. F_B(Uj) = 0
-            F_UJ = (Uj, PLj_Run) => curveStepTwo.FuncFBByVoltageULoad(Uj, PLj_Run);
+            while (!isCurveLimit)
+            {
+                this._UJ_StepOne_Found = UJ_Found;
 
-            UJ_Found =  BruteForceSearch(F_UJ, Uj_Min, Uj_Max, P_Lj_Run, eps);
+                //UpdateData after Each loop
+                curveStepTwo.UpdateDataAgainAfterOnceLoop();
 
-            MessageBox.Show("Uj_Step 2 = " + UJ_Found);
-            return 1;
+                //FunctionB = 0. F_B(Uj) = 0
+                F_UJ = curveStepTwo.FuncFBByVoltageULoadStepTwo;
+
+                UJ_Found = BruteForceSearch(F_UJ, Uj_Min, Uj_Max, P_Lj_Run, eps);
+
+                //Binary search
+                // UJ_Found = Bisection.FindRoot(F_UJ, Uj_Min, Uj_Max, P_Lj_Run, eps);
+
+                //Check Step 2 in Script of Step One in order to Set list satify and unsatify
+                isCurveLimit = this.CheckQLJStepTwoIsOnCurve(UJ_Found);
+                this.ExperimentalPrintValueOfLists();
+
+                if (isCurveLimit)
+                {
+                    //Calculate QlJ step1. Check => true return, false then implement step 2
+                    Q_Lj_Found = curveStepTwo.CalculateReactivePowerQLJStepTwo(UJ_Found, P_Lj_Run);
+                    break;
+                }
+            }
+
+            MessageBox.Show("Uj_Step 2 = " + UJ_Found + ", QLj_2 = " + Q_Lj_Found);
+            return Q_Lj_Found;
         }
+
+        protected virtual void ExperimentalPrintValueOfLists()
+        {
+            string s = "Satify : ";
+            foreach (int KPower in this._ePower_Satify)
+            {
+                s += "MF " + (KPower + 1) + " ,";
+            }
+
+            s += "\nUnSatify : ";
+            foreach (int KPower in this._ePower_UnSatify)
+            {
+                s += "MF " + (KPower + 1) + " ,";
+            }
+            MessageBox.Show(s);
+        }
+
+        #region Check_IsOnCurve_StepOne
         protected virtual bool CheckQLJStepOneIsOnCurve(double UJ_Found)
+        {
+            this.GenerateListAndAddPowerOneInitial(UJ_Found);
+
+            //Calculate Q_KJ_K upstream 
+            for (int k = 1; k < this.E_AllMF.Count; k++)
+            {
+                //Calculate Pkjk in order to calculate pkjj step 2
+                double P_KJ_K = this.CalculatePowerPKJKUpStreamStepOne(UJ_Found, k);
+                // get k beacause E_AllMF contain All MF
+                double Q_KJ_K = this.CalculatePowerQKJKUpStreamStepOne(UJ_Found, k);
+                bool isAboutLimit = this.CheckLimitQKJK(Q_KJ_K, k);
+                //Check then add List
+                if (isAboutLimit) this._ePower_Satify.Add(k);
+                else
+                {
+                    // not satify
+                    this._ePower_UnSatify.Add(k);
+                    Q_KJ_K = this.SetValueForPowerUnSatify(Q_KJ_K, k);//Case not satify must set value equal min or max = const
+                }
+                // Add Q_KJ_K
+                this._powers_Q_Kj_K.Add(Q_KJ_K);
+                //add P_KJ_K
+                this.Powers_P_Kj_K.Add(P_KJ_K);
+            }
+            //If no child in unSatify then All Epower suitable => QLj is on Curve
+            if (this._ePower_UnSatify.Count == 0) return true;
+
+            return false;
+        }
+
+        protected virtual void GenerateListAndAddPowerOneInitial(double UJ_Found)
         {
             //When go step2 then generate List satify and un 
             this._ePower_Satify = new List<int>();
@@ -112,30 +198,6 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
             double P_1J_1 = this.CalculatePowerPKJKUpStreamStepOne(UJ_Found, 0);
             this._powers_P_Kj_K.Add(P_1J_1);
 
-            //Calculate Q_KJ_K upstream 
-            for (int k = 1; k < this.E_AllMF.Count; k++)
-            {
-                double Q_KJ_K = this.CalculatePowerQKJKUpStreamStepOne(UJ_Found, k);
-                bool isAboutLimit = this.CheckLimitQKJK(Q_KJ_K, k);
-                //Check then add List
-                if (isAboutLimit) this._ePower_Satify.Add(k);
-                else
-                {
-                    // not satify
-                    this._ePower_UnSatify.Add(k);
-                    Q_KJ_K = this.SetValueForPowerUnSatify(Q_KJ_K, k);
-                }
-                // Add Q_KJ_K
-                this._powers_Q_Kj_K.Add(Q_KJ_K);
-
-                //add P_KJ_K
-                double P_KJ_K = this.CalculatePowerPKJKUpStreamStepOne(UJ_Found, k);
-                this.Powers_P_Kj_K.Add(P_KJ_K);
-            }
-            //If no child in unSatify then All Epower suitable => QLj is on Curve
-            if (this._ePower_UnSatify.Count == 0) return true;
-
-            return false;
         }
 
         protected virtual double SetValueForPowerUnSatify(double Q_KJ_K, int k)
@@ -153,11 +215,48 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
 
             return Q_K_Max;
         }
+
+        #endregion Check_IsOnCurve_StepOne
+
+
+        protected virtual bool CheckQLJStepTwoIsOnCurve(double UJ_Found)
+        {
+            //Check in the list Satify have any power Unsatify => if not any unsatify => Qlj, if have then loop step2=> add List Unsatify
+            //Calculate P_KJ_K, QkjK after find UJ on step 2 same step 1 . Diffence list contain k
+            //ignore E1 => Slack. Please change code if have any change E1 
+            if (this._ePower_Satify.Count == 1) return true; // because now only contain E1
+
+            for (int i = 1; i < this._ePower_Satify.Count; i++)
+            {
+                //don't get k beacause only consider list MF that it is satifying => Check 
+                int numKPower = this._ePower_Satify[i];
+                double Q_KJ_K = this.CalculatePowerQKJKUpStreamStepOne(UJ_Found, numKPower);
+                bool isAboutLimit = this.CheckLimitQKJK(Q_KJ_K, numKPower);
+                if (!isAboutLimit)
+                {
+                    //remove Power unsatify 
+                    this._ePower_Satify.RemoveAt(i);
+                    //add to list Unsatify
+                    this._ePower_UnSatify.Add(numKPower);
+                    Q_KJ_K = this.SetValueForPowerUnSatify(Q_KJ_K, numKPower);//Case not satify must set value equal min or max = const
+                    //Recify PKJ_K and Q_KJ_K at bus unstify
+                    double P_KJ_K = this.CalculatePowerPKJKUpStreamStepOne(UJ_Found, numKPower);
+
+                    this._powers_Q_Kj_K[numKPower] = Q_KJ_K;
+                    this._powers_P_Kj_K[numKPower] = P_KJ_K;
+                    return false;
+                }
+
+            }
+
+            return true;
+        }
+        #region Func_Search
         protected virtual double BruteForceSearch(Func<double, double, double> F_UJ, double Uj_Min, double Uj_Max, double P_lj_Run, double eps)
         {
             double x = Uj_Min;
             double fx = 0;
-            while (x <= Uj_Max)
+            while (x < Uj_Max)
             {
                 fx = F_UJ(x, P_lj_Run);
                 if (Math.Abs(fx) < eps)
@@ -169,7 +268,7 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
             }
             return x;
         }
-
+        #endregion Func_Search
 
         #endregion Process_Generate_QLj
 
@@ -307,6 +406,7 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
             //Calculate Q1a
             double Q1A = Math.Sqrt(T12 * Math.Pow(Uj, 2) - Square_Q1a);
 
+            //MessageBox.Show((T12 * Math.Pow(Uj, 2) - Square_Q1a).ToString());
             return Q1A;
         }
         //Q1a
@@ -325,8 +425,6 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
             return Sigmod;
         }
         //Sigmod of FA1
-
-
 
         #endregion Calculate_FA_1_Uj_Step1
 
@@ -425,7 +523,7 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
             double Q_Kj_K_Ele1 = Math.Cos(alpha_K) * (Math.Pow(E_K, 2) / Z_kj);
 
             double Q_Kj_K_Ele2A = Math.Pow((E_K * UJ_Found) / Z_kj, 2);
-            double Q_Kj_K_Ele2B = Math.Pow(Pkj_k - (Math.Sin(alpha_K) * E_K * E_K) / Z_kj, 2);
+            double Q_Kj_K_Ele2B = Math.Pow(Pkj_k - (Math.Sin(alpha_K) * Math.Pow(E_K, 2)) / Z_kj, 2);
             double Q_Kj_K_Ele2 = Math.Sqrt(Q_Kj_K_Ele2A - Q_Kj_K_Ele2B);
 
             double Q_Kj_K = Q_Kj_K_Ele1 - Q_Kj_K_Ele2;
@@ -589,7 +687,7 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
         }
         #endregion Func_Overrall
 
-       
+
     }
 }
 

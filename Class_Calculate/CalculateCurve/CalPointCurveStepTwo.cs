@@ -32,27 +32,31 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
         protected List<double> _powers_P_Kj_K;
         public List<double> Powers_P_Kj_K => _powers_P_Kj_K;
 
-        protected double _UJ_StepOne_Found = 0;
-        public double UJ_StepOne_Found => _UJ_StepOne_Found;
+        protected double _uJ_StepOne_Found = 0;
+        public double UJ_StepOne_Found => _uJ_StepOne_Found;
 
         public CalPointCurveStepTwo(CalPointCurveStepOne curveStepOne)
         {
             this._curveStepOne = curveStepOne;
-            this._e_AllMF = curveStepOne.E_AllMF;
-            this._rad_ThetaK_All = curveStepOne.Rad_ThetaK_All;
-
-            this._ePower_Satify = curveStepOne.EPower_Satify;
-            this._ePower_UnSatify = curveStepOne.EPower_UnSatify;
-
-            this._powers_P_Kj_K = curveStepOne.Powers_P_Kj_K;
-            this._powers_Q_Kj_K = curveStepOne.Powers_Q_Kj_K;
-
-            //Uj at Step 1 Found
-            this._UJ_StepOne_Found = this._curveStepOne.UJ_StepOne_Found;
+            this.UpdateDataAgainAfterOnceLoop();
         }
 
+        public virtual void UpdateDataAgainAfterOnceLoop()
+        {
+            this._e_AllMF = this._curveStepOne.E_AllMF;
+            this._rad_ThetaK_All = this._curveStepOne.Rad_ThetaK_All;
+
+            this._ePower_Satify = this._curveStepOne.EPower_Satify;
+            this._ePower_UnSatify = this._curveStepOne.EPower_UnSatify;
+
+            this._powers_P_Kj_K = this._curveStepOne.Powers_P_Kj_K;
+            this._powers_Q_Kj_K = this._curveStepOne.Powers_Q_Kj_K;
+
+            //Uj at Step 1 Found
+            this._uJ_StepOne_Found = this._curveStepOne.UJ_StepOne_Found;
+        }
         #region Calculate_F_B(UJ)
-        public virtual double FuncFBByVoltageULoad(double Uj, double P_Lj_Run)
+        public virtual double FuncFBByVoltageULoadStepTwo(double Uj, double P_Lj_Run)
         {
             //Calculate F1b(Uj)
             double F_1B_Uj = this.CalculateFBOneStepTwo(Uj, P_Lj_Run);
@@ -102,19 +106,8 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
         protected virtual double CalculateQBOneJ(double Uj, double P_Lj_Run)
         {
             //Q_B_1J => T12, Ba, B1, alphaK, TK2, TK1
-            double Sigmod = 0;
-            for (int i = 1; i < this._ePower_Satify.Count; i++)
-            {
-                //Get number E is Satify because numbers diffenrence 
-                int numberKPower = this._ePower_Satify[i];
-                double alpha_K = this._curveStepOne.GetAlphaKJ(numberKPower);
-
-                double TK1 = this._curveStepOne.CalculateTK1(numberKPower, Uj);
-                double TK2 = this._curveStepOne.CalculateTK2(numberKPower);
-
-                double Square_Sig = Math.Sin(2 * alpha_K) * Math.Sqrt(TK2 * Math.Pow(Uj, 2) - Math.Pow(TK1, 2));
-                Sigmod += Square_Sig;
-            }
+            double Sigmod = this.CalculateSigModSatify(Uj);
+            
             double T12 = this._curveStepOne.CalculateTK2(0);
             double Ba = this.CalculateBAStepTwo();
             double B1 = this.CalculateB1StepTwo(Uj);
@@ -168,7 +161,7 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
                 double alpha_K = this._curveStepOne.GetAlphaKJ(numberKPower);
                 double TK1 = this._curveStepOne.CalculateTK1(numberKPower, Uj);
 
-                B1_Sig_Ele1 += TK1 * Math.Cos(2 * alpha_K);
+                B1_Sig_Ele1 += (TK1 * Math.Cos(2 * alpha_K));
             }
 
             double B1_Sig_Ele2 = 0;
@@ -191,22 +184,47 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
         protected virtual double CalculatePKJJStepTwo(int numberKPower)
         {
             //P_KJ_J => P_KJ_K , Q_KJ_K, R_KJ, U_re temp have value = UFound Step 1
-            double P_KJ_K = this._powers_P_Kj_K[numberKPower];
-            double Q_KJ_K = this._powers_Q_Kj_K[numberKPower];
-
-            double U_ref = this._UJ_StepOne_Found;
-
-            Complex Z_KJ = this._curveStepOne.GetComplexZKJ(numberKPower);
-            double R_KJ = Z_KJ.Real;
-
-            double P_KJ_J = P_KJ_K - R_KJ * ((Math.Pow(P_KJ_K, 2) + Math.Pow(Q_KJ_K, 2)) / Math.Pow(U_ref, 2));
+            bool isPKJJ = true;
+            double P_KJ_J = this.CalculateQKJJOrPKJJStepTwo(numberKPower, isPKJJ);
 
             return P_KJ_J;
         }
         //P_KJ_J
 
-        //FB1_ELement
-        protected virtual double CalculateFBOneEleTwo(double Uj, double P_Lj_Run)
+        //Q_KJ_J
+        protected virtual double CalculateQKJJStepTwo(int numberKPower)
+        {
+            //Q_KJ_J => P_KJ_K , Q_KJ_K, X_KJ, U_re temp have value = UFound Step 1
+            bool isPKJJ = false;
+            double Q_KJ_J = this.CalculateQKJJOrPKJJStepTwo(numberKPower, isPKJJ);
+
+            return Q_KJ_J;
+        }
+        //Q_KJ_J
+
+        //Intern P_K_JJ and QKJJ
+        protected virtual double CalculateQKJJOrPKJJStepTwo(int numberKPower, bool isPKJJ)
+        {
+            //P_KJ_J => P_KJ_K , Q_KJ_K, R_KJ, U_re temp have value = UFound Step 1
+            double P_KJ_K = this._powers_P_Kj_K[numberKPower];
+            double Q_KJ_K = this._powers_Q_Kj_K[numberKPower];
+
+            double U_ref = this._uJ_StepOne_Found;
+
+            Complex Z_KJ = this._curveStepOne.GetComplexZKJ(numberKPower);
+
+            double Ris_intern = (isPKJJ == true) ? Z_KJ.Real : Z_KJ.Imaginary;
+
+            double Ris_Power = (isPKJJ == true) ? P_KJ_K : Q_KJ_K;
+
+            double Ris_KJ_J = Ris_Power - Ris_intern * ((Math.Pow(P_KJ_K, 2) + Math.Pow(Q_KJ_K, 2)) / Math.Pow(U_ref, 2));
+
+            return Ris_KJ_J;
+        }
+        //Intern P_K_JJ and QKJJ
+
+        //Sigmod satify k = 2-> s
+        protected virtual double CalculateSigModSatify(double Uj)
         {
             double Sigmod = 0;
             for (int i = 1; i < this._ePower_Satify.Count; i++)
@@ -219,6 +237,15 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
                 double Sigmod_Once = Math.Sin(2 * alpha_K) * Math.Sqrt(TK2 * Math.Pow(Uj, 2) - Math.Pow(TK1, 2));
                 Sigmod += Sigmod_Once;
             }
+
+            return Sigmod;
+        }
+
+        //FB1_ELement
+        protected virtual double CalculateFBOneEleTwo(double Uj, double P_Lj_Run)
+        {
+            double Sigmod = this.CalculateSigModSatify(Uj);
+
             double Ba = this.CalculateBAStepTwo();
             double B1 = this.CalculateB1StepTwo(Uj);
             double FB_1_Ele2 = P_Lj_Run + Ba * Math.Pow(Uj, 2) - B1 - Sigmod;
@@ -226,10 +253,9 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
             return FB_1_Ele2;
         }
 
-
         protected virtual double CalculateFBOneEleThree(double Uj)
         {
-            double Sigmod = 0;
+            double Sigmod_Ele3 = 0;
             for (int i = 1; i < this._ePower_Satify.Count; i++)
             {
                 int numberKPower = this._ePower_Satify[i];
@@ -241,16 +267,17 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
                 double Denominator = Math.Sqrt(TK2 * Math.Pow(Uj, 2) - Math.Pow(TK1, 2));
 
                 double Fraction = Numerator / Denominator;
-                Sigmod += Fraction;
+                Sigmod_Ele3 += Fraction;
 
             }
             double Ba = this.CalculateBAStepTwo();
-            double FB_1_Ele3 = 2 * Ba * Uj - Sigmod;
+            double FB_1_Ele3 = 2 * Ba * Uj - Sigmod_Ele3;
 
             return FB_1_Ele3;
         }
 
         #endregion Calculate_F_1_B_Uj
+
 
         #region Calculate_F_K_B_UJ
         protected virtual double CalculateFKBStepTwo(int numberKPower, double Uj)
@@ -317,7 +344,43 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
 
         #endregion Calculate_F_K_B_UJ
 
-        //FB1_ELement
+        #region Cal_QL(j)_Ref
+        //After assign value for Plj and find Uj => Q_L(j)
+        public double CalculateReactivePowerQLJStepTwo(double UJ_Found, double P_Lj_Run)
+        {
+            // In order to calculate Qlj(st2) => Qb_1j, Qb_kj with k = 2->s,Qb_kj with k = s+1->F, Br
+            double Q_B_1J = this.CalculateQBOneJ(UJ_Found, P_Lj_Run);
+
+            //Calculate Qb_1j with k = 2 -> s
+            double Sigmod_Sa = 0;
+            for (int i = 1; i < this._ePower_Satify.Count; i++)
+            {
+                int numberEPower = this._ePower_Satify[i];
+                double Q_B_KJ_Sa = this.CalculateQBKJ(numberEPower, UJ_Found);
+                Sigmod_Sa += Q_B_KJ_Sa;
+            }
+
+            //Calculate Qb_1j with k = s+1 -> F <=> group unSatify
+            double Sigmod_UnSa = 0;
+            for (int i = 0; i < this._ePower_UnSatify.Count; i++)
+            {
+                int numberEPower = this._ePower_UnSatify[i];
+                //In the book write that Qbkj with k = s+ 1 -> F <=> UnSa
+                double Q_B_KJ_UnSa = this.CalculateQKJJStepTwo(numberEPower);
+                Sigmod_UnSa += Q_B_KJ_UnSa;
+            }
+
+            //Calculate Br *Uj^2
+            double Br = this.CalculateBr();
+            double Q_LJ_El3 = Br * Math.Pow(UJ_Found, 2);
+
+            double Q_Lj_ST2 = Q_B_1J + Sigmod_Sa + Sigmod_UnSa - Q_LJ_El3;
+
+            return Q_Lj_ST2;
+        }
+     
+        #endregion Cal_QL(j)_Ref
+
         #endregion Calculate_F_B(UJ)
     }
 }

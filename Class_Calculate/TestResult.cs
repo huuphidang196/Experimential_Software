@@ -36,14 +36,17 @@ namespace Experimential_Software.Class_Calculate
             dataInputPower.AddEMF(1.05);
             dataInputPower.AddEMF(0.9848);
             dataInputPower.AddEMF(1.0007);
+            dataInputPower.AddEMF(1.0003);
 
             dataInputPower.AddRadThetaEMF(0);
             dataInputPower.AddRadThetaEMF(-0.0456);
             dataInputPower.AddRadThetaEMF(-0.0398);
+            dataInputPower.AddRadThetaEMF(-0.0568);
 
-            dataInputPower.AddReactPowerQLimit(-100, 200);
-            dataInputPower.AddReactPowerQLimit(-100, 20);
-            dataInputPower.AddReactPowerQLimit(-100, 150);
+            dataInputPower.AddReactPowerQLimit(-9999, 9999);//alway satify
+            dataInputPower.AddReactPowerQLimit(-10, 90);
+            dataInputPower.AddReactPowerQLimit(50, 150);
+            dataInputPower.AddReactPowerQLimit(-100, 10);
 
             this.pointCurve = new CalPointCurveStepOne(dataInputPower, 1, number_BusJ);
             this.Ybus = this.pointCurve.YBusIsoval;
@@ -106,7 +109,7 @@ namespace Experimential_Software.Class_Calculate
             while (x <= b)
             {
                 fx = F_UJ(x, P_lj_Run);
-                if (Math.Abs(fx) < eps)
+                if (Math.Abs(fx) <= eps)
                 {
                     MessageBox.Show("UJ_Found = " + x);
                     break;
@@ -141,11 +144,11 @@ namespace Experimential_Software.Class_Calculate
             {
                 c = (a + b) / 2;
 
-                if (F_UJ(c, P_lj_Run) == 0)
+                if (Math.Abs(F_UJ(c, P_lj_Run)) <= eps)
                     break;
                 else if (F_UJ(a, P_lj_Run) * F_UJ(c, P_lj_Run) < 0)
                     b = c;
-                else
+                else 
                     a = c;
             }
 
