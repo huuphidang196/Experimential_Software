@@ -105,6 +105,13 @@
     <Compile Include="Class_Calculate\CalculateCurve\CalPointCurveStepOne.cs" />
     <Compile Include="Class_Calculate\DataInputPowerSystem.cs" />
     <Compile Include="Class_Calculate\TestResult.cs" />
+    <Compile Include="Class_Database\DataRecordEPower.cs" />
+    <Compile Include="Class_Database\DataRecordEPowerCtrl.cs" />
+    <Compile Include="Class_Database\DTOBusEPower.cs" />
+    <Compile Include="Class_Database\DTOGeneEPower.cs" />
+    <Compile Include="Class_Database\DTOLineEPower.cs" />
+    <Compile Include="Class_Database\DTOLoadEPower.cs" />
+    <Compile Include="Class_Database\DTOTransTwoEPower.cs" />
     <Compile Include="Class_Process_MnuFile\ProcessMnuFile.cs" />
     <Compile Include="Class_Database\DatabaseLineConnect.cs" />
     <Compile Include="Class_Database\DatabaseEPower.cs" />
@@ -114,6 +121,7 @@
     <Compile Include="ConnectableE.Designer.cs">
       <DependentUpon>ConnectableE.cs</DependentUpon>
     </Compile>
+    <Compile Include="DAO\DAO_BusData\DAOGeneBusRecord.cs" />
     <Compile Include="EPowerProcess\EPowerProcessKey.cs" />
     <Compile Include="Class_Database\FileFoctory.cs" />
     <Compile Include="frmCapstone.cs">

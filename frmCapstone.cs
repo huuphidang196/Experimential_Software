@@ -11,6 +11,7 @@ using Experimential_Software.Class_Database;
 using Experimential_Software.Class_Process_MnuFile;
 using Experimential_Software.CustomControl;
 using Experimential_Software.Class_Calculate;
+using Experimential_Software.DAO.DAO_BusData;
 
 namespace Experimential_Software
 {
@@ -44,7 +45,7 @@ namespace Experimential_Software
         private void Form1_Load(object sender, EventArgs e)
         {
             //Experimental Calculate YBus
-            this.ExperimentalYBus();
+           // this.ExperimentalYBus();
 
             this.FixScaleSizeForm();
             this.LoadImageMenuFile();
@@ -244,6 +245,7 @@ namespace Experimential_Software
 
             return null;
         }
+     
         #endregion Reference_OutSide
 
         #region Control_On_Form
@@ -324,6 +326,9 @@ namespace Experimential_Software
 
                 this.zoomFactor = pnlMain.ZoomFactor;
                 pnlMain.SetInsideEPower(ePower);
+               
+                //Open Data Record the first
+                if (ePower.GenerateModeE == GenerateMode.Instance) ePower.OpenDataRecordForm();
 
             }
             else
@@ -332,6 +337,8 @@ namespace Experimential_Software
                 control.Dispose();
             }
         }
+
+
         /// <summary>
 
         #endregion Control_On_Form
@@ -341,21 +348,32 @@ namespace Experimential_Software
         protected virtual void ButtonMouseDown(object sender, MouseEventArgs e, ConnectableE btnTool, DatabaseEPower databaseE, GenerateMode generateMode)
         {
             if (e.Button == MouseButtons.Right) return;
-            // Create instance of button1 and start drag-and-drop operation
-            ConnectableE ctrlInstance = new ConnectableE(this, pnlMain, databaseE, this.imgListEPower, generateMode);
-            countElement = this.ePowers.Count + 1;
-            //   ctrlInstance.Name = btnTool.Name + "_" + this.countElement;
-            // ctrlInstance.Text = btnTool.Text + "_" + this.countElement;
-            ctrlInstance.Location = btnTool.Location;
 
+            //count objectype
+            var ListEPowerInstance =  this.ePowers.FindAll(x => x.DatabaseE.ObjectType == databaseE.ObjectType);
+            int currentExistMax = 0 ;
+
+            databaseE.DataRecordE = new DataRecordEPowerCtrl();
+            switch(databaseE.ObjectType)
+            {
+                case ObjectType.Bus:
+                    if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber);
+                    databaseE.DataRecordE.DTOBusEPower = DAOGeneBusRecord.Instance.GenerateDTOBusDefault(currentExistMax);
+                    break;
+            }
+            // Create instance of button1 and start drag-and-drop operation
+            ConnectableE ctrlInstance = new ConnectableE(this, pnlMain, databaseE, this.imgListEPower, generateMode);    
+
+            //cOUNT aLLL Epowers
+            countElement = this.ePowers.Count + 1;
+
+            ctrlInstance.Location = btnTool.Location;
             ctrlInstance.DoDragDrop(ctrlInstance, DragDropEffects.Move);
             pnlMain.Controls.Add(ctrlInstance);
             ctrlInstance.BringToFront();
         }
-
+        
         #endregion Button_Instance
-
-
 
         #region MenuStrip
 

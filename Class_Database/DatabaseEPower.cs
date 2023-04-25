@@ -16,17 +16,13 @@ namespace Experimential_Software.Class_Database
 
         public ObjectType ObjectType { get; set; }
 
-        public string ObjectName { get; set; }
-
-        public int ObjectNumber { get; set; }
-
         public bool IsContainPhead { get; set; }
 
         public bool IsContainPtail { get; set; }
 
         public ContainPreEpower ContainPreEpower { get; set; }
 
-        public int NumberImage => (int)ObjectType;
+        public int NumberImage => (int)this.ObjectType;
 
         public int Width
         {
@@ -57,6 +53,61 @@ namespace Experimential_Software.Class_Database
 
         public Point OldLocation { get; set; }
 
-
+        public DataRecordEPowerCtrl DataRecordE { get; set; }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ *   public DataRecordEPowerCtrl DataRecordE
+        {
+            get
+            {
+                if (this.ObjectType == ObjectType.Bus) return (DTOBusEPower)DataRecordE;
+
+                if (this.ObjectType == ObjectType.MF) return (DTOGeneEPower)DataRecordE;
+
+                if (this.ObjectType == ObjectType.MBA) return (DTOTransTwoEPower)DataRecordE;
+
+                if (this.ObjectType == ObjectType.LineEPower) return (DTOLineEPower)DataRecordE;
+
+                if (this.ObjectType == ObjectType.Load) return (DTOLoadEPower)DataRecordE;
+
+                return null;
+            }
+
+            set
+            {
+                if (this.ObjectType == ObjectType.Bus) DataRecordE = (DTOBusEPower)value;
+
+                if (this.ObjectType == ObjectType.MF) DataRecordE = (DTOGeneEPower)value;
+
+                if (this.ObjectType == ObjectType.MBA) DataRecordE = (DTOTransTwoEPower)value;
+
+                if (this.ObjectType == ObjectType.LineEPower) DataRecordE = (DTOLineEPower)value;
+
+                if (this.ObjectType == ObjectType.Load) DataRecordE = (DTOLoadEPower)value;
+            }
+        }
+ */

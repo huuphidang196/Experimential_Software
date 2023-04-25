@@ -44,7 +44,7 @@ namespace Experimential_Software.EPowerProcess
 
             this.isDragging = true;
             //Transfer to point Panel Main
-            this.previousMouseLocation =this.TransferPosFindOnInstance( e.Location);
+            this.previousMouseLocation = this.TransferPosFindOnInstance(e.Location);
 
             this.isMove = this._ePower.IsMove;
             // both move and not move use
@@ -145,7 +145,7 @@ namespace Experimential_Software.EPowerProcess
             this._ePower.Location = this.TransferPosMouseToControl(e);
             //After move update again postion of Epower. When move difference Zoom
             this._ePower.OldLocation = this._ePower.Location;
-           // MessageBox.Show("After Old Location = " + this._ePower.OldLocation);
+            // MessageBox.Show("After Old Location = " + this._ePower.OldLocation);
         }
 
         protected virtual void CheckAndAddLineConnet(ConnectableE buttonInstance)
@@ -157,6 +157,13 @@ namespace Experimential_Software.EPowerProcess
             // Find have button contain endpoint of Line
             ConnectableE EndEPower = this._ePower.FormCapstone.CheckEndLineIsOnEPower(this._endPLinetemp, this._ePower);
             if (EndEPower == null) return;
+
+            //MF is allowed only connect with Bus
+            if (buttonInstance.DatabaseE.ObjectType == ObjectType.MF)
+            {
+                if (EndEPower.DatabaseE.ObjectType != ObjectType.Bus) return;
+            }
+
 
             //Check endPoint is near Pheah or Ptail. not use isOnpHead or Patil beacause endLocation use mouse of other button
             Point pointEndToBtn = EndEPower.IsOnNearPHead() ? EndEPower.PHead : EndEPower.PTail;
@@ -208,17 +215,25 @@ namespace Experimential_Software.EPowerProcess
         //Open Form Set Data
         public virtual void ButtonInstance_DoubleMouseClick(MouseEventArgs e)
         {
-            frmDataBus frmData = new frmDataBus();
-            frmData.EPowerFixed = this._ePower;
-
-            ///***   => Experimental => Update database 
-            if (frmData.ShowDialog() == DialogResult.OK)
-            {
-                this._ePower.SetDataLabelInfo();
-               // MessageBox.Show("first = " + this._firstClickTime + ", last = " + this._lastClickTime + ", Span = " + timeSinceLastClick);
-            }
+            this.ShowDataRecordForEPower(this._ePower);
         }
-
+        //Open Data Record first when drop panelmain
+        public virtual void ShowDataRecordForEPower(ConnectableE ePower)
+        {
+            ObjectType objectType = ePower.DatabaseE.ObjectType;
+            switch (objectType)
+            {
+                case ObjectType.Bus:
+                    {
+                        frmDataBus frmDataBus = new frmDataBus();
+                        frmDataBus.EPowerFixed = ePower;
+                        ///***   => Experimental => Update database 
+                        if (frmDataBus.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();                  
+                    }
+                    break;
+            }
+          
+        }
         #endregion Mouse_Click
         #region Overall Function
 

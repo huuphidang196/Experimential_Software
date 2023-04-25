@@ -24,8 +24,8 @@ namespace Experimential_Software
     {
         NoType = 0,
 
-        MF = 1,
-        Bus = 2,
+        Bus = 1,
+        MF = 2,
         MBA = 3,
         LineEPower = 4,
         Load = 5,
@@ -66,6 +66,10 @@ namespace Experimential_Software
         public Point OldLocation { get => _oldLocation; set => _oldLocation = value; }
 
         public bool isOnTool { get; set; }
+
+        //if GenerateMode = Instance => Open frm Record
+        protected GenerateMode _generateMode;
+        public GenerateMode GenerateModeE => _generateMode;
 
         protected bool isSelected;
         public bool IsSelected
@@ -151,12 +155,14 @@ namespace Experimential_Software
             BackColor = Color.Transparent;
             DoubleBuffered = true;
 
+            //if GenerateMode = Instance => Open frm Record
+            this._generateMode = generateMode;
             //Set variable
-            this.SetVariableOnEPower(databaseEPower, imgList, generateMode);
+            this.SetVariableOnEPower(databaseEPower, imgList);
 
         }
 
-        protected virtual void SetVariableOnEPower(DatabaseEPower databaseEPower, ImageList imgList, GenerateMode generateMode)
+        protected virtual void SetVariableOnEPower(DatabaseEPower databaseEPower, ImageList imgList)
         {
             this.databaseE = databaseEPower;
 
@@ -167,7 +173,7 @@ namespace Experimential_Software
             this.isSelected = false;
 
             //Case new Generate diffrence Load from database
-            this.ProcessBoolState(generateMode);
+            this.ProcessBoolState();
 
 
             //Set Size
@@ -176,7 +182,7 @@ namespace Experimential_Software
             // Vẽ ảnh lên control với kích thước mới
             //MessageBox.Show(this.ImageList.ImageSize + "");
             // Set Object Number
-            this.pnlMain_Drawn.PanelMainMouse.ProcessSetNumberObjetEPower(this);
+         //   this.pnlMain_Drawn.PanelMainMouse.ProcessSetNumberObjetEPower(this);
 
             this.GenerateDataLabelInfo();
 
@@ -186,9 +192,9 @@ namespace Experimential_Software
 
         }
 
-        protected virtual void ProcessBoolState(GenerateMode generateMode)
+        protected virtual void ProcessBoolState()
         {
-            if (generateMode == GenerateMode.Instance)
+            if (this._generateMode == GenerateMode.Instance)
             {
                 this.isContainPhead = false;
                 this.isContainPtail = false;
@@ -263,8 +269,19 @@ namespace Experimential_Software
         public override string ToString()
         {
             ObjectType objType = this.databaseE.ObjectType;
-            string objName = this.databaseE.ObjectName;
-            int objNumber = this.databaseE.ObjectNumber;
+            string objName = "";
+            int objNumber = 1;
+
+            switch (objType)
+            {
+                case ObjectType.Bus:
+                    {
+                        objName = this.databaseE.DataRecordE.DTOBusEPower.ObjectName;
+                        objNumber = this.databaseE.DataRecordE.DTOBusEPower.ObjectNumber;
+                    }
+                    break;
+            }
+
             return objType + " " + objNumber + ", Name : " + objName;
         }
 
@@ -437,6 +454,12 @@ namespace Experimential_Software
             Invalidate();
         }
 
+        public virtual void OpenDataRecordForm()
+        {
+            //When ePower is not on Panel Main => element new => frm
+            this._ePowerMouse.ShowDataRecordForEPower(this);
+        }
+
         #endregion Mouse
 
 
@@ -523,7 +546,7 @@ namespace Experimential_Software
         }
 
 
-
+       
         #endregion Function_Overall
     }
 }

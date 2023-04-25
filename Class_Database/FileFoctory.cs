@@ -53,7 +53,7 @@ namespace Experimential_Software.Class_Database
             {
                 MessageBox.Show(ex.Message);
             }
-            MessageBox.Show("Count EPower = " + dataBaseEPowers.Count);
+            //MessageBox.Show("Count EPower = " + dataBaseEPowers.Count);
             return dataBaseEPowers;
         }
 

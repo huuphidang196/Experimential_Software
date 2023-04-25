@@ -105,7 +105,7 @@ namespace Experimential_Software.CustomControl
 
 
         #endregion Line
-
+/*
         public virtual void ProcessSetNumberObjetEPower(ConnectableE EPower_Instance)
         {
             // Lấy danh sách tất cả các ConnectionE control có trong pnlMain
@@ -122,7 +122,7 @@ namespace Experimential_Software.CustomControl
 
             }
             // set Obj number = count current + 1;
-            EPower_Instance.DatabaseE.ObjectNumber = count + 1;
+           EPower_Instance.DatabaseE.DataRecordE.ObjectNumber = count + 1;
         }
 
         public virtual void ProcessSetNumberEPowerAfterDelete(ConnectableE EPower_Deleted)
@@ -137,11 +137,11 @@ namespace Experimential_Software.CustomControl
                 // Code xử lý cho từng ConnectionE control
                 if (ePower.DatabaseE.ObjectType != type_Instance) continue;
 
-                int numberObj = ePower.DatabaseE.ObjectNumber;
-                if (numberObj < EPower_Deleted.DatabaseE.ObjectNumber) continue;
+                int numberObj = ePower.DatabaseE.DataRecordE.ObjectNumber;
+                if (numberObj < EPower_Deleted.DatabaseE.DataRecordE.ObjectNumber) continue;
 
                 //Reduce number obj
-                ePower.DatabaseE.ObjectNumber -= 1;
+                ePower.DatabaseE.DataRecordE.ObjectNumber -= 1;
                 // //Set data show on EPower
                 ePower.SetDataLabelInfo();
             }
@@ -153,6 +153,6 @@ namespace Experimential_Software.CustomControl
 
             return this.pnlMainDrawn.Controls.OfType<ConnectableE>().ToList();
         }
-
+*/
     }
 }
