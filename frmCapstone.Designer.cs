@@ -44,11 +44,11 @@ namespace Experimential_Software
             this.imgListEPower = new System.Windows.Forms.ImageList(this.components);
             this.imgListIconCtrl = new System.Windows.Forms.ImageList(this.components);
             this.pnlMain = new Experimential_Software.PanelMain();
+            this.btnBusPower = new Experimential_Software.ConnectableE();
             this.btnLoad = new Experimential_Software.ConnectableE();
             this.btnMFPower = new Experimential_Software.ConnectableE();
             this.btnTransformer = new Experimential_Software.ConnectableE();
             this.btnLinePower = new Experimential_Software.ConnectableE();
-            this.btnBusPower = new Experimential_Software.ConnectableE();
             this.panel2.SuspendLayout();
             this.mnuStripBar.SuspendLayout();
             this.pnlTool.SuspendLayout();
@@ -189,6 +189,28 @@ namespace Experimential_Software
             this.pnlMain.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragEnter);
             this.pnlMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlMain_MouseDown);
             // 
+            // btnBusPower
+            // 
+            this.btnBusPower.BackColor = System.Drawing.Color.Transparent;
+            this.btnBusPower.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnBusPower.ImageIndex = 0;
+            this.btnBusPower.ImageList = this.imgListTool;
+            this.btnBusPower.IsContainPhead = false;
+            this.btnBusPower.IsContainPtail = false;
+            this.btnBusPower.IsMove = false;
+            this.btnBusPower.isOnTool = true;
+            this.btnBusPower.IsSelected = false;
+            this.btnBusPower.LblInfoE = null;
+            this.btnBusPower.Location = new System.Drawing.Point(30, 40);
+            this.btnBusPower.Name = "btnBusPower";
+            this.btnBusPower.OldLocation = new System.Drawing.Point(0, 0);
+            this.btnBusPower.PHead = new System.Drawing.Point(0, 0);
+            this.btnBusPower.PTail = new System.Drawing.Point(0, 0);
+            this.btnBusPower.Size = new System.Drawing.Size(50, 50);
+            this.btnBusPower.TabIndex = 0;
+            this.btnBusPower.UseVisualStyleBackColor = false;
+            this.btnBusPower.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnBusPower_MouseDown);
+            // 
             // btnLoad
             // 
             this.btnLoad.BackColor = System.Drawing.Color.Transparent;
@@ -286,28 +308,6 @@ namespace Experimential_Software
             this.btnLinePower.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.btnLinePower.UseVisualStyleBackColor = false;
             this.btnLinePower.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLinePower_MouseDown);
-            // 
-            // btnBusPower
-            // 
-            this.btnBusPower.BackColor = System.Drawing.Color.Transparent;
-            this.btnBusPower.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.btnBusPower.ImageIndex = 0;
-            this.btnBusPower.ImageList = this.imgListTool;
-            this.btnBusPower.IsContainPhead = false;
-            this.btnBusPower.IsContainPtail = false;
-            this.btnBusPower.IsMove = false;
-            this.btnBusPower.isOnTool = true;
-            this.btnBusPower.IsSelected = false;
-            this.btnBusPower.LblInfoE = null;
-            this.btnBusPower.Location = new System.Drawing.Point(30, 40);
-            this.btnBusPower.Name = "btnBusPower";
-            this.btnBusPower.OldLocation = new System.Drawing.Point(0, 0);
-            this.btnBusPower.PHead = new System.Drawing.Point(0, 0);
-            this.btnBusPower.PTail = new System.Drawing.Point(0, 0);
-            this.btnBusPower.Size = new System.Drawing.Size(50, 50);
-            this.btnBusPower.TabIndex = 0;
-            this.btnBusPower.UseVisualStyleBackColor = false;
-            this.btnBusPower.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnBusPower_MouseDown);
             // 
             // frmCapstone
             // 

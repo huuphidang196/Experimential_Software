@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using Experimential_Software.Class_Database;
 using Experimential_Software.CustomControl;
+using Experimential_Software.DAO.DAO_LoadData;
 
 namespace Experimential_Software.EPowerProcess
 {
@@ -29,6 +30,7 @@ namespace Experimential_Software.EPowerProcess
         private int _clickCount = 0;
 
         protected ProcessEPowerMove processEPowerMove;
+        public ProcessEPowerMove ProcessEPowerMove => processEPowerMove;
 
         public EPowerProcessMouse(ConnectableE ePower)
         {
@@ -158,12 +160,14 @@ namespace Experimential_Software.EPowerProcess
             ConnectableE EndEPower = this._ePower.FormCapstone.CheckEndLineIsOnEPower(this._endPLinetemp, this._ePower);
             if (EndEPower == null) return;
 
-            //MF is allowed only connect with Bus
-            if (buttonInstance.DatabaseE.ObjectType == ObjectType.MF)
+            //MF is allowed only connect with Bus, similiar with Load only connect with Bus
+            if (EndEPower.DatabaseE.ObjectType != ObjectType.Bus)
             {
-                if (EndEPower.DatabaseE.ObjectType != ObjectType.Bus) return;
-            }
+                if (buttonInstance.DatabaseE.ObjectType == ObjectType.MF) return;
 
+                if (buttonInstance.DatabaseE.ObjectType == ObjectType.Load) return;
+            }    
+           
 
             //Check endPoint is near Pheah or Ptail. not use isOnpHead or Patil beacause endLocation use mouse of other button
             Point pointEndToBtn = EndEPower.IsOnNearPHead() ? EndEPower.PHead : EndEPower.PTail;
@@ -188,6 +192,7 @@ namespace Experimential_Software.EPowerProcess
 
             //set 2 Contain Phead or Ptail 2 button
             this.SetContainTwoButton(buttonInstance, EndEPower);
+            this.UpdateDataRecordEPower(buttonInstance);
         }
 
         protected virtual void SetContainTwoButton(ConnectableE StartEPower, ConnectableE EndEPower)
@@ -208,6 +213,20 @@ namespace Experimential_Software.EPowerProcess
             btnSet.IsContainPtail = true;
 
         }
+
+        protected virtual void UpdateDataRecordEPower(ConnectableE buttonInstance)
+        {
+            ObjectType objType = this._ePower.DatabaseE.ObjectType;
+            switch (objType)
+            {
+                case ObjectType.Load:
+                    {
+                        //Update DataDTO bus After Connect 
+                        DAOUpdateLineAfterConnectBus.Instance.UpDateLineRecordAfterConnectBus(buttonInstance);
+                    }
+                    break;
+            }    
+        }
         #endregion Mouse Up
 
 
@@ -226,9 +245,15 @@ namespace Experimential_Software.EPowerProcess
                 case ObjectType.Bus:
                     {
                         frmDataBus frmDataBus = new frmDataBus();
-                        frmDataBus.EPowerFixed = ePower;
-                        ///***   => Experimental => Update database 
+                        frmDataBus.BusEPowerFixed = ePower;
                         if (frmDataBus.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();                  
+                    }
+                    break;
+                case ObjectType.Load:
+                    {
+                        frmDataLoad frmDataLoad = new frmDataLoad();
+                        frmDataLoad.LoadEPowerFixed = ePower;
+                        if (frmDataLoad.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
                     }
                     break;
             }

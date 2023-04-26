@@ -15,8 +15,8 @@ namespace Experimential_Software
     public partial class frmDataBus : Form
     {
         // Require have before Initialize
-        protected ConnectableE _ePowerFixed;
-        public ConnectableE EPowerFixed { set => _ePowerFixed = value; }
+        protected ConnectableE _busEFixedData;
+        public ConnectableE BusEPowerFixed { set => _busEFixedData = value; }
 
         //Database Bus Record
         protected DTOBusEPower _dtoBusRecord;
@@ -29,16 +29,16 @@ namespace Experimential_Software
 
         private void frmDataBus_Load(object sender, EventArgs e)
         {
-            if (this._ePowerFixed != null)
+            if (this._busEFixedData != null)
             {
-                this.SetDataFormEPowerOrigin();
+                this.SetDataFormBusEPowerOrigin();
             }
         }
 
         #region Show_Data_Origin
-        protected virtual void SetDataFormEPowerOrigin()
+        protected virtual void SetDataFormBusEPowerOrigin()
         {
-            this._dtoBusRecord = this._ePowerFixed.DatabaseE.DataRecordE.DTOBusEPower;
+            this._dtoBusRecord = this._busEFixedData.DatabaseE.DataRecordE.DTOBusEPower;
 
             //Show Data On Form, Data Default set at frmCapston
 
@@ -142,9 +142,15 @@ namespace Experimential_Software
             this._dtoBusRecord.Emer_Vmin_pu = Emer_Vmin_pu;
 
             //Set Datarecord Bus 
-            this._ePowerFixed.DatabaseE.DataRecordE.DTOBusEPower = this._dtoBusRecord;
+            this._busEFixedData.DatabaseE.DataRecordE.DTOBusEPower = this._dtoBusRecord;
 
             return true;
+        }
+
+
+        private void htnCancelBus_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         #endregion Update_DataBase
@@ -204,5 +210,6 @@ namespace Experimential_Software
         }
 
         #endregion Func_Overrall
+
     }
 }

@@ -182,7 +182,7 @@ namespace Experimential_Software
             // Vẽ ảnh lên control với kích thước mới
             //MessageBox.Show(this.ImageList.ImageSize + "");
             // Set Object Number
-         //   this.pnlMain_Drawn.PanelMainMouse.ProcessSetNumberObjetEPower(this);
+            //   this.pnlMain_Drawn.PanelMainMouse.ProcessSetNumberObjetEPower(this);
 
             this.GenerateDataLabelInfo();
 
@@ -278,6 +278,13 @@ namespace Experimential_Software
                     {
                         objName = this.databaseE.DataRecordE.DTOBusEPower.ObjectName;
                         objNumber = this.databaseE.DataRecordE.DTOBusEPower.ObjectNumber;
+                    }
+                    break;
+
+                case ObjectType.Load:
+                    {
+                        objName = this.databaseE.DataRecordE.DTOLoadEPower.ObjectName;
+                        objNumber = this.databaseE.DataRecordE.DTOLoadEPower.ObjectNumber;
                     }
                     break;
             }
@@ -410,9 +417,9 @@ namespace Experimential_Software
 
             if (e.Button == MouseButtons.Right) return;
 
-            if (this._ePowerMouse == null) return;
-
             if (this.isOnTool) return;
+
+            if (this._ePowerMouse == null) return;
 
             this.mouseEnter = true;
 
@@ -453,6 +460,7 @@ namespace Experimential_Software
             this.mouseEnter = false;
             Invalidate();
         }
+
 
         public virtual void OpenDataRecordForm()
         {
@@ -546,7 +554,7 @@ namespace Experimential_Software
         }
 
 
-       
+
         #endregion Function_Overall
     }
 }

@@ -27,7 +27,8 @@ namespace Experimential_Software.DAO.DAO_BusData
             //Basic Data
             dtoBusE.ObjectName = "";
 
-            dtoBusE.ObjectNumber = (ExistOrderBus < 100) ? (ExistOrderBus + 1) * 100 : ExistOrderBus + 1;
+            int numberObjectType = (int)ObjectType.Bus * 100;
+            dtoBusE.ObjectNumber = (ExistOrderBus < 100) ? numberObjectType + 1 : ExistOrderBus + 1;
 
             dtoBusE.TypeCodeBus = TypeCodeBus.Non_Gen_Bus;
             dtoBusE.BasekV = 0;

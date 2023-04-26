@@ -12,6 +12,7 @@ using Experimential_Software.Class_Process_MnuFile;
 using Experimential_Software.CustomControl;
 using Experimential_Software.Class_Calculate;
 using Experimential_Software.DAO.DAO_BusData;
+using Experimential_Software.DAO.DAO_LoadData;
 
 namespace Experimential_Software
 {
@@ -45,7 +46,7 @@ namespace Experimential_Software
         private void Form1_Load(object sender, EventArgs e)
         {
             //Experimental Calculate YBus
-           // this.ExperimentalYBus();
+            //this.ExperimentalYBus();
 
             this.FixScaleSizeForm();
             this.LoadImageMenuFile();
@@ -245,15 +246,16 @@ namespace Experimential_Software
 
             return null;
         }
-     
+
         #endregion Reference_OutSide
 
         #region Control_On_Form
-        protected void btnBusPower_MouseDown(object sender, MouseEventArgs e)
+        private void btnBusPower_MouseDown(object sender, MouseEventArgs e)
         {
             DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Bus };
             this.ButtonMouseDown(sender, e, btnBusPower, databaseE, GenerateMode.Instance);
         }
+     
 
         protected void btnLinePower_MouseDown(object sender, MouseEventArgs e)
         {
@@ -326,7 +328,7 @@ namespace Experimential_Software
 
                 this.zoomFactor = pnlMain.ZoomFactor;
                 pnlMain.SetInsideEPower(ePower);
-               
+
                 //Open Data Record the first
                 if (ePower.GenerateModeE == GenerateMode.Instance) ePower.OpenDataRecordForm();
 
@@ -348,21 +350,24 @@ namespace Experimential_Software
         protected virtual void ButtonMouseDown(object sender, MouseEventArgs e, ConnectableE btnTool, DatabaseEPower databaseE, GenerateMode generateMode)
         {
             if (e.Button == MouseButtons.Right) return;
-
             //count objectype
-            var ListEPowerInstance =  this.ePowers.FindAll(x => x.DatabaseE.ObjectType == databaseE.ObjectType);
-            int currentExistMax = 0 ;
+            var ListEPowerInstance = this.ePowers.FindAll(x => x.DatabaseE.ObjectType == databaseE.ObjectType);
+            int currentExistMax = 0;
 
             databaseE.DataRecordE = new DataRecordEPowerCtrl();
-            switch(databaseE.ObjectType)
+            switch (databaseE.ObjectType)
             {
                 case ObjectType.Bus:
-                    if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber);
+                    if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber);//dto Bus
                     databaseE.DataRecordE.DTOBusEPower = DAOGeneBusRecord.Instance.GenerateDTOBusDefault(currentExistMax);
+                    break;
+                case ObjectType.Load:
+                    if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOLoadEPower.ObjectNumber);//dtoLoad.
+                    databaseE.DataRecordE.DTOLoadEPower = DAOGeneLoadRecord.Instance.GenerateDTOLoadDefault(currentExistMax);
                     break;
             }
             // Create instance of button1 and start drag-and-drop operation
-            ConnectableE ctrlInstance = new ConnectableE(this, pnlMain, databaseE, this.imgListEPower, generateMode);    
+            ConnectableE ctrlInstance = new ConnectableE(this, pnlMain, databaseE, this.imgListEPower, generateMode);
 
             //cOUNT aLLL Epowers
             countElement = this.ePowers.Count + 1;
@@ -372,7 +377,6 @@ namespace Experimential_Software
             pnlMain.Controls.Add(ctrlInstance);
             ctrlInstance.BringToFront();
         }
-        
         #endregion Button_Instance
 
         #region MenuStrip
@@ -404,7 +408,10 @@ namespace Experimential_Software
         }
 
 
+
         #endregion MenuStrip
+
+       
     }
 }
 

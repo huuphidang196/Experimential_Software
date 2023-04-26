@@ -13,6 +13,7 @@ namespace Experimential_Software
 {
     public partial class PanelMain : Panel
     {
+
         protected PanelMainMouse _pnlMainMouse;
         public PanelMainMouse PanelMainMouse => _pnlMainMouse;
 
