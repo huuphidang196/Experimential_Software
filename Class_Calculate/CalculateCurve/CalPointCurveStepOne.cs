@@ -52,16 +52,18 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
         protected List<double> _powers_P_Kj_K;
         public List<double> Powers_P_Kj_K => _powers_P_Kj_K;
 
-        protected double _UJ_StepOne_Found = 0;
-        public double UJ_StepOne_Found => _UJ_StepOne_Found;
+        protected double _uJ_BusLoad = 0;
+        public double UJ_BusLoad => _uJ_BusLoad;
 
-        public CalPointCurveStepOne(DataInputPowerSystem dataInputPS, double Pj_Ori, int numberLoad)
+        public CalPointCurveStepOne(DataInputPowerSystem dataInputPS, double Pj_Ori, int numberLoad, double Uj_RateBusLoad)
         {
             this._dataInputPS = dataInputPS;
             this._e_AllMF = dataInputPS.E_AllMF;
             this._rad_ThetaK_All = dataInputPS.Rad_ThetaK_All;
             this._power_Q_GK_Limits = dataInputPS.Q_GK_Limits;
+            
             this.Pj_Ori = Pj_Ori;
+            this._uJ_BusLoad = Uj_RateBusLoad;//Uref use Step 2 is Udm at Bus J => Bus is examined
 
             this._calYState = new CalculateYState(this);
 
@@ -101,8 +103,6 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
             CalPointCurveStepTwo curveStepTwo = new CalPointCurveStepTwo(this);
             while (!isCurveLimit)
             {
-                this._UJ_StepOne_Found = UJ_Found;
-
                 //UpdateData after Each loop
                 curveStepTwo.UpdateDataAgainAfterOnceLoop();
 

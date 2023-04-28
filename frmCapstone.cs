@@ -13,6 +13,7 @@ using Experimential_Software.CustomControl;
 using Experimential_Software.Class_Calculate;
 using Experimential_Software.DAO.DAO_BusData;
 using Experimential_Software.DAO.DAO_LoadData;
+using Experimential_Software.DAO.DAO_LineData;
 
 namespace Experimential_Software
 {
@@ -36,6 +37,7 @@ namespace Experimential_Software
         //Process new file, open, save
         protected ProcessMnuFile _processMnuFile;
 
+        
         protected double zoomFactor = 1;
 
         public frmCapstone()
@@ -269,10 +271,16 @@ namespace Experimential_Software
             this.ButtonMouseDown(sender, e, btnMFPower, databaseE, GenerateMode.Instance);
         }
 
-        private void btnTransformer_MouseDown(object sender, MouseEventArgs e)
+        private void btnTransformer2P_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MBA };
-            this.ButtonMouseDown(sender, e, btnTransformer, databaseE, GenerateMode.Instance);
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MBA2P };
+            this.ButtonMouseDown(sender, e, btnTransformer2P, databaseE, GenerateMode.Instance);
+        }
+
+        private void btnTransformer3P_MouseDown(object sender, MouseEventArgs e)
+        {
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MBA3P };
+            this.ButtonMouseDown(sender, e, btnTransformer3P, databaseE, GenerateMode.Instance);
         }
 
         private void btnLoad_MouseDown(object sender, MouseEventArgs e)
@@ -361,6 +369,10 @@ namespace Experimential_Software
                     if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber);//dto Bus
                     databaseE.DataRecordE.DTOBusEPower = DAOGeneBusRecord.Instance.GenerateDTOBusDefault(currentExistMax);
                     break;
+                case ObjectType.LineEPower:
+                    if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOLineEPower.ObjectNumber);//dtoLine => 5.
+                    databaseE.DataRecordE.DTOLineEPower = DAOGeneLineRecord.Instance.GenerateDTOLineEPowerDefault(currentExistMax);
+                    break;
                 case ObjectType.Load:
                     if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOLoadEPower.ObjectNumber);//dtoLoad.
                     databaseE.DataRecordE.DTOLoadEPower = DAOGeneLoadRecord.Instance.GenerateDTOLoadDefault(currentExistMax);
@@ -409,9 +421,10 @@ namespace Experimential_Software
 
 
 
+
         #endregion MenuStrip
 
-       
+      
     }
 }
 

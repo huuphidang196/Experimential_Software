@@ -45,10 +45,12 @@ namespace Experimential_Software.Class_Calculate
 
             dataInputPower.AddReactPowerQLimit(-9999, 9999);//alway satify
             dataInputPower.AddReactPowerQLimit(-10, 90);
-            dataInputPower.AddReactPowerQLimit(50, 150);
+            dataInputPower.AddReactPowerQLimit(30, 150);
             dataInputPower.AddReactPowerQLimit(-100, 10);
 
-            this.pointCurve = new CalPointCurveStepOne(dataInputPower, 1, number_BusJ);
+            
+
+            this.pointCurve = new CalPointCurveStepOne(dataInputPower, 1, number_BusJ, 1);
             this.Ybus = this.pointCurve.YBusIsoval;
             this.ZBus = this.pointCurve.ZBusIsoval;
             this.number_BusJ = number_BusJ;

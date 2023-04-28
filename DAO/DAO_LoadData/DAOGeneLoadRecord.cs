@@ -27,6 +27,8 @@ namespace Experimential_Software.DAO.DAO_LoadData
             int numberObjectType = (int)ObjectType.Load * 100;
             dtoLoadEPower.ObjectNumber = (ExistOrderBus < 100) ? ((ExistOrderBus + 1) * numberObjectType + 1) : ExistOrderBus + 1;
 
+            dtoLoadEPower.IsInService = true;
+
             dtoLoadEPower.PLoad = 0;
             dtoLoadEPower.QLoad = 0;
 

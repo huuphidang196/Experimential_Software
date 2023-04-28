@@ -9,22 +9,24 @@ using Experimential_Software.EPowerProcess;
 
 namespace Experimential_Software.DAO.DAO_LoadData
 {
-    public class DAOUpdateLineAfterConnectBus
+    public class DAOUpdateLoadAfterConnectBus
     {
-        private static DAOUpdateLineAfterConnectBus _instance;
+        private static DAOUpdateLoadAfterConnectBus _instance;
 
-        public static DAOUpdateLineAfterConnectBus Instance
+        public static DAOUpdateLoadAfterConnectBus Instance
         {
-            get { if (_instance == null) _instance = new DAOUpdateLineAfterConnectBus(); return _instance; }
+            get { if (_instance == null) _instance = new DAOUpdateLoadAfterConnectBus(); return _instance; }
            private set {; }
         }
 
-        private DAOUpdateLineAfterConnectBus() { }
+        private DAOUpdateLoadAfterConnectBus() { }
 
-        public virtual void UpDateLineRecordAfterConnectBus(ConnectableE loadEPower)
+        public virtual void UpDateLoadRecordAfterConnectBus(ConnectableE loadEPower)
         {
             //get BusConnect. Bus always connect by Phead
             ConnectableE busConnected = this.GetBusConnectWithLoad(loadEPower);
+
+            if (busConnected == null) return;
 
             //Get DTO Bus
             DTOBusEPower dtoBusEPower = busConnected.DatabaseE.DataRecordE.DTOBusEPower;

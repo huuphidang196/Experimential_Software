@@ -26,9 +26,10 @@ namespace Experimential_Software
 
         Bus = 1,
         MF = 2,
-        MBA = 3,
-        LineEPower = 4,
-        Load = 5,
+        MBA2P = 3,
+        MBA3P = 4,
+        LineEPower = 5,
+        Load = 6,
     }
 
     public enum GenerateMode
@@ -281,6 +282,12 @@ namespace Experimential_Software
                     }
                     break;
 
+                case ObjectType.LineEPower:
+                    {
+                        objName = this.databaseE.DataRecordE.DTOLineEPower.ObjectName;
+                        objNumber = this.databaseE.DataRecordE.DTOLineEPower.ObjectNumber;
+                    }
+                    break;
                 case ObjectType.Load:
                     {
                         objName = this.databaseE.DataRecordE.DTOLoadEPower.ObjectName;

@@ -13,6 +13,8 @@ namespace Experimential_Software.Class_Database
         public DTOBusEPower DTOBusConnected { get; set; }
         //Load ID == ObjName
 
+        public bool IsInService { get; set; }
+
         //Load Data 
         private double _pLoad;
         public double PLoad

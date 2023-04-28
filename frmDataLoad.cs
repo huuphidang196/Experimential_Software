@@ -50,16 +50,23 @@ namespace Experimential_Software
             //Load ID text
             this.txtLoadID.Text = this._dtoLoadRecord.ObjectName;
 
+            //In Service
+            this.chkInService.Checked = this._dtoLoadRecord.IsInService;
+
             //PLoad
-            this.txtPLoad.Text = this._dtoLoadRecord.PLoad + "";
+            this.txtPLoad.Text = (this._dtoLoadRecord.PLoad == 0) ? "0.0000" : this._dtoLoadRecord.PLoad + "";
             //QlOad
-            this.txtQLoad.Text = this._dtoLoadRecord.QLoad + "";
+            this.txtQLoad.Text = (this._dtoLoadRecord.QLoad == 0) ? "0.0000" : this._dtoLoadRecord.QLoad + "";
         }
 
         private void btnOKLoad_Click(object sender, EventArgs e)
         {
             //load ID
             this._dtoLoadRecord.ObjectName = this.txtLoadID.Text;
+
+            //In Service
+            this._dtoLoadRecord.IsInService = this.chkInService.Checked;
+
             //PLoad
             this._dtoLoadRecord.PLoad = double.Parse(this.txtPLoad.Text);
             //QLoad 

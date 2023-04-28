@@ -18,6 +18,7 @@ namespace Experimential_Software.Class_Calculate
         protected List<ReactPowerQLimit> _q_GK_Limits = new List<ReactPowerQLimit>();
         public List<ReactPowerQLimit> Q_GK_Limits => _q_GK_Limits;
 
+
         public virtual void AddEMF(double E_MF)
         {
             this._e_AllMF.Add(E_MF);

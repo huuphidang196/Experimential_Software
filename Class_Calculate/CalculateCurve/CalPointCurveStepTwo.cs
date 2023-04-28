@@ -32,8 +32,8 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
         protected List<double> _powers_P_Kj_K;
         public List<double> Powers_P_Kj_K => _powers_P_Kj_K;
 
-        protected double _uJ_StepOne_Found = 0;
-        public double UJ_StepOne_Found => _uJ_StepOne_Found;
+        protected double _uJ_BusLoad = 0;
+        public double UJ_BusLoad => _uJ_BusLoad;
 
         public CalPointCurveStepTwo(CalPointCurveStepOne curveStepOne)
         {
@@ -53,7 +53,7 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
             this._powers_Q_Kj_K = this._curveStepOne.Powers_Q_Kj_K;
 
             //Uj at Step 1 Found
-            this._uJ_StepOne_Found = this._curveStepOne.UJ_StepOne_Found;
+            this._uJ_BusLoad = this._curveStepOne.UJ_BusLoad;
         }
         #region Calculate_F_B(UJ)
         public virtual double FuncFBByVoltageULoadStepTwo(double Uj, double P_Lj_Run)
@@ -209,7 +209,7 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
             double P_KJ_K = this._powers_P_Kj_K[numberKPower];
             double Q_KJ_K = this._powers_Q_Kj_K[numberKPower];
 
-            double U_ref = this._uJ_StepOne_Found;
+            double U_ref = this._uJ_BusLoad;
 
             Complex Z_KJ = this._curveStepOne.GetComplexZKJ(numberKPower);
 

@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using Experimential_Software.Class_Database;
 using Experimential_Software.CustomControl;
 using Experimential_Software.DAO.DAO_LoadData;
+using Experimential_Software.DAO.DAO_LineData;
 
 namespace Experimential_Software.EPowerProcess
 {
@@ -160,14 +161,8 @@ namespace Experimential_Software.EPowerProcess
             ConnectableE EndEPower = this._ePower.FormCapstone.CheckEndLineIsOnEPower(this._endPLinetemp, this._ePower);
             if (EndEPower == null) return;
 
-            //MF is allowed only connect with Bus, similiar with Load only connect with Bus
-            if (EndEPower.DatabaseE.ObjectType != ObjectType.Bus)
-            {
-                if (buttonInstance.DatabaseE.ObjectType == ObjectType.MF) return;
-
-                if (buttonInstance.DatabaseE.ObjectType == ObjectType.Load) return;
-            }    
-           
+            //MF is allowed only connect with Bus, similiar with Load only connect with Bus. All EPower must connect with bus
+            if (EndEPower.DatabaseE.ObjectType != ObjectType.Bus) return;
 
             //Check endPoint is near Pheah or Ptail. not use isOnpHead or Patil beacause endLocation use mouse of other button
             Point pointEndToBtn = EndEPower.IsOnNearPHead() ? EndEPower.PHead : EndEPower.PTail;
@@ -216,13 +211,20 @@ namespace Experimential_Software.EPowerProcess
 
         protected virtual void UpdateDataRecordEPower(ConnectableE buttonInstance)
         {
+            //Except Bus
             ObjectType objType = this._ePower.DatabaseE.ObjectType;
             switch (objType)
             {
-                case ObjectType.Load:
+                case ObjectType.LineEPower: // 5
                     {
                         //Update DataDTO bus After Connect 
-                        DAOUpdateLineAfterConnectBus.Instance.UpDateLineRecordAfterConnectBus(buttonInstance);
+                        DAOUpdateLineAfterConnectEnds.Instance.UpdateLineAfterConnectEnds(buttonInstance);
+                    }
+                    break;
+                case ObjectType.Load://6
+                    {
+                        //Update DataDTO bus After Connect 
+                        DAOUpdateLoadAfterConnectBus.Instance.UpDateLoadRecordAfterConnectBus(buttonInstance);
                     }
                     break;
             }    
@@ -242,14 +244,21 @@ namespace Experimential_Software.EPowerProcess
             ObjectType objectType = ePower.DatabaseE.ObjectType;
             switch (objectType)
             {
-                case ObjectType.Bus:
+                case ObjectType.Bus://Obj Type = 1
                     {
                         frmDataBus frmDataBus = new frmDataBus();
                         frmDataBus.BusEPowerFixed = ePower;
                         if (frmDataBus.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();                  
                     }
                     break;
-                case ObjectType.Load:
+                case ObjectType.LineEPower://Obj Type = 5
+                    {
+                        frmDataBranch frmDataLineE = new frmDataBranch();
+                        frmDataLineE.LineEPowerFixed = ePower;
+                        if (frmDataLineE.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
+                    }
+                    break;
+                case ObjectType.Load://Obj Type = 6
                     {
                         frmDataLoad frmDataLoad = new frmDataLoad();
                         frmDataLoad.LoadEPowerFixed = ePower;

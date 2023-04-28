@@ -12,5 +12,6 @@ namespace Experimential_Software.Class_Database
         public string ObjectName { get; set; }
 
         public int ObjectNumber { get; set; }
+
     }
 }
