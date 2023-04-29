@@ -401,6 +401,7 @@ namespace Experimential_Software
             this.txtChargingBPu.Size = new System.Drawing.Size(119, 23);
             this.txtChargingBPu.TabIndex = 3;
             this.txtChargingBPu.Text = "0.000000";
+            this.txtChargingBPu.Leave += new System.EventHandler(this.EventDataIputIsNotNumber);
             // 
             // txtLengthBr
             // 
@@ -410,6 +411,7 @@ namespace Experimential_Software
             this.txtLengthBr.Size = new System.Drawing.Size(119, 23);
             this.txtLengthBr.TabIndex = 2;
             this.txtLengthBr.Text = "0.000";
+            this.txtLengthBr.Leave += new System.EventHandler(this.EventDataIputIsNotNumber);
             // 
             // txtLineBPu
             // 
@@ -419,6 +421,7 @@ namespace Experimential_Software
             this.txtLineBPu.Size = new System.Drawing.Size(119, 23);
             this.txtLineBPu.TabIndex = 3;
             this.txtLineBPu.Text = "0.000000";
+            this.txtLineBPu.Leave += new System.EventHandler(this.EventDataIputIsNotNumber);
             // 
             // txtLineGToPu
             // 
@@ -428,6 +431,7 @@ namespace Experimential_Software
             this.txtLineGToPu.Size = new System.Drawing.Size(119, 23);
             this.txtLineGToPu.TabIndex = 3;
             this.txtLineGToPu.Text = "0.000000";
+            this.txtLineGToPu.Leave += new System.EventHandler(this.EventDataIputIsNotNumber);
             // 
             // txtLineBFromPu
             // 
@@ -437,6 +441,7 @@ namespace Experimential_Software
             this.txtLineBFromPu.Size = new System.Drawing.Size(119, 23);
             this.txtLineBFromPu.TabIndex = 3;
             this.txtLineBFromPu.Text = "0.000000";
+            this.txtLineBFromPu.Leave += new System.EventHandler(this.EventDataIputIsNotNumber);
             // 
             // txtLineGFromPu
             // 
@@ -446,6 +451,7 @@ namespace Experimential_Software
             this.txtLineGFromPu.Size = new System.Drawing.Size(119, 23);
             this.txtLineGFromPu.TabIndex = 3;
             this.txtLineGFromPu.Text = "0.000000";
+            this.txtLineGFromPu.Leave += new System.EventHandler(this.EventDataIputIsNotNumber);
             // 
             // txtLineXPu
             // 
@@ -455,6 +461,7 @@ namespace Experimential_Software
             this.txtLineXPu.Size = new System.Drawing.Size(119, 23);
             this.txtLineXPu.TabIndex = 1;
             this.txtLineXPu.Text = "0.000000";
+            this.txtLineXPu.Leave += new System.EventHandler(this.EventDataIputIsNotNumber);
             // 
             // txtLineRPu
             // 
@@ -464,6 +471,7 @@ namespace Experimential_Software
             this.txtLineRPu.Size = new System.Drawing.Size(119, 23);
             this.txtLineRPu.TabIndex = 0;
             this.txtLineRPu.Text = "0.000000";
+            this.txtLineRPu.Leave += new System.EventHandler(this.EventDataIputIsNotNumber);
             // 
             // frmDataBranch
             // 

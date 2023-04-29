@@ -281,6 +281,12 @@ namespace Experimential_Software
                         objNumber = this.databaseE.DataRecordE.DTOBusEPower.ObjectNumber;
                     }
                     break;
+                case ObjectType.MF:
+                    {
+                        objName = this.databaseE.DataRecordE.DTOGeneEPower.ObjectName;
+                        objNumber = this.databaseE.DataRecordE.DTOGeneEPower.ObjectNumber;
+                    }
+                    break;
 
                 case ObjectType.LineEPower:
                     {

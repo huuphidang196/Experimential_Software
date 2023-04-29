@@ -129,6 +129,7 @@ namespace Experimential_Software
             this.txtYQLoad.Size = new System.Drawing.Size(158, 23);
             this.txtYQLoad.TabIndex = 5;
             this.txtYQLoad.Text = "0.0000";
+            this.txtYQLoad.Leave += new System.EventHandler(this.EventTextDataInputIsNotNumber);
             // 
             // txtIQLoad
             // 
@@ -138,6 +139,7 @@ namespace Experimential_Software
             this.txtIQLoad.Size = new System.Drawing.Size(158, 23);
             this.txtIQLoad.TabIndex = 3;
             this.txtIQLoad.Text = "0.0000";
+            this.txtIQLoad.Leave += new System.EventHandler(this.EventTextDataInputIsNotNumber);
             // 
             // txtQLoad
             // 
@@ -147,6 +149,7 @@ namespace Experimential_Software
             this.txtQLoad.Size = new System.Drawing.Size(158, 23);
             this.txtQLoad.TabIndex = 1;
             this.txtQLoad.Text = "0.0000";
+            this.txtQLoad.Leave += new System.EventHandler(this.EventTextDataInputIsNotNumber);
             // 
             // label10
             // 
@@ -186,6 +189,7 @@ namespace Experimential_Software
             this.txtYLoad.Size = new System.Drawing.Size(158, 23);
             this.txtYLoad.TabIndex = 4;
             this.txtYLoad.Text = "0.0000";
+            this.txtYLoad.Leave += new System.EventHandler(this.EventTextDataInputIsNotNumber);
             // 
             // label9
             // 
@@ -205,6 +209,7 @@ namespace Experimential_Software
             this.txtIPLoad.Size = new System.Drawing.Size(158, 23);
             this.txtIPLoad.TabIndex = 2;
             this.txtIPLoad.Text = "0.0000";
+            this.txtIPLoad.Leave += new System.EventHandler(this.EventTextDataInputIsNotNumber);
             // 
             // label7
             // 
@@ -224,6 +229,7 @@ namespace Experimential_Software
             this.txtPLoad.Size = new System.Drawing.Size(158, 23);
             this.txtPLoad.TabIndex = 0;
             this.txtPLoad.Text = "0.0000";
+            this.txtPLoad.Leave += new System.EventHandler(this.EventTextDataInputIsNotNumber);
             // 
             // label5
             // 

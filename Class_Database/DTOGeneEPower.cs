@@ -23,6 +23,7 @@ namespace Experimential_Software.Class_Database
         public DTOBusEPower DTOBusConnected { get; set; }
         //Machine ID is ObjetName
 
+        public bool IsInService { get; set; }
         //*******Machine Data********
         //Pgen
         protected double _pgen_MW;

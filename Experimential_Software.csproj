@@ -123,7 +123,7 @@
     </Compile>
     <Compile Include="DAO\DAO_BusData\DAOGeneBusRecord.cs" />
     <Compile Include="DAO\DAO_GeneratorData\DAOGeneMFRecord.cs" />
-    <Compile Include="DAO\DAO_LineData\DAOCheckValidInputLineEPower.cs" />
+    <Compile Include="DAO\DAO_GeneratorData\DAOUpdateMFAfterConnectBus.cs" />
     <Compile Include="DAO\DAO_LineData\DAOGeneLineRecord.cs" />
     <Compile Include="DAO\DAO_LineData\DAOUpdateLineAfterConnectEnds.cs" />
     <Compile Include="DAO\DAO_LoadData\DAOGeneLoadRecord.cs" />

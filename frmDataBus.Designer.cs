@@ -163,6 +163,7 @@ namespace Experimential_Software
             this.txtVoltageBus.Name = "txtVoltageBus";
             this.txtVoltageBus.Size = new System.Drawing.Size(115, 23);
             this.txtVoltageBus.TabIndex = 4;
+            this.txtVoltageBus.Leave += new System.EventHandler(this.EventInputTextDataIsNotNumber);
             // 
             // txtBusNumber
             // 
@@ -180,6 +181,7 @@ namespace Experimential_Software
             this.txtBasekV.Size = new System.Drawing.Size(115, 23);
             this.txtBasekV.TabIndex = 3;
             this.txtBasekV.Text = "0.0";
+            this.txtBasekV.Leave += new System.EventHandler(this.EventInputTextDataIsNotNumber);
             // 
             // txtAngleBus
             // 
@@ -188,6 +190,7 @@ namespace Experimential_Software
             this.txtAngleBus.Name = "txtAngleBus";
             this.txtAngleBus.Size = new System.Drawing.Size(115, 23);
             this.txtAngleBus.TabIndex = 5;
+            this.txtAngleBus.Leave += new System.EventHandler(this.EventInputTextDataIsNotNumber);
             // 
             // txtBusName
             // 
@@ -283,7 +286,7 @@ namespace Experimential_Software
             this.txtEmerVmin.Name = "txtEmerVmin";
             this.txtEmerVmin.Size = new System.Drawing.Size(115, 22);
             this.txtEmerVmin.TabIndex = 3;
-            this.txtEmerVmin.Leave += new System.EventHandler(this.txtEmerVmin_Leave);
+            this.txtEmerVmin.Leave += new System.EventHandler(this.EventInputTextDataIsNotNumber);
             // 
             // label10
             // 
@@ -302,7 +305,7 @@ namespace Experimential_Software
             this.txtNorVmin.Name = "txtNorVmin";
             this.txtNorVmin.Size = new System.Drawing.Size(115, 22);
             this.txtNorVmin.TabIndex = 1;
-            this.txtNorVmin.Leave += new System.EventHandler(this.txtNorVmin_Leave);
+            this.txtNorVmin.Leave += new System.EventHandler(this.EventInputTextDataIsNotNumber);
             // 
             // txtEmerVmax
             // 
@@ -311,7 +314,7 @@ namespace Experimential_Software
             this.txtEmerVmax.Name = "txtEmerVmax";
             this.txtEmerVmax.Size = new System.Drawing.Size(115, 22);
             this.txtEmerVmax.TabIndex = 2;
-            this.txtEmerVmax.Leave += new System.EventHandler(this.txtEmerVmax_Leave);
+            this.txtEmerVmax.Leave += new System.EventHandler(this.EventInputTextDataIsNotNumber);
             // 
             // label8
             // 
@@ -340,7 +343,7 @@ namespace Experimential_Software
             this.txtNorVmax.Name = "txtNorVmax";
             this.txtNorVmax.Size = new System.Drawing.Size(115, 22);
             this.txtNorVmax.TabIndex = 0;
-            this.txtNorVmax.Leave += new System.EventHandler(this.txtNorVmax_Leave);
+            this.txtNorVmax.Leave += new System.EventHandler(this.EventInputTextDataIsNotNumber);
             // 
             // label7
             // 

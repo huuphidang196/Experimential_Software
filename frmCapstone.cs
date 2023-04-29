@@ -12,8 +12,11 @@ using Experimential_Software.Class_Process_MnuFile;
 using Experimential_Software.CustomControl;
 using Experimential_Software.Class_Calculate;
 using Experimential_Software.DAO.DAO_BusData;
-using Experimential_Software.DAO.DAO_LoadData;
+using Experimential_Software.DAO.DAO_GeneratorData;
 using Experimential_Software.DAO.DAO_LineData;
+using Experimential_Software.DAO.DAO_LoadData;
+
+
 
 namespace Experimential_Software
 {
@@ -368,6 +371,10 @@ namespace Experimential_Software
                 case ObjectType.Bus:
                     if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber);//dto Bus
                     databaseE.DataRecordE.DTOBusEPower = DAOGeneBusRecord.Instance.GenerateDTOBusDefault(currentExistMax);
+                    break;
+                case ObjectType.MF:
+                    if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOGeneEPower.ObjectNumber);//dto Bus
+                    databaseE.DataRecordE.DTOGeneEPower = DAOGeneMFRecord.Instance.GenerateDTOMFEPowerDefault(currentExistMax);
                     break;
                 case ObjectType.LineEPower:
                     if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOLineEPower.ObjectNumber);//dtoLine => 5.

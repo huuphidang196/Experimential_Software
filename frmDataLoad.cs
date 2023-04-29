@@ -79,5 +79,22 @@ namespace Experimential_Software
         {
             this.Close();
         }
+        //textBox data is number
+        private void EventTextDataInputIsNotNumber(object sender, EventArgs e)
+        {
+            //Get text box is Changging
+            TextBox txtDataChanged = sender as TextBox;
+
+            // bool isAllValid = txtDataChanged.Text.Replace(".", "").Replace("-", "").All(c => char.IsDigit(c));
+            bool isAllValid = double.TryParse(txtDataChanged.Text, out double result);
+            if (!isAllValid)
+            {
+                MessageBox.Show(txtDataChanged.Text + " Invalid decimal number detected!", "Request To Re-Enter Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDataChanged.BackColor = Color.Yellow;
+                txtDataChanged.Focus();
+                return;
+            }
+            txtDataChanged.BackColor = Color.White;
+        }
     }
 }

@@ -70,14 +70,13 @@ namespace Experimential_Software
 
         private void btnOkBr_Click(object sender, EventArgs e)
         {
-            //set Object name
-            bool isValid = this.SetObjectRecordInDataBase();
-            if (!isValid) return;
+            //set Data name
+            this.SetBranchRecordInDataBase();
 
             this.DialogResult = DialogResult.OK;
         }
 
-        protected virtual bool SetObjectRecordInDataBase()
+        protected virtual void SetBranchRecordInDataBase()
         {
             string Branch_ID = this.txtBranchID.Text;
             string Branch_Name = this.txtBranchName.Text;
@@ -85,10 +84,6 @@ namespace Experimential_Software
             string LineR_pu = this.txtLineRPu.Text;
             string LineX_pu = this.txtLineXPu.Text;
             string Length_KM = this.txtLengthBr.Text;
-
-            bool CheckValid = DAOCheckValidInputLineEPower.Instance.CheckValidInputDataLine(Branch_ID, LineR_pu, LineX_pu, Length_KM);
-            if (!CheckValid) return false;
-
 
             //set Branch ID         
             this._dtoLineEPowerRecord.ObjectNumber = int.Parse(Branch_ID);
@@ -104,13 +99,27 @@ namespace Experimential_Software
             this._dtoLineEPowerRecord.LineX_Pu = double.Parse(LineX_pu);
             //txt length_Km
             this._dtoLineEPowerRecord.LengthBr_KM = double.Parse(Length_KM);
-
-            return true;
         }
 
         private void btnCancelbr_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void EventDataIputIsNotNumber(object sender, EventArgs e)
+        {
+            //Get text box is Changging
+            TextBox txtDataChanged = sender as TextBox;
+
+            bool isAllValid = double.TryParse(txtDataChanged.Text, out double result);
+            if (!isAllValid)
+            {
+                MessageBox.Show(txtDataChanged.Text + "Invalid decimal number detected!", "Request To Re-Enter Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDataChanged.BackColor = Color.Yellow;
+                txtDataChanged.Focus();
+                return;
+            }
+            txtDataChanged.BackColor = Color.White;
         }
     }
 }
