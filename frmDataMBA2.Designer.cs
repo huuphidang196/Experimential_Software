@@ -154,9 +154,9 @@ namespace Experimential_Software
             this.groupBox2.Controls.Add(this.textBox1);
             this.groupBox2.Controls.Add(this.label14);
             this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox2.ForeColor = System.Drawing.Color.Black;
-            this.groupBox2.Location = new System.Drawing.Point(610, 0);
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(183, 177);
             this.groupBox2.TabIndex = 2;
@@ -208,8 +208,8 @@ namespace Experimential_Software
             this.groupBox1.Controls.Add(this.txtMagGpu);
             this.groupBox1.Controls.Add(this.txtSpecXpu);
             this.groupBox1.Controls.Add(this.txtSpecRpu);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBox1.Location = new System.Drawing.Point(200, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(593, 177);
             this.groupBox1.TabIndex = 1;

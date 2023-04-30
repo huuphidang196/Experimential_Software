@@ -66,11 +66,13 @@ namespace Experimential_Software
         protected Point _oldLocation;
         public Point OldLocation { get => _oldLocation; set => _oldLocation = value; }
 
-        public bool isOnTool { get; set; }
 
         //if GenerateMode = Instance => Open frm Record
         protected GenerateMode _generateMode;
         public GenerateMode GenerateModeE => _generateMode;
+
+        protected bool isOnTool;
+        public bool IsOnTool { get => isOnTool; set => isOnTool = value; }
 
         protected bool isSelected;
         public bool IsSelected
@@ -340,6 +342,7 @@ namespace Experimential_Software
 
         #endregion Constructor_Class
 
+
         #region Drawn
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -396,7 +399,6 @@ namespace Experimential_Software
 
         }
         #endregion Drawn
-
 
 
         #region Mouse
@@ -483,7 +485,16 @@ namespace Experimential_Software
 
         #endregion Mouse
 
+        //if this is generated incorrect then remove it
+        protected override void OnParentChanged(EventArgs e)
+        {
+            base.OnParentChanged(e);
+            //if not invalid generate => destroy
+            // if it on tool and is not generated => haven't database then not destroy
+            if (this.isOnTool && this.databaseE != null) this.Dispose();
+        }
 
+       
         #region Key
 
         protected override void OnKeyDown(KeyEventArgs e)

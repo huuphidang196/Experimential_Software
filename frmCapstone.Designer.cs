@@ -154,7 +154,7 @@ namespace Experimential_Software
             this.btnBusPower.IsContainPhead = false;
             this.btnBusPower.IsContainPtail = false;
             this.btnBusPower.IsMove = false;
-            this.btnBusPower.isOnTool = true;
+            this.btnBusPower.IsOnTool = true;
             this.btnBusPower.IsSelected = false;
             this.btnBusPower.LblInfoE = null;
             this.btnBusPower.Location = new System.Drawing.Point(30, 40);
@@ -188,7 +188,7 @@ namespace Experimential_Software
             this.btnLoad.IsContainPhead = false;
             this.btnLoad.IsContainPtail = false;
             this.btnLoad.IsMove = false;
-            this.btnLoad.isOnTool = true;
+            this.btnLoad.IsOnTool = true;
             this.btnLoad.IsSelected = false;
             this.btnLoad.LblInfoE = null;
             this.btnLoad.Location = new System.Drawing.Point(30, 534);
@@ -212,7 +212,7 @@ namespace Experimential_Software
             this.btnMFPower.IsContainPhead = false;
             this.btnMFPower.IsContainPtail = false;
             this.btnMFPower.IsMove = false;
-            this.btnMFPower.isOnTool = true;
+            this.btnMFPower.IsOnTool = true;
             this.btnMFPower.IsSelected = false;
             this.btnMFPower.LblInfoE = null;
             this.btnMFPower.Location = new System.Drawing.Point(30, 125);
@@ -236,7 +236,7 @@ namespace Experimential_Software
             this.btnTransformer3P.IsContainPhead = false;
             this.btnTransformer3P.IsContainPtail = false;
             this.btnTransformer3P.IsMove = false;
-            this.btnTransformer3P.isOnTool = true;
+            this.btnTransformer3P.IsOnTool = true;
             this.btnTransformer3P.IsSelected = false;
             this.btnTransformer3P.LblInfoE = null;
             this.btnTransformer3P.Location = new System.Drawing.Point(30, 318);
@@ -261,7 +261,7 @@ namespace Experimential_Software
             this.btnTransformer2P.IsContainPhead = false;
             this.btnTransformer2P.IsContainPtail = false;
             this.btnTransformer2P.IsMove = false;
-            this.btnTransformer2P.isOnTool = true;
+            this.btnTransformer2P.IsOnTool = true;
             this.btnTransformer2P.IsSelected = false;
             this.btnTransformer2P.LblInfoE = null;
             this.btnTransformer2P.Location = new System.Drawing.Point(30, 227);
@@ -286,7 +286,7 @@ namespace Experimential_Software
             this.btnLinePower.IsContainPhead = false;
             this.btnLinePower.IsContainPtail = false;
             this.btnLinePower.IsMove = false;
-            this.btnLinePower.isOnTool = true;
+            this.btnLinePower.IsOnTool = true;
             this.btnLinePower.IsSelected = false;
             this.btnLinePower.LblInfoE = null;
             this.btnLinePower.Location = new System.Drawing.Point(30, 421);

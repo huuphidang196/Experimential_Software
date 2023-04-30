@@ -40,7 +40,7 @@ namespace Experimential_Software
         //Process new file, open, save
         protected ProcessMnuFile _processMnuFile;
 
-        
+
         protected double zoomFactor = 1;
 
         public frmCapstone()
@@ -260,7 +260,7 @@ namespace Experimential_Software
             DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Bus };
             this.ButtonMouseDown(sender, e, btnBusPower, databaseE, GenerateMode.Instance);
         }
-     
+
 
         protected void btnLinePower_MouseDown(object sender, MouseEventArgs e)
         {
@@ -335,7 +335,7 @@ namespace Experimential_Software
 
                 this.ePowers.Add(ePower);
                 this.iEPowers.Add(ePower);
-                ePower.isOnTool = false;
+                ePower.IsOnTool = false;
 
                 this.zoomFactor = pnlMain.ZoomFactor;
                 pnlMain.SetInsideEPower(ePower);
@@ -395,6 +395,9 @@ namespace Experimential_Software
             ctrlInstance.DoDragDrop(ctrlInstance, DragDropEffects.Move);
             pnlMain.Controls.Add(ctrlInstance);
             ctrlInstance.BringToFront();
+
+            //Add Func count time => Destroy if invalid
+
         }
         #endregion Button_Instance
 
@@ -431,7 +434,7 @@ namespace Experimential_Software
 
         #endregion MenuStrip
 
-      
+
     }
 }
 
