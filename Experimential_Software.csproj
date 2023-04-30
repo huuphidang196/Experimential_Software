@@ -161,6 +161,12 @@
     <Compile Include="frmDataLoad.Designer.cs">
       <DependentUpon>frmDataLoad.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDataMBA2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDataMBA2.Designer.cs">
+      <DependentUpon>frmDataMBA2.cs</DependentUpon>
+    </Compile>
     <Compile Include="IMouseOnEndsControl.cs" />
     <Compile Include="PanelMain.cs">
       <SubType>Component</SubType>
@@ -188,6 +194,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDataLoad.resx">
       <DependentUpon>frmDataLoad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDataMBA2.resx">
+      <DependentUpon>frmDataMBA2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

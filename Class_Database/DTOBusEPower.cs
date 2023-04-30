@@ -19,7 +19,7 @@ namespace Experimential_Software.Class_Database
         //Basic Data
         public TypeCodeBus TypeCodeBus { get; set; }
 
-        protected double _basekV;
+        protected double _basekV;//Ucb
         public double BasekV
         {
             get { return _basekV; }
@@ -31,6 +31,13 @@ namespace Experimential_Software.Class_Database
         {
             get { return _voltage_pu; }
             set { _voltage_pu = Math.Round(value, 4); }
+        }
+
+        //normal bus 
+        protected double _normalkV;
+        public double NormalkV
+        {
+            get { return this._voltage_pu * this._basekV; } //U_nor = Ubase * Upu
         }
 
         protected double _angle_rad;

@@ -45,6 +45,18 @@ namespace Experimential_Software
             DTOBusEPower dtoBusFrom = this._dtoLineEPowerRecord.DTOBusFrom;
             DTOBusEPower dtoBusTo = this._dtoLineEPowerRecord.DTOBusTo;
 
+            //Set Again DTO From and to. If number obj of any DTO min => set from, other set Bus to
+            if (dtoBusFrom != null && dtoBusTo != null)
+            {
+                if (dtoBusFrom.ObjectNumber > dtoBusTo.ObjectNumber)
+                {
+                    DTOBusEPower dtoBusTemp = dtoBusFrom;
+                    dtoBusFrom = dtoBusTo;
+                    dtoBusTo = dtoBusTemp;
+                }      
+            } 
+                
+
             this.lblBusFromNumber.Text = (dtoBusFrom == null) ? "NULL" : dtoBusFrom.ObjectNumber + "";
             this.lblBusFromName.Text = (dtoBusFrom == null) ? "NULL" : dtoBusFrom.ObjectName;
 
@@ -66,6 +78,11 @@ namespace Experimential_Software
             this.txtLineXPu.Text = (this._dtoLineEPowerRecord.LineX_Pu == 0) ? "0.000000" : this._dtoLineEPowerRecord.LineX_Pu + "";
             //Length
             this.txtLengthBr.Text = (this._dtoLineEPowerRecord.LengthBr_KM == 0) ? "0.000" : this._dtoLineEPowerRecord.LengthBr_KM + "";
+        }
+
+        protected virtual void SwapDTOBusFromAndDTOBusTo(DTOBusEPower dtoBusFrom, DTOBusEPower dtoBusTo)
+        {
+            
         }
 
         private void btnOkBr_Click(object sender, EventArgs e)
@@ -99,6 +116,7 @@ namespace Experimential_Software
             this._dtoLineEPowerRecord.LineX_Pu = double.Parse(LineX_pu);
             //txt length_Km
             this._dtoLineEPowerRecord.LengthBr_KM = double.Parse(Length_KM);
+
         }
 
         private void btnCancelbr_Click(object sender, EventArgs e)
