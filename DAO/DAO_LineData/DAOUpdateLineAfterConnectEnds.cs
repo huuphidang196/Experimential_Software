@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Experimential_Software.Class_Database;
+using System.Windows.Forms;
 
 namespace Experimential_Software.DAO.DAO_LineData
 {
@@ -15,8 +16,8 @@ namespace Experimential_Software.DAO.DAO_LineData
 
         public static DAOUpdateLineAfterConnectEnds Instance
         {
-            get { if (_instance == null) _instance = new DAOUpdateLineAfterConnectEnds(); return DAOUpdateLineAfterConnectEnds._instance; }
-            private set { DAOUpdateLineAfterConnectEnds._instance = value; }
+            get { if (_instance == null) _instance = new DAOUpdateLineAfterConnectEnds(); return _instance; }
+            private set { _instance = value; }
         }
 
         private DAOUpdateLineAfterConnectEnds() { }
@@ -32,9 +33,23 @@ namespace Experimential_Software.DAO.DAO_LineData
             {
                 DTOBusEPower dtoBusEPower = ListEPowerEnds[i].DatabaseE.DataRecordE.DTOBusEPower;
                 //set From and End
-                if (i == 0) lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBusFrom = dtoBusEPower;
-                if (i == 1) lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBusTo = dtoBusEPower;
-            } 
+                if (lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBusFrom == null) lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBusFrom = dtoBusEPower;
+                else lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBusTo = dtoBusEPower;
+            }
+
+            //not use set value beacause error 
+            DTOBusEPower dtoBus_From = lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBusFrom;
+            DTOBusEPower dtoBus_To = lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBusTo;
+
+            if (dtoBus_From == null || dtoBus_To == null) return;
+
+            //Check Again valid Location Bus Ends is Connnected with MBA2
+            if (dtoBus_From.ObjectNumber < dtoBus_To.ObjectNumber) return;
+
+            //Set Again DTO From and to. If number obj of any DTO min => set from, other set Bus to
+            DTOBusEPower dtoBusTemp = dtoBus_From;
+            lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBusFrom = dtoBus_To;
+            lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBusTo = dtoBusTemp;
         }
 
         protected virtual List<ConnectableE> GetEPowerConnectWithLineEPOwer(ConnectableE lineEPower)

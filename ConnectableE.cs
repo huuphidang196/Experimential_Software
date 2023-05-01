@@ -12,6 +12,7 @@ using Experimential_Software.EPowerProcess;
 
 namespace Experimential_Software
 {
+    [Serializable]
     public enum ContainPreEpower
     {
         NoContain = 0,
@@ -20,6 +21,7 @@ namespace Experimential_Software
         ContainPTail = 2,
     }
 
+    [Serializable]
     public enum ObjectType
     {
         NoType = 0,
@@ -32,6 +34,7 @@ namespace Experimential_Software
         Load = 6,
     }
 
+    [Serializable]
     public enum GenerateMode
     {
         Instance = 1,
@@ -289,7 +292,12 @@ namespace Experimential_Software
                         objNumber = this.databaseE.DataRecordE.DTOGeneEPower.ObjectNumber;
                     }
                     break;
-
+                case ObjectType.MBA2P:
+                    {
+                        objName = this.databaseE.DataRecordE.DTOTransTwoEPower.ObjectName;
+                        objNumber = this.databaseE.DataRecordE.DTOTransTwoEPower.ObjectNumber;
+                    }
+                    break;
                 case ObjectType.LineEPower:
                     {
                         objName = this.databaseE.DataRecordE.DTOLineEPower.ObjectName;

@@ -29,12 +29,12 @@ namespace Experimential_Software
         {
             if (this._MF_EFixedData != null)
             {
-                this.SetDataFormMFEPowerOrigin();
+                this.ShowDataOnFormMFEPowerOrigin();
             }
         }
 
         #region Set_Data_To_Show
-        protected virtual void SetDataFormMFEPowerOrigin()
+        protected virtual void ShowDataOnFormMFEPowerOrigin()
         {
             //Get DataDTO from EPOwer
             this._dtoMFRecord = this._MF_EFixedData.DatabaseE.DataRecordE.DTOGeneEPower;

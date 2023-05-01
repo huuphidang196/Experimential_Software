@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Experimential_Software.Class_Database
 {
+    [Serializable]
     public struct ImpendanceMBA2
     {
         //R
@@ -44,6 +46,7 @@ namespace Experimential_Software.Class_Database
         }
     }
 
+    [Serializable]
     public struct VoltageEnds
     {
         //Prim    
@@ -63,6 +66,7 @@ namespace Experimential_Software.Class_Database
         }
     }
 
+    [Serializable]
     public enum UnitTapMode
     {
         Percent = 0,
@@ -73,7 +77,7 @@ namespace Experimential_Software.Class_Database
     public class DTOTransTwoTapRanger
     {
         //Voltage tap 0 => Volatge rating of . Set Before Open Form Tap Ranger
-        public double Voltage_TapZero { private get; set; }
+        public double Voltage_TapZero_ByRated { private get; set; }
 
         //Unit Mode of Changer Form TapRanger => Form Sub
         public UnitTapMode UnitTap_Ranger { get; set; }
@@ -108,6 +112,12 @@ namespace Experimential_Software.Class_Database
         public bool IsInService { get; set; }
 
         //Power Rating
+        protected double _powerRated_MVA
+        {
+            get { return _powerRated_MVA; }
+            set { _powerRated_MVA = Math.Round(value, 3); }
+        }
+
         public double PowerRated_MVA { get; set; }
 
         //Transfomer Impendance Data
@@ -115,27 +125,41 @@ namespace Experimential_Software.Class_Database
 
         //Voltage Rating MBA . U Ends
         public VoltageEnds VoltageEnds_Rated { get; set; }
-      
+
         //When press btnPrim => setting count Tap and percent
         protected DTOTransTwoTapRanger _prim_RangerTap;
         public DTOTransTwoTapRanger Prim_RangerTap
         {
-            get { _prim_RangerTap.Voltage_TapZero = this.VoltageEnds_Rated.VolPrim_kV; return _prim_RangerTap; }//tap Zero = rated Volatge busPrim
+            get { _prim_RangerTap.Voltage_TapZero_ByRated = this.VoltageEnds_Rated.VolPrim_kV; return _prim_RangerTap; }//tap Zero = rated Volatge busPrim
             set {; }
         }
 
         protected DTOTransTwoTapRanger _sec_RangerTap { get; set; }
         public DTOTransTwoTapRanger Sec_RangerTap
         {
-            get { _sec_RangerTap.Voltage_TapZero = this.VoltageEnds_Rated.VolSec_kV; return _sec_RangerTap; }//tap Zero = rated Volatge busSec
+            get { _sec_RangerTap.Voltage_TapZero_ByRated = this.VoltageEnds_Rated.VolSec_kV; return _sec_RangerTap; }//tap Zero = rated Volatge busSec
             set {; }
         }
 
         //Unit Mode of Changer Form Main
         public UnitTapMode UnitTap_Main { get; set; }
 
+        //percent Voltage Fixed compare to Rated
+        public double Percent_PrimFixed { get; set; }
+        public double Percent_SecFixed { get; set; }
+
         //Fixed Voltage After Adjust Tap Changer
-        public VoltageEnds VoltageEnds_Fixed { get; set; }
+        protected VoltageEnds _voltageEnds_Fixed;
+        public VoltageEnds VoltageEnds_Fixed
+        {
+            get
+            {
+                _voltageEnds_Fixed.VolPrim_kV = (this.Percent_PrimFixed / 100) * this.VoltageEnds_Rated.VolPrim_kV;
+                _voltageEnds_Fixed.VolSec_kV = (this.Percent_SecFixed / 100) * this.VoltageEnds_Rated.VolSec_kV;
+                return _voltageEnds_Fixed;
+            }
+            private set {; }
+        }
 
     }
 }

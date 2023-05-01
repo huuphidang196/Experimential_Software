@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Experimential_Software.Class_Database
 {
+    [Serializable]
     public enum TypeCodeBus
     {
         Non_Gen_Bus = 0,

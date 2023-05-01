@@ -128,6 +128,9 @@
     <Compile Include="DAO\DAO_LineData\DAOUpdateLineAfterConnectEnds.cs" />
     <Compile Include="DAO\DAO_LoadData\DAOGeneLoadRecord.cs" />
     <Compile Include="DAO\DAO_LoadData\DAOUpdateLoadAfterConnectBus.cs" />
+    <Compile Include="DAO\DAO_MBA2Data\DAOCalculateVoltageFixed.cs" />
+    <Compile Include="DAO\DAO_MBA2Data\DAOGeneMBA2Record.cs" />
+    <Compile Include="DAO\DAO_MBA2Data\DAOUpdateMBA2AfterConnectEnds.cs" />
     <Compile Include="EPowerProcess\EPowerProcessKey.cs" />
     <Compile Include="Class_Database\FileFoctory.cs" />
     <Compile Include="frmDataBranch.cs">
@@ -167,6 +170,12 @@
     <Compile Include="frmDataMBA2.Designer.cs">
       <DependentUpon>frmDataMBA2.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmFixedTapChanger.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFixedTapChanger.Designer.cs">
+      <DependentUpon>frmFixedTapChanger.cs</DependentUpon>
+    </Compile>
     <Compile Include="IMouseOnEndsControl.cs" />
     <Compile Include="PanelMain.cs">
       <SubType>Component</SubType>
@@ -197,6 +206,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDataMBA2.resx">
       <DependentUpon>frmDataMBA2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFixedTapChanger.resx">
+      <DependentUpon>frmFixedTapChanger.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -33,29 +33,17 @@ namespace Experimential_Software
 
             if (this._lineEFixedData != null)
             {
-                this.SetDataFormLineEPowerOrigin();
+                this.ShowDataOnFormLineEPowerOrigin();
             }
         }
 
-        protected virtual void SetDataFormLineEPowerOrigin()
+        protected virtual void ShowDataOnFormLineEPowerOrigin()
         {
             //get dto in Epower
             this._dtoLineEPowerRecord = this._lineEFixedData.DatabaseE.DataRecordE.DTOLineEPower;
             //Bus From And To
             DTOBusEPower dtoBusFrom = this._dtoLineEPowerRecord.DTOBusFrom;
             DTOBusEPower dtoBusTo = this._dtoLineEPowerRecord.DTOBusTo;
-
-            //Set Again DTO From and to. If number obj of any DTO min => set from, other set Bus to
-            if (dtoBusFrom != null && dtoBusTo != null)
-            {
-                if (dtoBusFrom.ObjectNumber > dtoBusTo.ObjectNumber)
-                {
-                    DTOBusEPower dtoBusTemp = dtoBusFrom;
-                    dtoBusFrom = dtoBusTo;
-                    dtoBusTo = dtoBusTemp;
-                }      
-            } 
-                
 
             this.lblBusFromNumber.Text = (dtoBusFrom == null) ? "NULL" : dtoBusFrom.ObjectNumber + "";
             this.lblBusFromName.Text = (dtoBusFrom == null) ? "NULL" : dtoBusFrom.ObjectName;
@@ -80,10 +68,6 @@ namespace Experimential_Software
             this.txtLengthBr.Text = (this._dtoLineEPowerRecord.LengthBr_KM == 0) ? "0.000" : this._dtoLineEPowerRecord.LengthBr_KM + "";
         }
 
-        protected virtual void SwapDTOBusFromAndDTOBusTo(DTOBusEPower dtoBusFrom, DTOBusEPower dtoBusTo)
-        {
-            
-        }
 
         private void btnOkBr_Click(object sender, EventArgs e)
         {

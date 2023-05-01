@@ -8,6 +8,7 @@ using Experimential_Software.CustomControl;
 using Experimential_Software.DAO.DAO_LoadData;
 using Experimential_Software.DAO.DAO_LineData;
 using Experimential_Software.DAO.DAO_GeneratorData;
+using Experimential_Software.DAO.DAO_MBA2Data;
 
 namespace Experimential_Software.EPowerProcess
 {
@@ -222,6 +223,12 @@ namespace Experimential_Software.EPowerProcess
                         DAOUpdateMFAfterConnectBus.Instance.UpdateMFAfterConnectEnds(buttonInstance);
                     }
                     break;
+                case ObjectType.MBA2P: // 3
+                    {
+                        //Update DataDTO bus After Connect 
+                        DAOUpdateMBA2AfterConnectEnds.Instance.UpdateMBA2AfterConnectEnds(buttonInstance);
+                    }
+                    break;
                 case ObjectType.LineEPower: // 5
                     {
                         //Update DataDTO bus After Connect 
@@ -258,11 +265,18 @@ namespace Experimential_Software.EPowerProcess
                         if (frmDataBus.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();                  
                     }
                     break;
-                case ObjectType.MF://Obj Type = 1
+                case ObjectType.MF://Obj Type = 2
                     {
                         frmDataGenerator frmDataMF = new frmDataGenerator();
                         frmDataMF.MF_EPowerFixed = ePower;
                         if (frmDataMF.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
+                    }
+                    break;
+                case ObjectType.MBA2P://Obj Type = 3
+                    {
+                        frmDataMBA2 frmDataMBA2 = new frmDataMBA2();
+                        frmDataMBA2.MBA2EPowerFixed = ePower;
+                        if (frmDataMBA2.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
                     }
                     break;
                 case ObjectType.LineEPower://Obj Type = 5

@@ -32,11 +32,11 @@ namespace Experimential_Software
 
             if (this._loadEPowerFixed != null)
             {
-                this.SetDataFormLoadEPowerOrigin();
+                this.ShowDataOnFormLoadEPowerOrigin();
             }
         }
 
-        protected virtual void SetDataFormLoadEPowerOrigin()
+        protected virtual void ShowDataOnFormLoadEPowerOrigin()
         {
             this._dtoLoadRecord = this._loadEPowerFixed.DatabaseE.DataRecordE.DTOLoadEPower;
 

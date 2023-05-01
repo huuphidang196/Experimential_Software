@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Experimential_Software.Class_Database
 {
+    [Serializable]
     public enum WindMFControlMode
     {
         Not_a_Wind_Machine = 0,

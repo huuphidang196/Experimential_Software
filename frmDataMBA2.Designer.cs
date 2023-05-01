@@ -34,36 +34,55 @@ namespace Experimential_Software
             this.pnlManagerTabCtrl = new System.Windows.Forms.Panel();
             this.tabMBA2 = new System.Windows.Forms.TabControl();
             this.tabPowerFlow = new System.Windows.Forms.TabPage();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.txtMagBpu = new System.Windows.Forms.TextBox();
-            this.txtMagGpu = new System.Windows.Forms.TextBox();
-            this.txtSpecXpu = new System.Windows.Forms.TextBox();
-            this.txtSpecRpu = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.pnlPrimUpDown = new System.Windows.Forms.Panel();
+            this.btnPrimUp = new System.Windows.Forms.Button();
+            this.imgListUpDown = new System.Windows.Forms.ImageList(this.components);
+            this.btnPrimDown = new System.Windows.Forms.Button();
+            this.pnlSecUpDown = new System.Windows.Forms.Panel();
+            this.btnSecUp = new System.Windows.Forms.Button();
+            this.btnSecDown = new System.Windows.Forms.Button();
+            this.txtFixedSeckV = new System.Windows.Forms.TextBox();
+            this.txtFixedPrimkV = new System.Windows.Forms.TextBox();
+            this.btnTCSec = new System.Windows.Forms.Button();
+            this.lblTransUnit = new System.Windows.Forms.Label();
+            this.btnTCPrim = new System.Windows.Forms.Button();
+            this.btnTCUnitMain = new System.Windows.Forms.Button();
+            this.lblTapTransSecFixed = new System.Windows.Forms.Label();
+            this.lblTapTransPrimFixed = new System.Windows.Forms.Label();
             this.grbVoltageRating = new System.Windows.Forms.GroupBox();
-            this.txtSeckV = new System.Windows.Forms.TextBox();
-            this.txtPrimkV = new System.Windows.Forms.TextBox();
+            this.txtRatedSeckV = new System.Windows.Forms.TextBox();
+            this.txtRatedPrimkV = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.lblNorBusSeckV = new System.Windows.Forms.Label();
             this.lblNorBusPrimkV = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtPowerRated = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtMagBpu = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtMagGpu = new System.Windows.Forms.TextBox();
+            this.txtSpecXpu = new System.Windows.Forms.TextBox();
+            this.txtSpecRpu = new System.Windows.Forms.TextBox();
             this.grbLineMBA2Data = new System.Windows.Forms.GroupBox();
+            this.lblTransID = new System.Windows.Forms.Label();
             this.chkWinding1 = new System.Windows.Forms.CheckBox();
             this.chkMeterd = new System.Windows.Forms.CheckBox();
             this.chkinService = new System.Windows.Forms.CheckBox();
             this.txtTransName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.txtTransID = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -73,39 +92,20 @@ namespace Experimential_Software
             this.lblFromBusName = new System.Windows.Forms.Label();
             this.lblFromBusNum = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.btnTCUnit = new System.Windows.Forms.Button();
-            this.btnTCPrim = new System.Windows.Forms.Button();
-            this.btnTCSec = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.lblkVTapPrimFixed = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.lblkVTapSecFixed = new System.Windows.Forms.Label();
-            this.pnlPrimUpDown = new System.Windows.Forms.Panel();
-            this.btnPrimUp = new System.Windows.Forms.Button();
-            this.btnPrimDown = new System.Windows.Forms.Button();
-            this.pnlSecUpDown = new System.Windows.Forms.Panel();
-            this.btnSecUp = new System.Windows.Forms.Button();
-            this.btnSecDown = new System.Windows.Forms.Button();
-            this.imgListUpDown = new System.Windows.Forms.ImageList(this.components);
             this.btnOkMBA2 = new System.Windows.Forms.Button();
             this.btnCancelMBA2 = new System.Windows.Forms.Button();
             this.pnlManagerTabCtrl.SuspendLayout();
             this.tabMBA2.SuspendLayout();
             this.tabPowerFlow.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.grbVoltageRating.SuspendLayout();
-            this.grbLineMBA2Data.SuspendLayout();
             this.panel2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.pnlPrimUpDown.SuspendLayout();
             this.pnlSecUpDown.SuspendLayout();
+            this.grbVoltageRating.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.grbLineMBA2Data.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlManagerTabCtrl
@@ -140,166 +140,214 @@ namespace Experimential_Software
             this.tabPowerFlow.TabIndex = 0;
             this.tabPowerFlow.Text = "Power Flow";
             // 
-            // panel1
+            // panel2
             // 
-            this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Controls.Add(this.groupBox1);
-            this.panel1.Location = new System.Drawing.Point(16, 228);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(793, 177);
-            this.panel1.TabIndex = 1;
+            this.panel2.BackColor = System.Drawing.Color.Transparent;
+            this.panel2.Controls.Add(this.groupBox3);
+            this.panel2.Controls.Add(this.grbVoltageRating);
+            this.panel2.Location = new System.Drawing.Point(16, 423);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(793, 220);
+            this.panel2.TabIndex = 2;
             // 
-            // groupBox2
+            // groupBox3
             // 
-            this.groupBox2.Controls.Add(this.textBox1);
-            this.groupBox2.Controls.Add(this.label14);
-            this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox2.ForeColor = System.Drawing.Color.Black;
-            this.groupBox2.Location = new System.Drawing.Point(0, 0);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(183, 177);
-            this.groupBox2.TabIndex = 2;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Power Rating";
+            this.groupBox3.Controls.Add(this.pnlPrimUpDown);
+            this.groupBox3.Controls.Add(this.pnlSecUpDown);
+            this.groupBox3.Controls.Add(this.txtFixedSeckV);
+            this.groupBox3.Controls.Add(this.txtFixedPrimkV);
+            this.groupBox3.Controls.Add(this.btnTCSec);
+            this.groupBox3.Controls.Add(this.lblTransUnit);
+            this.groupBox3.Controls.Add(this.btnTCPrim);
+            this.groupBox3.Controls.Add(this.btnTCUnitMain);
+            this.groupBox3.Controls.Add(this.lblTapTransSecFixed);
+            this.groupBox3.Controls.Add(this.lblTapTransPrimFixed);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBox3.Location = new System.Drawing.Point(402, 0);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(391, 220);
+            this.groupBox3.TabIndex = 1;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Fixed Tap";
             // 
-            // textBox1
+            // pnlPrimUpDown
             // 
-            this.textBox1.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(88, 95);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(66, 24);
-            this.textBox1.TabIndex = 1;
-            this.textBox1.Text = "500";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.pnlPrimUpDown.BackColor = System.Drawing.Color.Transparent;
+            this.pnlPrimUpDown.Controls.Add(this.btnPrimUp);
+            this.pnlPrimUpDown.Controls.Add(this.btnPrimDown);
+            this.pnlPrimUpDown.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlPrimUpDown.Location = new System.Drawing.Point(237, 65);
+            this.pnlPrimUpDown.Name = "pnlPrimUpDown";
+            this.pnlPrimUpDown.Size = new System.Drawing.Size(25, 42);
+            this.pnlPrimUpDown.TabIndex = 2;
             // 
-            // label14
+            // btnPrimUp
             // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label14.Location = new System.Drawing.Point(77, 52);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(34, 17);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "MVA";
+            this.btnPrimUp.BackColor = System.Drawing.Color.Transparent;
+            this.btnPrimUp.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnPrimUp.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrimUp.ImageIndex = 0;
+            this.btnPrimUp.ImageList = this.imgListUpDown;
+            this.btnPrimUp.Location = new System.Drawing.Point(0, 0);
+            this.btnPrimUp.Name = "btnPrimUp";
+            this.btnPrimUp.Size = new System.Drawing.Size(25, 18);
+            this.btnPrimUp.TabIndex = 0;
+            this.btnPrimUp.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnPrimUp.UseVisualStyleBackColor = false;
             // 
-            // label16
+            // imgListUpDown
             // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label16.Location = new System.Drawing.Point(32, 98);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(44, 17);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "Rated";
+            this.imgListUpDown.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListUpDown.ImageStream")));
+            this.imgListUpDown.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgListUpDown.Images.SetKeyName(0, "btnUp.png");
+            this.imgListUpDown.Images.SetKeyName(1, "btnDown.png");
             // 
-            // groupBox1
+            // btnPrimDown
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.label17);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.txtMagBpu);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.txtMagGpu);
-            this.groupBox1.Controls.Add(this.txtSpecXpu);
-            this.groupBox1.Controls.Add(this.txtSpecRpu);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox1.Location = new System.Drawing.Point(200, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(593, 177);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Transformer Inpendance Data";
+            this.btnPrimDown.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnPrimDown.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPrimDown.ImageIndex = 1;
+            this.btnPrimDown.ImageList = this.imgListUpDown;
+            this.btnPrimDown.Location = new System.Drawing.Point(0, 24);
+            this.btnPrimDown.Name = "btnPrimDown";
+            this.btnPrimDown.Size = new System.Drawing.Size(25, 18);
+            this.btnPrimDown.TabIndex = 1;
+            this.btnPrimDown.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnPrimDown.UseVisualStyleBackColor = true;
             // 
-            // label10
+            // pnlSecUpDown
             // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label10.Location = new System.Drawing.Point(228, 97);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(121, 17);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "Magnetizing B (pu)";
+            this.pnlSecUpDown.BackColor = System.Drawing.Color.Transparent;
+            this.pnlSecUpDown.Controls.Add(this.btnSecUp);
+            this.pnlSecUpDown.Controls.Add(this.btnSecDown);
+            this.pnlSecUpDown.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlSecUpDown.Location = new System.Drawing.Point(237, 144);
+            this.pnlSecUpDown.Name = "pnlSecUpDown";
+            this.pnlSecUpDown.Size = new System.Drawing.Size(25, 42);
+            this.pnlSecUpDown.TabIndex = 3;
             // 
-            // label8
+            // btnSecUp
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label8.Location = new System.Drawing.Point(228, 25);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(103, 17);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "Specified X (pu)";
+            this.btnSecUp.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnSecUp.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSecUp.ImageIndex = 0;
+            this.btnSecUp.ImageList = this.imgListUpDown;
+            this.btnSecUp.Location = new System.Drawing.Point(0, 0);
+            this.btnSecUp.Name = "btnSecUp";
+            this.btnSecUp.Size = new System.Drawing.Size(25, 18);
+            this.btnSecUp.TabIndex = 0;
+            this.btnSecUp.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnSecUp.UseVisualStyleBackColor = true;
             // 
-            // label9
+            // btnSecDown
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label9.Location = new System.Drawing.Point(24, 97);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(122, 17);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Magnetizing G (pu)";
+            this.btnSecDown.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnSecDown.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSecDown.ImageIndex = 1;
+            this.btnSecDown.ImageList = this.imgListUpDown;
+            this.btnSecDown.Location = new System.Drawing.Point(0, 24);
+            this.btnSecDown.Name = "btnSecDown";
+            this.btnSecDown.Size = new System.Drawing.Size(25, 18);
+            this.btnSecDown.TabIndex = 1;
+            this.btnSecDown.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.btnSecDown.UseVisualStyleBackColor = true;
             // 
-            // label7
+            // txtFixedSeckV
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label7.Location = new System.Drawing.Point(24, 25);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(104, 17);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Specified R (pu)";
+            this.txtFixedSeckV.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFixedSeckV.Location = new System.Drawing.Point(158, 153);
+            this.txtFixedSeckV.Name = "txtFixedSeckV";
+            this.txtFixedSeckV.Size = new System.Drawing.Size(66, 24);
+            this.txtFixedSeckV.TabIndex = 1;
+            this.txtFixedSeckV.Text = "110";
+            this.txtFixedSeckV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtFixedSeckV.Leave += new System.EventHandler(this.CheckTextBoxValid);
             // 
-            // txtMagBpu
+            // txtFixedPrimkV
             // 
-            this.txtMagBpu.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMagBpu.Location = new System.Drawing.Point(231, 127);
-            this.txtMagBpu.Name = "txtMagBpu";
-            this.txtMagBpu.Size = new System.Drawing.Size(120, 24);
-            this.txtMagBpu.TabIndex = 1;
-            this.txtMagBpu.Text = "0.000000";
+            this.txtFixedPrimkV.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFixedPrimkV.Location = new System.Drawing.Point(158, 74);
+            this.txtFixedPrimkV.Name = "txtFixedPrimkV";
+            this.txtFixedPrimkV.Size = new System.Drawing.Size(66, 24);
+            this.txtFixedPrimkV.TabIndex = 1;
+            this.txtFixedPrimkV.Text = "110";
+            this.txtFixedPrimkV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtFixedPrimkV.Leave += new System.EventHandler(this.CheckTextBoxValid);
             // 
-            // txtMagGpu
+            // btnTCSec
             // 
-            this.txtMagGpu.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMagGpu.Location = new System.Drawing.Point(27, 127);
-            this.txtMagGpu.Name = "txtMagGpu";
-            this.txtMagGpu.Size = new System.Drawing.Size(120, 24);
-            this.txtMagGpu.TabIndex = 1;
-            this.txtMagGpu.Text = "0.000000";
+            this.btnTCSec.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTCSec.Location = new System.Drawing.Point(42, 150);
+            this.btnTCSec.Name = "btnTCSec";
+            this.btnTCSec.Size = new System.Drawing.Size(81, 28);
+            this.btnTCSec.TabIndex = 0;
+            this.btnTCSec.Text = "Sec...";
+            this.btnTCSec.UseVisualStyleBackColor = true;
+            this.btnTCSec.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTapChangerPrimAndSecZoneFixed_MouseDown);
             // 
-            // txtSpecXpu
+            // lblTransUnit
             // 
-            this.txtSpecXpu.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSpecXpu.Location = new System.Drawing.Point(231, 55);
-            this.txtSpecXpu.Name = "txtSpecXpu";
-            this.txtSpecXpu.Size = new System.Drawing.Size(120, 24);
-            this.txtSpecXpu.TabIndex = 1;
-            this.txtSpecXpu.Text = "0.000000";
+            this.lblTransUnit.AutoSize = true;
+            this.lblTransUnit.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTransUnit.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblTransUnit.Location = new System.Drawing.Point(291, 28);
+            this.lblTransUnit.Name = "lblTransUnit";
+            this.lblTransUnit.Size = new System.Drawing.Size(50, 17);
+            this.lblTransUnit.TabIndex = 0;
+            this.lblTransUnit.Text = "kV Tap";
             // 
-            // txtSpecRpu
+            // btnTCPrim
             // 
-            this.txtSpecRpu.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSpecRpu.Location = new System.Drawing.Point(27, 55);
-            this.txtSpecRpu.Name = "txtSpecRpu";
-            this.txtSpecRpu.Size = new System.Drawing.Size(120, 24);
-            this.txtSpecRpu.TabIndex = 1;
-            this.txtSpecRpu.Text = "0.000000";
+            this.btnTCPrim.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTCPrim.Location = new System.Drawing.Point(42, 74);
+            this.btnTCPrim.Name = "btnTCPrim";
+            this.btnTCPrim.Size = new System.Drawing.Size(81, 28);
+            this.btnTCPrim.TabIndex = 0;
+            this.btnTCPrim.Text = "Prim...";
+            this.btnTCPrim.UseVisualStyleBackColor = true;
+            this.btnTCPrim.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTapChangerPrimAndSecZoneFixed_MouseDown);
+            // 
+            // btnTCUnitMain
+            // 
+            this.btnTCUnitMain.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTCUnitMain.Location = new System.Drawing.Point(147, 25);
+            this.btnTCUnitMain.Name = "btnTCUnitMain";
+            this.btnTCUnitMain.Size = new System.Drawing.Size(89, 25);
+            this.btnTCUnitMain.TabIndex = 0;
+            this.btnTCUnitMain.Text = "% Tap";
+            this.btnTCUnitMain.UseVisualStyleBackColor = true;
+            this.btnTCUnitMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTCUnitMain_MouseDown);
+            // 
+            // lblTapTransSecFixed
+            // 
+            this.lblTapTransSecFixed.BackColor = System.Drawing.Color.White;
+            this.lblTapTransSecFixed.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblTapTransSecFixed.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTapTransSecFixed.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblTapTransSecFixed.Location = new System.Drawing.Point(289, 154);
+            this.lblTapTransSecFixed.Name = "lblTapTransSecFixed";
+            this.lblTapTransSecFixed.Size = new System.Drawing.Size(54, 20);
+            this.lblTapTransSecFixed.TabIndex = 0;
+            this.lblTapTransSecFixed.Text = "22.1";
+            this.lblTapTransSecFixed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblTapTransPrimFixed
+            // 
+            this.lblTapTransPrimFixed.BackColor = System.Drawing.Color.White;
+            this.lblTapTransPrimFixed.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblTapTransPrimFixed.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTapTransPrimFixed.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.lblTapTransPrimFixed.Location = new System.Drawing.Point(289, 74);
+            this.lblTapTransPrimFixed.Name = "lblTapTransPrimFixed";
+            this.lblTapTransPrimFixed.Size = new System.Drawing.Size(54, 20);
+            this.lblTapTransPrimFixed.TabIndex = 0;
+            this.lblTapTransPrimFixed.Text = "115.2365";
+            this.lblTapTransPrimFixed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // grbVoltageRating
             // 
-            this.grbVoltageRating.Controls.Add(this.txtSeckV);
-            this.grbVoltageRating.Controls.Add(this.txtPrimkV);
+            this.grbVoltageRating.Controls.Add(this.txtRatedSeckV);
+            this.grbVoltageRating.Controls.Add(this.txtRatedPrimkV);
             this.grbVoltageRating.Controls.Add(this.label13);
             this.grbVoltageRating.Controls.Add(this.label15);
             this.grbVoltageRating.Controls.Add(this.label12);
@@ -314,25 +362,27 @@ namespace Experimential_Software
             this.grbVoltageRating.TabStop = false;
             this.grbVoltageRating.Text = "Voltage Rating";
             // 
-            // txtSeckV
+            // txtRatedSeckV
             // 
-            this.txtSeckV.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSeckV.Location = new System.Drawing.Point(114, 154);
-            this.txtSeckV.Name = "txtSeckV";
-            this.txtSeckV.Size = new System.Drawing.Size(66, 24);
-            this.txtSeckV.TabIndex = 1;
-            this.txtSeckV.Text = "110";
-            this.txtSeckV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRatedSeckV.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRatedSeckV.Location = new System.Drawing.Point(114, 154);
+            this.txtRatedSeckV.Name = "txtRatedSeckV";
+            this.txtRatedSeckV.Size = new System.Drawing.Size(66, 24);
+            this.txtRatedSeckV.TabIndex = 1;
+            this.txtRatedSeckV.Text = "110";
+            this.txtRatedSeckV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRatedSeckV.Leave += new System.EventHandler(this.CheckTextBoxValid);
             // 
-            // txtPrimkV
+            // txtRatedPrimkV
             // 
-            this.txtPrimkV.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPrimkV.Location = new System.Drawing.Point(114, 75);
-            this.txtPrimkV.Name = "txtPrimkV";
-            this.txtPrimkV.Size = new System.Drawing.Size(66, 24);
-            this.txtPrimkV.TabIndex = 1;
-            this.txtPrimkV.Text = "110";
-            this.txtPrimkV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRatedPrimkV.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRatedPrimkV.Location = new System.Drawing.Point(114, 75);
+            this.txtRatedPrimkV.Name = "txtRatedPrimkV";
+            this.txtRatedPrimkV.Size = new System.Drawing.Size(66, 24);
+            this.txtRatedPrimkV.TabIndex = 1;
+            this.txtRatedPrimkV.Text = "110";
+            this.txtRatedPrimkV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtRatedPrimkV.Leave += new System.EventHandler(this.CheckTextBoxValid);
             // 
             // label13
             // 
@@ -404,15 +454,197 @@ namespace Experimential_Software
             this.lblNorBusPrimkV.Text = "110";
             this.lblNorBusPrimkV.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.groupBox2);
+            this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Location = new System.Drawing.Point(16, 228);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(793, 177);
+            this.panel1.TabIndex = 1;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.txtPowerRated);
+            this.groupBox2.Controls.Add(this.label14);
+            this.groupBox2.Controls.Add(this.label16);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox2.ForeColor = System.Drawing.Color.Black;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(183, 177);
+            this.groupBox2.TabIndex = 2;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Power Rating";
+            // 
+            // txtPowerRated
+            // 
+            this.txtPowerRated.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPowerRated.Location = new System.Drawing.Point(88, 95);
+            this.txtPowerRated.Name = "txtPowerRated";
+            this.txtPowerRated.Size = new System.Drawing.Size(66, 24);
+            this.txtPowerRated.TabIndex = 1;
+            this.txtPowerRated.Text = "500";
+            this.txtPowerRated.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtPowerRated.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label14.Location = new System.Drawing.Point(77, 52);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(34, 17);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "MVA";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label16.Location = new System.Drawing.Point(32, 98);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(44, 17);
+            this.label16.TabIndex = 0;
+            this.label16.Text = "Rated";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
+            this.groupBox1.Controls.Add(this.label10);
+            this.groupBox1.Controls.Add(this.label17);
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.txtMagBpu);
+            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.txtMagGpu);
+            this.groupBox1.Controls.Add(this.txtSpecXpu);
+            this.groupBox1.Controls.Add(this.txtSpecRpu);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupBox1.Location = new System.Drawing.Point(200, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(593, 177);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Transformer Inpendance Data";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label10.Location = new System.Drawing.Point(228, 97);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(121, 17);
+            this.label10.TabIndex = 0;
+            this.label10.Text = "Magnetizing B (pu)";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label17.Location = new System.Drawing.Point(427, 25);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(120, 17);
+            this.label17.TabIndex = 0;
+            this.label17.Text = "Impendance Table";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label8.Location = new System.Drawing.Point(228, 25);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(103, 17);
+            this.label8.TabIndex = 0;
+            this.label8.Text = "Specified X (pu)";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label9.Location = new System.Drawing.Point(24, 97);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(122, 17);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Magnetizing G (pu)";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.label7.Location = new System.Drawing.Point(24, 25);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(104, 17);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Specified R (pu)";
+            // 
+            // txtMagBpu
+            // 
+            this.txtMagBpu.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMagBpu.Location = new System.Drawing.Point(231, 127);
+            this.txtMagBpu.Name = "txtMagBpu";
+            this.txtMagBpu.Size = new System.Drawing.Size(120, 24);
+            this.txtMagBpu.TabIndex = 1;
+            this.txtMagBpu.Text = "0.000000";
+            this.txtMagBpu.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(430, 55);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(120, 24);
+            this.textBox2.TabIndex = 1;
+            this.textBox2.Text = "0.000000";
+            this.textBox2.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            // 
+            // txtMagGpu
+            // 
+            this.txtMagGpu.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMagGpu.Location = new System.Drawing.Point(27, 127);
+            this.txtMagGpu.Name = "txtMagGpu";
+            this.txtMagGpu.Size = new System.Drawing.Size(120, 24);
+            this.txtMagGpu.TabIndex = 1;
+            this.txtMagGpu.Text = "0.000000";
+            this.txtMagGpu.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            // 
+            // txtSpecXpu
+            // 
+            this.txtSpecXpu.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSpecXpu.Location = new System.Drawing.Point(231, 55);
+            this.txtSpecXpu.Name = "txtSpecXpu";
+            this.txtSpecXpu.Size = new System.Drawing.Size(120, 24);
+            this.txtSpecXpu.TabIndex = 1;
+            this.txtSpecXpu.Text = "0.000000";
+            this.txtSpecXpu.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            // 
+            // txtSpecRpu
+            // 
+            this.txtSpecRpu.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSpecRpu.Location = new System.Drawing.Point(27, 55);
+            this.txtSpecRpu.Name = "txtSpecRpu";
+            this.txtSpecRpu.Size = new System.Drawing.Size(120, 24);
+            this.txtSpecRpu.TabIndex = 1;
+            this.txtSpecRpu.Text = "0.000000";
+            this.txtSpecRpu.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            // 
             // grbLineMBA2Data
             // 
             this.grbLineMBA2Data.BackColor = System.Drawing.Color.Transparent;
+            this.grbLineMBA2Data.Controls.Add(this.lblTransID);
             this.grbLineMBA2Data.Controls.Add(this.chkWinding1);
             this.grbLineMBA2Data.Controls.Add(this.chkMeterd);
             this.grbLineMBA2Data.Controls.Add(this.chkinService);
             this.grbLineMBA2Data.Controls.Add(this.txtTransName);
             this.grbLineMBA2Data.Controls.Add(this.label6);
-            this.grbLineMBA2Data.Controls.Add(this.txtTransID);
             this.grbLineMBA2Data.Controls.Add(this.label3);
             this.grbLineMBA2Data.Controls.Add(this.label5);
             this.grbLineMBA2Data.Controls.Add(this.label2);
@@ -429,6 +661,14 @@ namespace Experimential_Software
             this.grbLineMBA2Data.TabIndex = 0;
             this.grbLineMBA2Data.TabStop = false;
             this.grbLineMBA2Data.Text = "Line Data";
+            // 
+            // lblTransID
+            // 
+            this.lblTransID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTransID.Location = new System.Drawing.Point(149, 139);
+            this.lblTransID.Name = "lblTransID";
+            this.lblTransID.Size = new System.Drawing.Size(93, 20);
+            this.lblTransID.TabIndex = 4;
             // 
             // chkWinding1
             // 
@@ -486,14 +726,6 @@ namespace Experimential_Software
             this.label6.Size = new System.Drawing.Size(122, 17);
             this.label6.TabIndex = 0;
             this.label6.Text = "Transformer Name";
-            // 
-            // txtTransID
-            // 
-            this.txtTransID.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTransID.Location = new System.Drawing.Point(147, 140);
-            this.txtTransID.Name = "txtTransID";
-            this.txtTransID.Size = new System.Drawing.Size(95, 24);
-            this.txtTransID.TabIndex = 1;
             // 
             // label3
             // 
@@ -594,225 +826,6 @@ namespace Experimential_Software
             this.label1.TabIndex = 0;
             this.label1.Text = "From Bus Number";
             // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.Transparent;
-            this.panel2.Controls.Add(this.groupBox3);
-            this.panel2.Controls.Add(this.grbVoltageRating);
-            this.panel2.Location = new System.Drawing.Point(16, 423);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(793, 220);
-            this.panel2.TabIndex = 2;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(430, 55);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(120, 24);
-            this.textBox2.TabIndex = 1;
-            this.textBox2.Text = "0.000000";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label17.Location = new System.Drawing.Point(427, 25);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(120, 17);
-            this.label17.TabIndex = 0;
-            this.label17.Text = "Impendance Table";
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.pnlPrimUpDown);
-            this.groupBox3.Controls.Add(this.pnlSecUpDown);
-            this.groupBox3.Controls.Add(this.textBox4);
-            this.groupBox3.Controls.Add(this.textBox3);
-            this.groupBox3.Controls.Add(this.btnTCSec);
-            this.groupBox3.Controls.Add(this.label19);
-            this.groupBox3.Controls.Add(this.btnTCPrim);
-            this.groupBox3.Controls.Add(this.btnTCUnit);
-            this.groupBox3.Controls.Add(this.lblkVTapSecFixed);
-            this.groupBox3.Controls.Add(this.lblkVTapPrimFixed);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox3.Location = new System.Drawing.Point(402, 0);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(391, 220);
-            this.groupBox3.TabIndex = 1;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Fixed Tap";
-            // 
-            // btnTCUnit
-            // 
-            this.btnTCUnit.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTCUnit.Location = new System.Drawing.Point(147, 25);
-            this.btnTCUnit.Name = "btnTCUnit";
-            this.btnTCUnit.Size = new System.Drawing.Size(89, 25);
-            this.btnTCUnit.TabIndex = 0;
-            this.btnTCUnit.Text = "% Tap";
-            this.btnTCUnit.UseVisualStyleBackColor = true;
-            // 
-            // btnTCPrim
-            // 
-            this.btnTCPrim.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTCPrim.Location = new System.Drawing.Point(42, 74);
-            this.btnTCPrim.Name = "btnTCPrim";
-            this.btnTCPrim.Size = new System.Drawing.Size(81, 28);
-            this.btnTCPrim.TabIndex = 0;
-            this.btnTCPrim.Text = "Prim...";
-            this.btnTCPrim.UseVisualStyleBackColor = true;
-            // 
-            // btnTCSec
-            // 
-            this.btnTCSec.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTCSec.Location = new System.Drawing.Point(42, 150);
-            this.btnTCSec.Name = "btnTCSec";
-            this.btnTCSec.Size = new System.Drawing.Size(81, 28);
-            this.btnTCSec.TabIndex = 0;
-            this.btnTCSec.Text = "Sec...";
-            this.btnTCSec.UseVisualStyleBackColor = true;
-            // 
-            // textBox3
-            // 
-            this.textBox3.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(158, 74);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(66, 24);
-            this.textBox3.TabIndex = 1;
-            this.textBox3.Text = "110";
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(158, 153);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(66, 24);
-            this.textBox4.TabIndex = 1;
-            this.textBox4.Text = "110";
-            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // lblkVTapPrimFixed
-            // 
-            this.lblkVTapPrimFixed.BackColor = System.Drawing.Color.White;
-            this.lblkVTapPrimFixed.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblkVTapPrimFixed.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblkVTapPrimFixed.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblkVTapPrimFixed.Location = new System.Drawing.Point(289, 74);
-            this.lblkVTapPrimFixed.Name = "lblkVTapPrimFixed";
-            this.lblkVTapPrimFixed.Size = new System.Drawing.Size(54, 20);
-            this.lblkVTapPrimFixed.TabIndex = 0;
-            this.lblkVTapPrimFixed.Text = "115.2365";
-            this.lblkVTapPrimFixed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label19.Location = new System.Drawing.Point(291, 28);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(50, 17);
-            this.label19.TabIndex = 0;
-            this.label19.Text = "kV Tap";
-            // 
-            // lblkVTapSecFixed
-            // 
-            this.lblkVTapSecFixed.BackColor = System.Drawing.Color.White;
-            this.lblkVTapSecFixed.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblkVTapSecFixed.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblkVTapSecFixed.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblkVTapSecFixed.Location = new System.Drawing.Point(289, 154);
-            this.lblkVTapSecFixed.Name = "lblkVTapSecFixed";
-            this.lblkVTapSecFixed.Size = new System.Drawing.Size(54, 20);
-            this.lblkVTapSecFixed.TabIndex = 0;
-            this.lblkVTapSecFixed.Text = "22.1";
-            this.lblkVTapSecFixed.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pnlPrimUpDown
-            // 
-            this.pnlPrimUpDown.BackColor = System.Drawing.Color.Transparent;
-            this.pnlPrimUpDown.Controls.Add(this.btnPrimUp);
-            this.pnlPrimUpDown.Controls.Add(this.btnPrimDown);
-            this.pnlPrimUpDown.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlPrimUpDown.Location = new System.Drawing.Point(237, 65);
-            this.pnlPrimUpDown.Name = "pnlPrimUpDown";
-            this.pnlPrimUpDown.Size = new System.Drawing.Size(25, 42);
-            this.pnlPrimUpDown.TabIndex = 2;
-            // 
-            // btnPrimUp
-            // 
-            this.btnPrimUp.BackColor = System.Drawing.Color.Transparent;
-            this.btnPrimUp.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnPrimUp.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrimUp.ImageIndex = 0;
-            this.btnPrimUp.ImageList = this.imgListUpDown;
-            this.btnPrimUp.Location = new System.Drawing.Point(0, 0);
-            this.btnPrimUp.Name = "btnPrimUp";
-            this.btnPrimUp.Size = new System.Drawing.Size(25, 18);
-            this.btnPrimUp.TabIndex = 0;
-            this.btnPrimUp.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnPrimUp.UseVisualStyleBackColor = false;
-            // 
-            // btnPrimDown
-            // 
-            this.btnPrimDown.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnPrimDown.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrimDown.ImageIndex = 1;
-            this.btnPrimDown.ImageList = this.imgListUpDown;
-            this.btnPrimDown.Location = new System.Drawing.Point(0, 24);
-            this.btnPrimDown.Name = "btnPrimDown";
-            this.btnPrimDown.Size = new System.Drawing.Size(25, 18);
-            this.btnPrimDown.TabIndex = 1;
-            this.btnPrimDown.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnPrimDown.UseVisualStyleBackColor = true;
-            // 
-            // pnlSecUpDown
-            // 
-            this.pnlSecUpDown.BackColor = System.Drawing.Color.Transparent;
-            this.pnlSecUpDown.Controls.Add(this.btnSecUp);
-            this.pnlSecUpDown.Controls.Add(this.btnSecDown);
-            this.pnlSecUpDown.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlSecUpDown.Location = new System.Drawing.Point(237, 144);
-            this.pnlSecUpDown.Name = "pnlSecUpDown";
-            this.pnlSecUpDown.Size = new System.Drawing.Size(25, 42);
-            this.pnlSecUpDown.TabIndex = 3;
-            // 
-            // btnSecUp
-            // 
-            this.btnSecUp.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnSecUp.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSecUp.ImageIndex = 0;
-            this.btnSecUp.ImageList = this.imgListUpDown;
-            this.btnSecUp.Location = new System.Drawing.Point(0, 0);
-            this.btnSecUp.Name = "btnSecUp";
-            this.btnSecUp.Size = new System.Drawing.Size(25, 18);
-            this.btnSecUp.TabIndex = 0;
-            this.btnSecUp.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSecUp.UseVisualStyleBackColor = true;
-            // 
-            // btnSecDown
-            // 
-            this.btnSecDown.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnSecDown.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSecDown.ImageIndex = 1;
-            this.btnSecDown.ImageList = this.imgListUpDown;
-            this.btnSecDown.Location = new System.Drawing.Point(0, 24);
-            this.btnSecDown.Name = "btnSecDown";
-            this.btnSecDown.Size = new System.Drawing.Size(25, 18);
-            this.btnSecDown.TabIndex = 1;
-            this.btnSecDown.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.btnSecDown.UseVisualStyleBackColor = true;
-            // 
-            // imgListUpDown
-            // 
-            this.imgListUpDown.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListUpDown.ImageStream")));
-            this.imgListUpDown.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgListUpDown.Images.SetKeyName(0, "btnUp.png");
-            this.imgListUpDown.Images.SetKeyName(1, "btnDown.png");
-            // 
             // btnOkMBA2
             // 
             this.btnOkMBA2.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -822,6 +835,7 @@ namespace Experimential_Software
             this.btnOkMBA2.TabIndex = 1;
             this.btnOkMBA2.Text = "OK";
             this.btnOkMBA2.UseVisualStyleBackColor = true;
+            this.btnOkMBA2.Click += new System.EventHandler(this.btnOkMBA2_Click);
             // 
             // btnCancelMBA2
             // 
@@ -851,20 +865,20 @@ namespace Experimential_Software
             this.pnlManagerTabCtrl.ResumeLayout(false);
             this.tabMBA2.ResumeLayout(false);
             this.tabPowerFlow.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.grbVoltageRating.ResumeLayout(false);
-            this.grbVoltageRating.PerformLayout();
-            this.grbLineMBA2Data.ResumeLayout(false);
-            this.grbLineMBA2Data.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.pnlPrimUpDown.ResumeLayout(false);
             this.pnlSecUpDown.ResumeLayout(false);
+            this.grbVoltageRating.ResumeLayout(false);
+            this.grbVoltageRating.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.grbLineMBA2Data.ResumeLayout(false);
+            this.grbLineMBA2Data.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -875,7 +889,6 @@ namespace Experimential_Software
         private System.Windows.Forms.TabControl tabMBA2;
         private System.Windows.Forms.TabPage tabPowerFlow;
         private System.Windows.Forms.GroupBox grbLineMBA2Data;
-        private System.Windows.Forms.TextBox txtTransID;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
@@ -901,8 +914,8 @@ namespace Experimential_Software
         private System.Windows.Forms.TextBox txtMagGpu;
         private System.Windows.Forms.TextBox txtSpecXpu;
         private System.Windows.Forms.TextBox txtSpecRpu;
-        private System.Windows.Forms.TextBox txtSeckV;
-        private System.Windows.Forms.TextBox txtPrimkV;
+        private System.Windows.Forms.TextBox txtRatedSeckV;
+        private System.Windows.Forms.TextBox txtRatedPrimkV;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label12;
@@ -910,7 +923,7 @@ namespace Experimential_Software
         private System.Windows.Forms.Label lblNorBusSeckV;
         private System.Windows.Forms.Label lblNorBusPrimkV;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtPowerRated;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Panel panel2;
@@ -918,13 +931,13 @@ namespace Experimential_Software
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnTCPrim;
-        private System.Windows.Forms.Button btnTCUnit;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button btnTCUnitMain;
+        private System.Windows.Forms.TextBox txtFixedSeckV;
+        private System.Windows.Forms.TextBox txtFixedPrimkV;
         private System.Windows.Forms.Button btnTCSec;
-        private System.Windows.Forms.Label lblkVTapPrimFixed;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label lblkVTapSecFixed;
+        private System.Windows.Forms.Label lblTapTransPrimFixed;
+        private System.Windows.Forms.Label lblTransUnit;
+        private System.Windows.Forms.Label lblTapTransSecFixed;
         private System.Windows.Forms.Panel pnlPrimUpDown;
         private System.Windows.Forms.Button btnPrimUp;
         private System.Windows.Forms.Button btnPrimDown;
@@ -934,5 +947,6 @@ namespace Experimential_Software
         private System.Windows.Forms.ImageList imgListUpDown;
         private System.Windows.Forms.Button btnOkMBA2;
         private System.Windows.Forms.Button btnCancelMBA2;
+        private System.Windows.Forms.Label lblTransID;
     }
 }

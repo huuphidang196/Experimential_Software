@@ -31,12 +31,12 @@ namespace Experimential_Software
         {
             if (this._busEFixedData != null)
             {
-                this.SetDataFormBusEPowerOrigin();
+                this.SshowDataOnFormBusEPowerOrigin();
             }
         }
 
         #region Show_Data_Origin
-        protected virtual void SetDataFormBusEPowerOrigin()
+        protected virtual void SshowDataOnFormBusEPowerOrigin()
         {
             this._dtoBusRecord = this._busEFixedData.DatabaseE.DataRecordE.DTOBusEPower;
 
