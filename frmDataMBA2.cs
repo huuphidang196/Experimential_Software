@@ -21,6 +21,21 @@ namespace Experimential_Software
         //Database MBA2 Record
         protected DTOTransTwoEPower _dtoMBA2EPowerRecord;
 
+        //Zone Voltage Rating and Fixed Tap Zone
+        protected VoltageEnds _vol_Rated_Old = new VoltageEnds();
+
+        //Fixed . same DTO Voltage Rated
+        protected double _perFixed_Prim_Old = 0;
+        protected double _perFixed_Sec_Old = 0;
+
+        //temp
+        protected UnitTapMode _unitModeMain = UnitTapMode.Percent;
+
+        protected DTOTransTwoTapRanger _dtoRanger_Prim_Temp;
+        protected DTOTransTwoTapRanger _dtoRanger_Sec_Temp;
+
+        protected double _numberTapFixed_Prim = 0;
+        protected double _numberTapFixed_Sec = 0;
         public frmDataMBA2()
         {
             InitializeComponent();
@@ -30,15 +45,36 @@ namespace Experimential_Software
         {
             if (this._mba2_EFixedData != null)
             {
+                //get dto in Epower
+                this._dtoMBA2EPowerRecord = this._mba2_EFixedData.DatabaseE.DataRecordE.DTOTransTwoEPower;
+
+                //get Old Struct => Save When Cancel because Ranger need use Voltage rated on  DTO Trans
+                this._vol_Rated_Old = this._dtoMBA2EPowerRecord.VoltageEnds_Rated;
+
+                //Set Unit Mode
+                this._unitModeMain = this._dtoMBA2EPowerRecord.UnitTap_Main;
+
+                //Clone Specified DTORanger => If Main Ok => Set
+                //Clone Prim
+                this._dtoRanger_Prim_Temp = this._dtoMBA2EPowerRecord.Prim_RangerTap.CloneTransTwoTapRanger();
+                //Clone Sec
+                this._dtoRanger_Sec_Temp = this._dtoMBA2EPowerRecord.Sec_RangerTap.CloneTransTwoTapRanger();
+
+                //Set Prim Fixed and Sec
+                this._perFixed_Prim_Old = this._dtoMBA2EPowerRecord.Percent_PrimFixed;
+                this._perFixed_Sec_Old = this._dtoMBA2EPowerRecord.Percent_SecFixed;
+
+                //Set Number Tap
+                this._numberTapFixed_Prim = this._dtoMBA2EPowerRecord.NumberTapFixed_Prim;
+                this._numberTapFixed_Sec = this._dtoMBA2EPowerRecord.NumberTapFixed_Sec;
                 this.ShowDataOnFormMBA2EPowerOrigin();
+                MessageBox.Show("num Prim = " + this._numberTapFixed_Prim + ", sec = " + this._numberTapFixed_Sec);
             }
         }
 
+        #region Show_Data_Form_Main
         protected virtual void ShowDataOnFormMBA2EPowerOrigin()
         {
-            //get dto in Epower
-            this._dtoMBA2EPowerRecord = this._mba2_EFixedData.DatabaseE.DataRecordE.DTOTransTwoEPower;
-
             //DataLine BusConnect
             this.ShowDataOnFormLineDataZone();
 
@@ -49,7 +85,7 @@ namespace Experimential_Software
             this.ShowVoltageRatingTransfomer();
 
             //Show  Fixed tap and Add event for button prim and sec
-            this.ShowFixedTanAndAddEventButtonEnds();
+            this.ShowFixedTapDataOnFixedZone();
 
         }
 
@@ -111,14 +147,15 @@ namespace Experimential_Software
         }
 
         //FixedTap Zone
-        protected virtual void ShowFixedTanAndAddEventButtonEnds()
+        protected virtual void ShowFixedTapDataOnFixedZone()
         {
             //Set text button Change Unit
-            bool isPecentUnit = this._dtoMBA2EPowerRecord.UnitTap_Main == UnitTapMode.Percent;
+            bool isPecentUnit = this._unitModeMain == UnitTapMode.Percent;
             this.btnTCUnitMain.Text = (isPecentUnit) ? "% Tap" : "kV Tap";
+
             VoltageEnds vol_Fixed = this._dtoMBA2EPowerRecord.VoltageEnds_Fixed;
-            double percentPrim = 100;
-            double percentSec = 100;
+            double percentPrim = this._dtoMBA2EPowerRecord.Percent_PrimFixed;
+            double percentSec = this._dtoMBA2EPowerRecord.Percent_SecFixed;
 
             //kV Mode
             if (!isPecentUnit)
@@ -129,45 +166,59 @@ namespace Experimential_Software
                 //label transfer unit have name
                 this.lblTransUnit.Text = "% Tap";
 
-                percentPrim = Math.Round(this._dtoMBA2EPowerRecord.Percent_PrimFixed - 100, 1);
-                this.lblTapTransPrimFixed.Text = percentPrim + "";
-
-                percentSec = Math.Round(this._dtoMBA2EPowerRecord.Percent_SecFixed - 100, 1);
-                this.lblTapTransSecFixed.Text = percentSec + "";
+                this.lblTapTransPrimFixed.Text = Math.Round(percentPrim * 100 - 100, 4) + "";
+                this.lblTapTransSecFixed.Text = Math.Round(percentSec * 100 - 100, 4) + "";
                 return;
             }
 
             //Percent Mode
-            percentPrim = Math.Round(this._dtoMBA2EPowerRecord.Percent_PrimFixed - 100, 1);
-            this.txtFixedPrimkV.Text = percentPrim + "";
+            this.txtFixedPrimkV.Text = Math.Round(percentPrim * 100 - 100, 4) + "";
+            this.txtFixedSeckV.Text = Math.Round(percentSec * 100 - 100, 4) + "";
 
-            percentSec = Math.Round(this._dtoMBA2EPowerRecord.Percent_SecFixed - 100, 1);
-            this.txtFixedSeckV.Text = percentSec + "";
-          
             //label transfer unit have name
             this.lblTransUnit.Text = "kV Tap";
             this.lblTapTransPrimFixed.Text = vol_Fixed.VolPrim_kV + "";
             this.lblTapTransSecFixed.Text = vol_Fixed.VolSec_kV + "";
 
         }
+        #endregion Show_Data_Form_Main
 
+        #region Func_Evnet_Down_FixedTap_Zone
         //AddEvent button Main Tap 
         private void btnTCUnitMain_MouseDown(object sender, MouseEventArgs e)
         {
-            //Get ModeUnit Main
-            UnitTapMode mode = this._dtoMBA2EPowerRecord.UnitTap_Main;
             //Set ModeUnit Main
-            this._dtoMBA2EPowerRecord.UnitTap_Main = (mode == UnitTapMode.Percent) ? UnitTapMode.KV_Number : UnitTapMode.Percent;
+            this._unitModeMain = (this._unitModeMain == UnitTapMode.Percent) ? UnitTapMode.KV_Number : UnitTapMode.Percent;
 
             //Show FixedTapzone Again
-            this.ShowFixedTanAndAddEventButtonEnds();
+            this.ShowFixedTapDataOnFixedZone();
         }
 
         //Add Event For button Prim and Sec
         private void btnTapChangerPrimAndSecZoneFixed_MouseDown(object sender, MouseEventArgs e)
         {
+            Button btnEnds = sender as Button;
+            //Get DTOTapRanger in DTOTrans => Reference form Ranger => Set
+            //Open Form TapRanger
+            frmFixedTapChanger frmTapRanger = new frmFixedTapChanger();
 
+            //set Volatage Rated if Rated Change
+            this._dtoRanger_Prim_Temp.Voltage_TapZero_ByRated = this._dtoMBA2EPowerRecord.Prim_RangerTap.Voltage_TapZero_ByRated;
+            this._dtoRanger_Sec_Temp.Voltage_TapZero_ByRated = this._dtoMBA2EPowerRecord.Sec_RangerTap.Voltage_TapZero_ByRated;
+
+            //Reference In Form Value Temp
+            frmTapRanger.DTOTapRanger = (btnEnds == btnTCPrim) ? this._dtoRanger_Prim_Temp : this._dtoRanger_Sec_Temp;
+            //Set name Form Tap Changer 
+            frmTapRanger.Name = (btnEnds == btnTCPrim) ? "Primary Fixed Tap Range" : "Secondary Fixed Tap Range";
+
+            //if Set Data Ranger then show Again Fixed Zone
+            if (frmTapRanger.ShowDialog() != DialogResult.OK) return;
+
+
+            this.ShowFixedTapDataOnFixedZone();
         }
+
+        #endregion Func_Evnet_Down_FixedTap_Zone
 
         #region Function_OK_Event
         private void btnOkMBA2_Click(object sender, EventArgs e)
@@ -227,7 +278,16 @@ namespace Experimential_Software
         //********Fixed Tap*****
         protected virtual void SetValueFixedTapAfterOKEvent()
         {
-            
+            //Voltage Rated => recify directly so not set. simaliar with percent prim and second
+            //Set Unit Mode
+            this._dtoMBA2EPowerRecord.UnitTap_Main = this._unitModeMain;
+            //Set DToRange
+            this._dtoMBA2EPowerRecord.Prim_RangerTap = this._dtoRanger_Prim_Temp;
+            this._dtoMBA2EPowerRecord.Sec_RangerTap = this._dtoRanger_Sec_Temp;
+
+            //Save Number FixedTap prim and Sec
+            this._dtoMBA2EPowerRecord.NumberTapFixed_Prim = this._numberTapFixed_Prim;
+            this._dtoMBA2EPowerRecord.NumberTapFixed_Sec = this._numberTapFixed_Sec;
         }
 
         #endregion Function_OK_Event
@@ -256,11 +316,144 @@ namespace Experimential_Software
             // MessageBox.Show(txtDataChanged.Text);
 
             //When set rated => Fixed Zone is affeected by Rated. 
-            this.ShowFixedTanAndAddEventButtonEnds();
+            this.ShowFixedTapDataOnFixedZone();
         }
 
 
+
+
         #endregion Event_Text_Changed
+
+        #region Cancel_Event
+        private void btnCancelMBA2_Click(object sender, EventArgs e)
+        {
+            // Return value Voltage Rated because it is set when edit in order to tap ranger use 
+            this._dtoMBA2EPowerRecord.VoltageEnds_Rated = this._vol_Rated_Old;
+            //Set Old Percent
+            this._dtoMBA2EPowerRecord.Percent_PrimFixed = this._perFixed_Prim_Old;
+            this._dtoMBA2EPowerRecord.Percent_SecFixed = this._perFixed_Sec_Old;
+
+            this.Close();
+        }
+
+
+        #endregion Cancel_Event
+
+        #region Event_Button_Up_Down
+        //Button Up
+        private void EventButtonUpFixedTapZone(object sender, MouseEventArgs e)
+        {
+            Button btnEndsUp = sender as Button;
+            bool isPrim = (btnEndsUp == this.btnPrimUp);
+
+            //get Inter Fixed per Prim => Per Prim if not per Sec
+            double Inter_Fixed_Per = isPrim ? this._dtoMBA2EPowerRecord.Percent_PrimFixed : this._dtoMBA2EPowerRecord.Percent_SecFixed;
+            //get number Tap 
+            double Inter_numberTap = isPrim ? this._numberTapFixed_Prim : this._numberTapFixed_Sec;
+            //Get Intern Max Limit => Up only work with max value => Work with Temp because it is edited , main is not set
+            double Inter_maxPer = isPrim ? this._dtoRanger_Prim_Temp.MaxRanger_Per : this._dtoRanger_Sec_Temp.MaxRanger_Per;
+            //Get Intern Step
+            double Inter_Step_Per = isPrim ? this._dtoRanger_Prim_Temp.Step_Per : this._dtoRanger_Sec_Temp.Step_Per;
+
+
+            //Check Is Step have Change
+            double old_Intern_Per = isPrim ? this._perFixed_Prim_Old : this._perFixed_Sec_Old;
+            double K_remainder = Inter_Fixed_Per - old_Intern_Per - Inter_numberTap * Inter_Step_Per;
+
+            if (Math.Abs(K_remainder) > 0.001)
+            {
+                this.SetPercentEndsAndNumberTapWhenChangeStep(isPrim, this._perFixed_Prim_Old, this._perFixed_Sec_Old);
+                return;
+            }
+            //If Current >= MaxLimit (equal) set equal max
+            if (Inter_Fixed_Per >= Inter_maxPer) return;
+
+            //add 1 intpo number tap, if not greater limit => +1
+            Inter_numberTap += 1;
+
+            //add Percent
+            Inter_Fixed_Per = old_Intern_Per + Inter_numberTap * Inter_Step_Per;
+            //If Current >= MaxLimit (equal) set equal max
+            if (Inter_Fixed_Per >= Inter_maxPer) Inter_Fixed_Per = Inter_maxPer;
+
+
+            //Apply value for Per In DTO Trans . Directly
+            this.SetPercentEndsAndNumberTap(isPrim, Inter_Fixed_Per, Inter_numberTap);
+            // MessageBox.Show("Kup = " + K_remainder + ", num Tab = " + Inter_numberTap);
+        }
+
+        //Button Down
+        private void EventButtonDownFixedTapZone(object sender, MouseEventArgs e)
+        {
+            Button btnEndsDown = sender as Button;
+            bool isPrim = (btnEndsDown == this.btnPrimDown);
+
+            //get Inter Fixed per Prim => Per Prim if not per Sec
+            double Inter_Fixed_Per = isPrim ? this._dtoMBA2EPowerRecord.Percent_PrimFixed : this._dtoMBA2EPowerRecord.Percent_SecFixed;
+            //get number Tap 
+            double Inter_numberTap = isPrim ? this._numberTapFixed_Prim : this._numberTapFixed_Sec;
+            //Get Intern min Limit => Up only work with min value => Work with Temp because it is edited , main is not set
+            double Inter_minPer = isPrim ? this._dtoRanger_Prim_Temp.MinRanger_Per : this._dtoRanger_Sec_Temp.MinRanger_Per;
+            //Get Intern Step
+            double Inter_Step_Per = isPrim ? this._dtoRanger_Prim_Temp.Step_Per : this._dtoRanger_Sec_Temp.Step_Per;
+
+
+            //Check Is Step have Change
+            double old_Intern_Per = isPrim ? this._perFixed_Prim_Old : this._perFixed_Sec_Old;
+            double K_remainder = Inter_Fixed_Per - old_Intern_Per - Inter_numberTap * Inter_Step_Per; //Intern = Old + step * tap//2 case same +
+
+            if (Math.Abs(K_remainder) > 0.001)
+            {
+                //Apply value for Per In DTO Trans . Directly
+                this.SetPercentEndsAndNumberTapWhenChangeStep(isPrim, this._perFixed_Prim_Old, this._perFixed_Sec_Old);
+                return;
+            }
+            //If Current <= MinLimit (equal) set equal min
+            if (Inter_Fixed_Per <= Inter_minPer) return;
+
+            //add 1 intpo number tap, if not greater limit => -1
+            Inter_numberTap -= 1;
+
+            //add Percent
+            Inter_Fixed_Per = old_Intern_Per + Inter_numberTap * Inter_Step_Per;//Intern = Old + step * tap//2 case same +. if - <=> tap < 0 => + negative
+            //If Current >= MaxLimit (equal) set equal max
+            if (Inter_Fixed_Per <= Inter_minPer + 0.0001) Inter_Fixed_Per = Inter_minPer;
+
+            //Apply value for Per In DTO Trans . Directly
+            this.SetPercentEndsAndNumberTap(isPrim, Inter_Fixed_Per, Inter_numberTap);
+        }
+
+        protected virtual void SetPercentEndsAndNumberTap(bool isPrim, double percentEnds, double numberTap)
+        {
+            if (isPrim)
+            {
+                this._dtoMBA2EPowerRecord.Percent_PrimFixed = percentEnds;
+                this._numberTapFixed_Prim = numberTap;
+            }
+            else
+            {
+                this._dtoMBA2EPowerRecord.Percent_SecFixed = percentEnds;
+                this._numberTapFixed_Sec = numberTap;
+            }
+            //Show Again Fixed Zone
+            this.ShowFixedTapDataOnFixedZone();
+        }
+        protected virtual void SetPercentEndsAndNumberTapWhenChangeStep(bool isPrim, double percentPrim, double percentSec)
+        {
+            if (isPrim)
+            {
+                this._dtoMBA2EPowerRecord.Percent_PrimFixed = percentPrim;
+                this._numberTapFixed_Prim = 0;
+            }
+            else
+            {
+                this._dtoMBA2EPowerRecord.Percent_SecFixed = percentSec;
+                this._numberTapFixed_Sec = 0;
+            }
+            //Show Again Fixed Zone
+            this.ShowFixedTapDataOnFixedZone();
+        }
+        #endregion Event_Button_Up_Down
     }
 
 }

@@ -7,7 +7,7 @@ using Experimential_Software.Class_Database;
 
 namespace Experimential_Software.DAO.DAO_MBA2Data
 {
-   public  class DAOGeneMBA2Record
+    public class DAOGeneMBA2Record
     {
         private static DAOGeneMBA2Record _instance;
         public static DAOGeneMBA2Record Instance
@@ -39,18 +39,21 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
             this.GenerateImpendanceDefault(dtoMBA2);
 
             //Set VoltageRating
-            dtoMBA2.VoltageEnds_Rated = this.GenerateVoltageEnds(0,0);
+            dtoMBA2.VoltageEnds_Rated = this.GenerateVoltageEnds(0, 0);
 
             dtoMBA2.Prim_RangerTap = this.GenerateEndsRangerTap();
             dtoMBA2.Sec_RangerTap = this.GenerateEndsRangerTap();
+
+            dtoMBA2.NumberTapFixed_Prim = 0;
+            dtoMBA2.NumberTapFixed_Sec = 0;
 
             //Unit mode Form MainMBA2
             dtoMBA2.UnitTap_Main = UnitTapMode.Percent;
 
             //Set Percent Voltage Fixed prim
-            dtoMBA2.Percent_PrimFixed = 100;
+            dtoMBA2.Percent_PrimFixed = 1;
             //Set Percent Voltage Fixed Sec
-            dtoMBA2.Percent_SecFixed = 100;
+            dtoMBA2.Percent_SecFixed = 1;
 
             return dtoMBA2;
         }
@@ -86,8 +89,8 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
             dtoTapRangerEnds.UnitTap_Ranger = UnitTapMode.Percent;
 
             //Set default min = -5 %, ,max +5 %. But unit default value is kV => 5% * 0 = 0;
-            dtoTapRangerEnds.MinRanger_kV = 0;
-            dtoTapRangerEnds.MaxRanger_kV = 0;
+            dtoTapRangerEnds.MinRanger_Per = 0.95;
+            dtoTapRangerEnds.MaxRanger_Per = 1.05;
 
             //Set count tap = 5
             dtoTapRangerEnds.CountTapChanger = 5;

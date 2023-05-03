@@ -192,8 +192,10 @@ namespace Experimential_Software
             this.btnPrimUp.Name = "btnPrimUp";
             this.btnPrimUp.Size = new System.Drawing.Size(25, 18);
             this.btnPrimUp.TabIndex = 0;
+            this.btnPrimUp.Tag = "PrimUp";
             this.btnPrimUp.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnPrimUp.UseVisualStyleBackColor = false;
+            this.btnPrimUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.EventButtonUpFixedTapZone);
             // 
             // imgListUpDown
             // 
@@ -212,8 +214,10 @@ namespace Experimential_Software
             this.btnPrimDown.Name = "btnPrimDown";
             this.btnPrimDown.Size = new System.Drawing.Size(25, 18);
             this.btnPrimDown.TabIndex = 1;
+            this.btnPrimDown.Tag = "PrimDown";
             this.btnPrimDown.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnPrimDown.UseVisualStyleBackColor = true;
+            this.btnPrimDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.EventButtonDownFixedTapZone);
             // 
             // pnlSecUpDown
             // 
@@ -236,8 +240,10 @@ namespace Experimential_Software
             this.btnSecUp.Name = "btnSecUp";
             this.btnSecUp.Size = new System.Drawing.Size(25, 18);
             this.btnSecUp.TabIndex = 0;
+            this.btnSecUp.Tag = "SecUp";
             this.btnSecUp.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnSecUp.UseVisualStyleBackColor = true;
+            this.btnSecUp.MouseDown += new System.Windows.Forms.MouseEventHandler(this.EventButtonUpFixedTapZone);
             // 
             // btnSecDown
             // 
@@ -249,8 +255,10 @@ namespace Experimential_Software
             this.btnSecDown.Name = "btnSecDown";
             this.btnSecDown.Size = new System.Drawing.Size(25, 18);
             this.btnSecDown.TabIndex = 1;
+            this.btnSecDown.Tag = "SecDown";
             this.btnSecDown.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.btnSecDown.UseVisualStyleBackColor = true;
+            this.btnSecDown.MouseDown += new System.Windows.Forms.MouseEventHandler(this.EventButtonDownFixedTapZone);
             // 
             // txtFixedSeckV
             // 
@@ -846,6 +854,7 @@ namespace Experimential_Software
             this.btnCancelMBA2.TabIndex = 1;
             this.btnCancelMBA2.Text = "Cancel";
             this.btnCancelMBA2.UseVisualStyleBackColor = true;
+            this.btnCancelMBA2.Click += new System.EventHandler(this.btnCancelMBA2_Click);
             // 
             // frmDataMBA2
             // 
@@ -858,6 +867,8 @@ namespace Experimential_Software
             this.Controls.Add(this.pnlManagerTabCtrl);
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmDataMBA2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Two Winding Transformer Data Record";
