@@ -266,7 +266,7 @@ namespace Experimential_Software
             this.txtFixedSeckV.Location = new System.Drawing.Point(158, 153);
             this.txtFixedSeckV.Name = "txtFixedSeckV";
             this.txtFixedSeckV.Size = new System.Drawing.Size(66, 24);
-            this.txtFixedSeckV.TabIndex = 1;
+            this.txtFixedSeckV.TabIndex = 2;
             this.txtFixedSeckV.Text = "110";
             this.txtFixedSeckV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtFixedSeckV.Leave += new System.EventHandler(this.CheckTextBoxValid);
@@ -288,7 +288,7 @@ namespace Experimential_Software
             this.btnTCSec.Location = new System.Drawing.Point(42, 150);
             this.btnTCSec.Name = "btnTCSec";
             this.btnTCSec.Size = new System.Drawing.Size(81, 28);
-            this.btnTCSec.TabIndex = 0;
+            this.btnTCSec.TabIndex = 4;
             this.btnTCSec.Text = "Sec...";
             this.btnTCSec.UseVisualStyleBackColor = true;
             this.btnTCSec.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTapChangerPrimAndSecZoneFixed_MouseDown);
@@ -310,7 +310,7 @@ namespace Experimential_Software
             this.btnTCPrim.Location = new System.Drawing.Point(42, 74);
             this.btnTCPrim.Name = "btnTCPrim";
             this.btnTCPrim.Size = new System.Drawing.Size(81, 28);
-            this.btnTCPrim.TabIndex = 0;
+            this.btnTCPrim.TabIndex = 3;
             this.btnTCPrim.Text = "Prim...";
             this.btnTCPrim.UseVisualStyleBackColor = true;
             this.btnTCPrim.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTapChangerPrimAndSecZoneFixed_MouseDown);
@@ -387,7 +387,7 @@ namespace Experimential_Software
             this.txtRatedPrimkV.Location = new System.Drawing.Point(114, 75);
             this.txtRatedPrimkV.Name = "txtRatedPrimkV";
             this.txtRatedPrimkV.Size = new System.Drawing.Size(66, 24);
-            this.txtRatedPrimkV.TabIndex = 1;
+            this.txtRatedPrimkV.TabIndex = 0;
             this.txtRatedPrimkV.Text = "110";
             this.txtRatedPrimkV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtRatedPrimkV.Leave += new System.EventHandler(this.CheckTextBoxValid);
@@ -491,7 +491,7 @@ namespace Experimential_Software
             this.txtPowerRated.Location = new System.Drawing.Point(88, 95);
             this.txtPowerRated.Name = "txtPowerRated";
             this.txtPowerRated.Size = new System.Drawing.Size(66, 24);
-            this.txtPowerRated.TabIndex = 1;
+            this.txtPowerRated.TabIndex = 0;
             this.txtPowerRated.Text = "500";
             this.txtPowerRated.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtPowerRated.Leave += new System.EventHandler(this.CheckTextBoxValid);
@@ -600,7 +600,7 @@ namespace Experimential_Software
             this.txtMagBpu.Location = new System.Drawing.Point(231, 127);
             this.txtMagBpu.Name = "txtMagBpu";
             this.txtMagBpu.Size = new System.Drawing.Size(120, 24);
-            this.txtMagBpu.TabIndex = 1;
+            this.txtMagBpu.TabIndex = 4;
             this.txtMagBpu.Text = "0.000000";
             this.txtMagBpu.Leave += new System.EventHandler(this.CheckTextBoxValid);
             // 
@@ -610,7 +610,7 @@ namespace Experimential_Software
             this.textBox2.Location = new System.Drawing.Point(430, 55);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(120, 24);
-            this.textBox2.TabIndex = 1;
+            this.textBox2.TabIndex = 2;
             this.textBox2.Text = "0.000000";
             this.textBox2.Leave += new System.EventHandler(this.CheckTextBoxValid);
             // 
@@ -620,7 +620,7 @@ namespace Experimential_Software
             this.txtMagGpu.Location = new System.Drawing.Point(27, 127);
             this.txtMagGpu.Name = "txtMagGpu";
             this.txtMagGpu.Size = new System.Drawing.Size(120, 24);
-            this.txtMagGpu.TabIndex = 1;
+            this.txtMagGpu.TabIndex = 3;
             this.txtMagGpu.Text = "0.000000";
             this.txtMagGpu.Leave += new System.EventHandler(this.CheckTextBoxValid);
             // 
@@ -640,7 +640,7 @@ namespace Experimential_Software
             this.txtSpecRpu.Location = new System.Drawing.Point(27, 55);
             this.txtSpecRpu.Name = "txtSpecRpu";
             this.txtSpecRpu.Size = new System.Drawing.Size(120, 24);
-            this.txtSpecRpu.TabIndex = 1;
+            this.txtSpecRpu.TabIndex = 0;
             this.txtSpecRpu.Text = "0.000000";
             this.txtSpecRpu.Leave += new System.EventHandler(this.CheckTextBoxValid);
             // 
@@ -676,7 +676,7 @@ namespace Experimential_Software
             this.lblTransID.Location = new System.Drawing.Point(149, 139);
             this.lblTransID.Name = "lblTransID";
             this.lblTransID.Size = new System.Drawing.Size(93, 20);
-            this.lblTransID.TabIndex = 4;
+            this.lblTransID.TabIndex = 0;
             // 
             // chkWinding1
             // 
@@ -840,7 +840,7 @@ namespace Experimential_Software
             this.btnOkMBA2.Location = new System.Drawing.Point(306, 738);
             this.btnOkMBA2.Name = "btnOkMBA2";
             this.btnOkMBA2.Size = new System.Drawing.Size(75, 25);
-            this.btnOkMBA2.TabIndex = 1;
+            this.btnOkMBA2.TabIndex = 0;
             this.btnOkMBA2.Text = "OK";
             this.btnOkMBA2.UseVisualStyleBackColor = true;
             this.btnOkMBA2.Click += new System.EventHandler(this.btnOkMBA2_Click);

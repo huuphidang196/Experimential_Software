@@ -90,7 +90,7 @@ namespace Experimential_Software
             this.txtCountTap.Location = new System.Drawing.Point(117, 252);
             this.txtCountTap.Name = "txtCountTap";
             this.txtCountTap.Size = new System.Drawing.Size(44, 24);
-            this.txtCountTap.TabIndex = 2;
+            this.txtCountTap.TabIndex = 3;
             this.txtCountTap.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CheckKeyPressIsNumber);
             this.txtCountTap.Leave += new System.EventHandler(this.TextLeaveEvent);
             // 
@@ -110,7 +110,7 @@ namespace Experimential_Software
             this.txtMinEnds.Location = new System.Drawing.Point(105, 83);
             this.txtMinEnds.Name = "txtMinEnds";
             this.txtMinEnds.Size = new System.Drawing.Size(75, 24);
-            this.txtMinEnds.TabIndex = 2;
+            this.txtMinEnds.TabIndex = 1;
             this.txtMinEnds.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CheckKeyPressIsNumber);
             this.txtMinEnds.Leave += new System.EventHandler(this.TextLeaveEvent);
             // 
@@ -240,7 +240,7 @@ namespace Experimential_Software
             this.btnCanceltapRanger.Location = new System.Drawing.Point(203, 353);
             this.btnCanceltapRanger.Name = "btnCanceltapRanger";
             this.btnCanceltapRanger.Size = new System.Drawing.Size(75, 29);
-            this.btnCanceltapRanger.TabIndex = 0;
+            this.btnCanceltapRanger.TabIndex = 1;
             this.btnCanceltapRanger.Text = "Cancel";
             this.btnCanceltapRanger.UseVisualStyleBackColor = true;
             this.btnCanceltapRanger.Click += new System.EventHandler(this.btnCanceltapRanger_Click);
