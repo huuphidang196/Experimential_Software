@@ -357,12 +357,11 @@ namespace Experimential_Software
 
 
             //Check Is Step have Change
-            double old_Intern_Per = isPrim ? this._perFixed_Prim_Old : this._perFixed_Sec_Old;
-            double K_remainder = Inter_Fixed_Per - old_Intern_Per - Inter_numberTap * Inter_Step_Per;
+            double K_remainder = Inter_Fixed_Per - 1 - Inter_numberTap * Inter_Step_Per;
 
             if (Math.Abs(K_remainder) > 0.001)
             {
-                this.SetPercentEndsAndNumberTapWhenChangeStep(isPrim, this._perFixed_Prim_Old, this._perFixed_Sec_Old);
+                this.SetPercentEndsAndNumberTapWhenChangeStep(isPrim);
                 return;
             }
             //If Current >= MaxLimit (equal) set equal max
@@ -372,7 +371,7 @@ namespace Experimential_Software
             Inter_numberTap += 1;
 
             //add Percent
-            Inter_Fixed_Per = old_Intern_Per + Inter_numberTap * Inter_Step_Per;
+            Inter_Fixed_Per = 1 + Inter_numberTap * Inter_Step_Per;
             //If Current >= MaxLimit (equal) set equal max
             if (Inter_Fixed_Per >= Inter_maxPer) Inter_Fixed_Per = Inter_maxPer;
 
@@ -399,13 +398,12 @@ namespace Experimential_Software
 
 
             //Check Is Step have Change
-            double old_Intern_Per = isPrim ? this._perFixed_Prim_Old : this._perFixed_Sec_Old;
-            double K_remainder = Inter_Fixed_Per - old_Intern_Per - Inter_numberTap * Inter_Step_Per; //Intern = Old + step * tap//2 case same +
+            double K_remainder = Inter_Fixed_Per - 1 - Inter_numberTap * Inter_Step_Per; //Intern = Old + step * tap//2 case same +
 
             if (Math.Abs(K_remainder) > 0.001)
             {
                 //Apply value for Per In DTO Trans . Directly
-                this.SetPercentEndsAndNumberTapWhenChangeStep(isPrim, this._perFixed_Prim_Old, this._perFixed_Sec_Old);
+                this.SetPercentEndsAndNumberTapWhenChangeStep(isPrim);
                 return;
             }
             //If Current <= MinLimit (equal) set equal min
@@ -415,7 +413,7 @@ namespace Experimential_Software
             Inter_numberTap -= 1;
 
             //add Percent
-            Inter_Fixed_Per = old_Intern_Per + Inter_numberTap * Inter_Step_Per;//Intern = Old + step * tap//2 case same +. if - <=> tap < 0 => + negative
+            Inter_Fixed_Per = 1 + Inter_numberTap * Inter_Step_Per;//Intern = Old + step * tap//2 case same +. if - <=> tap < 0 => + negative
             //If Current >= MaxLimit (equal) set equal max
             if (Inter_Fixed_Per <= Inter_minPer + 0.0001) Inter_Fixed_Per = Inter_minPer;
 
@@ -438,16 +436,16 @@ namespace Experimential_Software
             //Show Again Fixed Zone
             this.ShowFixedTapDataOnFixedZone();
         }
-        protected virtual void SetPercentEndsAndNumberTapWhenChangeStep(bool isPrim, double percentPrim, double percentSec)
+        protected virtual void SetPercentEndsAndNumberTapWhenChangeStep(bool isPrim)
         {
             if (isPrim)
             {
-                this._dtoMBA2EPowerRecord.Percent_PrimFixed = percentPrim;
+                this._dtoMBA2EPowerRecord.Percent_PrimFixed = 1;
                 this._numberTapFixed_Prim = 0;
             }
             else
             {
-                this._dtoMBA2EPowerRecord.Percent_SecFixed = percentSec;
+                this._dtoMBA2EPowerRecord.Percent_SecFixed = 1;
                 this._numberTapFixed_Sec = 0;
             }
             //Show Again Fixed Zone
