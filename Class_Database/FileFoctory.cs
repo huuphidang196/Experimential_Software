@@ -77,7 +77,7 @@ namespace Experimential_Software.Class_Database
         public static bool SaveDataBaseLineConnect(List<LineConnect> lineConnectList, string path)
         {
             List<DatabaseLineConnect> dataLines = ProcessTransferDataLine(lineConnectList);
-            MessageBox.Show("Count = " + dataLines.Count);
+           // MessageBox.Show("Count = " + dataLines.Count);
             try
             {
                 FileStream fs = new FileStream(path, FileMode.Create);

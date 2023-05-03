@@ -26,8 +26,12 @@ namespace Experimential_Software.DAO.DAO_LoadData
             //get BusConnect. Bus always connect by Phead
             ConnectableE busConnected = this.GetBusConnectWithLoad(loadEPower);
 
-            if (busConnected == null) return;
-
+            if (busConnected == null)
+            {
+                //same case MF. Load Only connect a bus . <=> bus null => DTO bus Connect null
+                loadEPower.DatabaseE.DataRecordE.DTOLoadEPower.DTOBusConnected = null;
+                return;
+            }
             //Get DTO Bus
             DTOBusEPower dtoBusEPower = busConnected.DatabaseE.DataRecordE.DTOBusEPower;
 
@@ -42,10 +46,12 @@ namespace Experimential_Software.DAO.DAO_LoadData
             //Get Class ProcessEPowerMove => Get Function get Line
             ProcessEPowerMove processEPowerMove = loadEPower.EPowerProcessMouse.ProcessEPowerMove;
             //get Line Connect Bus with Load. Load only connect with Bus
-            LineConnect lineConnectedBus = processEPowerMove.GetLineStageEPower(loadEPower)[0];
 
-            if (lineConnectedBus == null) return null;
+            List<LineConnect> ListlineConnected = processEPowerMove.GetLineStageEPower(loadEPower);
 
+            if (ListlineConnected.Count == 0) return null;
+
+            LineConnect lineConnectedBus = ListlineConnected[0];
             //Start Coincode Load => End is Bus. Start Diffence Load => End is Bus
             ConnectableE busConnected = lineConnectedBus.StartEPower.DatabaseE.ObjectType == ObjectType.Load ? lineConnectedBus.EndEPower : lineConnectedBus.StartEPower;
 

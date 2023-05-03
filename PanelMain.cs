@@ -110,7 +110,7 @@ namespace Experimential_Software
             if (e.KeyCode != Keys.Delete) return;
 
             //Determine ConnectionE connect with line => set iscontainPHead or Tail
-            frmCapstone.SetIsContainEPower(lineSelected);
+           // frmCapstone.SetIsContainEPower(lineSelected);
 
             //=> hava line is selected => pressing delete key => remove lineconnect out list
             frmCapstone.LineConnectList.Remove(lineSelected);

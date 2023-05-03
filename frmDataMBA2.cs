@@ -68,7 +68,6 @@ namespace Experimential_Software
                 this._numberTapFixed_Prim = this._dtoMBA2EPowerRecord.NumberTapFixed_Prim;
                 this._numberTapFixed_Sec = this._dtoMBA2EPowerRecord.NumberTapFixed_Sec;
                 this.ShowDataOnFormMBA2EPowerOrigin();
-                MessageBox.Show("num Prim = " + this._numberTapFixed_Prim + ", sec = " + this._numberTapFixed_Sec);
             }
         }
 
@@ -209,7 +208,7 @@ namespace Experimential_Software
             //Reference In Form Value Temp
             frmTapRanger.DTOTapRanger = (btnEnds == btnTCPrim) ? this._dtoRanger_Prim_Temp : this._dtoRanger_Sec_Temp;
             //Set name Form Tap Changer 
-            frmTapRanger.Name = (btnEnds == btnTCPrim) ? "Primary Fixed Tap Range" : "Secondary Fixed Tap Range";
+            frmTapRanger.Text = (btnEnds == btnTCPrim) ? "Primary Fixed Tap Range" : "Secondary Fixed Tap Range";
 
             //if Set Data Ranger then show Again Fixed Zone
             if (frmTapRanger.ShowDialog() != DialogResult.OK) return;

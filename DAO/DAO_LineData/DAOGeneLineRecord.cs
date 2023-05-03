@@ -24,8 +24,8 @@ namespace Experimential_Software.DAO.DAO_LineData
             DTOLineEPower dtoLineEPower = new DTOLineEPower();
 
             //Basic Data
-            dtoLineEPower.DTOBusFrom = null;
-            dtoLineEPower.DTOBusTo = null;
+            dtoLineEPower.DTOBus_From = null;
+            dtoLineEPower.DTOBus_To = null;
 
             int numberObjectType = (int)ObjectType.LineEPower * 100;
             dtoLineEPower.ObjectNumber = (ExistOrderBus < 100) ? numberObjectType + 1 : ExistOrderBus + 1;

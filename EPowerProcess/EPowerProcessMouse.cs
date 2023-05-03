@@ -180,24 +180,20 @@ namespace Experimential_Software.EPowerProcess
 
             //generate new Line then add List
             LineConnect newLineConnect = new LineConnect(buttonInstance, EndEPower, this._startPLineTemp, this._endPLinetemp, this._ePower.PanelMain);
-            //add Line 
+            //Add to List LineConnected on EPower Start and Bus Connected with ButtonInstance
+            buttonInstance.AddLineConnectedToList(newLineConnect);
+            EndEPower.AddLineConnectedToList(newLineConnect);
+
+            //add Line On Form Capstone
             this._ePower.FormCapstone.AddLine(newLineConnect);
             this._ePower.FormCapstone.DrawAllLineOnPanel();
 
+            //Beacause End EPower certainly is Bus => Bus not Contain Ends
+            //  EndEPower.containPreEpower = (pointEndToBtn == EndEPower.PHead) ? ContainPreEpower.ContainPhead : ContainPreEpower.ContainPTail;
 
-            EndEPower.containPreEpower = (pointEndToBtn == EndEPower.PHead) ? ContainPreEpower.ContainPhead : ContainPreEpower.ContainPTail;
-
-            //set 2 Contain Phead or Ptail 2 button
-            this.SetContainTwoButton(buttonInstance, EndEPower);
-            this.UpdateDataRecordEPower(buttonInstance);
-        }
-
-        protected virtual void SetContainTwoButton(ConnectableE StartEPower, ConnectableE EndEPower)
-        {
-            //Set button start 
-            this.SetContainOnce(StartEPower);
-            //set button end
-            this.SetContainOnce(EndEPower);
+            //set 2 Contain Phead or Ptail  button Start , End is Bus not set Contain
+            this.SetContainOnce(buttonInstance);
+            buttonInstance.UpdateDataRecordEPowerWhenConnect(false);
         }
 
         protected virtual void SetContainOnce(ConnectableE btnSet)
@@ -211,38 +207,7 @@ namespace Experimential_Software.EPowerProcess
 
         }
 
-        protected virtual void UpdateDataRecordEPower(ConnectableE buttonInstance)
-        {
-            //Except Bus
-            ObjectType objType = this._ePower.DatabaseE.ObjectType;
-            switch (objType)
-            {
-                case ObjectType.MF: // 2
-                    {
-                        //Update DataDTO bus After Connect 
-                        DAOUpdateMFAfterConnectBus.Instance.UpdateMFAfterConnectEnds(buttonInstance);
-                    }
-                    break;
-                case ObjectType.MBA2P: // 3
-                    {
-                        //Update DataDTO bus After Connect 
-                        DAOUpdateMBA2AfterConnectEnds.Instance.UpdateMBA2AfterConnectEnds(buttonInstance);
-                    }
-                    break;
-                case ObjectType.LineEPower: // 5
-                    {
-                        //Update DataDTO bus After Connect 
-                        DAOUpdateLineAfterConnectEnds.Instance.UpdateLineAfterConnectEnds(buttonInstance);
-                    }
-                    break;
-                case ObjectType.Load://6
-                    {
-                        //Update DataDTO bus After Connect 
-                        DAOUpdateLoadAfterConnectBus.Instance.UpDateLoadRecordAfterConnectBus(buttonInstance);
-                    }
-                    break;
-            }    
-        }
+      
         #endregion Mouse Up
 
 
@@ -297,6 +262,7 @@ namespace Experimential_Software.EPowerProcess
           
         }
         #endregion Mouse_Click
+
         #region Overall Function
 
         protected virtual bool IsOnPanelMain(MouseEventArgs e)

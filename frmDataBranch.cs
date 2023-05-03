@@ -42,8 +42,8 @@ namespace Experimential_Software
             //get dto in Epower
             this._dtoLineEPowerRecord = this._lineEFixedData.DatabaseE.DataRecordE.DTOLineEPower;
             //Bus From And To
-            DTOBusEPower dtoBusFrom = this._dtoLineEPowerRecord.DTOBusFrom;
-            DTOBusEPower dtoBusTo = this._dtoLineEPowerRecord.DTOBusTo;
+            DTOBusEPower dtoBusFrom = this._dtoLineEPowerRecord.DTOBus_From;
+            DTOBusEPower dtoBusTo = this._dtoLineEPowerRecord.DTOBus_To;
 
             this.lblBusFromNumber.Text = (dtoBusFrom == null) ? "NULL" : dtoBusFrom.ObjectNumber + "";
             this.lblBusFromName.Text = (dtoBusFrom == null) ? "NULL" : dtoBusFrom.ObjectName;

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using MathNet.Numerics;
 
 namespace Experimential_Software.Class_Database
 {
@@ -11,8 +13,8 @@ namespace Experimential_Software.Class_Database
     {
         //Basic Data
         //Line Only connect with Bus 
-        public DTOBusEPower DTOBusFrom { get; set; }
-        public DTOBusEPower DTOBusTo { get; set; }
+        public DTOBusEPower DTOBus_From { get; set; }
+        public DTOBusEPower DTOBus_To { get; set; }
 
         public bool IsInService { get; set; }
 
@@ -36,6 +38,18 @@ namespace Experimential_Software.Class_Database
         {
             get { return _lengthBr_KM; }
             set { _lengthBr_KM = Math.Round(value, 3); }
+        }
+
+        //Z
+        public Complex Resistance
+        {
+            get { return new Complex(this._lineR_pu, this._lineX_pu); }
+        }
+
+        //y
+        public Complex Conductance
+        {
+            get { return 1 / this.Resistance; }
         }
     }
 }

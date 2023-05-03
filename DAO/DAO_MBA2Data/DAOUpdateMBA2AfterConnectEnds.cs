@@ -21,16 +21,23 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
 
         private DAOUpdateMBA2AfterConnectEnds() { }
 
-        public virtual void UpdateMBA2AfterConnectEnds(ConnectableE mba2EPower)
+        public virtual void UpdateMBA2AfterConnectEnds(ConnectableE mba2EPower, bool isRemoved)
         {
             //Get 2 Bus connected with MBA2P
             List<ConnectableE> ListEPowerEnds = this.GetEPowerConnectWithMBA2EPOwer(mba2EPower);
 
-            if (ListEPowerEnds.Count == 0) return;
+            if (ListEPowerEnds == null)
+            {
+                //Ends null <=> 2 Bus From and to null <=> DTO bus From and To null
+                mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_From = null;
+                mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_To = null;
+                return;
+            }
 
             for (int i = 0; i < ListEPowerEnds.Count; i++)
             {
                 DTOBusEPower dtoBusEPower = ListEPowerEnds[i].DatabaseE.DataRecordE.DTOBusEPower;
+                if (isRemoved) this.ProcessRemovedDTOBusRemoved(mba2EPower, dtoBusEPower);
                 //set From and End
                 if (mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_From == null) mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_From = dtoBusEPower;
                 else mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_To = dtoBusEPower;
@@ -70,6 +77,16 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
             }
 
             return ListBusEPowerEnds;
+        }
+
+        protected virtual void ProcessRemovedDTOBusRemoved(ConnectableE mba2EPower, DTOBusEPower dtoBusEPower)
+        {
+            //if LineConnected with LineEPower not removed then remove other dto
+            bool isDTOFrom = (dtoBusEPower.ObjectNumber == mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_From.ObjectNumber);
+
+            //false <=> Bus from is removed 
+            if (!isDTOFrom) mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_From = null;
+            mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_To = null;
         }
     }
 }

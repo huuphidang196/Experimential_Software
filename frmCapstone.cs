@@ -194,18 +194,7 @@ namespace Experimential_Software
 
         }
 
-        public virtual void SetIsContainEPower(LineConnect lineSelected)
-        {
-            ConnectableE startEPower = lineSelected.StartEPower;
-            ConnectableE endEPower = lineSelected.EndEPower;
-
-            if (this.IsPointOfHead(lineSelected, 0)) startEPower.IsContainPhead = false;
-            startEPower.IsContainPtail = false;
-
-            if (this.IsPointOfHead(lineSelected, 1)) endEPower.IsContainPhead = false;
-            endEPower.IsContainPtail = false;
-
-        }
+       
 
 
         public virtual void DrawAllLineOnPanel()
@@ -234,13 +223,7 @@ namespace Experimential_Software
             }
         }
 
-        protected virtual bool IsPointOfHead(LineConnect lineSelected, int numberEnds)
-        {
-            PointOfEnds internPointEPower = numberEnds == 0 ? lineSelected.StartPointEPower : lineSelected.EndPointEPower;
-            bool isContainHead = internPointEPower == PointOfEnds.PointOfHead ? true : false;
-
-            return isContainHead;
-        }
+    
 
         public virtual LineConnect FindLineIsSelected()
         {

@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Experimential_Software.Class_Database;
 using Experimential_Software.EPowerProcess;
+using Experimential_Software.CustomControl;
+using Experimential_Software.DAO.DAO_GeneratorData;
+using Experimential_Software.DAO.DAO_MBA2Data;
+using Experimential_Software.DAO.DAO_LineData;
+using Experimential_Software.DAO.DAO_LoadData;
 
 namespace Experimential_Software
 {
@@ -50,8 +55,8 @@ namespace Experimential_Software
         public PanelMain PanelMain => pnlMain_Drawn;
 
 
-        protected DatabaseEPower databaseE;
-        public DatabaseEPower DatabaseE => databaseE;
+        protected DatabaseEPower _databaseE;
+        public DatabaseEPower DatabaseE => _databaseE;
 
         protected EPowerProcessMouse _ePowerMouse;
         public EPowerProcessMouse EPowerProcessMouse => _ePowerMouse;
@@ -64,6 +69,9 @@ namespace Experimential_Software
         protected Label lblInfo;
         public Label LblInfoE { get => lblInfo; set => lblInfo = value; }
 
+        //List LineConnected with this EPower
+        protected List<LineConnect> _listBranch_Drawn;
+        public List<LineConnect> ListBranch_Drawn => _listBranch_Drawn;
 
         //Use for Proccessing Zoom
         protected Point _oldLocation;
@@ -170,10 +178,10 @@ namespace Experimential_Software
 
         protected virtual void SetVariableOnEPower(DatabaseEPower databaseEPower, ImageList imgList)
         {
-            this.databaseE = databaseEPower;
+            this._databaseE = databaseEPower;
 
-            this.Width = this.databaseE.Width;
-            this.Height = this.databaseE.Height;
+            this.Width = this._databaseE.Width;
+            this.Height = this._databaseE.Height;
 
             this.isOnTool = true;
             this.isSelected = false;
@@ -181,14 +189,11 @@ namespace Experimential_Software
             //Case new Generate diffrence Load from database
             this.ProcessBoolState();
 
-
             //Set Size
-            this.SetSizeImageForEPower(databaseE, imgList);
+            this.SetSizeImageForEPower(_databaseE, imgList);
 
-            // Vẽ ảnh lên control với kích thước mới
-            //MessageBox.Show(this.ImageList.ImageSize + "");
-            // Set Object Number
-            //   this.pnlMain_Drawn.PanelMainMouse.ProcessSetNumberObjetEPower(this);
+            //Generate new Line
+            this._listBranch_Drawn = new List<LineConnect>();
 
             this.GenerateDataLabelInfo();
 
@@ -208,14 +213,14 @@ namespace Experimential_Software
                 return;
             }
 
-            this.isContainPhead = this.databaseE.IsContainPhead;
-            this.isContainPtail = this.databaseE.IsContainPtail;
-            this.containPreEpower = this.databaseE.ContainPreEpower;
+            this.isContainPhead = this._databaseE.IsContainPhead;
+            this.isContainPtail = this._databaseE.IsContainPtail;
+            this.containPreEpower = this._databaseE.ContainPreEpower;
         }
 
         protected virtual void SetSizeImageForEPower(DatabaseEPower databaseEPower, ImageList imgList)
         {
-            int numberImage = databaseE.NumberImage;
+            int numberImage = _databaseE.NumberImage;
             Image originalImage = imgList.Images[numberImage];
 
             // Tính toán tỉ lệ giữa kích thước control và kích thước ảnh gốc
@@ -274,7 +279,7 @@ namespace Experimential_Software
 
         public override string ToString()
         {
-            ObjectType objType = this.databaseE.ObjectType;
+            ObjectType objType = this._databaseE.ObjectType;
             string objName = "";
             int objNumber = 1;
 
@@ -282,32 +287,32 @@ namespace Experimential_Software
             {
                 case ObjectType.Bus:
                     {
-                        objName = this.databaseE.DataRecordE.DTOBusEPower.ObjectName;
-                        objNumber = this.databaseE.DataRecordE.DTOBusEPower.ObjectNumber;
+                        objName = this._databaseE.DataRecordE.DTOBusEPower.ObjectName;
+                        objNumber = this._databaseE.DataRecordE.DTOBusEPower.ObjectNumber;
                     }
                     break;
                 case ObjectType.MF:
                     {
-                        objName = this.databaseE.DataRecordE.DTOGeneEPower.ObjectName;
-                        objNumber = this.databaseE.DataRecordE.DTOGeneEPower.ObjectNumber;
+                        objName = this._databaseE.DataRecordE.DTOGeneEPower.ObjectName;
+                        objNumber = this._databaseE.DataRecordE.DTOGeneEPower.ObjectNumber;
                     }
                     break;
                 case ObjectType.MBA2P:
                     {
-                        objName = this.databaseE.DataRecordE.DTOTransTwoEPower.ObjectName;
-                        objNumber = this.databaseE.DataRecordE.DTOTransTwoEPower.ObjectNumber;
+                        objName = this._databaseE.DataRecordE.DTOTransTwoEPower.ObjectName;
+                        objNumber = this._databaseE.DataRecordE.DTOTransTwoEPower.ObjectNumber;
                     }
                     break;
                 case ObjectType.LineEPower:
                     {
-                        objName = this.databaseE.DataRecordE.DTOLineEPower.ObjectName;
-                        objNumber = this.databaseE.DataRecordE.DTOLineEPower.ObjectNumber;
+                        objName = this._databaseE.DataRecordE.DTOLineEPower.ObjectName;
+                        objNumber = this._databaseE.DataRecordE.DTOLineEPower.ObjectNumber;
                     }
                     break;
                 case ObjectType.Load:
                     {
-                        objName = this.databaseE.DataRecordE.DTOLoadEPower.ObjectName;
-                        objNumber = this.databaseE.DataRecordE.DTOLoadEPower.ObjectNumber;
+                        objName = this._databaseE.DataRecordE.DTOLoadEPower.ObjectName;
+                        objNumber = this._databaseE.DataRecordE.DTOLoadEPower.ObjectNumber;
                     }
                     break;
             }
@@ -318,7 +323,7 @@ namespace Experimential_Software
         public virtual void SetPHeadAndPtail()
         {
             //MF
-            if (this.databaseE.ObjectType == ObjectType.MF)
+            if (this._databaseE.ObjectType == ObjectType.MF)
             {
                 this.pHead = new Point(Width / 2, Height - 4);
                 this.pTail = Point.Empty;
@@ -327,7 +332,7 @@ namespace Experimential_Software
             }
 
             //Load
-            if (this.databaseE.ObjectType == ObjectType.Load)
+            if (this._databaseE.ObjectType == ObjectType.Load)
             {
                 this.pHead = new Point(Width / 2, 0);
                 this.pTail = Point.Empty;
@@ -350,7 +355,6 @@ namespace Experimential_Software
 
         #endregion Constructor_Class
 
-
         #region Drawn
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -365,9 +369,9 @@ namespace Experimential_Software
                 Point pEnds = this.nearPhead ? this.pHead : this.pTail;
                 bool contained = this.nearPhead ? this.isContainPhead : this.isContainPtail;
 
-                if (contained && this.databaseE.ObjectType != ObjectType.Bus) pEnds = Point.Empty;
+                if (contained && this._databaseE.ObjectType != ObjectType.Bus) pEnds = Point.Empty;
 
-                if (this.databaseE.ObjectType == ObjectType.MF) pEnds = this.pHead;
+                if (this._databaseE.ObjectType == ObjectType.MF) pEnds = this.pHead;
                 this.DrawCubePinkMouseNearEnds(e, pEnds);
             }
             //Drawn Read or remove color when press and not press => update 
@@ -465,6 +469,7 @@ namespace Experimential_Software
 
             this._ePowerMouse.ButtonInstance_MouseUp(e);
             this.isMove = false;
+           // MessageBox.Show(this.ToString() + ", Count = " + this._listBranch_Drawn.Count);
         }
 
 
@@ -499,7 +504,7 @@ namespace Experimential_Software
             base.OnParentChanged(e);
             //if not invalid generate => destroy
             // if it on tool and is not generated => haven't database then not destroy
-            if (this.isOnTool && this.databaseE != null) this.Dispose();
+            if (this.isOnTool && this._databaseE != null) this.Dispose();
         }
 
        
@@ -539,7 +544,7 @@ namespace Experimential_Software
         public virtual bool IsOnPHead(Point ePoint)
         {
             if (ePoint.X > this.pHead.X + 10 && this.Width > this.Height) return false;
-            if (ePoint.Y < this.pHead.Y - 10 && !this.isOnTool && this.databaseE.ObjectType == ObjectType.MF) return false;
+            if (ePoint.Y < this.pHead.Y - 10 && !this.isOnTool && this._databaseE.ObjectType == ObjectType.MF) return false;
             if (ePoint.Y > this.pHead.Y + 10 && this.Width <= this.Height) return false;
 
             return true;
@@ -549,8 +554,8 @@ namespace Experimential_Software
         public virtual bool IsOnPTail(Point ePoint)
         {
             if (ePoint.X < this.pTail.X - 10 && this.Width > this.Height) return false;
-            if (!this.isOnTool && this.databaseE.ObjectType == ObjectType.MF) return false;
-            if (!this.isOnTool && this.databaseE.ObjectType == ObjectType.Load) return false;
+            if (!this.isOnTool && this._databaseE.ObjectType == ObjectType.MF) return false;
+            if (!this.isOnTool && this._databaseE.ObjectType == ObjectType.Load) return false;
             if (ePoint.Y < this.pTail.Y - 10 && this.Width <= this.Height) return false;
 
             return true;
@@ -588,6 +593,51 @@ namespace Experimential_Software
 
 
         #endregion Function_Overall
+
+        #region Refercen_OutSide
+        public virtual void UpdateDataRecordEPowerWhenConnect(bool isRemoved)
+        {
+            //Except Bus
+            ObjectType objType = this._databaseE.ObjectType;
+            switch (objType)
+            {
+                case ObjectType.MF: // 2
+                    {
+                        //Update DataDTO bus After Connect 
+                        DAOUpdateMFAfterConnectBus.Instance.UpdateMFAfterConnectEnds(this);
+                    }
+                    break;
+                case ObjectType.MBA2P: // 3
+                    {
+                        //Update DataDTO bus After Connect 
+                        DAOUpdateMBA2AfterConnectEnds.Instance.UpdateMBA2AfterConnectEnds(this, isRemoved);
+                    }
+                    break;
+                case ObjectType.LineEPower: // 5
+                    {
+                        //Update DataDTO bus After Connect 
+                        DAOUpdateLineAfterConnectEnds.Instance.UpdateLineAfterConnectEnds(this, isRemoved);
+                    }
+                    break;
+                case ObjectType.Load://6
+                    {
+                        //Update DataDTO bus After Connect 
+                        DAOUpdateLoadAfterConnectBus.Instance.UpDateLoadRecordAfterConnectBus(this);
+                    }
+                    break;
+            }
+        }
+        //Add when Drawn line Mouse up Success!
+        public virtual void AddLineConnectedToList(LineConnect lineConnect)
+        {
+            this._listBranch_Drawn.Add(lineConnect);
+        }
+
+        public virtual void RemoveLineConnectedToList(LineConnect lineConnect)
+        {
+            this._listBranch_Drawn.Remove(lineConnect);
+        }
+        #endregion Reference_OutSide
     }
 }
 
