@@ -454,14 +454,6 @@ namespace Experimential_Software
         //Experimental CalculateYstate
         private void lblLine_MouseDown(object sender, MouseEventArgs e)
         {
-            string s1 = ""; 
-            foreach (ConnectableE ePower in this._ePowers)
-            {
-                s1 += ePower.ToString() + ", L = " + ePower.Location;
-            }
-            MessageBox.Show(s1);
-
-            /*
             Complex[,] Y_state = DAOGenerateYState.Instance.CalculateMatrixYState(this._ePowers);
 
             Label lblYState = new Label();
@@ -481,7 +473,7 @@ namespace Experimential_Software
                 s += "\n";
             }
             lblYState.Text = s;
-            */
+
         }
     }
 }
