@@ -51,11 +51,13 @@ namespace Experimential_Software.Class_Database
                 Complex S_Relative = this.SNormal_MVA / this._mBase;
                 double Vol_pu = this.DTOBusConnected.Voltage_pu;
 
-                Complex ZLoad = Math.Pow(Vol_pu, 2) / S_Relative;
+                Complex ZLoad = 0;
+                if (S_Relative != 0) ZLoad = Math.Pow(Vol_pu, 2) / S_Relative;
+                else return ZLoad;
 
                 return -1 / ZLoad;
             }
-            
+
         }
     }
 }

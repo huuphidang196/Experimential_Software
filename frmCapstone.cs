@@ -248,41 +248,59 @@ namespace Experimential_Software
         #endregion Reference_OutSide
 
         #region Control_On_Form
+        //Bus
         private void btnBusPower_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Bus };
-            this.ButtonMouseDown(sender, e, btnBusPower, databaseE, GenerateMode.Instance);
+            ConnectableE btnSelected = sender as ConnectableE;
+            ObjectOrientation objOri = btnSelected == btnBusPower_Hor ? ObjectOrientation.Horizontal : ObjectOrientation.Verical;
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Bus, ObjectOri = objOri };
+            this.ButtonMouseDown(sender, e, btnSelected, databaseE, GenerateMode.Instance);
         }
 
-
+        //Line
         protected void btnLinePower_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.LineEPower };
-            this.ButtonMouseDown(sender, e, btnLinePower, databaseE, GenerateMode.Instance);
+            ConnectableE btnSelected = sender as ConnectableE;
+            ObjectOrientation objOri = btnSelected == btnLinePower_Hor ? ObjectOrientation.Horizontal : ObjectOrientation.Verical;
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.LineEPower, ObjectOri = objOri };
+            this.ButtonMouseDown(sender, e, btnSelected, databaseE, GenerateMode.Instance);
         }
 
+        //MF
         protected void btnMFPower_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MF };
-            this.ButtonMouseDown(sender, e, btnMFPower, databaseE, GenerateMode.Instance);
+            ConnectableE btnSelected = sender as ConnectableE;
+            ObjectOrientation objOri = btnSelected == btnMFPower_Hor ? ObjectOrientation.Horizontal : ObjectOrientation.Verical;
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MF, ObjectOri = objOri };
+            this.ButtonMouseDown(sender, e, btnSelected, databaseE, GenerateMode.Instance);
         }
 
+        //Trans2P
         private void btnTransformer2P_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MBA2P };
-            this.ButtonMouseDown(sender, e, btnTransformer2P, databaseE, GenerateMode.Instance);
+            ConnectableE btnSelected = sender as ConnectableE;
+            ObjectOrientation objOri = btnSelected == btnTransformer2P_Hor ? ObjectOrientation.Horizontal : ObjectOrientation.Verical;
+
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MBA2P, ObjectOri = objOri };
+            this.ButtonMouseDown(sender, e, btnSelected, databaseE, GenerateMode.Instance);
         }
 
+        //Trans 3P
         private void btnTransformer3P_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MBA3P };
-            this.ButtonMouseDown(sender, e, btnTransformer3P, databaseE, GenerateMode.Instance);
+            ConnectableE btnSelected = sender as ConnectableE;
+            ObjectOrientation objOri = btnSelected == btnTransformer3P_Hor ? ObjectOrientation.Horizontal : ObjectOrientation.Verical;
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MBA3P, ObjectOri = objOri };
+            this.ButtonMouseDown(sender, e, btnSelected, databaseE, GenerateMode.Instance);
         }
 
+        //Load
         private void btnLoad_MouseDown(object sender, MouseEventArgs e)
         {
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Load };
-            this.ButtonMouseDown(sender, e, btnLoad, databaseE, GenerateMode.Instance);
+            ConnectableE btnSelected = sender as ConnectableE;
+            ObjectOrientation objOri = btnSelected == btnLoad_Hor ? ObjectOrientation.Horizontal : ObjectOrientation.Verical;
+            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Load, ObjectOri = objOri };
+            this.ButtonMouseDown(sender, e, btnSelected, databaseE, GenerateMode.Instance);
         }
 
 
@@ -432,14 +450,6 @@ namespace Experimential_Software
             //Drawn Line On Panel Main After Have Info Line
             this.DrawAllLineOnPanel();
 
-            /*
-                        if (this.pnlMain.ZoomFactor == 1) return;
-                        foreach (ConnectableE ePower in EPowers)
-                        {
-                            ePower.EPowerProcessMouse.UpdateLineWhenMove();
-                        }
-                        this.lblLine.Text = "Zoom = " + this.pnlMain.ZoomFactor;
-              */
         }
 
         //save File
@@ -474,6 +484,16 @@ namespace Experimential_Software
             }
             lblYState.Text = s;
 
+        }
+
+        private void btnLinePower_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            // Vẽ lại CustomControl
+            btnLinePower_Ver.Invalidate();
+
+            // Vẽ lại Panel
+            pnlMain.Invalidate();
         }
     }
 }

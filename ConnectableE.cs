@@ -39,6 +39,16 @@ namespace Experimential_Software
         Load = 6,
     }
 
+
+    [Serializable]
+    public enum ObjectOrientation
+    {
+        NoType = 0,
+
+        Horizontal = 1001,
+        Verical = 1002,
+    }
+
     [Serializable]
     public enum GenerateMode
     {
@@ -241,7 +251,18 @@ namespace Experimential_Software
             Image resizedImage = originalImage.GetThumbnailImage(newWidth, newHeight, null, IntPtr.Zero);
 
             this.Image = resizedImage;
+
+            if (this._databaseE.ObjectOri == ObjectOrientation.Verical && this._databaseE.ObjectType != ObjectType.Bus) return;
+
+            if (this._databaseE.ObjectType != ObjectType.Load)
+            {
+                this.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                return;
+            }
+
+            this.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
         }
+
         protected virtual void GenerateClassProcessChild()
         {
             this._ePowerMouse = new EPowerProcessMouse(this);
@@ -322,35 +343,72 @@ namespace Experimential_Software
 
         public virtual void SetPHeadAndPtail()
         {
-            //MF
-            if (this._databaseE.ObjectType == ObjectType.MF)
-            {
-                this.pHead = new Point(Width / 2, Height - 4);
-                this.pTail = Point.Empty;
-                this.isContainPtail = true;
-                return;
-            }
 
-            //Load
-            if (this._databaseE.ObjectType == ObjectType.Load)
+            ObjectType objType = this._databaseE.ObjectType;
+            switch (objType)
             {
-                this.pHead = new Point(Width / 2, 0);
-                this.pTail = Point.Empty;
-                this.isContainPtail = true;
-                return;
-            }
+                case ObjectType.NoType:
+                    break;
 
-            //Circle => MBA, Line Width > Height
-            if (this.Width <= this.Height)
-            {
-                this.pHead = new Point(Width / 2, 0);
-                this.pTail = new Point(Width / 2, Height); //oy Top to Down
-                return;
-            }
-            //=> Bus
-            this.pHead = new Point(Width / 2 - Width / 4, Height / 2);
-            this.pTail = new Point(Width / 2 + Width / 4, Height / 2);
+                case ObjectType.Bus:
+                    {
+                        //=> Bus
+                        if (this._databaseE.ObjectOri == ObjectOrientation.Horizontal)
+                        {
+                            this.pHead = new Point(Width / 2 - Width / 4, Height / 2);
+                            this.pTail = new Point(Width / 2 + Width / 4, Height / 2);
+                            return;
+                        }
+                        this.pHead = new Point(Width / 2, Height / 2 - Height / 4);
+                        this.pTail = new Point(Width / 2, Height / 2 + Height / 4);
+                    }
+                    break;
+                case ObjectType.MF:
+                    {
+                        //MF
+                        this.pTail = Point.Empty;
+                        this.isContainPtail = true;
 
+                        if (this._databaseE.ObjectOri == ObjectOrientation.Horizontal)
+                        {
+                            this.pHead = new Point(Width, Height / 2);
+                            return;
+                        }
+
+                        this.pHead = new Point(Width / 2, Height - 4);
+                    }
+                    break;
+                case ObjectType.MBA2P:
+                case ObjectType.MBA3P:
+                case ObjectType.LineEPower:
+                    {
+                        //Circle => MBA, Line Width > Height
+                        if (this._databaseE.ObjectOri == ObjectOrientation.Horizontal)
+                        {
+                            this.pHead = new Point(0, Height / 2);
+                            this.pTail = new Point(Width, Height / 2); //oy Top to Down
+                                                                       // MessageBox.Show("Phead = " + this.pHead + ". PTail = " + this.pTail);
+                            return;
+                        }
+                        this.pHead = new Point(Width / 2, 0);
+                        this.pTail = new Point(Width / 2, Height); //oy Top to Down
+                    }
+                    break;
+                case ObjectType.Load:
+                    {
+                        //Load
+                        this.pTail = Point.Empty;
+                        this.isContainPtail = true;
+
+                        if (this._databaseE.ObjectOri == ObjectOrientation.Horizontal)
+                        {
+                            this.pHead = new Point(Width, Height / 2);//->
+                            return;
+                        }
+                        this.pHead = new Point(Width / 2, 0);//-.-
+                    }
+                    break;
+            }
         }
 
         #endregion Constructor_Class
@@ -371,7 +429,7 @@ namespace Experimential_Software
 
                 if (contained && this._databaseE.ObjectType != ObjectType.Bus) pEnds = Point.Empty;
 
-                if (this._databaseE.ObjectType == ObjectType.MF) pEnds = this.pHead;
+                if (this._databaseE.ObjectType == ObjectType.MF || this._databaseE.ObjectType == ObjectType.Load) pEnds = this.pHead;
                 this.DrawCubePinkMouseNearEnds(e, pEnds);
             }
             //Drawn Read or remove color when press and not press => update 
@@ -385,12 +443,18 @@ namespace Experimential_Software
 
             using (var pen = new Pen(Color.Pink, 3))
             {
+                //Get value interact with radius variable
                 int Point_Oxy = this.Width > this.Height ? pEnds.X : pEnds.Y;
-                int PointDrawm = this.nearPhead ? Point_Oxy : Point_Oxy - this._radiusPoint;
 
-                var rectWBigH = new Rectangle(PointDrawm, (Height - this._radiusPoint) / 2, this._radiusPoint, this._radiusPoint);
-                var rectWLessH = new Rectangle((Width - this._radiusPoint) / 2, PointDrawm, this._radiusPoint, this._radiusPoint);
+                int PointDrawn = this.nearPhead ? Point_Oxy : Point_Oxy - this._radiusPoint;
 
+                var rectWBigH = new Rectangle(PointDrawn, (Height - this._radiusPoint) / 2, this._radiusPoint, this._radiusPoint);
+                var rectWLessH = new Rectangle((Width - this._radiusPoint) / 2, PointDrawn, this._radiusPoint, this._radiusPoint);
+                if (this._databaseE.ObjectOri == ObjectOrientation.Horizontal)
+                {
+                    int k_Compen = this.nearPhead ? 0 : -1 * this._radiusPoint;
+                    rectWLessH = new Rectangle(pEnds.X + k_Compen , pEnds.Y - this._radiusPoint / 2, this._radiusPoint, this._radiusPoint);
+                }
                 var rectEnds = this.Width > this.Height ? rectWBigH : rectWLessH;
 
                 e.Graphics.DrawRectangle(pen, rectEnds);
@@ -469,6 +533,7 @@ namespace Experimential_Software
 
             this._ePowerMouse.ButtonInstance_MouseUp(e);
             this.isMove = false;
+          //  MessageBox.Show("Phead = " + this.pHead + ". PTail = " + this.pTail);
         }
 
 
@@ -535,29 +600,23 @@ namespace Experimential_Software
             return true;
         }
 
-        /// <summary>
-        /// Don't remove isOntool beacause objectype isn't set
-        /// </summary>
-        /// <param name=" this.databaseE.objectType == ObjectType.MF"></param>
-        /// <returns></returns>
         public virtual bool IsOnPHead(Point ePoint)
         {
-            if (ePoint.X > this.pHead.X + 10 && this.Width > this.Height) return false;
-            if (ePoint.Y < this.pHead.Y - 10 && !this.isOnTool && this._databaseE.ObjectType == ObjectType.MF) return false;
-            if (ePoint.Y > this.pHead.Y + 10 && this.Width <= this.Height) return false;
+            double distance = Math.Sqrt(Math.Pow(ePoint.X - this.pHead.X, 2) + Math.Pow(ePoint.Y - this.pHead.Y, 2));
 
-            return true;
+            if (distance < 10) return true;
+
+            return false;
         }
 
 
         public virtual bool IsOnPTail(Point ePoint)
         {
-            if (ePoint.X < this.pTail.X - 10 && this.Width > this.Height) return false;
-            if (!this.isOnTool && this._databaseE.ObjectType == ObjectType.MF) return false;
-            if (!this.isOnTool && this._databaseE.ObjectType == ObjectType.Load) return false;
-            if (ePoint.Y < this.pTail.Y - 10 && this.Width <= this.Height) return false;
+            double distance = Math.Sqrt(Math.Pow(ePoint.X - this.pTail.X, 2) + Math.Pow(ePoint.Y - this.pTail.Y, 2));
 
-            return true;
+            if (distance < 10) return true;
+
+            return false;
         }
 
         public virtual bool IsOnNearPHead()
@@ -647,8 +706,32 @@ namespace Experimential_Software
 
 
 
+//Not Remove*******************
 
 
+/// <summary>
+/// Don't remove isOntool beacause objectype isn't set
+/// </summary>
+/// <param name=" this.databaseE.objectType == ObjectType.MF"></param>
+/// <returns></returns>
+//public virtual bool IsOnPHead(Point ePoint)
+//{
+//    if (ePoint.X > this.pHead.X + 10 && this.Width > this.Height) return false;
+//    if (ePoint.Y < this.pHead.Y - 10 && !this.isOnTool && this._databaseE.ObjectType == ObjectType.MF) return false;
+//    if (ePoint.Y > this.pHead.Y + 10 && this.Width <= this.Height) return false;
+
+//    return true;
+//}
+
+//public virtual bool IsOnPTail(Point ePoint)
+//{
+//    if (ePoint.X < this.pTail.X - 10 && this.Width > this.Height) return false;
+//    if (!this.isOnTool && this._databaseE.ObjectType == ObjectType.MF) return false;
+//    if (!this.isOnTool && this._databaseE.ObjectType == ObjectType.Load) return false;
+//    if (ePoint.Y < this.pTail.Y - 10 && this.Width <= this.Height) return false;
+
+//    return true;
+//}
 
 
 

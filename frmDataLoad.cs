@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Experimential_Software.Class_Database;
@@ -28,7 +29,7 @@ namespace Experimential_Software
         private void frmDataLoad_Load(object sender, EventArgs e)
         {
             //Limit char count in Load ID
-            this.txtLoadID.MaxLength = 2;
+            this.txtLoadID.MaxLength = 3;
 
             if (this._loadEPowerFixed != null)
             {
@@ -61,8 +62,16 @@ namespace Experimential_Software
 
         private void btnOKLoad_Click(object sender, EventArgs e)
         {
+            string LoadID = this.txtLoadID.Text;
             //load ID
-            this._dtoLoadRecord.ObjectName = this.txtLoadID.Text;
+            this._dtoLoadRecord.ObjectName = LoadID;
+
+            var Digits = LoadID.Where(c => Char.IsDigit(c));
+            string result = string.Concat(Digits);
+
+            //Set Object ID by nuumber Load ID
+            int objNumber = 100 * ((int)ObjectType.Load) + int.Parse(result);
+            this._dtoLoadRecord.ObjectNumber = objNumber;
 
             //In Service
             this._dtoLoadRecord.IsInService = this.chkInService.Checked;

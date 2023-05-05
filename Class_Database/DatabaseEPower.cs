@@ -16,6 +16,8 @@ namespace Experimential_Software.Class_Database
 
         public ObjectType ObjectType { get; set; }
 
+        public ObjectOrientation ObjectOri { get; set; }
+
         public bool IsContainPhead { get; set; }
 
         public bool IsContainPtail { get; set; }
@@ -28,11 +30,22 @@ namespace Experimential_Software.Class_Database
         {
             get
             {
-                if (ObjectType == ObjectType.Bus) return 100;
+                if (ObjectType == ObjectType.Bus)
+                {
+                    if (this.ObjectOri == ObjectOrientation.Horizontal) return 90;
+                    return 15;
+                }
+
                 if (ObjectType == ObjectType.MF) return 40;
                 if (ObjectType == ObjectType.MBA2P) return 40;
                 if (ObjectType == ObjectType.MBA3P) return 40;
-                if (ObjectType == ObjectType.LineEPower) return 20;
+
+                if (ObjectType == ObjectType.LineEPower)
+                {
+                    if (this.ObjectOri == ObjectOrientation.Horizontal) return 60;
+                    return 20;
+                }
+
                 if (ObjectType == ObjectType.Load) return 40;
 
                 return 0;
@@ -42,11 +55,21 @@ namespace Experimential_Software.Class_Database
         {
             get
             {
-                if (ObjectType == ObjectType.Bus) return 25;
+                if (ObjectType == ObjectType.Bus)
+                {
+                    if (this.ObjectOri == ObjectOrientation.Horizontal) return 15;
+                    return 90;
+                }
                 if (ObjectType == ObjectType.MF) return 40;
                 if (ObjectType == ObjectType.MBA2P) return 40;
                 if (ObjectType == ObjectType.MBA3P) return 40;
-                if (ObjectType == ObjectType.LineEPower) return 60;
+
+                if (ObjectType == ObjectType.LineEPower)
+                {
+                    if (this.ObjectOri == ObjectOrientation.Horizontal) return 20;
+                    return 60;
+                }
+
                 if (ObjectType == ObjectType.Load) return 40;
 
                 return 0;

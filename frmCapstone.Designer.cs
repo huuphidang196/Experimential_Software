@@ -40,19 +40,27 @@ namespace Experimential_Software
             this.mnuFileSave = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3 = new System.Windows.Forms.Panel();
             this.pnlTool = new System.Windows.Forms.Panel();
-            this.btnBusPower = new Experimential_Software.ConnectableE();
+            this.pnlFlowTool = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnBusPower_Hor = new Experimential_Software.ConnectableE();
             this.imgListTool = new System.Windows.Forms.ImageList(this.components);
-            this.btnLoad = new Experimential_Software.ConnectableE();
-            this.btnMFPower = new Experimential_Software.ConnectableE();
-            this.btnTransformer3P = new Experimential_Software.ConnectableE();
-            this.btnTransformer2P = new Experimential_Software.ConnectableE();
-            this.btnLinePower = new Experimential_Software.ConnectableE();
+            this.btnBusPower_Ver = new Experimential_Software.ConnectableE();
+            this.btnMFPower_Hor = new Experimential_Software.ConnectableE();
+            this.btnMFPower_Ver = new Experimential_Software.ConnectableE();
+            this.btnTransformer2P_Hor = new Experimential_Software.ConnectableE();
+            this.btnTransformer2P_Ver = new Experimential_Software.ConnectableE();
+            this.btnTransformer3P_Hor = new Experimential_Software.ConnectableE();
+            this.btnTransformer3P_Ver = new Experimential_Software.ConnectableE();
+            this.btnLinePower_Hor = new Experimential_Software.ConnectableE();
+            this.btnLinePower_Ver = new Experimential_Software.ConnectableE();
+            this.btnLoad_Hor = new Experimential_Software.ConnectableE();
+            this.btnLoad_Ver = new Experimential_Software.ConnectableE();
             this.imgListEPower = new System.Windows.Forms.ImageList(this.components);
             this.imgListIconCtrl = new System.Windows.Forms.ImageList(this.components);
             this.pnlMain = new Experimential_Software.PanelMain();
             this.panel2.SuspendLayout();
             this.mnuStripBar.SuspendLayout();
             this.pnlTool.SuspendLayout();
+            this.pnlFlowTool.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -134,40 +142,57 @@ namespace Experimential_Software
             // pnlTool
             // 
             this.pnlTool.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.pnlTool.Controls.Add(this.btnBusPower);
-            this.pnlTool.Controls.Add(this.btnLoad);
-            this.pnlTool.Controls.Add(this.btnMFPower);
-            this.pnlTool.Controls.Add(this.btnTransformer3P);
-            this.pnlTool.Controls.Add(this.btnTransformer2P);
-            this.pnlTool.Controls.Add(this.btnLinePower);
+            this.pnlTool.Controls.Add(this.pnlFlowTool);
             this.pnlTool.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlTool.Location = new System.Drawing.Point(907, 127);
+            this.pnlTool.Location = new System.Drawing.Point(905, 127);
             this.pnlTool.Name = "pnlTool";
-            this.pnlTool.Size = new System.Drawing.Size(121, 633);
+            this.pnlTool.Size = new System.Drawing.Size(123, 633);
             this.pnlTool.TabIndex = 1;
             // 
-            // btnBusPower
+            // pnlFlowTool
             // 
-            this.btnBusPower.BackColor = System.Drawing.Color.Transparent;
-            this.btnBusPower.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.btnBusPower.ImageIndex = 0;
-            this.btnBusPower.ImageList = this.imgListTool;
-            this.btnBusPower.IsContainPhead = false;
-            this.btnBusPower.IsContainPtail = false;
-            this.btnBusPower.IsMove = false;
-            this.btnBusPower.IsOnTool = true;
-            this.btnBusPower.IsSelected = false;
-            this.btnBusPower.LblInfoE = null;
-            this.btnBusPower.ListBranch_Drawn = null;
-            this.btnBusPower.Location = new System.Drawing.Point(30, 40);
-            this.btnBusPower.Name = "btnBusPower";
-            this.btnBusPower.PreLocation = new System.Drawing.Point(0, 0);
-            this.btnBusPower.PHead = new System.Drawing.Point(0, 0);
-            this.btnBusPower.PTail = new System.Drawing.Point(0, 0);
-            this.btnBusPower.Size = new System.Drawing.Size(50, 50);
-            this.btnBusPower.TabIndex = 0;
-            this.btnBusPower.UseVisualStyleBackColor = false;
-            this.btnBusPower.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnBusPower_MouseDown);
+            this.pnlFlowTool.Controls.Add(this.btnBusPower_Hor);
+            this.pnlFlowTool.Controls.Add(this.btnBusPower_Ver);
+            this.pnlFlowTool.Controls.Add(this.btnMFPower_Hor);
+            this.pnlFlowTool.Controls.Add(this.btnMFPower_Ver);
+            this.pnlFlowTool.Controls.Add(this.btnTransformer2P_Hor);
+            this.pnlFlowTool.Controls.Add(this.btnTransformer2P_Ver);
+            this.pnlFlowTool.Controls.Add(this.btnTransformer3P_Hor);
+            this.pnlFlowTool.Controls.Add(this.btnTransformer3P_Ver);
+            this.pnlFlowTool.Controls.Add(this.btnLinePower_Hor);
+            this.pnlFlowTool.Controls.Add(this.btnLinePower_Ver);
+            this.pnlFlowTool.Controls.Add(this.btnLoad_Hor);
+            this.pnlFlowTool.Controls.Add(this.btnLoad_Ver);
+            this.pnlFlowTool.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlFlowTool.Location = new System.Drawing.Point(0, 0);
+            this.pnlFlowTool.Name = "pnlFlowTool";
+            this.pnlFlowTool.Padding = new System.Windows.Forms.Padding(5, 15, 0, 0);
+            this.pnlFlowTool.Size = new System.Drawing.Size(123, 633);
+            this.pnlFlowTool.TabIndex = 1;
+            // 
+            // btnBusPower_Hor
+            // 
+            this.btnBusPower_Hor.BackColor = System.Drawing.Color.Transparent;
+            this.btnBusPower_Hor.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnBusPower_Hor.ImageIndex = 0;
+            this.btnBusPower_Hor.ImageList = this.imgListTool;
+            this.btnBusPower_Hor.IsContainPhead = false;
+            this.btnBusPower_Hor.IsContainPtail = false;
+            this.btnBusPower_Hor.IsMove = false;
+            this.btnBusPower_Hor.IsOnTool = true;
+            this.btnBusPower_Hor.IsSelected = false;
+            this.btnBusPower_Hor.LblInfoE = null;
+            this.btnBusPower_Hor.ListBranch_Drawn = null;
+            this.btnBusPower_Hor.Location = new System.Drawing.Point(8, 35);
+            this.btnBusPower_Hor.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.btnBusPower_Hor.Name = "btnBusPower_Hor";
+            this.btnBusPower_Hor.PHead = new System.Drawing.Point(0, 0);
+            this.btnBusPower_Hor.PreLocation = new System.Drawing.Point(0, 0);
+            this.btnBusPower_Hor.PTail = new System.Drawing.Point(0, 0);
+            this.btnBusPower_Hor.Size = new System.Drawing.Size(50, 50);
+            this.btnBusPower_Hor.TabIndex = 0;
+            this.btnBusPower_Hor.UseVisualStyleBackColor = false;
+            this.btnBusPower_Hor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnBusPower_MouseDown);
             // 
             // imgListTool
             // 
@@ -180,133 +205,289 @@ namespace Experimential_Software
             this.imgListTool.Images.SetKeyName(4, "Line_Tool.png");
             this.imgListTool.Images.SetKeyName(5, "Load_Tool.png");
             // 
-            // btnLoad
+            // btnBusPower_Ver
             // 
-            this.btnLoad.BackColor = System.Drawing.Color.Transparent;
-            this.btnLoad.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.btnLoad.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLoad.ImageIndex = 5;
-            this.btnLoad.ImageList = this.imgListTool;
-            this.btnLoad.IsContainPhead = false;
-            this.btnLoad.IsContainPtail = false;
-            this.btnLoad.IsMove = false;
-            this.btnLoad.IsOnTool = true;
-            this.btnLoad.IsSelected = false;
-            this.btnLoad.LblInfoE = null;
-            this.btnLoad.ListBranch_Drawn = null;
-            this.btnLoad.Location = new System.Drawing.Point(30, 534);
-            this.btnLoad.Name = "btnLoad";
-            this.btnLoad.PreLocation = new System.Drawing.Point(0, 0);
-            this.btnLoad.PHead = new System.Drawing.Point(0, 0);
-            this.btnLoad.PTail = new System.Drawing.Point(0, 0);
-            this.btnLoad.Size = new System.Drawing.Size(50, 50);
-            this.btnLoad.TabIndex = 0;
-            this.btnLoad.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.btnLoad.UseVisualStyleBackColor = false;
-            this.btnLoad.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLoad_MouseDown);
+            this.btnBusPower_Ver.BackColor = System.Drawing.Color.Transparent;
+            this.btnBusPower_Ver.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnBusPower_Ver.ImageIndex = 0;
+            this.btnBusPower_Ver.IsContainPhead = false;
+            this.btnBusPower_Ver.IsContainPtail = false;
+            this.btnBusPower_Ver.IsMove = false;
+            this.btnBusPower_Ver.IsOnTool = true;
+            this.btnBusPower_Ver.IsSelected = false;
+            this.btnBusPower_Ver.LblInfoE = null;
+            this.btnBusPower_Ver.ListBranch_Drawn = null;
+            this.btnBusPower_Ver.Location = new System.Drawing.Point(64, 35);
+            this.btnBusPower_Ver.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.btnBusPower_Ver.Name = "btnBusPower_Ver";
+            this.btnBusPower_Ver.PHead = new System.Drawing.Point(0, 0);
+            this.btnBusPower_Ver.PreLocation = new System.Drawing.Point(0, 0);
+            this.btnBusPower_Ver.PTail = new System.Drawing.Point(0, 0);
+            this.btnBusPower_Ver.Size = new System.Drawing.Size(50, 50);
+            this.btnBusPower_Ver.TabIndex = 0;
+            this.btnBusPower_Ver.Text = "Bus Vertical";
+            this.btnBusPower_Ver.UseVisualStyleBackColor = false;
+            this.btnBusPower_Ver.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnBusPower_MouseDown);
             // 
-            // btnMFPower
+            // btnMFPower_Hor
             // 
-            this.btnMFPower.BackColor = System.Drawing.Color.Transparent;
-            this.btnMFPower.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.btnMFPower.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMFPower.ImageIndex = 1;
-            this.btnMFPower.ImageList = this.imgListTool;
-            this.btnMFPower.IsContainPhead = false;
-            this.btnMFPower.IsContainPtail = false;
-            this.btnMFPower.IsMove = false;
-            this.btnMFPower.IsOnTool = true;
-            this.btnMFPower.IsSelected = false;
-            this.btnMFPower.LblInfoE = null;
-            this.btnMFPower.ListBranch_Drawn = null;
-            this.btnMFPower.Location = new System.Drawing.Point(30, 125);
-            this.btnMFPower.Name = "btnMFPower";
-            this.btnMFPower.PreLocation = new System.Drawing.Point(0, 0);
-            this.btnMFPower.PHead = new System.Drawing.Point(0, 0);
-            this.btnMFPower.PTail = new System.Drawing.Point(0, 0);
-            this.btnMFPower.Size = new System.Drawing.Size(50, 50);
-            this.btnMFPower.TabIndex = 0;
-            this.btnMFPower.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.btnMFPower.UseVisualStyleBackColor = false;
-            this.btnMFPower.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnMFPower_MouseDown);
+            this.btnMFPower_Hor.BackColor = System.Drawing.Color.Transparent;
+            this.btnMFPower_Hor.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnMFPower_Hor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMFPower_Hor.ImageIndex = 1;
+            this.btnMFPower_Hor.IsContainPhead = false;
+            this.btnMFPower_Hor.IsContainPtail = false;
+            this.btnMFPower_Hor.IsMove = false;
+            this.btnMFPower_Hor.IsOnTool = true;
+            this.btnMFPower_Hor.IsSelected = false;
+            this.btnMFPower_Hor.LblInfoE = null;
+            this.btnMFPower_Hor.ListBranch_Drawn = null;
+            this.btnMFPower_Hor.Location = new System.Drawing.Point(8, 108);
+            this.btnMFPower_Hor.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.btnMFPower_Hor.Name = "btnMFPower_Hor";
+            this.btnMFPower_Hor.PHead = new System.Drawing.Point(0, 0);
+            this.btnMFPower_Hor.PreLocation = new System.Drawing.Point(0, 0);
+            this.btnMFPower_Hor.PTail = new System.Drawing.Point(0, 0);
+            this.btnMFPower_Hor.Size = new System.Drawing.Size(50, 50);
+            this.btnMFPower_Hor.TabIndex = 0;
+            this.btnMFPower_Hor.Text = "MF Hor";
+            this.btnMFPower_Hor.UseVisualStyleBackColor = false;
+            this.btnMFPower_Hor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnMFPower_MouseDown);
             // 
-            // btnTransformer3P
+            // btnMFPower_Ver
             // 
-            this.btnTransformer3P.BackColor = System.Drawing.Color.Transparent;
-            this.btnTransformer3P.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.btnTransformer3P.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTransformer3P.ImageIndex = 3;
-            this.btnTransformer3P.ImageList = this.imgListTool;
-            this.btnTransformer3P.IsContainPhead = false;
-            this.btnTransformer3P.IsContainPtail = false;
-            this.btnTransformer3P.IsMove = false;
-            this.btnTransformer3P.IsOnTool = true;
-            this.btnTransformer3P.IsSelected = false;
-            this.btnTransformer3P.LblInfoE = null;
-            this.btnTransformer3P.ListBranch_Drawn = null;
-            this.btnTransformer3P.Location = new System.Drawing.Point(30, 318);
-            this.btnTransformer3P.Name = "btnTransformer3P";
-            this.btnTransformer3P.PreLocation = new System.Drawing.Point(0, 0);
-            this.btnTransformer3P.PHead = new System.Drawing.Point(0, 0);
-            this.btnTransformer3P.PTail = new System.Drawing.Point(0, 0);
-            this.btnTransformer3P.Size = new System.Drawing.Size(50, 50);
-            this.btnTransformer3P.TabIndex = 0;
-            this.btnTransformer3P.Text = "Transfoner 3P";
-            this.btnTransformer3P.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.btnTransformer3P.UseVisualStyleBackColor = false;
-            this.btnTransformer3P.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTransformer3P_MouseDown);
+            this.btnMFPower_Ver.BackColor = System.Drawing.Color.Transparent;
+            this.btnMFPower_Ver.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnMFPower_Ver.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMFPower_Ver.ImageIndex = 1;
+            this.btnMFPower_Ver.ImageList = this.imgListTool;
+            this.btnMFPower_Ver.IsContainPhead = false;
+            this.btnMFPower_Ver.IsContainPtail = false;
+            this.btnMFPower_Ver.IsMove = false;
+            this.btnMFPower_Ver.IsOnTool = true;
+            this.btnMFPower_Ver.IsSelected = false;
+            this.btnMFPower_Ver.LblInfoE = null;
+            this.btnMFPower_Ver.ListBranch_Drawn = null;
+            this.btnMFPower_Ver.Location = new System.Drawing.Point(64, 108);
+            this.btnMFPower_Ver.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.btnMFPower_Ver.Name = "btnMFPower_Ver";
+            this.btnMFPower_Ver.PHead = new System.Drawing.Point(0, 0);
+            this.btnMFPower_Ver.PreLocation = new System.Drawing.Point(0, 0);
+            this.btnMFPower_Ver.PTail = new System.Drawing.Point(0, 0);
+            this.btnMFPower_Ver.Size = new System.Drawing.Size(50, 50);
+            this.btnMFPower_Ver.TabIndex = 0;
+            this.btnMFPower_Ver.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnMFPower_Ver.UseVisualStyleBackColor = false;
+            this.btnMFPower_Ver.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnMFPower_MouseDown);
             // 
-            // btnTransformer2P
+            // btnTransformer2P_Hor
             // 
-            this.btnTransformer2P.BackColor = System.Drawing.Color.Transparent;
-            this.btnTransformer2P.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.btnTransformer2P.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTransformer2P.ImageIndex = 2;
-            this.btnTransformer2P.ImageList = this.imgListTool;
-            this.btnTransformer2P.IsContainPhead = false;
-            this.btnTransformer2P.IsContainPtail = false;
-            this.btnTransformer2P.IsMove = false;
-            this.btnTransformer2P.IsOnTool = true;
-            this.btnTransformer2P.IsSelected = false;
-            this.btnTransformer2P.LblInfoE = null;
-            this.btnTransformer2P.ListBranch_Drawn = null;
-            this.btnTransformer2P.Location = new System.Drawing.Point(30, 227);
-            this.btnTransformer2P.Name = "btnTransformer2P";
-            this.btnTransformer2P.PreLocation = new System.Drawing.Point(0, 0);
-            this.btnTransformer2P.PHead = new System.Drawing.Point(0, 0);
-            this.btnTransformer2P.PTail = new System.Drawing.Point(0, 0);
-            this.btnTransformer2P.Size = new System.Drawing.Size(50, 50);
-            this.btnTransformer2P.TabIndex = 0;
-            this.btnTransformer2P.Text = "Transfoner";
-            this.btnTransformer2P.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.btnTransformer2P.UseVisualStyleBackColor = false;
-            this.btnTransformer2P.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTransformer2P_MouseDown);
+            this.btnTransformer2P_Hor.BackColor = System.Drawing.Color.Transparent;
+            this.btnTransformer2P_Hor.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnTransformer2P_Hor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTransformer2P_Hor.ImageIndex = 2;
+            this.btnTransformer2P_Hor.IsContainPhead = false;
+            this.btnTransformer2P_Hor.IsContainPtail = false;
+            this.btnTransformer2P_Hor.IsMove = false;
+            this.btnTransformer2P_Hor.IsOnTool = true;
+            this.btnTransformer2P_Hor.IsSelected = false;
+            this.btnTransformer2P_Hor.LblInfoE = null;
+            this.btnTransformer2P_Hor.ListBranch_Drawn = null;
+            this.btnTransformer2P_Hor.Location = new System.Drawing.Point(8, 181);
+            this.btnTransformer2P_Hor.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.btnTransformer2P_Hor.Name = "btnTransformer2P_Hor";
+            this.btnTransformer2P_Hor.PHead = new System.Drawing.Point(0, 0);
+            this.btnTransformer2P_Hor.PreLocation = new System.Drawing.Point(0, 0);
+            this.btnTransformer2P_Hor.PTail = new System.Drawing.Point(0, 0);
+            this.btnTransformer2P_Hor.Size = new System.Drawing.Size(50, 50);
+            this.btnTransformer2P_Hor.TabIndex = 0;
+            this.btnTransformer2P_Hor.Text = "Trans_Hor";
+            this.btnTransformer2P_Hor.UseVisualStyleBackColor = false;
+            this.btnTransformer2P_Hor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTransformer2P_MouseDown);
             // 
-            // btnLinePower
+            // btnTransformer2P_Ver
             // 
-            this.btnLinePower.BackColor = System.Drawing.Color.Transparent;
-            this.btnLinePower.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.btnLinePower.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLinePower.ImageIndex = 4;
-            this.btnLinePower.ImageList = this.imgListTool;
-            this.btnLinePower.IsContainPhead = false;
-            this.btnLinePower.IsContainPtail = false;
-            this.btnLinePower.IsMove = false;
-            this.btnLinePower.IsOnTool = true;
-            this.btnLinePower.IsSelected = false;
-            this.btnLinePower.LblInfoE = null;
-            this.btnLinePower.ListBranch_Drawn = null;
-            this.btnLinePower.Location = new System.Drawing.Point(30, 421);
-            this.btnLinePower.Name = "btnLinePower";
-            this.btnLinePower.PreLocation = new System.Drawing.Point(0, 0);
-            this.btnLinePower.PHead = new System.Drawing.Point(0, 0);
-            this.btnLinePower.PTail = new System.Drawing.Point(0, 0);
-            this.btnLinePower.Size = new System.Drawing.Size(50, 50);
-            this.btnLinePower.TabIndex = 0;
-            this.btnLinePower.Text = "Line";
-            this.btnLinePower.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            this.btnLinePower.UseVisualStyleBackColor = false;
-            this.btnLinePower.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLinePower_MouseDown);
+            this.btnTransformer2P_Ver.BackColor = System.Drawing.Color.Transparent;
+            this.btnTransformer2P_Ver.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnTransformer2P_Ver.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTransformer2P_Ver.ImageIndex = 2;
+            this.btnTransformer2P_Ver.ImageList = this.imgListTool;
+            this.btnTransformer2P_Ver.IsContainPhead = false;
+            this.btnTransformer2P_Ver.IsContainPtail = false;
+            this.btnTransformer2P_Ver.IsMove = false;
+            this.btnTransformer2P_Ver.IsOnTool = true;
+            this.btnTransformer2P_Ver.IsSelected = false;
+            this.btnTransformer2P_Ver.LblInfoE = null;
+            this.btnTransformer2P_Ver.ListBranch_Drawn = null;
+            this.btnTransformer2P_Ver.Location = new System.Drawing.Point(64, 181);
+            this.btnTransformer2P_Ver.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.btnTransformer2P_Ver.Name = "btnTransformer2P_Ver";
+            this.btnTransformer2P_Ver.PHead = new System.Drawing.Point(0, 0);
+            this.btnTransformer2P_Ver.PreLocation = new System.Drawing.Point(0, 0);
+            this.btnTransformer2P_Ver.PTail = new System.Drawing.Point(0, 0);
+            this.btnTransformer2P_Ver.Size = new System.Drawing.Size(50, 50);
+            this.btnTransformer2P_Ver.TabIndex = 0;
+            this.btnTransformer2P_Ver.Text = "Transfoner";
+            this.btnTransformer2P_Ver.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnTransformer2P_Ver.UseVisualStyleBackColor = false;
+            this.btnTransformer2P_Ver.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTransformer2P_MouseDown);
+            // 
+            // btnTransformer3P_Hor
+            // 
+            this.btnTransformer3P_Hor.BackColor = System.Drawing.Color.Transparent;
+            this.btnTransformer3P_Hor.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnTransformer3P_Hor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTransformer3P_Hor.ImageIndex = 3;
+            this.btnTransformer3P_Hor.IsContainPhead = false;
+            this.btnTransformer3P_Hor.IsContainPtail = false;
+            this.btnTransformer3P_Hor.IsMove = false;
+            this.btnTransformer3P_Hor.IsOnTool = true;
+            this.btnTransformer3P_Hor.IsSelected = false;
+            this.btnTransformer3P_Hor.LblInfoE = null;
+            this.btnTransformer3P_Hor.ListBranch_Drawn = null;
+            this.btnTransformer3P_Hor.Location = new System.Drawing.Point(8, 254);
+            this.btnTransformer3P_Hor.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.btnTransformer3P_Hor.Name = "btnTransformer3P_Hor";
+            this.btnTransformer3P_Hor.PHead = new System.Drawing.Point(0, 0);
+            this.btnTransformer3P_Hor.PreLocation = new System.Drawing.Point(0, 0);
+            this.btnTransformer3P_Hor.PTail = new System.Drawing.Point(0, 0);
+            this.btnTransformer3P_Hor.Size = new System.Drawing.Size(50, 50);
+            this.btnTransformer3P_Hor.TabIndex = 0;
+            this.btnTransformer3P_Hor.Text = "Tran3 Hor";
+            this.btnTransformer3P_Hor.UseVisualStyleBackColor = false;
+            this.btnTransformer3P_Hor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTransformer3P_MouseDown);
+            // 
+            // btnTransformer3P_Ver
+            // 
+            this.btnTransformer3P_Ver.BackColor = System.Drawing.Color.Transparent;
+            this.btnTransformer3P_Ver.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnTransformer3P_Ver.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTransformer3P_Ver.ImageIndex = 3;
+            this.btnTransformer3P_Ver.ImageList = this.imgListTool;
+            this.btnTransformer3P_Ver.IsContainPhead = false;
+            this.btnTransformer3P_Ver.IsContainPtail = false;
+            this.btnTransformer3P_Ver.IsMove = false;
+            this.btnTransformer3P_Ver.IsOnTool = true;
+            this.btnTransformer3P_Ver.IsSelected = false;
+            this.btnTransformer3P_Ver.LblInfoE = null;
+            this.btnTransformer3P_Ver.ListBranch_Drawn = null;
+            this.btnTransformer3P_Ver.Location = new System.Drawing.Point(64, 254);
+            this.btnTransformer3P_Ver.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.btnTransformer3P_Ver.Name = "btnTransformer3P_Ver";
+            this.btnTransformer3P_Ver.PHead = new System.Drawing.Point(0, 0);
+            this.btnTransformer3P_Ver.PreLocation = new System.Drawing.Point(0, 0);
+            this.btnTransformer3P_Ver.PTail = new System.Drawing.Point(0, 0);
+            this.btnTransformer3P_Ver.Size = new System.Drawing.Size(50, 50);
+            this.btnTransformer3P_Ver.TabIndex = 0;
+            this.btnTransformer3P_Ver.Text = "Transfoner 3P";
+            this.btnTransformer3P_Ver.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnTransformer3P_Ver.UseVisualStyleBackColor = false;
+            this.btnTransformer3P_Ver.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTransformer3P_MouseDown);
+            // 
+            // btnLinePower_Hor
+            // 
+            this.btnLinePower_Hor.BackColor = System.Drawing.Color.Transparent;
+            this.btnLinePower_Hor.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnLinePower_Hor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLinePower_Hor.ImageIndex = 4;
+            this.btnLinePower_Hor.IsContainPhead = false;
+            this.btnLinePower_Hor.IsContainPtail = false;
+            this.btnLinePower_Hor.IsMove = false;
+            this.btnLinePower_Hor.IsOnTool = true;
+            this.btnLinePower_Hor.IsSelected = false;
+            this.btnLinePower_Hor.LblInfoE = null;
+            this.btnLinePower_Hor.ListBranch_Drawn = null;
+            this.btnLinePower_Hor.Location = new System.Drawing.Point(8, 327);
+            this.btnLinePower_Hor.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.btnLinePower_Hor.Name = "btnLinePower_Hor";
+            this.btnLinePower_Hor.PHead = new System.Drawing.Point(0, 0);
+            this.btnLinePower_Hor.PreLocation = new System.Drawing.Point(0, 0);
+            this.btnLinePower_Hor.PTail = new System.Drawing.Point(0, 0);
+            this.btnLinePower_Hor.Size = new System.Drawing.Size(50, 50);
+            this.btnLinePower_Hor.TabIndex = 0;
+            this.btnLinePower_Hor.Text = "Line Hor";
+            this.btnLinePower_Hor.UseVisualStyleBackColor = false;
+            this.btnLinePower_Hor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnLinePower_KeyDown);
+            this.btnLinePower_Hor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLinePower_MouseDown);
+            // 
+            // btnLinePower_Ver
+            // 
+            this.btnLinePower_Ver.BackColor = System.Drawing.Color.Transparent;
+            this.btnLinePower_Ver.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnLinePower_Ver.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLinePower_Ver.ImageIndex = 4;
+            this.btnLinePower_Ver.ImageList = this.imgListTool;
+            this.btnLinePower_Ver.IsContainPhead = false;
+            this.btnLinePower_Ver.IsContainPtail = false;
+            this.btnLinePower_Ver.IsMove = false;
+            this.btnLinePower_Ver.IsOnTool = true;
+            this.btnLinePower_Ver.IsSelected = false;
+            this.btnLinePower_Ver.LblInfoE = null;
+            this.btnLinePower_Ver.ListBranch_Drawn = null;
+            this.btnLinePower_Ver.Location = new System.Drawing.Point(64, 327);
+            this.btnLinePower_Ver.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.btnLinePower_Ver.Name = "btnLinePower_Ver";
+            this.btnLinePower_Ver.PHead = new System.Drawing.Point(0, 0);
+            this.btnLinePower_Ver.PreLocation = new System.Drawing.Point(0, 0);
+            this.btnLinePower_Ver.PTail = new System.Drawing.Point(0, 0);
+            this.btnLinePower_Ver.Size = new System.Drawing.Size(50, 50);
+            this.btnLinePower_Ver.TabIndex = 0;
+            this.btnLinePower_Ver.Text = "Line";
+            this.btnLinePower_Ver.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnLinePower_Ver.UseVisualStyleBackColor = false;
+            this.btnLinePower_Ver.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnLinePower_KeyDown);
+            this.btnLinePower_Ver.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLinePower_MouseDown);
+            // 
+            // btnLoad_Hor
+            // 
+            this.btnLoad_Hor.BackColor = System.Drawing.Color.Transparent;
+            this.btnLoad_Hor.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnLoad_Hor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLoad_Hor.ImageIndex = 5;
+            this.btnLoad_Hor.IsContainPhead = false;
+            this.btnLoad_Hor.IsContainPtail = false;
+            this.btnLoad_Hor.IsMove = false;
+            this.btnLoad_Hor.IsOnTool = true;
+            this.btnLoad_Hor.IsSelected = false;
+            this.btnLoad_Hor.LblInfoE = null;
+            this.btnLoad_Hor.ListBranch_Drawn = null;
+            this.btnLoad_Hor.Location = new System.Drawing.Point(8, 400);
+            this.btnLoad_Hor.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.btnLoad_Hor.Name = "btnLoad_Hor";
+            this.btnLoad_Hor.PHead = new System.Drawing.Point(0, 0);
+            this.btnLoad_Hor.PreLocation = new System.Drawing.Point(0, 0);
+            this.btnLoad_Hor.PTail = new System.Drawing.Point(0, 0);
+            this.btnLoad_Hor.Size = new System.Drawing.Size(50, 50);
+            this.btnLoad_Hor.TabIndex = 0;
+            this.btnLoad_Hor.Text = "Load Hor";
+            this.btnLoad_Hor.UseVisualStyleBackColor = false;
+            this.btnLoad_Hor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLoad_MouseDown);
+            // 
+            // btnLoad_Ver
+            // 
+            this.btnLoad_Ver.BackColor = System.Drawing.Color.Transparent;
+            this.btnLoad_Ver.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnLoad_Ver.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLoad_Ver.ImageIndex = 5;
+            this.btnLoad_Ver.ImageList = this.imgListTool;
+            this.btnLoad_Ver.IsContainPhead = false;
+            this.btnLoad_Ver.IsContainPtail = false;
+            this.btnLoad_Ver.IsMove = false;
+            this.btnLoad_Ver.IsOnTool = true;
+            this.btnLoad_Ver.IsSelected = false;
+            this.btnLoad_Ver.LblInfoE = null;
+            this.btnLoad_Ver.ListBranch_Drawn = null;
+            this.btnLoad_Ver.Location = new System.Drawing.Point(64, 400);
+            this.btnLoad_Ver.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
+            this.btnLoad_Ver.Name = "btnLoad_Ver";
+            this.btnLoad_Ver.PHead = new System.Drawing.Point(0, 0);
+            this.btnLoad_Ver.PreLocation = new System.Drawing.Point(0, 0);
+            this.btnLoad_Ver.PTail = new System.Drawing.Point(0, 0);
+            this.btnLoad_Ver.Size = new System.Drawing.Size(50, 50);
+            this.btnLoad_Ver.TabIndex = 0;
+            this.btnLoad_Ver.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.btnLoad_Ver.UseVisualStyleBackColor = false;
+            this.btnLoad_Ver.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLoad_MouseDown);
             // 
             // imgListEPower
             // 
@@ -337,7 +518,7 @@ namespace Experimential_Software
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMain.Location = new System.Drawing.Point(115, 127);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(792, 633);
+            this.pnlMain.Size = new System.Drawing.Size(790, 633);
             this.pnlMain.TabIndex = 3;
             this.pnlMain.TabStop = true;
             this.pnlMain.ZoomFactor = 1D;
@@ -367,6 +548,7 @@ namespace Experimential_Software
             this.mnuStripBar.ResumeLayout(false);
             this.mnuStripBar.PerformLayout();
             this.pnlTool.ResumeLayout(false);
+            this.pnlFlowTool.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -377,11 +559,11 @@ namespace Experimential_Software
         public ConnectableE LinePower;
         public System.Windows.Forms.Panel pnlTool;
         public System.Windows.Forms.Label lblLine;
-        private ConnectableE btnBusPower;
-        private ConnectableE btnLinePower;
-        private ConnectableE btnMFPower;
-        private ConnectableE btnTransformer2P;
-        private ConnectableE btnLoad;
+        private ConnectableE btnBusPower_Hor;
+        private ConnectableE btnLinePower_Ver;
+        private ConnectableE btnMFPower_Ver;
+        private ConnectableE btnTransformer2P_Ver;
+        private ConnectableE btnLoad_Ver;
         public PanelMain pnlMain;
         public System.Windows.Forms.ImageList imgListEPower;
         private System.Windows.Forms.ToolStripMenuItem mnuFile;
@@ -391,7 +573,14 @@ namespace Experimential_Software
         public System.Windows.Forms.ToolStripMenuItem mnuFileNew;
         public System.Windows.Forms.ToolStripMenuItem mnuFileOpen;
         public System.Windows.Forms.ToolStripMenuItem mnuFileSave;
-        private ConnectableE btnTransformer3P;
+        private ConnectableE btnTransformer3P_Ver;
+        private System.Windows.Forms.FlowLayoutPanel pnlFlowTool;
+        private ConnectableE btnMFPower_Hor;
+        private ConnectableE btnBusPower_Ver;
+        private ConnectableE btnTransformer2P_Hor;
+        private ConnectableE btnTransformer3P_Hor;
+        private ConnectableE btnLinePower_Hor;
+        private ConnectableE btnLoad_Hor;
     }
 }
 
