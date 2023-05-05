@@ -108,6 +108,7 @@
     <Compile Include="Class_Database\DataRecordEPower.cs" />
     <Compile Include="Class_Database\DataRecordEPowerCtrl.cs" />
     <Compile Include="Class_Database\DTOBusEPower.cs" />
+    <Compile Include="Class_Database\DTODataPowerSystem.cs" />
     <Compile Include="Class_Database\DTOGeneEPower.cs" />
     <Compile Include="Class_Database\DTOLineEPower.cs" />
     <Compile Include="Class_Database\DTOLoadEPower.cs" />
@@ -122,6 +123,7 @@
       <DependentUpon>ConnectableE.cs</DependentUpon>
     </Compile>
     <Compile Include="DAO\DAO_BusData\DAOGeneBusRecord.cs" />
+    <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateYState.cs" />
     <Compile Include="DAO\DAO_GeneratorData\DAOGeneMFRecord.cs" />
     <Compile Include="DAO\DAO_GeneratorData\DAOUpdateMFAfterConnectBus.cs" />
     <Compile Include="DAO\DAO_LineData\DAOGeneLineRecord.cs" />
@@ -131,8 +133,18 @@
     <Compile Include="DAO\DAO_MBA2Data\DAOCalculateVoltageFixed.cs" />
     <Compile Include="DAO\DAO_MBA2Data\DAOGeneMBA2Record.cs" />
     <Compile Include="DAO\DAO_MBA2Data\DAOUpdateMBA2AfterConnectEnds.cs" />
+    <Compile Include="DAO\DAO_ProcessDelete\DAO_DeleteLineConnect\DAOProcessDeleteLineConnect.cs" />
+    <Compile Include="DAO\DAO_SaveAndReadPowerSystem\DAOProcessMenuFileStrip.cs" />
+    <Compile Include="DAO\DAO_SaveAndReadPowerSystem\DAOReadFilePowerSystem.cs" />
+    <Compile Include="DAO\DAO_SaveAndReadPowerSystem\DAOSaveFilePowerSystem.cs" />
     <Compile Include="EPowerProcess\EPowerProcessKey.cs" />
-    <Compile Include="Class_Database\FileFoctory.cs" />
+    <Compile Include="Class_Database\FileFactory.cs" />
+    <Compile Include="frmBuildNewCase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmBuildNewCase.Designer.cs">
+      <DependentUpon>frmBuildNewCase.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDataBranch.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +201,9 @@
     <Compile Include="EPowerProcess\EPowerProcessMouse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmBuildNewCase.resx">
+      <DependentUpon>frmBuildNewCase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmCapstone.resx">
       <DependentUpon>frmCapstone.cs</DependentUpon>
     </EmbeddedResource>

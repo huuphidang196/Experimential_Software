@@ -367,7 +367,7 @@ namespace Experimential_Software
             this.MinimizeBox = false;
             this.Name = "frmDataBus";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = " q";
+            this.Text = " Bus Data Record";
             this.Load += new System.EventHandler(this.frmDataBus_Load);
             this.pnlOverallBus.ResumeLayout(false);
             this.BusRecTab.ResumeLayout(false);

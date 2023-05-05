@@ -141,8 +141,8 @@ namespace Experimential_Software
             DTOBusEPower dtoBus_From = this._dtoMBA2EPowerRecord.DTOBus_From;
             DTOBusEPower dtoBus_To = this._dtoMBA2EPowerRecord.DTOBus_To;
             //Set label Normal Volatage of Bus Connect
-            this.lblNorBusPrimkV.Text = (dtoBus_From == null) ? "NULL" : dtoBus_From.NormalkV + "";
-            this.lblNorBusSeckV.Text = (dtoBus_To == null) ? "NULL" : dtoBus_To.NormalkV + "";
+            this.lblNorBusPrimkV.Text = (dtoBus_From == null) ? "NULL" : dtoBus_From.U_NormalkV + "";
+            this.lblNorBusSeckV.Text = (dtoBus_To == null) ? "NULL" : dtoBus_To.U_NormalkV + "";
         }
 
         //FixedTap Zone

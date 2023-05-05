@@ -62,9 +62,11 @@ namespace Experimential_Software.DAO.DAO_LineData
         protected virtual List<ConnectableE> GetEPowerConnectWithLineEPOwer(ConnectableE lineEPower)
         {
             //Get Class ProcessEPowerMove => Get Function get Line
-            ProcessEPowerMove processEPowerMove = lineEPower.EPowerProcessMouse.ProcessEPowerMove;
+            //  ProcessEPowerMove processEPowerMove = lineEPower.EPowerProcessMouse.ProcessEPowerMove;
             //get Line Connect Bus with Load. Line only connect with Bus => similar Load
-            List<LineConnect> lineConnecteds = processEPowerMove.GetLineStageEPower(lineEPower);
+            // List<LineConnect> lineConnecteds = processEPowerMove.GetLineStageEPower(lineEPower);
+
+            List<LineConnect> lineConnecteds = lineEPower.ListBranch_Drawn;
 
             if (lineConnecteds.Count == 0) return null;
 

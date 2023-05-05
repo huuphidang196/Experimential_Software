@@ -36,29 +36,10 @@ namespace Experimential_Software.DAO.DAO_GeneratorData
             dtoMF.IsInService = true;
 
             //**************Machine Data******************
-            //Set Pgen
-            dtoMF.Pgen_MW = 0;
-            //setPmax
-            dtoMF.Pmax_MW = 9999;
-            //set Pmin
-            dtoMF.Pmin_MW = -9999;
-
-            //Set Qgen
-            dtoMF.Qgen_MW = 0;
-            //set Qmax 
-            dtoMF.Qmax_MW = 9999;
-            //set Qmin 
-            dtoMF.Qmin_MW = -9999;
-            //set Mbase => CSDM
-            dtoMF.MBase = 100;
+            dtoMF.PowerMachineMF = new PowerMachineDataMF();
 
             //*******Transformer Data => Can have or maybe not **********
-            //R Tran
-            dtoMF.RTran_pu = 0;
-            //X Tran
-            dtoMF.XTran_pu = 0;
-            //Gentap
-            dtoMF.Gentap = 1;
+            dtoMF.ImpendanceMF = new ImpendanceMF();
 
             //**********Wind Data  => Can have or maybe not***************
             //Control Mode

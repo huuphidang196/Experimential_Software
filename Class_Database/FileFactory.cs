@@ -13,7 +13,7 @@ using Experimential_Software.CustomControl;
 namespace Experimential_Software.Class_Database
 {
     //DAO
-    public class FileFoctory
+    public class FileFactory
     {
         #region EPower
         public static bool SaveDataBaseEPower(List<ConnectableE> EPowers, string path)

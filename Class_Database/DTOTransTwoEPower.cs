@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -8,7 +9,7 @@ using System.Windows.Forms;
 namespace Experimential_Software.Class_Database
 {
     [Serializable]
-    public struct ImpendanceMBA2
+    public class ImpendanceMBA2
     {
         //R
         private double _specR_pu;
@@ -43,6 +44,30 @@ namespace Experimential_Software.Class_Database
             {
                 _magB_pu = Math.Round(value, 6);
             }
+        }
+
+        //Zij
+        public Complex Res_MBA2_pu
+        {
+            get { return new Complex(this._specR_pu, this._specX_pu); }
+        }
+
+        //Yij = -1 / Zij
+        public Complex Yb_Con_MBA2_pu
+        {
+            get { return -1 / this.Res_MBA2_pu; }
+        }
+        //Y0B = G + jB
+        public Complex Y0b_Con_MBA2_pu
+        {
+            get { return new Complex(this._magG_pu, this._magB_pu); }
+        }
+        public ImpendanceMBA2()
+        {
+            this._specR_pu = 0;
+            this._specX_pu = 0.0001;
+            this._magG_pu = 0;
+            this._magB_pu = 0;
         }
     }
 

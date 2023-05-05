@@ -36,7 +36,7 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
             dtoMBA2.PowerRated_MVA = 100;
 
             //Transformer Impendance Data
-            this.GenerateImpendanceDefault(dtoMBA2);
+            dtoMBA2.Impendace_MBA2 = new ImpendanceMBA2();
 
             //Set VoltageRating
             dtoMBA2.VoltageEnds_Rated = this.GenerateVoltageEnds(0, 0);
@@ -58,19 +58,6 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
             return dtoMBA2;
         }
 
-        protected virtual void GenerateImpendanceDefault(DTOTransTwoEPower dtoMBA2)
-        {
-            ImpendanceMBA2 impenMBA2 = dtoMBA2.Impendace_MBA2;
-            //Set Specified R_pu
-            impenMBA2.SpecR_pu = 0;
-            //Sey Spec X_Pu
-            impenMBA2.SpecX_pu = 0.0001;
-
-            //set Mag_G_pu
-            impenMBA2.MagG_pu = 0;
-            //SetMag_B_pu
-            impenMBA2.MagB_pu = 0;
-        }
         protected virtual VoltageEnds GenerateVoltageEnds(double Prim, double Sec)
         {
             VoltageEnds voltageEnds = new VoltageEnds();

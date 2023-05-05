@@ -59,7 +59,7 @@ namespace Experimential_Software
             this.label10 = new System.Windows.Forms.Label();
             this.txtChargingBPu = new System.Windows.Forms.TextBox();
             this.txtLengthBr = new System.Windows.Forms.TextBox();
-            this.txtLineBPu = new System.Windows.Forms.TextBox();
+            this.txtLineBToPu = new System.Windows.Forms.TextBox();
             this.txtLineGToPu = new System.Windows.Forms.TextBox();
             this.txtLineBFromPu = new System.Windows.Forms.TextBox();
             this.txtLineGFromPu = new System.Windows.Forms.TextBox();
@@ -299,7 +299,7 @@ namespace Experimential_Software
             this.grbBranchData.Controls.Add(this.label10);
             this.grbBranchData.Controls.Add(this.txtChargingBPu);
             this.grbBranchData.Controls.Add(this.txtLengthBr);
-            this.grbBranchData.Controls.Add(this.txtLineBPu);
+            this.grbBranchData.Controls.Add(this.txtLineBToPu);
             this.grbBranchData.Controls.Add(this.txtLineGToPu);
             this.grbBranchData.Controls.Add(this.txtLineBFromPu);
             this.grbBranchData.Controls.Add(this.txtLineGFromPu);
@@ -413,15 +413,15 @@ namespace Experimential_Software
             this.txtLengthBr.Text = "0.000";
             this.txtLengthBr.Leave += new System.EventHandler(this.EventDataIputIsNotNumber);
             // 
-            // txtLineBPu
+            // txtLineBToPu
             // 
-            this.txtLineBPu.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLineBPu.Location = new System.Drawing.Point(262, 215);
-            this.txtLineBPu.Name = "txtLineBPu";
-            this.txtLineBPu.Size = new System.Drawing.Size(119, 23);
-            this.txtLineBPu.TabIndex = 3;
-            this.txtLineBPu.Text = "0.000000";
-            this.txtLineBPu.Leave += new System.EventHandler(this.EventDataIputIsNotNumber);
+            this.txtLineBToPu.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtLineBToPu.Location = new System.Drawing.Point(262, 215);
+            this.txtLineBToPu.Name = "txtLineBToPu";
+            this.txtLineBToPu.Size = new System.Drawing.Size(119, 23);
+            this.txtLineBToPu.TabIndex = 3;
+            this.txtLineBToPu.Text = "0.000000";
+            this.txtLineBToPu.Leave += new System.EventHandler(this.EventDataIputIsNotNumber);
             // 
             // txtLineGToPu
             // 
@@ -529,7 +529,7 @@ namespace Experimential_Software
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtChargingBPu;
         private System.Windows.Forms.TextBox txtLengthBr;
-        private System.Windows.Forms.TextBox txtLineBPu;
+        private System.Windows.Forms.TextBox txtLineBToPu;
         private System.Windows.Forms.TextBox txtLineGToPu;
         private System.Windows.Forms.TextBox txtLineBFromPu;
         private System.Windows.Forms.TextBox txtLineGFromPu;

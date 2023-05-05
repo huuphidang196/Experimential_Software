@@ -40,22 +40,22 @@ namespace Experimential_Software
             this._dtoMFRecord = this._MF_EFixedData.DatabaseE.DataRecordE.DTOGeneEPower;
 
             //Set Info on group box Basic Data
-            this.SetValueShowOnGroupBasicData();
+            this.ShowtValueShowOnGroupBasicData();
 
             // Set Info Machine Data
-            this.SetValueShowOnGroupMachineData();
+            this.ShowValueShowOnGroupMachineData();
 
             //Set Transfomer Data
-            this.SetValueShowOnGroupTransformerData();
+            this.ShowValueShowOnGroupTransformerData();
 
             //Set Wind Data
-            this.SetValueShowOnGroupWindData();
+            this.ShowValueShowOnGroupWindData();
 
             //Set Plant Data
-            this.SetValueShowOnPlantData();
+            this.ShowValueShowOnPlantData();
         }
 
-        protected virtual void SetValueShowOnGroupBasicData()
+        protected virtual void ShowtValueShowOnGroupBasicData()
         {
             DTOBusEPower dtoBusConnected = this._dtoMFRecord.DTOBusConnected;
             //Set Bus Number
@@ -70,37 +70,39 @@ namespace Experimential_Software
             this.chkInService.Checked = this._dtoMFRecord.IsInService;
         }
 
-        protected virtual void SetValueShowOnGroupMachineData()
+        protected virtual void ShowValueShowOnGroupMachineData()
         {
+            PowerMachineDataMF powerMachine = this._dtoMFRecord.PowerMachineMF;
             //Set Pgen
-            this.txtPgen_MW.Text = this._dtoMFRecord.Pgen_MW.ToString("F4");
+            this.txtPgen_MW.Text = powerMachine.Pgen_MW.ToString("F4");
             //Set Pmax
-            this.txtPmax_MW.Text = this._dtoMFRecord.Pmax_MW.ToString("F4");
+            this.txtPmax_MW.Text = powerMachine.Pmax_MW.ToString("F4");
             //Set Pmin
-            this.txtPmin_MW.Text = this._dtoMFRecord.Pmin_MW.ToString("F4");
+            this.txtPmin_MW.Text = powerMachine.Pmin_MW.ToString("F4");
 
             //Set Qgen
-            this.txtQgen_Mvar.Text = this._dtoMFRecord.Qgen_MW.ToString("F4");
+            this.txtQgen_Mvar.Text = powerMachine.Qgen_MW.ToString("F4");
             //SetQmax
-            this.txtQmax_Mvar.Text = this._dtoMFRecord.Qmax_MW.ToString("F4");
+            this.txtQmax_Mvar.Text = powerMachine.Qmax_MW.ToString("F4");
             //Set Qmin
-            this.txtQmin_Mvar.Text = this._dtoMFRecord.Qmin_MW.ToString("F4");
+            this.txtQmin_Mvar.Text = powerMachine.Qmin_MW.ToString("F4");
 
             //Set Mbase => Công Suất ĐM
-            this.txtMbase_MVA.Text = this._dtoMFRecord.MBase.ToString("F2");
+            this.txtMbase_MVA.Text = powerMachine.MBase.ToString("F2");
         }
 
-        protected virtual void SetValueShowOnGroupTransformerData()
+        protected virtual void ShowValueShowOnGroupTransformerData()
         {
+            ImpendanceMF impendanceMF = this._dtoMFRecord.ImpendanceMF;
             //Set R Trans
-            this.txtRTran_pu.Text = this._dtoMFRecord.RTran_pu.ToString("F5");
+            this.txtRTran_pu.Text = impendanceMF.RTran_pu.ToString("F5");
             //Set X Trans
-            this.txtXTran_pu.Text = this._dtoMFRecord.XTran_pu.ToString("F5");
+            this.txtXTran_pu.Text = impendanceMF.XTran_pu.ToString("F5");
             //Set Gentap
-            this.txtGentapMF.Text = this._dtoMFRecord.Gentap.ToString("F5");
+            this.txtGentapMF.Text = impendanceMF.Gentap.ToString("F5");
         }
 
-        protected virtual void SetValueShowOnGroupWindData()
+        protected virtual void ShowValueShowOnGroupWindData()
         {
             //Set Control Mode
             foreach (WindMFControlMode ctrlMode in Enum.GetValues(typeof(WindMFControlMode)))
@@ -114,7 +116,7 @@ namespace Experimential_Software
             this.lblValuePowerFactor.Text = this._dtoMFRecord.PowerFactor.ToString("F3");
         }
 
-        protected virtual void SetValueShowOnPlantData()
+        protected virtual void ShowValueShowOnPlantData()
         {
             //Set Sched Voltage
             this.txtSchedVoltage.Text = this._dtoMFRecord.SchedVoltage.ToString("F4");
@@ -164,31 +166,31 @@ namespace Experimential_Software
             // Machine Data
 
             //Pgen
-            this._dtoMFRecord.Pgen_MW = double.Parse(this.txtPgen_MW.Text);
+            this._dtoMFRecord.PowerMachineMF.Pgen_MW = double.Parse(this.txtPgen_MW.Text);
             //Pmax
-            this._dtoMFRecord.Pmax_MW = double.Parse(this.txtPmax_MW.Text);
+            this._dtoMFRecord.PowerMachineMF.Pmax_MW = double.Parse(this.txtPmax_MW.Text);
             //Pmin
-            this._dtoMFRecord.Pmin_MW = double.Parse(this.txtPmin_MW.Text);
+            this._dtoMFRecord.PowerMachineMF.Pmin_MW = double.Parse(this.txtPmin_MW.Text);
 
             //Qgen
-            this._dtoMFRecord.Qgen_MW = double.Parse(this.txtQgen_Mvar.Text);
+            this._dtoMFRecord.PowerMachineMF.Qgen_MW = double.Parse(this.txtQgen_Mvar.Text);
             //Qmax
-            this._dtoMFRecord.Qmax_MW = double.Parse(this.txtQmax_Mvar.Text);
+            this._dtoMFRecord.PowerMachineMF.Qmax_MW = double.Parse(this.txtQmax_Mvar.Text);
             //Qmin
-            this._dtoMFRecord.Qmin_MW = double.Parse(this.txtQmin_Mvar.Text);
+            this._dtoMFRecord.PowerMachineMF.Qmin_MW = double.Parse(this.txtQmin_Mvar.Text);
 
             //Mbase
-            this._dtoMFRecord.MBase = double.Parse(this.txtMbase_MVA.Text);
+            this._dtoMFRecord.PowerMachineMF.MBase = double.Parse(this.txtMbase_MVA.Text);
         }
 
         protected virtual void UpdateTranDataForDatabaseMF()
         {
             //RTran
-            this._dtoMFRecord.RTran_pu = double.Parse(this.txtRTran_pu.Text);
+            this._dtoMFRecord.ImpendanceMF.RTran_pu = double.Parse(this.txtRTran_pu.Text);
             //XTran
-            this._dtoMFRecord.XTran_pu = double.Parse(this.txtXTran_pu.Text);
+            this._dtoMFRecord.ImpendanceMF.XTran_pu = double.Parse(this.txtXTran_pu.Text);
             //genTap
-            this._dtoMFRecord.Gentap = double.Parse(this.txtGentapMF.Text);
+            this._dtoMFRecord.ImpendanceMF.Gentap = double.Parse(this.txtGentapMF.Text);
         }
 
 

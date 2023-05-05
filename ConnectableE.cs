@@ -71,11 +71,11 @@ namespace Experimential_Software
 
         //List LineConnected with this EPower
         protected List<LineConnect> _listBranch_Drawn;
-        public List<LineConnect> ListBranch_Drawn => _listBranch_Drawn;
+        public List<LineConnect> ListBranch_Drawn { get => _listBranch_Drawn; set => _listBranch_Drawn = value; }
 
         //Use for Proccessing Zoom
-        protected Point _oldLocation;
-        public Point OldLocation { get => _oldLocation; set => _oldLocation = value; }
+        protected Point _preLocation;
+        public Point PreLocation { get => _preLocation; set => _preLocation = value; }
 
 
         //if GenerateMode = Instance => Open frm Record
@@ -469,7 +469,6 @@ namespace Experimential_Software
 
             this._ePowerMouse.ButtonInstance_MouseUp(e);
             this.isMove = false;
-           // MessageBox.Show(this.ToString() + ", Count = " + this._listBranch_Drawn.Count);
         }
 
 
@@ -507,7 +506,7 @@ namespace Experimential_Software
             if (this.isOnTool && this._databaseE != null) this.Dispose();
         }
 
-       
+
         #region Key
 
         protected override void OnKeyDown(KeyEventArgs e)

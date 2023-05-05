@@ -37,12 +37,14 @@ namespace Experimential_Software.DAO.DAO_GeneratorData
             MFEPower.DatabaseE.DataRecordE.DTOGeneEPower.DTOBusConnected = dtoBusEPower;
         }
 
-        protected virtual ConnectableE GetEPowerConnectWithMFEPOwer(ConnectableE lineEPower)
+        protected virtual ConnectableE GetEPowerConnectWithMFEPOwer(ConnectableE MFEPower)
         {
             //Get Class ProcessEPowerMove => Get Function get Line
-            ProcessEPowerMove processEPowerMove = lineEPower.EPowerProcessMouse.ProcessEPowerMove;
+            // ProcessEPowerMove processEPowerMove = MFEPower.EPowerProcessMouse.ProcessEPowerMove;
             //get ConnectedBus with MF. MF only connect with Bus => similar Load
-            List<LineConnect> ListlineConnected = processEPowerMove.GetLineStageEPower(lineEPower);
+            //  List<LineConnect> ListlineConnected = processEPowerMove.GetLineStageEPower(MFEPower);
+
+            List<LineConnect> ListlineConnected = MFEPower.ListBranch_Drawn;
 
             if (ListlineConnected.Count == 0) return null;
 

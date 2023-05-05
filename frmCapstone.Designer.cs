@@ -75,6 +75,7 @@ namespace Experimential_Software
             this.lblLine.Size = new System.Drawing.Size(133, 20);
             this.lblLine.TabIndex = 2;
             this.lblLine.Text = "Command is here";
+            this.lblLine.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblLine_MouseDown);
             // 
             // mnuStripBar
             // 
@@ -157,9 +158,10 @@ namespace Experimential_Software
             this.btnBusPower.IsOnTool = true;
             this.btnBusPower.IsSelected = false;
             this.btnBusPower.LblInfoE = null;
+            this.btnBusPower.ListBranch_Drawn = null;
             this.btnBusPower.Location = new System.Drawing.Point(30, 40);
             this.btnBusPower.Name = "btnBusPower";
-            this.btnBusPower.OldLocation = new System.Drawing.Point(0, 0);
+            this.btnBusPower.PreLocation = new System.Drawing.Point(0, 0);
             this.btnBusPower.PHead = new System.Drawing.Point(0, 0);
             this.btnBusPower.PTail = new System.Drawing.Point(0, 0);
             this.btnBusPower.Size = new System.Drawing.Size(50, 50);
@@ -191,9 +193,10 @@ namespace Experimential_Software
             this.btnLoad.IsOnTool = true;
             this.btnLoad.IsSelected = false;
             this.btnLoad.LblInfoE = null;
+            this.btnLoad.ListBranch_Drawn = null;
             this.btnLoad.Location = new System.Drawing.Point(30, 534);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.OldLocation = new System.Drawing.Point(0, 0);
+            this.btnLoad.PreLocation = new System.Drawing.Point(0, 0);
             this.btnLoad.PHead = new System.Drawing.Point(0, 0);
             this.btnLoad.PTail = new System.Drawing.Point(0, 0);
             this.btnLoad.Size = new System.Drawing.Size(50, 50);
@@ -215,9 +218,10 @@ namespace Experimential_Software
             this.btnMFPower.IsOnTool = true;
             this.btnMFPower.IsSelected = false;
             this.btnMFPower.LblInfoE = null;
+            this.btnMFPower.ListBranch_Drawn = null;
             this.btnMFPower.Location = new System.Drawing.Point(30, 125);
             this.btnMFPower.Name = "btnMFPower";
-            this.btnMFPower.OldLocation = new System.Drawing.Point(0, 0);
+            this.btnMFPower.PreLocation = new System.Drawing.Point(0, 0);
             this.btnMFPower.PHead = new System.Drawing.Point(0, 0);
             this.btnMFPower.PTail = new System.Drawing.Point(0, 0);
             this.btnMFPower.Size = new System.Drawing.Size(50, 50);
@@ -239,9 +243,10 @@ namespace Experimential_Software
             this.btnTransformer3P.IsOnTool = true;
             this.btnTransformer3P.IsSelected = false;
             this.btnTransformer3P.LblInfoE = null;
+            this.btnTransformer3P.ListBranch_Drawn = null;
             this.btnTransformer3P.Location = new System.Drawing.Point(30, 318);
             this.btnTransformer3P.Name = "btnTransformer3P";
-            this.btnTransformer3P.OldLocation = new System.Drawing.Point(0, 0);
+            this.btnTransformer3P.PreLocation = new System.Drawing.Point(0, 0);
             this.btnTransformer3P.PHead = new System.Drawing.Point(0, 0);
             this.btnTransformer3P.PTail = new System.Drawing.Point(0, 0);
             this.btnTransformer3P.Size = new System.Drawing.Size(50, 50);
@@ -264,9 +269,10 @@ namespace Experimential_Software
             this.btnTransformer2P.IsOnTool = true;
             this.btnTransformer2P.IsSelected = false;
             this.btnTransformer2P.LblInfoE = null;
+            this.btnTransformer2P.ListBranch_Drawn = null;
             this.btnTransformer2P.Location = new System.Drawing.Point(30, 227);
             this.btnTransformer2P.Name = "btnTransformer2P";
-            this.btnTransformer2P.OldLocation = new System.Drawing.Point(0, 0);
+            this.btnTransformer2P.PreLocation = new System.Drawing.Point(0, 0);
             this.btnTransformer2P.PHead = new System.Drawing.Point(0, 0);
             this.btnTransformer2P.PTail = new System.Drawing.Point(0, 0);
             this.btnTransformer2P.Size = new System.Drawing.Size(50, 50);
@@ -289,9 +295,10 @@ namespace Experimential_Software
             this.btnLinePower.IsOnTool = true;
             this.btnLinePower.IsSelected = false;
             this.btnLinePower.LblInfoE = null;
+            this.btnLinePower.ListBranch_Drawn = null;
             this.btnLinePower.Location = new System.Drawing.Point(30, 421);
             this.btnLinePower.Name = "btnLinePower";
-            this.btnLinePower.OldLocation = new System.Drawing.Point(0, 0);
+            this.btnLinePower.PreLocation = new System.Drawing.Point(0, 0);
             this.btnLinePower.PHead = new System.Drawing.Point(0, 0);
             this.btnLinePower.PTail = new System.Drawing.Point(0, 0);
             this.btnLinePower.Size = new System.Drawing.Size(50, 50);

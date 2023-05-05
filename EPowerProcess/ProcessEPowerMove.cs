@@ -14,14 +14,15 @@ namespace Experimential_Software.EPowerProcess
     {
         protected ConnectableE _ePowerInstance;
 
-        protected frmCapstone _formCap;
+      //  protected frmCapstone _formCap;
         protected List<LineConnect> lineConnectList;
 
         public ProcessEPowerMove(EPowerProcessMouse ePowerMouse)
         {
-            this._formCap = ePowerMouse.EPower_Instance.FormCapstone;
+          //  this._formCap = ePowerMouse.EPower_Instance.FormCapstone;
             this._ePowerInstance = ePowerMouse.EPower_Instance;
-            this.lineConnectList = ePowerMouse.EPower_Instance.FormCapstone.LineConnectList;
+            //this.lineConnectList = ePowerMouse.EPower_Instance.FormCapstone.LineConnectList;
+            this.lineConnectList = ePowerMouse.EPower_Instance.ListBranch_Drawn;
         }
 
         public virtual void ProcessEPowerMoveOverall( EPowerProcessLineTemp EPowerProcessLinetemp)
@@ -31,10 +32,10 @@ namespace Experimential_Software.EPowerProcess
             if (this._ePowerInstance == null) return;
 
             // Not use PHead PTail because Now Phead and PTail is changed
-            List<LineConnect> lineListConnected = this.GetLineStageEPower(this._ePowerInstance);
+         //   List<LineConnect> lineListConnected = this.GetLineStageEPower(this._ePowerInstance);
 
             //Update Pos Point
-            foreach (LineConnect lineConnect in lineListConnected)
+            foreach (LineConnect lineConnect in this.lineConnectList)
             {
                 EPowerProcessLinetemp.ClearTwoOldLineWhenMove(lineConnect);
                 lineConnect.UpdateEndsPointAfterEPowerMove(this._ePowerInstance);
@@ -44,45 +45,9 @@ namespace Experimential_Software.EPowerProcess
             this._ePowerInstance.FormCapstone.DrawAllLineOnPanel();
         }
 
-        public virtual List<LineConnect> GetLineStageEPower(ConnectableE btnEPower)
-        {
-            LineConnect lineConPre = null;
-            List<LineConnect> lineListConnected = new List<LineConnect>();
-
-            foreach (LineConnect lineConnect in this.lineConnectList)
-            {
-                ConnectableE ePower = this.CheckEndsEPowerOfLine(lineConnect, btnEPower);
-                if (ePower == null) continue;
-
-                if (lineConnect == lineConPre) continue;
-
-                lineConPre = lineConnect;
-                lineListConnected.Add(lineConnect);
-            }
-
-            return lineListConnected;
-        }
-
-        protected virtual ConnectableE CheckEndsEPowerOfLine(LineConnect lineConnect, ConnectableE btnEPower)
-        {
-            bool isStartEPower = lineConnect.CheckEPowerByName(btnEPower, lineConnect.StartEPower);
-            if (isStartEPower) return lineConnect.StartEPower;
-
-            bool isEndEPower = lineConnect.CheckEPowerByName(btnEPower, lineConnect.EndEPower);
-            if (isEndEPower) return lineConnect.EndEPower;
-
-            return null;
-        }
+     
 
       
-
-        protected virtual Point TransferPointToMain(ConnectableE connectableE, Point point, PanelMain pnlMainDrawn)
-        {
-            Point pointToScreen = connectableE.PointToScreen(point);
-            Point pointToMain = pnlMainDrawn.PointToClient(pointToScreen);
-
-            return pointToMain;
-        }
     }
 }
 
@@ -160,4 +125,45 @@ namespace Experimential_Software.EPowerProcess
 //    }
 
 //    return null;
+//}
+
+
+
+// 4/5/2023
+//public virtual List<LineConnect> GetLineStageEPower(ConnectableE btnEPower)
+//{
+//    LineConnect lineConPre = null;
+//    List<LineConnect> lineListConnected = new List<LineConnect>();
+
+//    foreach (LineConnect lineConnect in this.lineConnectList)
+//    {
+//        ConnectableE ePower = this.CheckEndsEPowerOfLine(lineConnect, btnEPower);
+//        if (ePower == null) continue;
+
+//        if (lineConnect == lineConPre) continue;
+
+//        lineConPre = lineConnect;
+//        lineListConnected.Add(lineConnect);
+//    }
+
+//    return lineListConnected;
+////}
+
+//protected virtual ConnectableE CheckEndsEPowerOfLine(LineConnect lineConnect, ConnectableE btnEPower)
+//{
+//    bool isStartEPower = lineConnect.CheckEPowerByName(btnEPower, lineConnect.StartEPower);
+//    if (isStartEPower) return lineConnect.StartEPower;
+
+//    bool isEndEPower = lineConnect.CheckEPowerByName(btnEPower, lineConnect.EndEPower);
+//    if (isEndEPower) return lineConnect.EndEPower;
+
+//    return null;
+//}
+
+//protected virtual Point TransferPointToMain(ConnectableE connectableE, Point point, PanelMain pnlMainDrawn)
+//{
+//    Point pointToScreen = connectableE.PointToScreen(point);
+//    Point pointToMain = pnlMainDrawn.PointToClient(pointToScreen);
+
+//    return pointToMain;
 //}

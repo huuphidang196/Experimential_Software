@@ -149,8 +149,7 @@ namespace Experimential_Software.EPowerProcess
 
             this._ePower.Location = this.TransferPosMouseToControl(e);
             //After move update again postion of Epower. When move difference Zoom
-            this._ePower.OldLocation = this._ePower.Location;
-            // MessageBox.Show("After Old Location = " + this._ePower.OldLocation);
+            this._ePower.PreLocation = this._ePower.Location;
         }
 
         protected virtual void CheckAndAddLineConnet(ConnectableE buttonInstance)

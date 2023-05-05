@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Experimential_Software.DAO.DAO_ProcessDelete.DAO_DeleteLineConnect;
 
 namespace Experimential_Software.EPowerProcess
 {
@@ -41,55 +42,75 @@ namespace Experimential_Software.EPowerProcess
         {
             if (e.KeyCode != Keys.Delete) return;
 
-            //Find line connect this
-            // LineConnect lineConnect = this.FindLineConnectEPower(lineConnectList, ePower_Del);
-            List<LineConnect> lineListConnected = this.GetLineStageEPower(this._ePowerInstance);
-
-            if (lineListConnected.Count == 0) return;
-
-            foreach (LineConnect lineConnect in lineListConnected)
+            //Remove All Line Connect with EPower
+            for (int i = 0; i < this.lineConnectList.Count; i++)
             {
+                LineConnect lineConnect = this.lineConnectList[i];
+
                 this._ePowerInstance.EPowerLineTemp.ClearTwoOldLineWhenMove(lineConnect);
-                //Determine ConnectionE connect with line => set iscontainPHead or Tail
-                this.SetIsContainEPower(lineConnect);
-                //Remove Line Connect with ePower is removed outside List LineConenect of EPower Affect 
-                this.RemoveLineConnectWithERemoveOutSideEAffect(lineConnect);
+
+                DAOProcessDeleteLineConnect.Instance.ProcessDeleteLineConnect(lineConnect);
 
                 this._ePowerInstance.FormCapstone.RemoveLine(lineConnect);
 
                 //Remove LineConneted outside this ListLine EPower and other EPower connected with this
-                this._ePowerInstance.RemoveLineConnectedToList(lineConnect);
+                 this._ePowerInstance.RemoveLineConnectedToList(lineConnect);
             }
-
+        
             //remove this out EPowers
             this._ePowerInstance.FormCapstone.RemoveEPower(this._ePowerInstance);
-            this._ePowerInstance.Dispose();
+
             this._ePowerInstance.LblInfoE.Dispose();
+            this._ePowerInstance.Dispose();
 
             this._ePowerInstance.FormCapstone.DrawAllLineOnPanel();
         }
 
-        
+      
+    }
+}
 
-        protected virtual List<LineConnect> GetLineStageEPower(ConnectableE btnEPower)
+
+
+
+
+
+
+
+/*
+        foreach (LineConnect lineConnect in this.lineConnectList)
         {
-            LineConnect lineConPre = null;
-            List<LineConnect> lineListConnected = new List<LineConnect>();// Because Bus have many Line
+            this._ePowerInstance.EPowerLineTemp.ClearTwoOldLineWhenMove(lineConnect);
 
-            foreach (LineConnect lineConnect in this.lineConnectList)
-            {
-                ConnectableE ePower = this.CheckEndsEPowerOfLine(lineConnect, btnEPower);
-                if (ePower == null) continue;
+            DAOProcessDeleteLineConnect.Instance.ProcessDeleteLineConnect(lineConnect);
 
-                if (lineConnect == lineConPre) continue;
+            this._ePowerInstance.FormCapstone.RemoveLine(lineConnect);
 
-                lineConPre = lineConnect;
-                lineListConnected.Add(lineConnect);
-            }
-
-            return lineListConnected;
+            //Remove LineConneted outside this ListLine EPower and other EPower connected with this
+            this._ePowerInstance.RemoveLineConnectedToList(lineConnect);
         }
 
+
+protected virtual List<LineConnect> GetLineStageEPower(ConnectableE btnEPower)
+{
+    LineConnect lineConPre = null;
+    List<LineConnect> lineListConnected = new List<LineConnect>();// Because Bus have many Line
+
+    foreach (LineConnect lineConnect in this.lineConnectList)
+    {
+        ConnectableE ePower = this.CheckEndsEPowerOfLine(lineConnect, btnEPower);
+        if (ePower == null) continue;
+
+        if (lineConnect == lineConPre) continue;
+
+        lineConPre = lineConnect;
+        lineListConnected.Add(lineConnect);
+    }
+
+    return lineListConnected;
+}
+
+   
         protected virtual ConnectableE CheckEndsEPowerOfLine(LineConnect lineConnect, ConnectableE btnEPower)
         {
             bool isStartEPower = lineConnect.CheckEPowerByName(btnEPower, lineConnect.StartEPower);
@@ -101,41 +122,4 @@ namespace Experimential_Software.EPowerProcess
             return null;
         }
 
-        protected virtual void SetIsContainEPower(LineConnect lineRemoved)
-        {
-            //Line alwway 2 Connect 
-            ConnectableE startEPower = lineRemoved.StartEPower;
-            ConnectableE endEPower = lineRemoved.EndEPower;
-
-            if (this.IsPointOfHead(lineRemoved, 0)) startEPower.IsContainPhead = false;
-            else startEPower.IsContainPtail = false;
-
-            if (this.IsPointOfHead(lineRemoved, 1)) endEPower.IsContainPhead = false;
-            else endEPower.IsContainPtail = false;
-        
-        }
-
-        private void RemoveLineConnectWithERemoveOutSideEAffect(LineConnect lineRemoved)
-        {
-            ConnectableE startEPower = lineRemoved.StartEPower;
-            ConnectableE endEPower = lineRemoved.EndEPower;
-            //Remove LinnConnected is removed from List In StartE and End
-            //Update Data EPower When EPower Connected is removed
-            //Remove before update
-            startEPower.RemoveLineConnectedToList(lineRemoved);
-            lineRemoved.StartEPower = null;
-            startEPower.UpdateDataRecordEPowerWhenConnect(true);
-
-            endEPower.RemoveLineConnectedToList(lineRemoved);
-            lineRemoved.EndEPower = null;
-            endEPower.UpdateDataRecordEPowerWhenConnect(true);
-        }
-        protected virtual bool IsPointOfHead(LineConnect lineSelected, int numberEnds)
-        {
-            PointOfEnds internPointEPower = numberEnds == 0 ? lineSelected.StartPointEPower : lineSelected.EndPointEPower;
-            bool isContainHead = internPointEPower == PointOfEnds.PointOfHead ? true : false;
-
-            return isContainHead;
-        }
-    }
-}
+        */

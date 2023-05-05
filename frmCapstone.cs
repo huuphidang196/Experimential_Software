@@ -16,32 +16,37 @@ using Experimential_Software.DAO.DAO_GeneratorData;
 using Experimential_Software.DAO.DAO_LineData;
 using Experimential_Software.DAO.DAO_LoadData;
 using Experimential_Software.DAO.DAO_MBA2Data;
-
+using Experimential_Software.DAO.DAO_SaveAndReadPowerSystem;
+using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
+using System.Numerics;
 
 namespace Experimential_Software
 {
     public partial class frmCapstone : Form
     {
-        protected int countElement = 0;
-        public int CountElement { get => countElement; set => countElement = value; }
+        protected DTODataPowerSystem _dtoPowerSystem;
+        public DTODataPowerSystem DTOPowerSystem { get => _dtoPowerSystem; set => _dtoPowerSystem = value; }
+
+        protected int _countElement = 0;
+        public int CountElement { get => _countElement; set => _countElement = value; }
         // protected PanelMain pnlMainDrawn;
 
-        protected List<ConnectableE> ePowers = new List<ConnectableE>();
-        public List<ConnectableE> EPowers { get => ePowers; set => ePowers = value; }
+        protected List<ConnectableE> _ePowers = new List<ConnectableE>();
+        public List<ConnectableE> EPowers { get => _ePowers; set => _ePowers = value; }
 
         //Remember sam ProcessMnuFile must fix List by directly add, not generate List after equal that this is not reference
         protected List<LineConnect> lineConnectList = new List<LineConnect>();
         public List<LineConnect> LineConnectList { get => lineConnectList; set => lineConnectList = value; }
 
 
-        protected List<IMouseOnEndsControl> iEPowers = new List<IMouseOnEndsControl>();
-        public List<IMouseOnEndsControl> IEPowers { get => iEPowers; set => iEPowers = value; }
+        protected List<IMouseOnEndsControl> _iEPowers = new List<IMouseOnEndsControl>();
+        public List<IMouseOnEndsControl> IEPowers { get => _iEPowers; set => _iEPowers = value; }
 
         //Process new file, open, save
-        protected ProcessMnuFile _processMnuFile;
+        //  protected ProcessMnuFile _processMnuFile;
 
 
-        protected double zoomFactor = 1;
+        protected double _zoomFactor = 1;
 
         public frmCapstone()
         {
@@ -53,12 +58,15 @@ namespace Experimential_Software
             //Experimental Calculate YBus
             //this.ExperimentalYBus();
 
+            this.OpenFormSetBaseMVA();
+
             this.FixScaleSizeForm();
             this.LoadImageMenuFile();
-            this._processMnuFile = new ProcessMnuFile(this);
+            // this._processMnuFile = new ProcessMnuFile(this);
             this.pnlMain.PanelMainMouse.FrmCapstone = this;
             this.lblLine.Text = "Zoom = " + this.pnlMain.ZoomFactor;
         }
+
 
         #region Load_Form
         protected virtual void ExperimentalYBus()
@@ -108,7 +116,7 @@ namespace Experimential_Software
 
             // fix form không thể thu nhỏ hoặc phóng to
             this.MinimizeBox = false;
-            this.MaximizeBox = false;
+            this.MaximizeBox = true;
             this.MaximumSize = this.Size; // giới hạn kích thước lớn nhất bằng kích thước hiện tại
             this.MinimumSize = this.Size; // giới hạn kích thước nhỏ nhất bằng kích thước hiện tại
                                           //Experimental by Form Data Bus. After set again
@@ -117,6 +125,17 @@ namespace Experimential_Software
         private void frmCapstone_Resize(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Maximized; // set window state to normal
+        }
+
+        protected virtual void OpenFormSetBaseMVA()
+        {
+            this._dtoPowerSystem = new DTODataPowerSystem();
+            //Opwen Form BUild New Case
+            frmBuildNewCase frmBuildNew = new frmBuildNewCase();
+            frmBuildNew.DTPPowerSystem = this._dtoPowerSystem;
+            frmBuildNew.ShowDialog();
+
+            //   MessageBox.Show("MVA = " + this._dtoPowerSystem.PowreBase_S_MVA + ", Frequency = " + this._dtoPowerSystem.Frequency_System_Hz);
         }
 
         #endregion Load_Form
@@ -138,30 +157,30 @@ namespace Experimential_Software
 
         public virtual void AddEPower(ConnectableE ePower)
         {
-            this.ePowers.Add(ePower);
+            this._ePowers.Add(ePower);
         }
 
 
         public virtual void RemoveEPower(ConnectableE ePower)
         {
-            this.ePowers.Remove(ePower);
+            this._ePowers.Remove(ePower);
             //Draw All Line
             this.DrawAllLineOnPanel();
         }
 
         public virtual void AddIMouseOnEnds(IMouseOnEndsControl mouseOnEnds)
         {
-            this.iEPowers.Add(mouseOnEnds);
+            this._iEPowers.Add(mouseOnEnds);
         }
 
         public virtual void RemoveIMouseOnEndsAfterDelete(IMouseOnEndsControl mouseOnEnds)
         {
-            this.iEPowers.Remove(mouseOnEnds);
+            this._iEPowers.Remove(mouseOnEnds);
         }
 
         public virtual void ShowPointConnect()
         {
-            foreach (IMouseOnEndsControl ePower in this.iEPowers)
+            foreach (IMouseOnEndsControl ePower in this._iEPowers)
             {
                 ePower.MouseMoveEnds();
             }
@@ -171,7 +190,7 @@ namespace Experimential_Software
         {
             if (endLinePoint == Point.Empty) return null;
 
-            foreach (ConnectableE ePower in this.ePowers)
+            foreach (ConnectableE ePower in this._ePowers)
             {
                 bool isOnPower = ePower.Bounds.Contains(endLinePoint);
                 if (!isOnPower) continue;
@@ -187,14 +206,14 @@ namespace Experimential_Software
         //Remove isselect another ConnectionE
         public virtual void SetIsSelectedEPower(ConnectableE ePower_Focused)
         {
-            foreach (ConnectableE ePower in this.ePowers)
+            foreach (ConnectableE ePower in this._ePowers)
             {
                 if (ePower != ePower_Focused) ePower.IsSelected = false;
             }
 
         }
 
-       
+
 
 
         public virtual void DrawAllLineOnPanel()
@@ -215,15 +234,6 @@ namespace Experimential_Software
             pnlMain.CreateGraphics().DrawLine(Pens.Black, startPoint, endPoint);
         }
 
-        public virtual void DrawStableAllEPowerOnPanel()
-        {
-            foreach (ConnectableE ePower in this.EPowers)
-            {
-                // ePower.Invalidate(); 
-            }
-        }
-
-    
 
         public virtual LineConnect FindLineIsSelected()
         {
@@ -279,6 +289,11 @@ namespace Experimential_Software
         //Panel Main  
         private void pnlMain_MouseDown(object sender, MouseEventArgs e)
         {
+            this.PrcocessLineDrawnSelectAndRemoveLineDrawn(e);
+        }
+
+        private void PrcocessLineDrawnSelectAndRemoveLineDrawn(MouseEventArgs e)
+        {
             //select line in Panel, set isSelected false for all btn
             this.SetIsSelectedEPower(null);
 
@@ -291,11 +306,13 @@ namespace Experimential_Software
             LineConnect lineSeleted = pnlMain.PanelMainMouse.FindLineConnectIsSelected(this.lineConnectList);
 
             //Set false
-            if (lineSeleted != null) this.pnlMain.PanelMainMouse.SetFalseSelectedOtherLine(lineSeleted, this.lineConnectList);
+            if (lineSeleted == null) return;
 
+            //Set falsse other Line is not selected near mouse
+            this.pnlMain.PanelMainMouse.SetFalseSelectedOtherLine(lineSeleted, this.lineConnectList);
+            //Remove Line Drawn When Press Ctrl
+            if (Control.ModifierKeys == Keys.Control) this.pnlMain.ProcessDeleteLine(this);
         }
-
-
 
         private void pnlMain_DragEnter(object sender, DragEventArgs e)
         {
@@ -314,13 +331,13 @@ namespace Experimential_Software
                 control.Location = dropLocation;
                 ConnectableE ePower = control as ConnectableE;
 
-                ePower.OldLocation = dropLocation;
+                ePower.PreLocation = dropLocation;
 
-                this.ePowers.Add(ePower);
-                this.iEPowers.Add(ePower);
+                this._ePowers.Add(ePower);
+                this._iEPowers.Add(ePower);
                 ePower.IsOnTool = false;
 
-                this.zoomFactor = pnlMain.ZoomFactor;
+                this._zoomFactor = pnlMain.ZoomFactor;
                 pnlMain.SetInsideEPower(ePower);
 
                 //Open Data Record the first
@@ -345,7 +362,7 @@ namespace Experimential_Software
         {
             if (e.Button == MouseButtons.Right) return;
             //count objectype
-            var ListEPowerInstance = this.ePowers.FindAll(x => x.DatabaseE.ObjectType == databaseE.ObjectType);
+            var ListEPowerInstance = this._ePowers.FindAll(x => x.DatabaseE.ObjectType == databaseE.ObjectType);
             int currentExistMax = 0;
 
             databaseE.DataRecordE = new DataRecordEPowerCtrl();
@@ -358,6 +375,8 @@ namespace Experimential_Software
                 case ObjectType.MF:
                     if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOGeneEPower.ObjectNumber);//dto MF = 2
                     databaseE.DataRecordE.DTOGeneEPower = DAOGeneMFRecord.Instance.GenerateDTOMFEPowerDefault(currentExistMax);
+                    //Set BaseMVA 
+                    databaseE.DataRecordE.DTOGeneEPower.PowerMachineMF.MBase = this._dtoPowerSystem.PowreBase_S_MVA;
                     break;
                 case ObjectType.MBA2P:
                     if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOTransTwoEPower.ObjectNumber);//dto MBA2 => 3
@@ -370,13 +389,15 @@ namespace Experimential_Software
                 case ObjectType.Load:
                     if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOLoadEPower.ObjectNumber);//dtoLoad.
                     databaseE.DataRecordE.DTOLoadEPower = DAOGeneLoadRecord.Instance.GenerateDTOLoadDefault(currentExistMax);
+                    //Set BaseMVA 
+                    databaseE.DataRecordE.DTOLoadEPower.MBase = this._dtoPowerSystem.PowreBase_S_MVA;
                     break;
             }
             // Create instance of button1 and start drag-and-drop operation
             ConnectableE ctrlInstance = new ConnectableE(this, pnlMain, databaseE, this.imgListEPower, generateMode);
 
             //cOUNT aLLL Epowers
-            countElement = this.ePowers.Count + 1;
+            _countElement = this._ePowers.Count + 1;
 
             ctrlInstance.Location = btnTool.Location;
             ctrlInstance.DoDragDrop(ctrlInstance, DragDropEffects.Move);
@@ -392,36 +413,76 @@ namespace Experimential_Software
 
         private void mnuFileNew_Click(object sender, EventArgs e)
         {
-            this._processMnuFile.FunctionMnuFileNew_Click(sender, e);
+            // this._processMnuFile.FunctionMnuFileNew_Click(sender, e);
+            DAOProcessMenuFileStrip.Instance.FunctionMnuFileNew_Click(this);
+            //Set Again Base MVA
+            this.OpenFormSetBaseMVA();
+            this._zoomFactor = 1;
+            this.pnlMain.ZoomFactor = 1;
+            this.lblLine.Text = "Zoom = " + this.pnlMain.ZoomFactor;
         }
 
         //openFile
         private void mnuFileOpen_Click(object sender, EventArgs e)
         {
-            this._processMnuFile.FunctionMnuFileOpen_Click(sender, e);
+            // this._processMnuFile.FunctionMnuFileOpen_Click(sender, e);
+            DAOProcessMenuFileStrip.Instance.FunctionMnuFileOpen_Click(this);
+            this._zoomFactor = pnlMain.ZoomFactor;
+            this.lblLine.Text = "Zoom = " + this.pnlMain.ZoomFactor;
             //Drawn Line On Panel Main After Have Info Line
             this.DrawAllLineOnPanel();
 
-            if (this.pnlMain.ZoomFactor == 1) return;
-            foreach (ConnectableE ePower in EPowers)
-            {
-                ePower.EPowerProcessMouse.UpdateLineWhenMove();
-            }
-            this.lblLine.Text = "Zoom = " + this.pnlMain.ZoomFactor;
+            /*
+                        if (this.pnlMain.ZoomFactor == 1) return;
+                        foreach (ConnectableE ePower in EPowers)
+                        {
+                            ePower.EPowerProcessMouse.UpdateLineWhenMove();
+                        }
+                        this.lblLine.Text = "Zoom = " + this.pnlMain.ZoomFactor;
+              */
         }
 
         //save File
         private void mnuFileSave_Click(object sender, EventArgs e)
         {
-            this._processMnuFile.FunctionMnuFileSave_Click(sender, e);
+            // this._processMnuFile.FunctionMnuFileSave_Click(sender, e);
+            DAOProcessMenuFileStrip.Instance.FunctionMnuFileSave_Click(this);
         }
-
-
-
 
         #endregion MenuStrip
 
+        //Experimental CalculateYstate
+        private void lblLine_MouseDown(object sender, MouseEventArgs e)
+        {
+            string s1 = ""; 
+            foreach (ConnectableE ePower in this._ePowers)
+            {
+                s1 += ePower.ToString() + ", L = " + ePower.Location;
+            }
+            MessageBox.Show(s1);
 
+            /*
+            Complex[,] Y_state = DAOGenerateYState.Instance.CalculateMatrixYState(this._ePowers);
+
+            Label lblYState = new Label();
+            lblYState.AutoSize = true;
+            pnlMain.Controls.Add(lblYState);
+            lblYState.Location = new Point(50, 50);
+            lblYState.Font = new Font("Sans-serif", 10, FontStyle.Regular);
+
+            string s = "";
+            for (int i = 0; i < Y_state.GetLength(0); i++)
+            {
+                s += "Bus " + (i + 1);
+                for (int j = 0; j < Y_state.GetLength(1); j++)
+                {
+                    s += Y_state[i, j] + new string(' ', 10);
+                }
+                s += "\n";
+            }
+            lblYState.Text = s;
+            */
+        }
     }
 }
 

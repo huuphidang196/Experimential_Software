@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Experimential_Software.CustomControl;
+using Experimential_Software.DAO.DAO_ProcessDelete.DAO_DeleteLineConnect;
 
 namespace Experimential_Software
 {
@@ -32,13 +33,10 @@ namespace Experimential_Software
             if (this._zoomFactor == 0) this._zoomFactor = 1;
         }
 
-
-
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             base.OnMouseWheel(e);
            
-
             if (Control.ModifierKeys != Keys.Control) return;
 
             // Lấy vị trí con trỏ chuột trong control
@@ -67,8 +65,8 @@ namespace Experimential_Software
 
         public virtual void SetNewSizeAndNewPostion(Point mouseLocation, ConnectableE ePower)
         {
-            int oldX = ePower.OldLocation.X;
-            int oldY = ePower.OldLocation.Y;
+            int oldX = ePower.PreLocation.X;
+            int oldY = ePower.PreLocation.Y;
 
             int newX = (int)mouseLocation.X + (int)((oldX - (int)mouseLocation.X) * this._zoomFactor);
             int newY = (int)mouseLocation.Y + (int)((oldY - (int)mouseLocation.Y) * this._zoomFactor);
@@ -98,22 +96,19 @@ namespace Experimential_Software
             ePower.UpdatePositonLabelInfo();
         }
 
-        #region Key
-
-        public virtual void ProcessDeleteLine(frmCapstone frmCapstone, KeyEventArgs e)
+        #region Key  
+        public virtual void ProcessDeleteLine(frmCapstone frmCapstone)
         {
             //Find Line is Seleted
             LineConnect lineSelected = frmCapstone.FindLineIsSelected();
             if (lineSelected == null) return;
 
+            DAOProcessDeleteLineConnect.Instance.ClearOldLine(lineSelected, this);
 
-            if (e.KeyCode != Keys.Delete) return;
-
-            //Determine ConnectionE connect with line => set iscontainPHead or Tail
-           // frmCapstone.SetIsContainEPower(lineSelected);
+            DAOProcessDeleteLineConnect.Instance.ProcessDeleteLineConnect(lineSelected);
 
             //=> hava line is selected => pressing delete key => remove lineconnect out list
-            frmCapstone.LineConnectList.Remove(lineSelected);
+            frmCapstone.RemoveLine(lineSelected);
 
             //Drawn all line
             frmCapstone.DrawAllLineOnPanel();

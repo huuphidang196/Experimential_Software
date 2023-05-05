@@ -44,10 +44,12 @@ namespace Experimential_Software.DAO.DAO_LoadData
         protected virtual ConnectableE GetBusConnectWithLoad(ConnectableE loadEPower)
         {
             //Get Class ProcessEPowerMove => Get Function get Line
-            ProcessEPowerMove processEPowerMove = loadEPower.EPowerProcessMouse.ProcessEPowerMove;
+            //   ProcessEPowerMove processEPowerMove = loadEPower.EPowerProcessMouse.ProcessEPowerMove;
             //get Line Connect Bus with Load. Load only connect with Bus
 
-            List<LineConnect> ListlineConnected = processEPowerMove.GetLineStageEPower(loadEPower);
+            //<LineConnect> ListlineConnected = processEPowerMove.GetLineStageEPower(loadEPower);
+
+            List<LineConnect> ListlineConnected = loadEPower.ListBranch_Drawn;
 
             if (ListlineConnected.Count == 0) return null;
 

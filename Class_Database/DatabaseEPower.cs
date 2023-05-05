@@ -53,7 +53,7 @@ namespace Experimential_Software.Class_Database
             }
         }
 
-        public Point OldLocation { get; set; }
+        public Point OldLocation_Save { get; set; }
 
         public DataRecordEPowerCtrl DataRecordE { get; set; }
     }

@@ -60,14 +60,32 @@ namespace Experimential_Software
             this.chkInServiceBr.Checked = this._dtoLineEPowerRecord.IsInService;
 
             //************Zone Branch Data**********
-            //line R pu
-            this.txtLineRPu.Text = (this._dtoLineEPowerRecord.LineR_Pu == 0) ? "0.000000" : this._dtoLineEPowerRecord.LineR_Pu + "";
-            //line X pu
-            this.txtLineXPu.Text = (this._dtoLineEPowerRecord.LineX_Pu == 0) ? "0.000000" : this._dtoLineEPowerRecord.LineX_Pu + "";
-            //Length
-            this.txtLengthBr.Text = (this._dtoLineEPowerRecord.LengthBr_KM == 0) ? "0.000" : this._dtoLineEPowerRecord.LengthBr_KM + "";
+            this.ShowDataImpendanceLineE();
+           
         }
 
+        protected virtual void ShowDataImpendanceLineE()
+        {
+            ImpendanceLineEPower impendanceLineE = this._dtoLineEPowerRecord.ImpendanceLineE;
+            //line R pu
+            this.txtLineRPu.Text = (impendanceLineE.LineR_Pu == 0) ? "0.000000" : impendanceLineE.LineR_Pu + "";
+            //line X pu
+            this.txtLineXPu.Text = (impendanceLineE.LineX_Pu == 0) ? "0.000000" : impendanceLineE.LineX_Pu + "";
+
+            //line G From
+            this.txtLineGFromPu.Text = (impendanceLineE.LineGFrom_Pu == 0) ? "0.000000" : impendanceLineE.LineGFrom_Pu + "";
+            //line B From
+            this.txtLineBFromPu.Text = (impendanceLineE.LineBFrom_Pu == 0) ? "0.000000" : impendanceLineE.LineBFrom_Pu + "";
+
+            //line G To
+            this.txtLineGToPu.Text = (impendanceLineE.LineGTo_Pu == 0) ? "0.000000" : impendanceLineE.LineGTo_Pu + "";
+            //line B To
+            this.txtLineBToPu.Text = (impendanceLineE.LineBTo_Pu == 0) ? "0.000000" : impendanceLineE.LineBTo_Pu + "";
+
+
+            //Length
+            this.txtLengthBr.Text = (impendanceLineE.LengthBr_KM == 0) ? "0.000" : impendanceLineE.LengthBr_KM + "";
+        }
 
         private void btnOkBr_Click(object sender, EventArgs e)
         {
@@ -84,6 +102,15 @@ namespace Experimential_Software
 
             string LineR_pu = this.txtLineRPu.Text;
             string LineX_pu = this.txtLineXPu.Text;
+
+            //G,B From
+            string LineGFrom_pu = this.txtLineGFromPu.Text;
+            string LineBFrom_pu = this.txtLineBFromPu.Text;
+
+            //G,B To
+            string LineGTo_pu = this.txtLineGToPu.Text;
+            string LineBTo_pu = this.txtLineBToPu.Text;
+
             string Length_KM = this.txtLengthBr.Text;
 
             //set Branch ID         
@@ -95,13 +122,26 @@ namespace Experimential_Software
 
             //*************Branch Data*************
             //txtLine R (pu)
-            this._dtoLineEPowerRecord.LineR_Pu = double.Parse(LineR_pu);
+            this._dtoLineEPowerRecord.ImpendanceLineE.LineR_Pu = double.Parse(LineR_pu);
             // txt Line X (pu)
-            this._dtoLineEPowerRecord.LineX_Pu = double.Parse(LineX_pu);
-            //txt length_Km
-            this._dtoLineEPowerRecord.LengthBr_KM = double.Parse(Length_KM);
+            this._dtoLineEPowerRecord.ImpendanceLineE.LineX_Pu = double.Parse(LineX_pu);
 
+            //Line G From
+            this._dtoLineEPowerRecord.ImpendanceLineE.LineGFrom_Pu = double.Parse(LineGFrom_pu);
+            //Line B From
+            this._dtoLineEPowerRecord.ImpendanceLineE.LineBFrom_Pu = double.Parse(LineBFrom_pu);
+
+            //Line G To
+            this._dtoLineEPowerRecord.ImpendanceLineE.LineGTo_Pu = double.Parse(LineGTo_pu);
+            //Line B To
+            this._dtoLineEPowerRecord.ImpendanceLineE.LineBTo_Pu = double.Parse(LineBTo_pu);
+
+            //txt length_Km
+            this._dtoLineEPowerRecord.ImpendanceLineE.LengthBr_KM = double.Parse(Length_KM);
+
+           
         }
+
 
         private void btnCancelbr_Click(object sender, EventArgs e)
         {

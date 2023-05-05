@@ -108,7 +108,7 @@ namespace Experimential_Software.Class_Process_MnuFile
         // Process_Get_EPower
         protected virtual void ProcessOpenGetEPower(string path)
         {
-            List<DatabaseEPower> databaseEPowers = FileFoctory.ReadDatabaseEPower(path);
+            List<DatabaseEPower> databaseEPowers = FileFactory.ReadDatabaseEPower(path);
 
             foreach (DatabaseEPower databaseE in databaseEPowers)
             {
@@ -116,7 +116,7 @@ namespace Experimential_Software.Class_Process_MnuFile
                
                 ePower.DoDragDrop(ePower, DragDropEffects.Move);
                 ePower.Location = this.GetPointOldInDatabaseEpower(databaseE);
-                ePower.OldLocation = databaseE.OldLocation;
+                ePower.PreLocation = databaseE.OldLocation_Save;
                 ePower.BringToFront();
 
                 if (this._frmCap.pnlMain.ZoomFactor == 1) this._frmCap.pnlMain.ZoomFactor = databaseE.ZoomFactor;
@@ -131,7 +131,7 @@ namespace Experimential_Software.Class_Process_MnuFile
         }
         protected virtual Point GetPointOldInDatabaseEpower(DatabaseEPower databaseE)
         {
-            Point oldLocation = databaseE.OldLocation;
+            Point oldLocation = databaseE.OldLocation_Save;
             return oldLocation;
         }
 
@@ -143,7 +143,7 @@ namespace Experimential_Software.Class_Process_MnuFile
         protected virtual void ProcessOpenGetLineConnect(string path)
         {
             //Read DataLine From FileFactory
-            List<DatabaseLineConnect> databaseLines = FileFoctory.ReadDataAllLineConnect(path);
+            List<DatabaseLineConnect> databaseLines = FileFactory.ReadDataAllLineConnect(path);
             //Set List LineConnect On Main
             this.GenerateLineConnectFromDataSave(databaseLines);;    
         }
@@ -206,7 +206,7 @@ namespace Experimential_Software.Class_Process_MnuFile
         protected virtual void ProcessSaveEPowerOnMain(string path)
         {
             this.ProcessSaveOldPostionEPower(this._frmCap.EPowers);
-            bool saveSuccess = FileFoctory.SaveDataBaseEPower(this._frmCap.EPowers, path);
+            bool saveSuccess = FileFactory.SaveDataBaseEPower(this._frmCap.EPowers, path);
 
             if (!saveSuccess) return;
            // MessageBox.Show("Save EPower Successed + " + this.ePowers.Count);
@@ -215,7 +215,7 @@ namespace Experimential_Software.Class_Process_MnuFile
         //Save All LineConnect
         protected virtual void ProcessSaveLineOnMain(string path)
         {
-            bool saveSuccess = FileFoctory.SaveDataBaseLineConnect(this._frmCap.LineConnectList, path);
+            bool saveSuccess = FileFactory.SaveDataBaseLineConnect(this._frmCap.LineConnectList, path);
 
             if (!saveSuccess) return;
            // MessageBox.Show("Save Line Successed");
@@ -226,7 +226,7 @@ namespace Experimential_Software.Class_Process_MnuFile
             foreach (ConnectableE ePower in EPowersSave)
             {
                 DatabaseEPower databaseE = ePower.DatabaseE;
-                databaseE.OldLocation = ePower.OldLocation;
+                databaseE.OldLocation_Save = ePower.PreLocation;
                 databaseE.ZoomFactor = ePower.PanelMain.ZoomFactor;
             }
         }

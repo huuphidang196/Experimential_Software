@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,6 +31,31 @@ namespace Experimential_Software.Class_Database
             set { _qLoad = Math.Round(value, 4); }
         }
 
+        //Mbase => Scb system
+        protected double _mBase;
+        public double MBase
+        {
+            get { return _mBase; }
+            set { _mBase = Math.Round(value, 2); }
+        }
 
+        public Complex SNormal_MVA
+        {
+            get { return new Complex(this._pLoad, this._qLoad); }
+        }
+
+        public Complex YLConductanceLoadPU
+        {
+            get
+            {
+                Complex S_Relative = this.SNormal_MVA / this._mBase;
+                double Vol_pu = this.DTOBusConnected.Voltage_pu;
+
+                Complex ZLoad = Math.Pow(Vol_pu, 2) / S_Relative;
+
+                return -1 / ZLoad;
+            }
+            
+        }
     }
 }

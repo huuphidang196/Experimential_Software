@@ -35,8 +35,8 @@ namespace Experimential_Software.Class_Database
         }
 
         //normal bus 
-        protected double _normalkV;
-        public double NormalkV
+        protected double _U_normalkV;
+        public double U_NormalkV
         {
             get { return this._voltage_pu * this._basekV; } //U_nor = Ubase * Upu
         }
