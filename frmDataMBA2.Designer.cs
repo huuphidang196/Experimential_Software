@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace Experimential_Software
 {
     partial class frmDataMBA2
@@ -77,10 +79,10 @@ namespace Experimential_Software
             this.txtSpecXpu = new System.Windows.Forms.TextBox();
             this.txtSpecRpu = new System.Windows.Forms.TextBox();
             this.grbLineMBA2Data = new System.Windows.Forms.GroupBox();
-            this.lblTransID = new System.Windows.Forms.Label();
             this.chkWinding1 = new System.Windows.Forms.CheckBox();
             this.chkMeterd = new System.Windows.Forms.CheckBox();
             this.chkinService = new System.Windows.Forms.CheckBox();
+            this.txtTransID = new System.Windows.Forms.TextBox();
             this.txtTransName = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -266,10 +268,10 @@ namespace Experimential_Software
             this.txtFixedSeckV.Location = new System.Drawing.Point(158, 153);
             this.txtFixedSeckV.Name = "txtFixedSeckV";
             this.txtFixedSeckV.Size = new System.Drawing.Size(66, 24);
-            this.txtFixedSeckV.TabIndex = 2;
+            this.txtFixedSeckV.TabIndex = 3;
             this.txtFixedSeckV.Text = "110";
             this.txtFixedSeckV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtFixedSeckV.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            this.txtFixedSeckV.Leave += new System.EventHandler(this.CheckTextBoxValidEventTextBoxLeave);
             // 
             // txtFixedPrimkV
             // 
@@ -280,7 +282,7 @@ namespace Experimential_Software
             this.txtFixedPrimkV.TabIndex = 1;
             this.txtFixedPrimkV.Text = "110";
             this.txtFixedPrimkV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtFixedPrimkV.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            this.txtFixedPrimkV.Leave += new System.EventHandler(this.CheckTextBoxValidEventTextBoxLeave);
             // 
             // btnTCSec
             // 
@@ -310,7 +312,7 @@ namespace Experimential_Software
             this.btnTCPrim.Location = new System.Drawing.Point(42, 74);
             this.btnTCPrim.Name = "btnTCPrim";
             this.btnTCPrim.Size = new System.Drawing.Size(81, 28);
-            this.btnTCPrim.TabIndex = 3;
+            this.btnTCPrim.TabIndex = 2;
             this.btnTCPrim.Text = "Prim...";
             this.btnTCPrim.UseVisualStyleBackColor = true;
             this.btnTCPrim.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTapChangerPrimAndSecZoneFixed_MouseDown);
@@ -379,7 +381,7 @@ namespace Experimential_Software
             this.txtRatedSeckV.TabIndex = 1;
             this.txtRatedSeckV.Text = "110";
             this.txtRatedSeckV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtRatedSeckV.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            this.txtRatedSeckV.Leave += new System.EventHandler(this.CheckTextBoxValidEventTextBoxLeave);
             // 
             // txtRatedPrimkV
             // 
@@ -390,7 +392,7 @@ namespace Experimential_Software
             this.txtRatedPrimkV.TabIndex = 0;
             this.txtRatedPrimkV.Text = "110";
             this.txtRatedPrimkV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtRatedPrimkV.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            this.txtRatedPrimkV.Leave += new System.EventHandler(this.CheckTextBoxValidEventTextBoxLeave);
             // 
             // label13
             // 
@@ -494,7 +496,7 @@ namespace Experimential_Software
             this.txtPowerRated.TabIndex = 0;
             this.txtPowerRated.Text = "500";
             this.txtPowerRated.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtPowerRated.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            this.txtPowerRated.Leave += new System.EventHandler(this.CheckTextBoxValidEventTextBoxLeave);
             // 
             // label14
             // 
@@ -602,7 +604,7 @@ namespace Experimential_Software
             this.txtMagBpu.Size = new System.Drawing.Size(120, 24);
             this.txtMagBpu.TabIndex = 4;
             this.txtMagBpu.Text = "0.000000";
-            this.txtMagBpu.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            this.txtMagBpu.Leave += new System.EventHandler(this.CheckTextBoxValidEventTextBoxLeave);
             // 
             // textBox2
             // 
@@ -612,7 +614,7 @@ namespace Experimential_Software
             this.textBox2.Size = new System.Drawing.Size(120, 24);
             this.textBox2.TabIndex = 2;
             this.textBox2.Text = "0.000000";
-            this.textBox2.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            this.textBox2.Leave += new System.EventHandler(this.CheckTextBoxValidEventTextBoxLeave);
             // 
             // txtMagGpu
             // 
@@ -622,7 +624,7 @@ namespace Experimential_Software
             this.txtMagGpu.Size = new System.Drawing.Size(120, 24);
             this.txtMagGpu.TabIndex = 3;
             this.txtMagGpu.Text = "0.000000";
-            this.txtMagGpu.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            this.txtMagGpu.Leave += new System.EventHandler(this.CheckTextBoxValidEventTextBoxLeave);
             // 
             // txtSpecXpu
             // 
@@ -632,7 +634,7 @@ namespace Experimential_Software
             this.txtSpecXpu.Size = new System.Drawing.Size(120, 24);
             this.txtSpecXpu.TabIndex = 1;
             this.txtSpecXpu.Text = "0.000000";
-            this.txtSpecXpu.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            this.txtSpecXpu.Leave += new System.EventHandler(this.CheckTextBoxValidEventTextBoxLeave);
             // 
             // txtSpecRpu
             // 
@@ -642,15 +644,15 @@ namespace Experimential_Software
             this.txtSpecRpu.Size = new System.Drawing.Size(120, 24);
             this.txtSpecRpu.TabIndex = 0;
             this.txtSpecRpu.Text = "0.000000";
-            this.txtSpecRpu.Leave += new System.EventHandler(this.CheckTextBoxValid);
+            this.txtSpecRpu.Leave += new System.EventHandler(this.CheckTextBoxValidEventTextBoxLeave);
             // 
             // grbLineMBA2Data
             // 
             this.grbLineMBA2Data.BackColor = System.Drawing.Color.Transparent;
-            this.grbLineMBA2Data.Controls.Add(this.lblTransID);
             this.grbLineMBA2Data.Controls.Add(this.chkWinding1);
             this.grbLineMBA2Data.Controls.Add(this.chkMeterd);
             this.grbLineMBA2Data.Controls.Add(this.chkinService);
+            this.grbLineMBA2Data.Controls.Add(this.txtTransID);
             this.grbLineMBA2Data.Controls.Add(this.txtTransName);
             this.grbLineMBA2Data.Controls.Add(this.label6);
             this.grbLineMBA2Data.Controls.Add(this.label3);
@@ -670,20 +672,12 @@ namespace Experimential_Software
             this.grbLineMBA2Data.TabStop = false;
             this.grbLineMBA2Data.Text = "Line Data";
             // 
-            // lblTransID
-            // 
-            this.lblTransID.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTransID.Location = new System.Drawing.Point(149, 139);
-            this.lblTransID.Name = "lblTransID";
-            this.lblTransID.Size = new System.Drawing.Size(93, 20);
-            this.lblTransID.TabIndex = 0;
-            // 
             // chkWinding1
             // 
             this.chkWinding1.AutoSize = true;
             this.chkWinding1.Checked = true;
             this.chkWinding1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkWinding1.Location = new System.Drawing.Point(596, 142);
+            this.chkWinding1.Location = new System.Drawing.Point(604, 142);
             this.chkWinding1.Name = "chkWinding1";
             this.chkWinding1.Size = new System.Drawing.Size(179, 22);
             this.chkWinding1.TabIndex = 3;
@@ -695,7 +689,7 @@ namespace Experimential_Software
             this.chkMeterd.AutoSize = true;
             this.chkMeterd.Checked = true;
             this.chkMeterd.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.chkMeterd.Location = new System.Drawing.Point(596, 90);
+            this.chkMeterd.Location = new System.Drawing.Point(604, 90);
             this.chkMeterd.Name = "chkMeterd";
             this.chkMeterd.Size = new System.Drawing.Size(170, 22);
             this.chkMeterd.TabIndex = 3;
@@ -709,17 +703,26 @@ namespace Experimential_Software
             this.chkinService.Checked = true;
             this.chkinService.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkinService.ForeColor = System.Drawing.Color.Black;
-            this.chkinService.Location = new System.Drawing.Point(596, 38);
+            this.chkinService.Location = new System.Drawing.Point(604, 38);
             this.chkinService.Name = "chkinService";
             this.chkinService.Size = new System.Drawing.Size(92, 22);
             this.chkinService.TabIndex = 2;
             this.chkinService.Text = "In Service";
             this.chkinService.UseVisualStyleBackColor = false;
             // 
+            // txtTransID
+            // 
+            this.txtTransID.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtTransID.Location = new System.Drawing.Point(138, 139);
+            this.txtTransID.Name = "txtTransID";
+            this.txtTransID.Size = new System.Drawing.Size(134, 24);
+            this.txtTransID.TabIndex = 0;
+            this.txtTransID.Leave += new System.EventHandler(this.CheckTextBoxValidEventTextBoxLeave);
+            // 
             // txtTransName
             // 
             this.txtTransName.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtTransName.Location = new System.Drawing.Point(416, 139);
+            this.txtTransName.Location = new System.Drawing.Point(434, 139);
             this.txtTransName.Name = "txtTransName";
             this.txtTransName.Size = new System.Drawing.Size(134, 24);
             this.txtTransName.TabIndex = 1;
@@ -729,7 +732,7 @@ namespace Experimential_Software
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label6.Location = new System.Drawing.Point(281, 142);
+            this.label6.Location = new System.Drawing.Point(299, 142);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(122, 17);
             this.label6.TabIndex = 0;
@@ -751,7 +754,7 @@ namespace Experimential_Software
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label5.Location = new System.Drawing.Point(281, 93);
+            this.label5.Location = new System.Drawing.Point(299, 93);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(89, 17);
             this.label5.TabIndex = 0;
@@ -773,7 +776,7 @@ namespace Experimential_Software
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label4.Location = new System.Drawing.Point(281, 37);
+            this.label4.Location = new System.Drawing.Point(299, 37);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(105, 17);
             this.label4.TabIndex = 0;
@@ -784,7 +787,7 @@ namespace Experimential_Software
             this.lblToBusName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblToBusName.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblToBusName.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblToBusName.Location = new System.Drawing.Point(418, 90);
+            this.lblToBusName.Location = new System.Drawing.Point(436, 90);
             this.lblToBusName.Name = "lblToBusName";
             this.lblToBusName.Size = new System.Drawing.Size(132, 20);
             this.lblToBusName.TabIndex = 0;
@@ -795,9 +798,9 @@ namespace Experimential_Software
             this.lblToBusNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblToBusNum.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblToBusNum.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblToBusNum.Location = new System.Drawing.Point(149, 90);
+            this.lblToBusNum.Location = new System.Drawing.Point(138, 90);
             this.lblToBusNum.Name = "lblToBusNum";
-            this.lblToBusNum.Size = new System.Drawing.Size(93, 20);
+            this.lblToBusNum.Size = new System.Drawing.Size(132, 20);
             this.lblToBusNum.TabIndex = 0;
             this.lblToBusNum.Text = "1110";
             // 
@@ -806,7 +809,7 @@ namespace Experimential_Software
             this.lblFromBusName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblFromBusName.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFromBusName.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblFromBusName.Location = new System.Drawing.Point(418, 39);
+            this.lblFromBusName.Location = new System.Drawing.Point(436, 39);
             this.lblFromBusName.Name = "lblFromBusName";
             this.lblFromBusName.Size = new System.Drawing.Size(132, 20);
             this.lblFromBusName.TabIndex = 0;
@@ -817,9 +820,9 @@ namespace Experimential_Software
             this.lblFromBusNum.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblFromBusNum.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFromBusNum.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lblFromBusNum.Location = new System.Drawing.Point(149, 36);
+            this.lblFromBusNum.Location = new System.Drawing.Point(138, 36);
             this.lblFromBusNum.Name = "lblFromBusNum";
-            this.lblFromBusNum.Size = new System.Drawing.Size(93, 20);
+            this.lblFromBusNum.Size = new System.Drawing.Size(132, 20);
             this.lblFromBusNum.TabIndex = 0;
             this.lblFromBusNum.Text = "1110";
             // 
@@ -894,6 +897,7 @@ namespace Experimential_Software
 
         }
 
+   
         #endregion
 
         private System.Windows.Forms.Panel pnlManagerTabCtrl;
@@ -958,6 +962,6 @@ namespace Experimential_Software
         private System.Windows.Forms.ImageList imgListUpDown;
         private System.Windows.Forms.Button btnOkMBA2;
         private System.Windows.Forms.Button btnCancelMBA2;
-        private System.Windows.Forms.Label lblTransID;
+        private System.Windows.Forms.TextBox txtTransID;
     }
 }

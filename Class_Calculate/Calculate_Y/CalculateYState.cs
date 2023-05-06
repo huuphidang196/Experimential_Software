@@ -12,7 +12,7 @@ namespace Experimential_Software.Class_Calculate.Calculate_Y
     {
         protected CalPointCurveStepOne _curveStepOne;
 
-        protected DataInputPowerSystem _dataInputPower;
+        protected DTODataInputPowerSystem _dataInputPower;
 
         public CalculateYState(CalPointCurveStepOne CalPointCurveStepOne)
         {

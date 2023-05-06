@@ -82,6 +82,8 @@ namespace Experimential_Software
             this.label1 = new System.Windows.Forms.Label();
             this.btnOKGene = new System.Windows.Forms.Button();
             this.btnCancelGene = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtMachineName = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabCtrlPowerFlow.SuspendLayout();
             this.tabPowerFlow.SuspendLayout();
@@ -97,9 +99,9 @@ namespace Experimential_Software
             // panel1
             // 
             this.panel1.Controls.Add(this.tabCtrlPowerFlow);
-            this.panel1.Location = new System.Drawing.Point(22, 24);
+            this.panel1.Location = new System.Drawing.Point(12, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(651, 635);
+            this.panel1.Size = new System.Drawing.Size(711, 635);
             this.panel1.TabIndex = 0;
             // 
             // tabCtrlPowerFlow
@@ -109,7 +111,7 @@ namespace Experimential_Software
             this.tabCtrlPowerFlow.Location = new System.Drawing.Point(0, 0);
             this.tabCtrlPowerFlow.Name = "tabCtrlPowerFlow";
             this.tabCtrlPowerFlow.SelectedIndex = 0;
-            this.tabCtrlPowerFlow.Size = new System.Drawing.Size(651, 635);
+            this.tabCtrlPowerFlow.Size = new System.Drawing.Size(711, 635);
             this.tabCtrlPowerFlow.TabIndex = 0;
             // 
             // tabPowerFlow
@@ -122,7 +124,7 @@ namespace Experimential_Software
             this.tabPowerFlow.Location = new System.Drawing.Point(4, 27);
             this.tabPowerFlow.Name = "tabPowerFlow";
             this.tabPowerFlow.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPowerFlow.Size = new System.Drawing.Size(643, 604);
+            this.tabPowerFlow.Size = new System.Drawing.Size(703, 604);
             this.tabPowerFlow.TabIndex = 0;
             this.tabPowerFlow.Text = "Power Flow";
             // 
@@ -132,7 +134,7 @@ namespace Experimential_Software
             this.pnlMachineAndPlant.Controls.Add(this.grbWindData);
             this.pnlMachineAndPlant.Location = new System.Drawing.Point(15, 413);
             this.pnlMachineAndPlant.Name = "pnlMachineAndPlant";
-            this.pnlMachineAndPlant.Size = new System.Drawing.Size(614, 167);
+            this.pnlMachineAndPlant.Size = new System.Drawing.Size(669, 167);
             this.pnlMachineAndPlant.TabIndex = 2;
             // 
             // grbPlantData
@@ -142,9 +144,9 @@ namespace Experimential_Software
             this.grbPlantData.Controls.Add(this.txtRemoteBus);
             this.grbPlantData.Controls.Add(this.txtSchedVoltage);
             this.grbPlantData.Dock = System.Windows.Forms.DockStyle.Right;
-            this.grbPlantData.Location = new System.Drawing.Point(314, 0);
+            this.grbPlantData.Location = new System.Drawing.Point(377, 0);
             this.grbPlantData.Name = "grbPlantData";
-            this.grbPlantData.Size = new System.Drawing.Size(300, 167);
+            this.grbPlantData.Size = new System.Drawing.Size(292, 167);
             this.grbPlantData.TabIndex = 1;
             this.grbPlantData.TabStop = false;
             this.grbPlantData.Text = "Plant Data";
@@ -177,7 +179,7 @@ namespace Experimential_Software
             this.txtRemoteBus.Size = new System.Drawing.Size(122, 24);
             this.txtRemoteBus.TabIndex = 1;
             this.txtRemoteBus.Text = "0";
-            this.txtRemoteBus.Leave += new System.EventHandler(this.txtDataMF_Leave);
+            this.txtRemoteBus.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // txtSchedVoltage
             // 
@@ -187,7 +189,7 @@ namespace Experimential_Software
             this.txtSchedVoltage.Size = new System.Drawing.Size(122, 24);
             this.txtSchedVoltage.TabIndex = 1;
             this.txtSchedVoltage.Text = "1.0000";
-            this.txtSchedVoltage.Leave += new System.EventHandler(this.txtDataMF_Leave);
+            this.txtSchedVoltage.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // grbWindData
             // 
@@ -198,7 +200,7 @@ namespace Experimential_Software
             this.grbWindData.Dock = System.Windows.Forms.DockStyle.Left;
             this.grbWindData.Location = new System.Drawing.Point(0, 0);
             this.grbWindData.Name = "grbWindData";
-            this.grbWindData.Size = new System.Drawing.Size(300, 167);
+            this.grbWindData.Size = new System.Drawing.Size(361, 167);
             this.grbWindData.TabIndex = 0;
             this.grbWindData.TabStop = false;
             this.grbWindData.Text = "Wind Data";
@@ -206,7 +208,7 @@ namespace Experimential_Software
             // cboControlMode
             // 
             this.cboControlMode.FormattingEnabled = true;
-            this.cboControlMode.Location = new System.Drawing.Point(17, 54);
+            this.cboControlMode.Location = new System.Drawing.Point(124, 43);
             this.cboControlMode.Name = "cboControlMode";
             this.cboControlMode.Size = new System.Drawing.Size(221, 26);
             this.cboControlMode.TabIndex = 1;
@@ -215,7 +217,7 @@ namespace Experimential_Software
             // 
             this.lblValuePowerFactor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblValuePowerFactor.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblValuePowerFactor.Location = new System.Drawing.Point(17, 123);
+            this.lblValuePowerFactor.Location = new System.Drawing.Point(177, 110);
             this.lblValuePowerFactor.Name = "lblValuePowerFactor";
             this.lblValuePowerFactor.Size = new System.Drawing.Size(132, 22);
             this.lblValuePowerFactor.TabIndex = 0;
@@ -225,7 +227,7 @@ namespace Experimential_Software
             // 
             this.label19.AutoSize = true;
             this.label19.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(14, 96);
+            this.label19.Location = new System.Drawing.Point(19, 111);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(132, 17);
             this.label19.TabIndex = 0;
@@ -235,7 +237,7 @@ namespace Experimential_Software
             // 
             this.label18.AutoSize = true;
             this.label18.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(14, 28);
+            this.label18.Location = new System.Drawing.Point(23, 51);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(90, 17);
             this.label18.TabIndex = 0;
@@ -247,7 +249,7 @@ namespace Experimential_Software
             this.pnlMachineData.Controls.Add(this.grbMachineData);
             this.pnlMachineData.Location = new System.Drawing.Point(15, 154);
             this.pnlMachineData.Name = "pnlMachineData";
-            this.pnlMachineData.Size = new System.Drawing.Size(614, 237);
+            this.pnlMachineData.Size = new System.Drawing.Size(669, 237);
             this.pnlMachineData.TabIndex = 1;
             // 
             // groupBox2
@@ -259,9 +261,9 @@ namespace Experimential_Software
             this.groupBox2.Controls.Add(this.txtXTran_pu);
             this.groupBox2.Controls.Add(this.txtRTran_pu);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox2.Location = new System.Drawing.Point(458, 0);
+            this.groupBox2.Location = new System.Drawing.Point(504, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(156, 237);
+            this.groupBox2.Size = new System.Drawing.Size(165, 237);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Transformer Data";
@@ -304,7 +306,7 @@ namespace Experimential_Software
             this.txtGentapMF.Size = new System.Drawing.Size(122, 24);
             this.txtGentapMF.TabIndex = 1;
             this.txtGentapMF.Text = "1.00000";
-            this.txtGentapMF.Leave += new System.EventHandler(this.txtDataMF_Leave);
+            this.txtGentapMF.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // txtXTran_pu
             // 
@@ -314,7 +316,7 @@ namespace Experimential_Software
             this.txtXTran_pu.Size = new System.Drawing.Size(122, 24);
             this.txtXTran_pu.TabIndex = 1;
             this.txtXTran_pu.Text = "0.00000";
-            this.txtXTran_pu.Leave += new System.EventHandler(this.txtDataMF_Leave);
+            this.txtXTran_pu.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // txtRTran_pu
             // 
@@ -324,7 +326,7 @@ namespace Experimential_Software
             this.txtRTran_pu.Size = new System.Drawing.Size(122, 24);
             this.txtRTran_pu.TabIndex = 1;
             this.txtRTran_pu.Text = "0.00000";
-            this.txtRTran_pu.Leave += new System.EventHandler(this.txtDataMF_Leave);
+            this.txtRTran_pu.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // grbMachineData
             // 
@@ -349,7 +351,7 @@ namespace Experimential_Software
             this.grbMachineData.Dock = System.Windows.Forms.DockStyle.Left;
             this.grbMachineData.Location = new System.Drawing.Point(0, 0);
             this.grbMachineData.Name = "grbMachineData";
-            this.grbMachineData.Size = new System.Drawing.Size(443, 237);
+            this.grbMachineData.Size = new System.Drawing.Size(490, 237);
             this.grbMachineData.TabIndex = 0;
             this.grbMachineData.TabStop = false;
             this.grbMachineData.Text = "Machine Data";
@@ -357,27 +359,28 @@ namespace Experimential_Software
             // txtXSource_pu
             // 
             this.txtXSource_pu.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtXSource_pu.Location = new System.Drawing.Point(304, 197);
+            this.txtXSource_pu.Location = new System.Drawing.Point(345, 197);
             this.txtXSource_pu.Name = "txtXSource_pu";
             this.txtXSource_pu.Size = new System.Drawing.Size(122, 24);
             this.txtXSource_pu.TabIndex = 1;
             this.txtXSource_pu.Text = "1.000000";
+            this.txtXSource_pu.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // txtQmin_Mvar
             // 
             this.txtQmin_Mvar.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQmin_Mvar.Location = new System.Drawing.Point(304, 126);
+            this.txtQmin_Mvar.Location = new System.Drawing.Point(345, 126);
             this.txtQmin_Mvar.Name = "txtQmin_Mvar";
             this.txtQmin_Mvar.Size = new System.Drawing.Size(122, 24);
             this.txtQmin_Mvar.TabIndex = 1;
             this.txtQmin_Mvar.Text = "-9999.0000";
-            this.txtQmin_Mvar.Leave += new System.EventHandler(this.txtDataMF_Leave);
+            this.txtQmin_Mvar.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // label14
             // 
             this.label14.AutoSize = true;
             this.label14.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(304, 172);
+            this.label14.Location = new System.Drawing.Point(345, 172);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(93, 17);
             this.label14.TabIndex = 0;
@@ -386,18 +389,18 @@ namespace Experimential_Software
             // txtPmin_MW
             // 
             this.txtPmin_MW.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPmin_MW.Location = new System.Drawing.Point(304, 57);
+            this.txtPmin_MW.Location = new System.Drawing.Point(345, 57);
             this.txtPmin_MW.Name = "txtPmin_MW";
             this.txtPmin_MW.Size = new System.Drawing.Size(122, 24);
             this.txtPmin_MW.TabIndex = 1;
             this.txtPmin_MW.Text = "-9999.0000";
-            this.txtPmin_MW.Leave += new System.EventHandler(this.txtDataMF_Leave);
+            this.txtPmin_MW.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(304, 101);
+            this.label11.Location = new System.Drawing.Point(345, 101);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(84, 17);
             this.label11.TabIndex = 0;
@@ -406,17 +409,18 @@ namespace Experimential_Software
             // txtRSource_pu
             // 
             this.txtRSource_pu.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRSource_pu.Location = new System.Drawing.Point(160, 197);
+            this.txtRSource_pu.Location = new System.Drawing.Point(177, 197);
             this.txtRSource_pu.Name = "txtRSource_pu";
             this.txtRSource_pu.Size = new System.Drawing.Size(122, 24);
             this.txtRSource_pu.TabIndex = 1;
             this.txtRSource_pu.Text = "0.000000";
+            this.txtRSource_pu.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(304, 32);
+            this.label8.Location = new System.Drawing.Point(345, 32);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(76, 17);
             this.label8.TabIndex = 0;
@@ -425,18 +429,18 @@ namespace Experimential_Software
             // txtQmax_Mvar
             // 
             this.txtQmax_Mvar.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtQmax_Mvar.Location = new System.Drawing.Point(160, 126);
+            this.txtQmax_Mvar.Location = new System.Drawing.Point(177, 126);
             this.txtQmax_Mvar.Name = "txtQmax_Mvar";
             this.txtQmax_Mvar.Size = new System.Drawing.Size(122, 24);
             this.txtQmax_Mvar.TabIndex = 1;
             this.txtQmax_Mvar.Text = "9999.0000";
-            this.txtQmax_Mvar.Leave += new System.EventHandler(this.txtDataMF_Leave);
+            this.txtQmax_Mvar.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(160, 172);
+            this.label13.Location = new System.Drawing.Point(177, 172);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(94, 17);
             this.label13.TabIndex = 0;
@@ -445,18 +449,18 @@ namespace Experimential_Software
             // txtPmax_MW
             // 
             this.txtPmax_MW.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtPmax_MW.Location = new System.Drawing.Point(160, 57);
+            this.txtPmax_MW.Location = new System.Drawing.Point(177, 57);
             this.txtPmax_MW.Name = "txtPmax_MW";
             this.txtPmax_MW.Size = new System.Drawing.Size(122, 24);
             this.txtPmax_MW.TabIndex = 1;
             this.txtPmax_MW.Text = "9999.0000";
-            this.txtPmax_MW.Leave += new System.EventHandler(this.txtDataMF_Leave);
+            this.txtPmax_MW.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // label10
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(160, 101);
+            this.label10.Location = new System.Drawing.Point(177, 101);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(89, 17);
             this.label10.TabIndex = 0;
@@ -470,13 +474,13 @@ namespace Experimential_Software
             this.txtMbase_MVA.Size = new System.Drawing.Size(122, 24);
             this.txtMbase_MVA.TabIndex = 1;
             this.txtMbase_MVA.Text = "100.00";
-            this.txtMbase_MVA.Leave += new System.EventHandler(this.txtDataMF_Leave);
+            this.txtMbase_MVA.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(160, 32);
+            this.label7.Location = new System.Drawing.Point(177, 32);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(81, 17);
             this.label7.TabIndex = 0;
@@ -500,7 +504,7 @@ namespace Experimential_Software
             this.txtQgen_Mvar.Size = new System.Drawing.Size(122, 24);
             this.txtQgen_Mvar.TabIndex = 1;
             this.txtQgen_Mvar.Text = "0.0000";
-            this.txtQgen_Mvar.Leave += new System.EventHandler(this.txtDataMF_Leave);
+            this.txtQgen_Mvar.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // label9
             // 
@@ -520,7 +524,7 @@ namespace Experimential_Software
             this.txtPgen_MW.Size = new System.Drawing.Size(122, 24);
             this.txtPgen_MW.TabIndex = 1;
             this.txtPgen_MW.Text = "0.0000";
-            this.txtPgen_MW.Leave += new System.EventHandler(this.txtDataMF_Leave);
+            this.txtPgen_MW.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // label6
             // 
@@ -535,17 +539,19 @@ namespace Experimential_Software
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.chkInService);
+            this.groupBox1.Controls.Add(this.txtMachineName);
             this.groupBox1.Controls.Add(this.txtMachineID);
             this.groupBox1.Controls.Add(this.lblBusConnTypeCode);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.lblBusNameConnMF);
             this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.lblBusNumConnMF);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(15, 17);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(614, 121);
+            this.groupBox1.Size = new System.Drawing.Size(669, 121);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Basic Data";
@@ -556,7 +562,7 @@ namespace Experimential_Software
             this.chkInService.Checked = true;
             this.chkInService.CheckState = System.Windows.Forms.CheckState.Checked;
             this.chkInService.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.chkInService.Location = new System.Drawing.Point(236, 82);
+            this.chkInService.Location = new System.Drawing.Point(487, 82);
             this.chkInService.Name = "chkInService";
             this.chkInService.Size = new System.Drawing.Size(87, 21);
             this.chkInService.TabIndex = 3;
@@ -566,18 +572,19 @@ namespace Experimential_Software
             // txtMachineID
             // 
             this.txtMachineID.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMachineID.Location = new System.Drawing.Point(112, 80);
+            this.txtMachineID.Location = new System.Drawing.Point(103, 80);
             this.txtMachineID.Name = "txtMachineID";
-            this.txtMachineID.Size = new System.Drawing.Size(111, 24);
+            this.txtMachineID.Size = new System.Drawing.Size(93, 24);
             this.txtMachineID.TabIndex = 2;
+            this.txtMachineID.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // lblBusConnTypeCode
             // 
             this.lblBusConnTypeCode.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblBusConnTypeCode.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBusConnTypeCode.Location = new System.Drawing.Point(444, 80);
+            this.lblBusConnTypeCode.Location = new System.Drawing.Point(595, 33);
             this.lblBusConnTypeCode.Name = "lblBusConnTypeCode";
-            this.lblBusConnTypeCode.Size = new System.Drawing.Size(155, 20);
+            this.lblBusConnTypeCode.Size = new System.Drawing.Size(62, 20);
             this.lblBusConnTypeCode.TabIndex = 1;
             this.lblBusConnTypeCode.Text = "1";
             // 
@@ -585,7 +592,7 @@ namespace Experimential_Software
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(329, 83);
+            this.label3.Location = new System.Drawing.Point(484, 33);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(101, 17);
             this.label3.TabIndex = 0;
@@ -595,9 +602,9 @@ namespace Experimential_Software
             // 
             this.lblBusNameConnMF.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblBusNameConnMF.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBusNameConnMF.Location = new System.Drawing.Point(413, 33);
+            this.lblBusNameConnMF.Location = new System.Drawing.Point(304, 33);
             this.lblBusNameConnMF.Name = "lblBusNameConnMF";
-            this.lblBusNameConnMF.Size = new System.Drawing.Size(186, 20);
+            this.lblBusNameConnMF.Size = new System.Drawing.Size(162, 20);
             this.lblBusNameConnMF.TabIndex = 1;
             this.lblBusNameConnMF.Text = "NULL";
             // 
@@ -605,7 +612,7 @@ namespace Experimential_Software
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(329, 33);
+            this.label2.Location = new System.Drawing.Point(210, 33);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(69, 17);
             this.label2.TabIndex = 0;
@@ -615,7 +622,7 @@ namespace Experimential_Software
             // 
             this.lblBusNumConnMF.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblBusNumConnMF.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBusNumConnMF.Location = new System.Drawing.Point(112, 33);
+            this.lblBusNumConnMF.Location = new System.Drawing.Point(103, 33);
             this.lblBusNumConnMF.Name = "lblBusNumConnMF";
             this.lblBusNumConnMF.Size = new System.Drawing.Size(93, 20);
             this.lblBusNumConnMF.TabIndex = 1;
@@ -663,12 +670,30 @@ namespace Experimential_Software
             this.btnCancelGene.UseVisualStyleBackColor = true;
             this.btnCancelGene.Click += new System.EventHandler(this.btnCancelGene_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(214, 86);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(96, 17);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Machine Name";
+            // 
+            // txtMachineName
+            // 
+            this.txtMachineName.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMachineName.Location = new System.Drawing.Point(316, 80);
+            this.txtMachineName.Name = "txtMachineName";
+            this.txtMachineName.Size = new System.Drawing.Size(151, 24);
+            this.txtMachineName.TabIndex = 2;
+            // 
             // frmDataGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(693, 731);
+            this.ClientSize = new System.Drawing.Size(735, 731);
             this.Controls.Add(this.btnCancelGene);
             this.Controls.Add(this.btnOKGene);
             this.Controls.Add(this.panel1);
@@ -754,5 +779,7 @@ namespace Experimential_Software
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button btnOKGene;
         private System.Windows.Forms.Button btnCancelGene;
+        private System.Windows.Forms.TextBox txtMachineName;
+        private System.Windows.Forms.Label label4;
     }
 }

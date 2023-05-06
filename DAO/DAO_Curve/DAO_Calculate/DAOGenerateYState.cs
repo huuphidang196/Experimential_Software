@@ -9,13 +9,6 @@ using Experimential_Software.CustomControl;
 
 namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
 {
-    public class BusEPowerComparer : IComparer<ConnectableE>
-    {
-        public int Compare(ConnectableE x, ConnectableE y)
-        {
-            return x.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber.CompareTo(y.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber);
-        }
-    }
 
     public class DAOGenerateYState
     {
@@ -26,24 +19,19 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             private set { }
         }
 
-        protected List<ConnectableE> _allBus;
         private DAOGenerateYState() { }
 
-        public virtual Complex[,] CalculateMatrixYState(List<ConnectableE> AllEPowers)
+        public virtual Complex[,] CalculateMatrixYState(List<ConnectableE> allBus)
         {
-            //Get List All Bus from AllEPowers
-            this._allBus = AllEPowers.FindAll(x => x.DatabaseE.ObjectType == ObjectType.Bus);
-            //Sort List All Bus
-            this._allBus.Sort(new BusEPowerComparer());
-
             //string s = "";
             //foreach (ConnectableE ePower in  this._allBus)
             //{
             //    s += ePower.ToString();
             //}
             //MessageBox.Show(s);
+
             //Size Ystate
-            int lengthYState = this._allBus.Count;
+            int lengthYState = allBus.Count;
             //Assignment
             Complex[,] Y_State = new Complex[lengthYState, lengthYState];
 
@@ -51,7 +39,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             for (int i = 0; i < lengthYState; i++)
             {
                 //get Bus => List 
-                ConnectableE bus_Consider = this._allBus[i];
+                ConnectableE bus_Consider = allBus[i];
                 //get List Epower Connect with Bus  is Consider
                 List<ConnectableE> List_otherEPowers = this.GetListEPowerConnectWithBusConsider(bus_Consider);
                 //if Yii => Get All Yij and Yio
@@ -66,7 +54,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                 // if Have set Yij
                 foreach (ConnectableE ortherBus in List_otherBusEPowers)
                 {
-                    int j = this._allBus.IndexOf(ortherBus);
+                    int j = allBus.IndexOf(ortherBus);
                     List<ConnectableE> List_ortherEPowerOfOrtherBus = this.GetListEPowerConnectWithBusConsider(ortherBus);
                     //get all OrtherEPower Overall between 2 List of BusConsider and OrtherBus Connect
                     List<ConnectableE> ListOverallTwoBus = List_ortherEPowerOfOrtherBus.Intersect(List_otherEPowers).ToList();
@@ -143,7 +131,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             ObjectType objType = otherEPower.DatabaseE.ObjectType;
             //if Load then return beacuse load don't have Yio. MF is still is Considered
             //MF, Line, MBA2, MBA3
-            if (objType == ObjectType.MF) return new Complex(0, 0);
+            if (objType == ObjectType.MF || objType == ObjectType.Load) return new Complex(0, 0);
 
             if (objType == ObjectType.MBA2P)
             {

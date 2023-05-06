@@ -102,7 +102,7 @@ namespace Experimential_Software
             this.lblToBusNum.Text = (dtoBus_To == null) ? "NULL" : dtoBus_To.ObjectNumber + "";
             this.lblToBusName.Text = (dtoBus_To == null) ? "NULL" : dtoBus_To.ObjectName;
 
-            this.lblTransID.Text = this._dtoMBA2EPowerRecord.ObjectNumber + "";
+            this.txtTransID.Text = this._dtoMBA2EPowerRecord.ObjectNumber + "";
             this.txtTransName.Text = this._dtoMBA2EPowerRecord.ObjectName;
         }
 
@@ -224,6 +224,8 @@ namespace Experimential_Software
         {
             //Set Object Name
             this._dtoMBA2EPowerRecord.ObjectName = this.txtTransName.Text;
+            //Set Objet Number 
+            this._dtoMBA2EPowerRecord.ObjectNumber = int.Parse(this.txtTransID.Text);
             //Set isInservice
             this._dtoMBA2EPowerRecord.IsInService = this.chkinService.Checked;
 
@@ -291,37 +293,13 @@ namespace Experimential_Software
 
         #endregion Function_OK_Event
 
-        #region Event_Text_Changed
+        #region Event_Text_Changed_Leave
         private void CheckTextBoxValid(object sender, EventArgs e)
         {
-            TextBox txtDataChanged = sender as TextBox;
 
-            // bool isAllValid = txtDataChanged.Text.Replace(".", "").Replace("-", "").All(c => char.IsDigit(c));
-            bool isAllValid = double.TryParse(txtDataChanged.Text, out double result);
-            if (!isAllValid)
-            {
-                MessageBox.Show(txtDataChanged.Text + " Invalid decimal number detected!", "Request To Re-Enter Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtDataChanged.BackColor = Color.Yellow;
-                txtDataChanged.Focus();
-                return;
-            }
-            txtDataChanged.BackColor = Color.White;
-
-            //If Zone Power Rated => Set value immediately
-            if (!txtDataChanged.Parent.Text.Contains("Voltage Rating")) return;
-
-            //********Voltage Rating => set in order to Fixed tap Zone use*****
-            this.SetValueVoltageRating();
-            // MessageBox.Show(txtDataChanged.Text);
-
-            //When set rated => Fixed Zone is affeected by Rated. 
-            this.ShowFixedTapDataOnFixedZone();
         }
 
-
-
-
-        #endregion Event_Text_Changed
+        #endregion Event_Text_Changed_Leave
 
         #region Cancel_Event
         private void btnCancelMBA2_Click(object sender, EventArgs e)
@@ -451,6 +429,33 @@ namespace Experimential_Software
             this.ShowFixedTapDataOnFixedZone();
         }
         #endregion Event_Button_Up_Down
+
+       
+        private void CheckTextBoxValidEventTextBoxLeave(object sender, EventArgs e)
+        {
+            TextBox txtDataChanged = sender as TextBox;
+
+            // bool isAllValid = txtDataChanged.Text.Replace(".", "").Replace("-", "").All(c => char.IsDigit(c));
+            bool isAllValid = double.TryParse(txtDataChanged.Text, out double result);
+            if (!isAllValid)
+            {
+                MessageBox.Show(txtDataChanged.Text + " Invalid decimal number detected!", "Request To Re-Enter Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDataChanged.BackColor = Color.Yellow;
+                txtDataChanged.Focus();
+                return;
+            }
+            txtDataChanged.BackColor = Color.White;
+
+            //If Zone Power Rated => Set value immediately
+            if (!txtDataChanged.Parent.Text.Contains("Voltage Rating")) return;
+
+            //********Voltage Rating => set in order to Fixed tap Zone use*****
+            this.SetValueVoltageRating();
+            // MessageBox.Show(txtDataChanged.Text);
+
+            //When set rated => Fixed Zone is affeected by Rated. 
+            this.ShowFixedTapDataOnFixedZone();
+        }
     }
 
 }

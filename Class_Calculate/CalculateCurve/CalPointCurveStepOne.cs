@@ -6,14 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Experimential_Software.Class_Calculate.Calculate_Y;
 using System.Windows.Forms;
+using Experimential_Software.Class_Database;
 
 namespace Experimential_Software.Class_Calculate.CalculateCurve
 {
     public class CalPointCurveStepOne
     {
-        protected DataInputPowerSystem _dataInputPS;
-        public DataInputPowerSystem DataInputPS => _dataInputPS;
-
         protected CalculateYState _calYState;
         
         protected List<double> _e_AllMF;
@@ -55,9 +53,8 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
         protected double _uJ_BusLoad = 0;
         public double UJ_BusLoad => _uJ_BusLoad;
 
-        public CalPointCurveStepOne(DataInputPowerSystem dataInputPS, double Pj_Ori, int numberLoad, double Uj_RateBusLoad)
+        public CalPointCurveStepOne(DTODataInputPowerSystem dataInputPS, double Pj_Ori, int numberBusLoad, double Uj_RateBusLoad)
         {
-            this._dataInputPS = dataInputPS;
             this._e_AllMF = dataInputPS.E_AllMF;
             this._rad_ThetaK_All = dataInputPS.Rad_ThetaK_All;
             this._power_Q_GK_Limits = dataInputPS.Q_GK_Limits;
@@ -68,7 +65,7 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
             this._calYState = new CalculateYState(this);
 
             this.YState = this._calYState.CalculateMatrixYState(9);
-            this.YBus = CalculateYBus.CalculateYBusIsoval(this.E_AllMF.Count, numberLoad, this.YState);
+            this.YBus = CalculateYBus.CalculateYBusIsoval(this.E_AllMF.Count, numberBusLoad, this.YState);
             this.ZBus = CalculateYBus.ConvertFormYBusToZBus(YBus);
         }
 

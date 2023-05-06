@@ -17,12 +17,13 @@ using MathNet.Numerics;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.Optimization;
 using MathNet.Numerics.LinearAlgebra.Complex.Solvers;
+using Experimential_Software.Class_Database;
 
 namespace Experimential_Software.Class_Calculate
 {
     public class TestResult
     {
-        DataInputPowerSystem dataInputPower;
+        DTODataInputPowerSystem dataInputPower;
         CalPointCurveStepOne pointCurve;
         protected Complex[,] Ybus;
         protected Complex[,] ZBus;
@@ -31,7 +32,7 @@ namespace Experimential_Software.Class_Calculate
 
         public TestResult(int number_BusJ)
         {
-            this.dataInputPower = new DataInputPowerSystem();
+            this.dataInputPower = new DTODataInputPowerSystem(null);
 
             dataInputPower.AddEMF(1.05);
             dataInputPower.AddEMF(0.9848);
@@ -50,7 +51,7 @@ namespace Experimential_Software.Class_Calculate
 
             
 
-            this.pointCurve = new CalPointCurveStepOne(dataInputPower, 1, number_BusJ, 1);
+            this.pointCurve = new CalPointCurveStepOne(null, 1, number_BusJ, 1);
             this.Ybus = this.pointCurve.YBusIsoval;
             this.ZBus = this.pointCurve.ZBusIsoval;
             this.number_BusJ = number_BusJ;

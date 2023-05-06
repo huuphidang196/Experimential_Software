@@ -103,7 +103,7 @@
     <Compile Include="Class_Calculate\Calculate_Y\CalculateYBus.cs" />
     <Compile Include="Class_Calculate\Calculate_Y\CalculateYState.cs" />
     <Compile Include="Class_Calculate\CalculateCurve\CalPointCurveStepOne.cs" />
-    <Compile Include="Class_Calculate\DataInputPowerSystem.cs" />
+    <Compile Include="Class_Database\DTODataInputPowerSystem.cs" />
     <Compile Include="Class_Calculate\TestResult.cs" />
     <Compile Include="Class_Database\DataRecordEPower.cs" />
     <Compile Include="Class_Database\DataRecordEPowerCtrl.cs" />
@@ -123,6 +123,9 @@
       <DependentUpon>ConnectableE.cs</DependentUpon>
     </Compile>
     <Compile Include="DAO\DAO_BusData\DAOGeneBusRecord.cs" />
+    <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOCalculateQLJStepOne.cs" />
+    <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateListPoints.cs" />
+    <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateYBus.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateYState.cs" />
     <Compile Include="DAO\DAO_GeneratorData\DAOGeneMFRecord.cs" />
     <Compile Include="DAO\DAO_GeneratorData\DAOUpdateMFAfterConnectBus.cs" />
@@ -182,6 +185,12 @@
     <Compile Include="frmDataMBA2.Designer.cs">
       <DependentUpon>frmDataMBA2.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDrawnCurve.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDrawnCurve.Designer.cs">
+      <DependentUpon>frmDrawnCurve.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmFixedTapChanger.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -221,6 +230,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDataMBA2.resx">
       <DependentUpon>frmDataMBA2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDrawnCurve.resx">
+      <DependentUpon>frmDrawnCurve.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmFixedTapChanger.resx">
       <DependentUpon>frmFixedTapChanger.cs</DependentUpon>

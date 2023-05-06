@@ -60,7 +60,7 @@ namespace Experimential_Software
 
             this.OpenFormSetBaseMVA();
 
-            this.FixScaleSizeForm();
+            //this.FixScaleSizeForm();
             this.LoadImageMenuFile();
             // this._processMnuFile = new ProcessMnuFile(this);
             this.pnlMain.PanelMainMouse.FrmCapstone = this;
@@ -422,9 +422,34 @@ namespace Experimential_Software
             pnlMain.Controls.Add(ctrlInstance);
             ctrlInstance.BringToFront();
 
-            //Add Func count time => Destroy if invalid
+            //Add Func Context MenuStrip
+            ctrlInstance.MouseUp += CtrlInstance_ClickContextMenuStrip;
 
         }
+
+        private void CtrlInstance_ClickContextMenuStrip(object sender, MouseEventArgs e)
+        {
+            //ContextMenuStrip => Drawn => Only open when click right mouse
+            if (e.Button == MouseButtons.Right)
+            {
+                ConnectableE ePowerInstance = sender as ConnectableE;
+                if (ePowerInstance.DatabaseE.ObjectType != ObjectType.Bus)
+                {
+                    MessageBox.Show("Please Click Bus connect with Load !");
+                    return;
+                }
+
+                ePowerInstance.ContextMenuStrip = this.cxttMenuStripEPower;      
+            }        
+        }
+
+        private void cxtMnuDCOperatingMode_Click(object sender, EventArgs e)
+        {
+            //Drawn Curve in Operating Mode
+            frmDrawnCurve frmDrawnCurve = new frmDrawnCurve();
+            frmDrawnCurve.Show();
+        }
+
         #endregion Button_Instance
 
         #region MenuStrip
@@ -495,6 +520,7 @@ namespace Experimential_Software
             // Vẽ lại Panel
             pnlMain.Invalidate();
         }
+
     }
 }
 

@@ -125,8 +125,8 @@ namespace Experimential_Software
         }
 
         #endregion Set_Data_To_Show
-
-        private void txtDataMF_Leave(object sender, EventArgs e)
+        #region Event_TextBox_Leave
+        private void CheckNumberValidTextBoxEventLeave(object sender, EventArgs e)
         {
             //Get text box is Changging
             TextBox txtDataChanged = sender as TextBox;
@@ -142,6 +142,7 @@ namespace Experimential_Software
             }
             txtDataChanged.BackColor = Color.White;
         }
+        #endregion Event_TextBox_Leave
 
         #region Ok_Set_Data
         private void btnOKGene_Click(object sender, EventArgs e)
@@ -161,7 +162,10 @@ namespace Experimential_Software
         private void UpdateBasicAndMachineDataForDatabaseMF()
         {
             //Set Machine ID => Object name. DataBusConnect Set when Connect success in order to generate Line =? Peocess Mouse
-            this._dtoMFRecord.ObjectName = this.txtMachineID.Text;
+            this._dtoMFRecord.ObjectNumber = int.Parse(this.txtMachineID.Text);
+
+            //Set Object Name
+            this._dtoMFRecord.ObjectName = this.txtMachineName.Text;
 
             // Machine Data
 
@@ -213,5 +217,7 @@ namespace Experimential_Software
         {
             this.Close();
         }
+
+        
     }
 }
