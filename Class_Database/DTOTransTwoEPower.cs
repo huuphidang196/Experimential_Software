@@ -52,10 +52,10 @@ namespace Experimential_Software.Class_Database
             get { return new Complex(this._specR_pu, this._specX_pu); }
         }
 
-        //Yij = -1 / Zij
+        //Yij = 1 / Zij
         public Complex Yb_Con_MBA2_pu
         {
-            get { return -1 / this.Res_MBA2_pu; }
+            get { return 1 / this.Res_MBA2_pu; }
         }
         //Y0B = G + jB
         public Complex Y0b_Con_MBA2_pu
@@ -160,13 +160,13 @@ namespace Experimential_Software.Class_Database
         public bool IsInService { get; set; }
 
         //Power Rating
-        protected double _powerRated_MVA
+        protected double _powerRated_MVA;
+   
+        public double PowerRated_MVA
         {
             get { return _powerRated_MVA; }
             set { _powerRated_MVA = Math.Round(value, 3); }
         }
-
-        public double PowerRated_MVA { get; set; }
 
         //Transfomer Impendance Data
         public ImpendanceMBA2 Impendace_MBA2 { get; set; }

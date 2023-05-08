@@ -72,6 +72,8 @@ namespace Experimential_Software
             //line X pu
             this.txtLineXPu.Text = (impendanceLineE.LineX_Pu == 0) ? "0.000000" : impendanceLineE.LineX_Pu + "";
 
+            //B origin 
+            this.txtChargingBPu.Text = (impendanceLineE.ChargingB_Pu == 0) ? "0.000000" : impendanceLineE.ChargingB_Pu + "";
             //line G From
             this.txtLineGFromPu.Text = (impendanceLineE.LineGFrom_Pu == 0) ? "0.000000" : impendanceLineE.LineGFrom_Pu + "";
             //line B From
@@ -103,6 +105,8 @@ namespace Experimential_Software
             string LineR_pu = this.txtLineRPu.Text;
             string LineX_pu = this.txtLineXPu.Text;
 
+            //charging B pu
+            string ChargingB_pu = this.txtChargingBPu.Text;
             //G,B From
             string LineGFrom_pu = this.txtLineGFromPu.Text;
             string LineBFrom_pu = this.txtLineBFromPu.Text;
@@ -126,6 +130,8 @@ namespace Experimential_Software
             // txt Line X (pu)
             this._dtoLineEPowerRecord.ImpendanceLineE.LineX_Pu = double.Parse(LineX_pu);
 
+            //ChargingB_pu
+            this._dtoLineEPowerRecord.ImpendanceLineE.ChargingB_Pu = double.Parse(ChargingB_pu);
             //Line G From
             this._dtoLineEPowerRecord.ImpendanceLineE.LineGFrom_Pu = double.Parse(LineGFrom_pu);
             //Line B From

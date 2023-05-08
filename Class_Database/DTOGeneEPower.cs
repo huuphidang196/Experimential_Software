@@ -127,10 +127,10 @@ namespace Experimential_Software.Class_Database
             get { return new Complex(this._rTran_pu, this._xTran_pu); }
         }
 
-        //YF = -1 /Z_MF
+        //YF = 1 /Z_MF
         public Complex YF_Con_MF_pu
         {
-            get { if (this.Z_Res_MF_pu != 0) return -1 / this.Z_Res_MF_pu; return 0; }
+            get { if (this.Z_Res_MF_pu != 0) return 1 / this.Z_Res_MF_pu; return 0; }
         }
 
         //Constuctor

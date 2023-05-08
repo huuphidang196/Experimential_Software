@@ -135,7 +135,7 @@ namespace Experimential_Software
             frmBuildNew.DTPPowerSystem = this._dtoPowerSystem;
             frmBuildNew.ShowDialog();
 
-            //   MessageBox.Show("MVA = " + this._dtoPowerSystem.PowreBase_S_MVA + ", Frequency = " + this._dtoPowerSystem.Frequency_System_Hz);
+         //   MessageBox.Show("MVA = " + this._dtoPowerSystem.PowreBase_S_MVA + ", Frequency = " + this._dtoPowerSystem.Frequency_System_Hz);
         }
 
         #endregion Load_Form
@@ -408,7 +408,7 @@ namespace Experimential_Software
                     if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOLoadEPower.ObjectNumber);//dtoLoad.
                     databaseE.DataRecordE.DTOLoadEPower = DAOGeneLoadRecord.Instance.GenerateDTOLoadDefault(currentExistMax);
                     //Set BaseMVA 
-                    databaseE.DataRecordE.DTOLoadEPower.MBase = this._dtoPowerSystem.PowreBase_S_MVA;
+                    databaseE.DataRecordE.DTOLoadEPower.SBase = this._dtoPowerSystem.PowreBase_S_MVA;
                     break;
             }
             // Create instance of button1 and start drag-and-drop operation
@@ -423,30 +423,17 @@ namespace Experimential_Software
             ctrlInstance.BringToFront();
 
             //Add Func Context MenuStrip
-            ctrlInstance.MouseUp += CtrlInstance_ClickContextMenuStrip;
+            // ctrlInstance.MouseUp += CtrlInstance_ClickContextMenuStrip;
 
-        }
-
-        private void CtrlInstance_ClickContextMenuStrip(object sender, MouseEventArgs e)
-        {
-            //ContextMenuStrip => Drawn => Only open when click right mouse
-            if (e.Button == MouseButtons.Right)
-            {
-                ConnectableE ePowerInstance = sender as ConnectableE;
-                if (ePowerInstance.DatabaseE.ObjectType != ObjectType.Bus)
-                {
-                    MessageBox.Show("Please Click Bus connect with Load !");
-                    return;
-                }
-
-                ePowerInstance.ContextMenuStrip = this.cxttMenuStripEPower;      
-            }        
         }
 
         private void cxtMnuDCOperatingMode_Click(object sender, EventArgs e)
         {
             //Drawn Curve in Operating Mode
             frmDrawnCurve frmDrawnCurve = new frmDrawnCurve();
+            frmDrawnCurve.AllEPowers = this._ePowers;
+            frmDrawnCurve.BusLoadExamnined = this._ePowers.Find(x => x.IsSelected);
+           // MessageBox.Show("MVA = " + this._dtoPowerSystem.PowreBase_S_MVA + ", Frequency = " + this._dtoPowerSystem.Frequency_System_Hz);
             frmDrawnCurve.Show();
         }
 
@@ -510,17 +497,6 @@ namespace Experimential_Software
             lblYState.Text = s;
 
         }
-
-        private void btnLinePower_KeyDown(object sender, KeyEventArgs e)
-        {
-
-            // Vẽ lại CustomControl
-            btnLinePower_Ver.Invalidate();
-
-            // Vẽ lại Panel
-            pnlMain.Invalidate();
-        }
-
     }
 }
 

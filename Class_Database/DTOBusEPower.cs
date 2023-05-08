@@ -45,7 +45,7 @@ namespace Experimential_Software.Class_Database
         public double Angle_rad
         {
             get { return _angle_rad; }
-            set { _angle_rad = Math.Round(value, 2); }
+            set { _angle_rad = Math.Round(value, 4); }
         }
 
         //LimitData

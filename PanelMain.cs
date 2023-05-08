@@ -36,7 +36,7 @@ namespace Experimential_Software
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             base.OnMouseWheel(e);
-           
+
             if (Control.ModifierKeys != Keys.Control) return;
 
             // Lấy vị trí con trỏ chuột trong control
@@ -102,6 +102,8 @@ namespace Experimential_Software
             //Find Line is Seleted
             LineConnect lineSelected = frmCapstone.FindLineIsSelected();
             if (lineSelected == null) return;
+            DialogResult ret = MessageBox.Show("Do you want to remove this LineDrawn", "Question Before Remove Line", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (ret == DialogResult.No) return;
 
             DAOProcessDeleteLineConnect.Instance.ClearOldLine(lineSelected, this);
 
@@ -119,10 +121,7 @@ namespace Experimential_Software
         #endregion Key
 
 
-        #region Function_Overall
 
-
-        #endregion Function_Overall
     }
 }
 

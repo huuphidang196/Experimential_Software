@@ -84,7 +84,7 @@ namespace Experimential_Software.Class_Calculate.CalculateCurve
             //Binary search
             //   double UJ_Found = Bisection.FindRoot(F_UJ, Uj_Min, Uj_Max, P_Lj_Run, eps);
 
-            MessageBox.Show("UJ_Found1 = " + UJ_Found);
+          //  MessageBox.Show("UJ_Found1 = " + UJ_Found);
 
             //Check Condition of 2.2 Equation
             bool isCurveLimit = this.CheckQLJStepOneIsOnCurve(UJ_Found);

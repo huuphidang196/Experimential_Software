@@ -9,6 +9,19 @@ using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
 namespace Experimential_Software.Class_Database
 {
     [Serializable]
+    public class PowerSystem
+    {
+        public double P_ActivePower { get; set; }
+        public double Q_ReactivePower { get; set; }
+
+        public PowerSystem(double P_ActivePower, double Q_ReactivePower)
+        {
+            this.P_ActivePower = P_ActivePower;
+            this.Q_ReactivePower = Q_ReactivePower;
+        }
+    }
+
+    [Serializable]
     public class DTOMFComparer : IComparer<DTOGeneEPower>
     {
         public int Compare(DTOGeneEPower x, DTOGeneEPower y)

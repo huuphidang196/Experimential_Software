@@ -79,6 +79,7 @@ namespace Experimential_Software
         protected Label lblInfo;
         public Label LblInfoE { get => lblInfo; set => lblInfo = value; }
 
+
         //List LineConnected with this EPower
         protected List<LineConnect> _listBranch_Drawn;
         public List<LineConnect> ListBranch_Drawn { get => _listBranch_Drawn; set => _listBranch_Drawn = value; }
@@ -525,18 +526,38 @@ namespace Experimential_Software
         {
             base.OnMouseUp(e);
 
-            if (e.Button == MouseButtons.Right) return;
-
+            if (e.Button == MouseButtons.Right)
+            {
+                //Open ContextMenuStrip
+                this.ShowContextMenuOfEPower();
+                return;
+            }
             if (this._ePowerMouse == null) return;
 
             //=> Check if ko move trước đó thì ko set Pos  
 
             this._ePowerMouse.ButtonInstance_MouseUp(e);
             this.isMove = false;
-          //  MessageBox.Show("Phead = " + this.pHead + ". PTail = " + this.pTail);
+          //  if (this._databaseE.ObjectType == ObjectType.Load)
+          //  {
+          //      DTOLoadEPower dtoLoad = this.DatabaseE.DataRecordE.DTOLoadEPower;
+          //      MessageBox.Show("Yl = " + dtoLoad.YLConductanceLoadPU + ", SNormal = " + dtoLoad.SNormal_MVA + ", Sbase = " + dtoLoad.SBase );
+          //  }    
+          ////  MessageBox.Show("Phead = " + this.pHead + ". PTail = " + this.pTail);
         }
 
+        protected virtual void ShowContextMenuOfEPower()
+        {
+            if (!this.isSelected) return;
 
+            if (this.DatabaseE.ObjectType != ObjectType.Bus)
+            {
+                MessageBox.Show("Please Click Bus connect with Load !");
+                return;
+            }
+
+            this.ContextMenuStrip = this._formCap.cxttMenuStripEPower;
+        }
 
         protected override void OnMouseEnter(EventArgs e)
         {

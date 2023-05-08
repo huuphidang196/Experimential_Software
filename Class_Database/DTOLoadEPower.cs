@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Experimential_Software.Class_Database
 {
@@ -32,11 +33,11 @@ namespace Experimential_Software.Class_Database
         }
 
         //Mbase => Scb system
-        protected double _mBase;
-        public double MBase
+        protected double _sBase;
+        public double SBase
         {
-            get { return _mBase; }
-            set { _mBase = Math.Round(value, 2); }
+            get { return _sBase; }
+            set { _sBase = Math.Round(value, 2); }
         }
 
         public Complex SNormal_MVA
@@ -48,16 +49,20 @@ namespace Experimential_Software.Class_Database
         {
             get
             {
-                Complex S_Relative = this.SNormal_MVA / this._mBase;
+                Complex S_Relative = this.SNormal_MVA / this._sBase;
                 double Vol_pu = this.DTOBusConnected.Voltage_pu;
-
                 Complex ZLoad = 0;
                 if (S_Relative != 0) ZLoad = Math.Pow(Vol_pu, 2) / S_Relative;
                 else return ZLoad;
 
-                return -1 / ZLoad;
+                return 1 / ZLoad;
             }
 
+        }
+        public DTOLoadEPower()
+        {
+            this._pLoad = this._qLoad = 0;
+            this._sBase = 100;
         }
     }
 }

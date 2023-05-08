@@ -12,12 +12,12 @@ namespace Experimential_Software.Class_Calculate.Calculate_Y
     {
         protected CalPointCurveStepOne _curveStepOne;
 
-        protected DTODataInputPowerSystem _dataInputPower;
+      //  protected DTODataInputPowerSystem _dataInputPower;
 
         public CalculateYState(CalPointCurveStepOne CalPointCurveStepOne)
         {
             this._curveStepOne = CalPointCurveStepOne;
-            this._dataInputPower = CalPointCurveStepOne.DataInputPS;
+           // this._dataInputPower = CalPointCurveStepOne.DataInputPS;
         }
 
         public virtual Complex[,] CalculateMatrixYState(int N)

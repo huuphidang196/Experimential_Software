@@ -26,6 +26,13 @@ namespace Experimential_Software.Class_Database
             get { return _lineX_pu; }
             set { _lineX_pu = Math.Round(value, 6); }
         }
+        //Charging B_pu
+        protected double _chargingB_pu;
+        public double ChargingB_Pu
+        {
+            get { return _chargingB_pu; }
+            set { _chargingB_pu = Math.Round(value, 6); }
+        }
         //GFrom
         protected double _lineGFrom_pu;
         public double LineGFrom_Pu
@@ -37,7 +44,7 @@ namespace Experimential_Software.Class_Database
         protected double _lineBFrom_pu;
         public double LineBFrom_Pu
         {
-            get { return _lineBFrom_pu; }
+            get { if (this._chargingB_pu != 0) return this._chargingB_pu / 2; return _lineBFrom_pu; }
             set { _lineBFrom_pu = Math.Round(value, 6); }
         }
         //GTo
@@ -51,7 +58,7 @@ namespace Experimential_Software.Class_Database
         protected double _lineBTo_pu;
         public double LineBTo_Pu
         {
-            get { return _lineBTo_pu; }
+            get { if (this._chargingB_pu != 0) return this._chargingB_pu / 2; return _lineBTo_pu; }
             set { _lineBTo_pu = Math.Round(value, 6); }
         }
 
@@ -70,10 +77,10 @@ namespace Experimential_Software.Class_Database
             get { return new Complex(this._lineR_pu, this._lineX_pu) * this._lengthBr_KM; }
         }
 
-        //Yij = -1/Zij
+        //Yij = 1/Zij
         public Complex Yij_Con_LineE_pu
         {
-            get { return -1 / this.ZLine_Resis_LineE_pu; }
+            get { return 1 / this.ZLine_Resis_LineE_pu; }
         }
 
         //Ybij = G + jB=> from
@@ -91,6 +98,7 @@ namespace Experimential_Software.Class_Database
         {
             this._lineR_pu = 0;
             this._lineX_pu = 0.0001;
+            this._chargingB_pu = 0;
             this._lineGFrom_pu = 0;
             this._lineBFrom_pu = 0;
             this._lineGTo_pu = 0;

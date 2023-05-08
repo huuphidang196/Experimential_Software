@@ -24,7 +24,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         public virtual Complex[,] CalculateMatrixYState(List<ConnectableE> allBus)
         {
             //string s = "";
-            //foreach (ConnectableE ePower in  this._allBus)
+            //foreach (ConnectableE ePower in allBus)
             //{
             //    s += ePower.ToString();
             //}
@@ -60,9 +60,9 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                     List<ConnectableE> ListOverallTwoBus = List_ortherEPowerOfOrtherBus.Intersect(List_otherEPowers).ToList();
                     foreach (ConnectableE overallEPower in ListOverallTwoBus)
                     {
-                        Y_State[i, j] += this.GetYijOfEPowerAffectedByRX(overallEPower);
+                        Y_State[i, j] = -1 * this.GetYijOfEPowerAffectedByRX(overallEPower);
                     }
-                  
+
                 }
 
             }
@@ -93,7 +93,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                 //Get Yi0 if other EPower is MBA, Line , maybe MF still is considered
                 Complex y_i0_otherEPower = this.GetYioOfEPowerAfftecdByGB(otherEPower, bus_Consider);
 
-                Sigmoid = Sigmoid + y_ij_otherEPower + y_i0_otherEPower;
+                Sigmoid +=  y_ij_otherEPower + y_i0_otherEPower;
             }
 
             return Sigmoid;

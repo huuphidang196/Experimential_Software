@@ -7,18 +7,7 @@ using Experimential_Software.Class_Database;
 
 namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
 {
-    [Serializable]
-    public class PowerSystem
-    {
-        public double P_ActivePower { get; set; }
-        public double Q_ReactivePower { get; set; }
 
-        public PowerSystem(double P_ActivePower, double Q_ReactivePower)
-        {
-            this.P_ActivePower = P_ActivePower;
-            this.Q_ReactivePower = Q_ReactivePower;
-        }
-    }
     [Serializable]
     public class BusEPowerComparer : IComparer<ConnectableE>
     {
@@ -39,36 +28,50 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         private DAOGenerateListPoints() { }
 
         //Get List Point PL, QL. Input are List EPowers and Bus j
-        public virtual List<PowerSystem> GenerateListPointStabilityLimitCurve(List<ConnectableE> AllEPowers, ConnectableE EPowerBusJLoad, int TotalPoints)
+        public virtual List<PowerSystem> GenerateListPointStabilityLimitCurve(List<ConnectableE> AllEPowers, ConnectableE EPowerBusJLoad)
         {
             List<PowerSystem> List_PowerSystem = new List<PowerSystem>();
 
+            // int TotalPoints = 200;
+            double QLj_Run = 1;
+            double P_LjRun = 0;
+            double M_Base = DAOCalculateQLJStepOne.Instance.GetEPowerPLoadFromEPowerBusLoadConsider(EPowerBusJLoad).DatabaseE.DataRecordE.DTOLoadEPower.SBase;
+            //Stop when Q < 0
+            // int i = 0;
             //Get List powerSyttem
-            for (int i = 0; i < TotalPoints; i++)
+            //Send Data Before
+            this.SendDataBeforeCalculate(AllEPowers, EPowerBusJLoad);
+            while (QLj_Run >= 0)
             {
-                double P_LjRun = 0;
-                double QLj_Run = this.CalculateQLjEquivalentPLj(AllEPowers, EPowerBusJLoad);
-                PowerSystem powerRun = new PowerSystem(P_LjRun, QLj_Run);
+                QLj_Run = this.CalculateQLjEquivalentPLj(P_LjRun);
+                PowerSystem powerRun = new PowerSystem(P_LjRun * M_Base, QLj_Run * M_Base);
                 //Add into List
-                List_PowerSystem.Add(powerRun);
+                if (QLj_Run >= 0) List_PowerSystem.Add(powerRun);
+                //increase PLj Run
+                P_LjRun += 0.1;
+                // i++;
             }
 
             return List_PowerSystem;
         }
-
-        protected double CalculateQLjEquivalentPLj(List<ConnectableE> AllEPowers, ConnectableE EPowerBusJLoad)
+        protected virtual void SendDataBeforeCalculate(List<ConnectableE> AllEPowers, ConnectableE EPowerBusJLoad)
         {
             //Get List All Bus from AllEPowers
-            List<ConnectableE> _allBus = AllEPowers.FindAll(x => x.DatabaseE.ObjectType == ObjectType.Bus);
+            List<ConnectableE> allBus = AllEPowers.FindAll(x => x.DatabaseE.ObjectType == ObjectType.Bus);
             //Sort List All Bus by ObjNumber
-            _allBus.Sort(new BusEPowerComparer());
+            allBus.Sort(new BusEPowerComparer());
 
             //Generate AllMF from AllEPowers
             List<ConnectableE> allMF = AllEPowers.FindAll(x => x.DatabaseE.ObjectType == ObjectType.MF);
             //generate DTOData input PowerSystem
-            DTODataInputPowerSystem dtoDataInput = new DTODataInputPowerSystem(allMF);
+            DTODataInputPowerSystem dtoDataInputPS = new DTODataInputPowerSystem(allMF);
 
-            return 0;
+            DAOCalculateQLJStepOne.Instance.SetDatabaseOriginBeforeCalculate(dtoDataInputPS, allBus, EPowerBusJLoad);
+        }
+        protected double CalculateQLjEquivalentPLj(double P_LjRun)
+        {
+            double QLj_Run = DAOCalculateQLJStepOne.Instance.GetQLjSuitableForStablePower(P_LjRun);
+            return QLj_Run;
         }
     }
 }

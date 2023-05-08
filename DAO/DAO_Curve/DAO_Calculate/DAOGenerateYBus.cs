@@ -22,19 +22,19 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         #region YBus_Isoval
 
         // Ybus isoval
-        public virtual Complex[,] CalculateYBusIsoval(List<ConnectableE> allMF, ConnectableE EPowerBusJLoad, Complex[,] YSate)
+        public virtual Complex[,] CalculateYBusIsoval(int CountMF, ConnectableE EPowerBusJLoad, Complex[,] YSate)
         {
             //swap row order j with f + 1, same with column
 
-            int number_BusJ = EPowerBusJLoad.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber - (int)ObjectType.Bus;
-            Complex[,] Y_Transfer = this.GetYTransferRowAndCol(allMF, number_BusJ, YSate);
+            int number_BusJ = EPowerBusJLoad.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber - 100 * (int)ObjectType.Bus;
+            Complex[,] Y_Transfer = this.GetYTransferRowAndCol(CountMF, number_BusJ, YSate);
 
             //Clone Y bus temp = Y state
             Complex[,] Y_Temp = (Complex[,])Y_Transfer.Clone();
 
             // Tính ma trận đẳng trị
             //In order to have matrix (f+f) x (f+1) <=> k stop where k = f. Beacause k run from length <=> number N in paper => k stop k = f + 2 > f + 1 
-            for (int k = Y_Transfer.GetLength(0); k > allMF.Count + 1; k--)
+            for (int k = Y_Transfer.GetLength(0); k > CountMF + 1; k--)
             {
                 for (int i = 0; i < k; i++)
                 {
@@ -60,13 +60,13 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             return Y_Bus;
         }
 
-        protected virtual Complex[,] GetYTransferRowAndCol(List<ConnectableE> allMF, int number_BusJ, Complex[,] YSate)
+        protected virtual Complex[,] GetYTransferRowAndCol(int CountMF, int number_BusJ, Complex[,] YSate)
         {
             // Transfer Y_State to YTransfer by swapping row order j with f = 1, do same with column 
-            Complex[,] Y_Transfer = YSate;
+            Complex[,] Y_Transfer = (Complex[,])YSate.Clone();
 
             int j = number_BusJ - 1;
-            int f = allMF.Count - 1;
+            int f = CountMF - 1;
             int n = Y_Transfer.GetLength(0);
 
             // Đảo các phần tử của hàng thứ j và hàng thứ (f+1)
@@ -91,7 +91,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
 
         protected virtual Complex[,] PruneMatrixByRemoveZero(Complex[,] Y_Temp)
         {
-            DenseMatrix Y_Tem_RMZ = DenseMatrix.OfArray(Y_Temp);
+            DenseMatrix Y_Tem_RMZ = DenseMatrix.OfArray((Complex[,])Y_Temp.Clone());
 
             // Rút gọn ma trận bằng cách loại bỏ các hàng và cột có giá trị bằng 0
             for (int i = Y_Tem_RMZ.RowCount - 1; i >= 0; i--)
@@ -120,7 +120,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         public virtual Complex[,] ConvertFormYBusToZBus(Complex[,] YBus)
         {
             //Chuyển ma trận số phức thành ma trận DenseMatrix:
-            DenseMatrix denseMatrix = DenseMatrix.OfArray(YBus);
+            DenseMatrix denseMatrix = DenseMatrix.OfArray((Complex[,])YBus.Clone());
 
             //Tìm ma trận nghịch đảo:
             DenseMatrix inverseMatrix = (DenseMatrix)denseMatrix.Inverse();
@@ -132,7 +132,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         }
 
         // Z_ko , k = 1 --> F + 1, j default = 3 (<=> 4)
-        public virtual Complex GetZIOFromYBus(int branchI, Complex[,] YBus)
+        public virtual Complex GetZIOFromYBus(int branchI, Complex[,] YBus, ConnectableE ELoad)
         {
             //branch i input = stt run 1- F standard with diagram
             Complex Y_ii = YBus[branchI - 1, branchI - 1];
@@ -142,6 +142,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                 if (j != branchI - 1) Y_io -= YBus[branchI - 1, j];
             }
             //If branch i = bus Load <=> F + 1 => Get Z'io
+            if (branchI == YBus.GetLength(0)) Y_io -= ELoad.DatabaseE.DataRecordE.DTOLoadEPower.YLConductanceLoadPU;
 
             Complex Z_io = 1 / Y_io;
 

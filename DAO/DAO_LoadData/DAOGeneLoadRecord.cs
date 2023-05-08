@@ -23,7 +23,7 @@ namespace Experimential_Software.DAO.DAO_LoadData
             DTOLoadEPower dtoLoadEPower = new DTOLoadEPower();
 
             //Basic Data
-            dtoLoadEPower.ObjectName = "L" + ((ExistOrderBus + 1) % 500);
+            dtoLoadEPower.ObjectName = "L" + ((ExistOrderBus + 1) % 600);
             int numberObjectType = (int)ObjectType.Load * 100;
             dtoLoadEPower.ObjectNumber = (ExistOrderBus < 100) ? ((ExistOrderBus + 1) * numberObjectType + 1) : ExistOrderBus + 1;
 

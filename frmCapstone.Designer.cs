@@ -45,8 +45,8 @@ namespace Experimential_Software
             this.imgListEPower = new System.Windows.Forms.ImageList(this.components);
             this.imgListIconCtrl = new System.Windows.Forms.ImageList(this.components);
             this.cxttMenuStripEPower = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cxtMnuDCDrawnCurve = new System.Windows.Forms.ToolStripMenuItem();
             this.cxtMnuDCDominationDia = new System.Windows.Forms.ToolStripMenuItem();
+            this.cxtMnuDCDrawnCurve = new System.Windows.Forms.ToolStripMenuItem();
             this.cxtMnuDCOperatingMode = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain = new Experimential_Software.PanelMain();
             this.btnBusPower_Hor = new Experimential_Software.ConnectableE();
@@ -212,7 +212,13 @@ namespace Experimential_Software
             this.cxtMnuDCDominationDia,
             this.cxtMnuDCDrawnCurve});
             this.cxttMenuStripEPower.Name = "cxttMenuStripEPower";
-            this.cxttMenuStripEPower.Size = new System.Drawing.Size(266, 70);
+            this.cxttMenuStripEPower.Size = new System.Drawing.Size(266, 48);
+            // 
+            // cxtMnuDCDominationDia
+            // 
+            this.cxtMnuDCDominationDia.Name = "cxtMnuDCDominationDia";
+            this.cxtMnuDCDominationDia.Size = new System.Drawing.Size(265, 22);
+            this.cxtMnuDCDominationDia.Text = "Tính đẳng trị sơ đồ về thanh cái này ";
             // 
             // cxtMnuDCDrawnCurve
             // 
@@ -222,16 +228,10 @@ namespace Experimential_Software
             this.cxtMnuDCDrawnCurve.Size = new System.Drawing.Size(265, 22);
             this.cxtMnuDCDrawnCurve.Text = "Vẽ miền làm việc ổn định";
             // 
-            // cxtMnuDCDominationDia
-            // 
-            this.cxtMnuDCDominationDia.Name = "cxtMnuDCDominationDia";
-            this.cxtMnuDCDominationDia.Size = new System.Drawing.Size(265, 22);
-            this.cxtMnuDCDominationDia.Text = "Tính đẳng trị sơ đồ về thanh cái này ";
-            // 
             // cxtMnuDCOperatingMode
             // 
             this.cxtMnuDCOperatingMode.Name = "cxtMnuDCOperatingMode";
-            this.cxtMnuDCOperatingMode.Size = new System.Drawing.Size(180, 22);
+            this.cxtMnuDCOperatingMode.Size = new System.Drawing.Size(164, 22);
             this.cxtMnuDCOperatingMode.Text = "Chế độ vận hành";
             this.cxtMnuDCOperatingMode.Click += new System.EventHandler(this.cxtMnuDCOperatingMode_Click);
             // 
@@ -478,7 +478,6 @@ namespace Experimential_Software
             this.btnLinePower_Hor.TabIndex = 0;
             this.btnLinePower_Hor.Text = "Line Hor";
             this.btnLinePower_Hor.UseVisualStyleBackColor = false;
-            this.btnLinePower_Hor.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnLinePower_KeyDown);
             this.btnLinePower_Hor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLinePower_MouseDown);
             // 
             // btnLinePower_Ver
@@ -506,7 +505,6 @@ namespace Experimential_Software
             this.btnLinePower_Ver.Text = "Line";
             this.btnLinePower_Ver.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.btnLinePower_Ver.UseVisualStyleBackColor = false;
-            this.btnLinePower_Ver.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnLinePower_KeyDown);
             this.btnLinePower_Ver.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLinePower_MouseDown);
             // 
             // btnLoad_Hor
@@ -616,10 +614,10 @@ namespace Experimential_Software
         private ConnectableE btnTransformer3P_Hor;
         private ConnectableE btnLinePower_Hor;
         private ConnectableE btnLoad_Hor;
-        private System.Windows.Forms.ContextMenuStrip cxttMenuStripEPower;
         private System.Windows.Forms.ToolStripMenuItem cxtMnuDCDominationDia;
         private System.Windows.Forms.ToolStripMenuItem cxtMnuDCDrawnCurve;
         private System.Windows.Forms.ToolStripMenuItem cxtMnuDCOperatingMode;
+        public System.Windows.Forms.ContextMenuStrip cxttMenuStripEPower;
     }
 }
 

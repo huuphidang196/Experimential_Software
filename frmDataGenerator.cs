@@ -64,8 +64,10 @@ namespace Experimential_Software
             this.lblBusNameConnMF.Text = (dtoBusConnected == null) ? "NULL" : dtoBusConnected.ObjectName;
             //Set bus Type code 
             this.lblBusConnTypeCode.Text = (dtoBusConnected == null) ? "NULL" : ((int)dtoBusConnected.TypeCodeBus + 1) + "";
-            //Set machine ID <=> Object Name
-            this.txtMachineID.Text = this._dtoMFRecord.ObjectName;
+            //Set machine ID 
+            this.txtMachineID.Text = this._dtoMFRecord.ObjectNumber + "";
+            //Show Object Name
+            this.txtMachineName.Text = this._dtoMFRecord.ObjectName;
             //Set In Service
             this.chkInService.Checked = this._dtoMFRecord.IsInService;
         }

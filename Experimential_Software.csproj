@@ -124,6 +124,7 @@
     </Compile>
     <Compile Include="DAO\DAO_BusData\DAOGeneBusRecord.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOCalculateQLJStepOne.cs" />
+    <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOCalculateQLJStepSecond.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateListPoints.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateYBus.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateYState.cs" />
