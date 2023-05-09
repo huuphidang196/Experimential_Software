@@ -38,16 +38,17 @@ namespace Experimential_Software
             this.mnuFileNew = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileSave = new System.Windows.Forms.ToolStripMenuItem();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.pnlTreeView = new System.Windows.Forms.Panel();
             this.pnlTool = new System.Windows.Forms.Panel();
             this.pnlFlowTool = new System.Windows.Forms.FlowLayoutPanel();
             this.imgListTool = new System.Windows.Forms.ImageList(this.components);
             this.imgListEPower = new System.Windows.Forms.ImageList(this.components);
-            this.imgListIconCtrl = new System.Windows.Forms.ImageList(this.components);
+            this.imgListIconMnuStrip = new System.Windows.Forms.ImageList(this.components);
             this.cxttMenuStripEPower = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cxtMnuDCDominationDia = new System.Windows.Forms.ToolStripMenuItem();
             this.cxtMnuDCDrawnCurve = new System.Windows.Forms.ToolStripMenuItem();
             this.cxtMnuDCOperatingMode = new System.Windows.Forms.ToolStripMenuItem();
+            this.tvDataSaved = new System.Windows.Forms.TreeView();
             this.pnlMain = new Experimential_Software.PanelMain();
             this.btnBusPower_Hor = new Experimential_Software.ConnectableE();
             this.btnBusPower_Ver = new Experimential_Software.ConnectableE();
@@ -63,6 +64,7 @@ namespace Experimential_Software
             this.btnLoad_Ver = new Experimential_Software.ConnectableE();
             this.panel2.SuspendLayout();
             this.mnuStripBar.SuspendLayout();
+            this.pnlTreeView.SuspendLayout();
             this.pnlTool.SuspendLayout();
             this.pnlFlowTool.SuspendLayout();
             this.cxttMenuStripEPower.SuspendLayout();
@@ -76,7 +78,7 @@ namespace Experimential_Software
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1028, 127);
+            this.panel2.Size = new System.Drawing.Size(1042, 127);
             this.panel2.TabIndex = 1;
             // 
             // lblLine
@@ -97,7 +99,7 @@ namespace Experimential_Software
             this.mnuFile});
             this.mnuStripBar.Location = new System.Drawing.Point(0, 0);
             this.mnuStripBar.Name = "mnuStripBar";
-            this.mnuStripBar.Size = new System.Drawing.Size(1028, 24);
+            this.mnuStripBar.Size = new System.Drawing.Size(1042, 24);
             this.mnuStripBar.TabIndex = 3;
             this.mnuStripBar.Text = "menuStrip1";
             // 
@@ -135,21 +137,23 @@ namespace Experimential_Software
             this.mnuFileSave.Text = "Save";
             this.mnuFileSave.Click += new System.EventHandler(this.mnuFileSave_Click);
             // 
-            // panel3
+            // pnlTreeView
             // 
-            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel3.Location = new System.Drawing.Point(0, 127);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(115, 633);
-            this.panel3.TabIndex = 2;
+            this.pnlTreeView.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.pnlTreeView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlTreeView.Controls.Add(this.tvDataSaved);
+            this.pnlTreeView.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlTreeView.Location = new System.Drawing.Point(0, 127);
+            this.pnlTreeView.Name = "pnlTreeView";
+            this.pnlTreeView.Size = new System.Drawing.Size(176, 633);
+            this.pnlTreeView.TabIndex = 2;
             // 
             // pnlTool
             // 
             this.pnlTool.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.pnlTool.Controls.Add(this.pnlFlowTool);
             this.pnlTool.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlTool.Location = new System.Drawing.Point(905, 127);
+            this.pnlTool.Location = new System.Drawing.Point(919, 127);
             this.pnlTool.Name = "pnlTool";
             this.pnlTool.Size = new System.Drawing.Size(123, 633);
             this.pnlTool.TabIndex = 1;
@@ -191,20 +195,22 @@ namespace Experimential_Software
             this.imgListEPower.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListEPower.ImageStream")));
             this.imgListEPower.TransparentColor = System.Drawing.Color.Transparent;
             this.imgListEPower.Images.SetKeyName(0, "imgNoType.png");
-            this.imgListEPower.Images.SetKeyName(1, "BUS-export.png");
+            this.imgListEPower.Images.SetKeyName(1, "Bus_Spawn.png");
             this.imgListEPower.Images.SetKeyName(2, "MF.png");
             this.imgListEPower.Images.SetKeyName(3, "MBA2P_Spawn.png");
             this.imgListEPower.Images.SetKeyName(4, "MBA 3 cuộn dây-export.png");
             this.imgListEPower.Images.SetKeyName(5, "Line .png");
             this.imgListEPower.Images.SetKeyName(6, "Load_Run.png");
             // 
-            // imgListIconCtrl
+            // imgListIconMnuStrip
             // 
-            this.imgListIconCtrl.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListIconCtrl.ImageStream")));
-            this.imgListIconCtrl.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgListIconCtrl.Images.SetKeyName(0, "icon_NewFile.png");
-            this.imgListIconCtrl.Images.SetKeyName(1, "icon_OpenFile.png");
-            this.imgListIconCtrl.Images.SetKeyName(2, "icon_SaveFile.png");
+            this.imgListIconMnuStrip.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListIconMnuStrip.ImageStream")));
+            this.imgListIconMnuStrip.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgListIconMnuStrip.Images.SetKeyName(0, "icon_NewFile.png");
+            this.imgListIconMnuStrip.Images.SetKeyName(1, "icon_OpenFile.png");
+            this.imgListIconMnuStrip.Images.SetKeyName(2, "icon_SaveFile.png");
+            this.imgListIconMnuStrip.Images.SetKeyName(3, "FolderIcon.png");
+            this.imgListIconMnuStrip.Images.SetKeyName(4, "Text_Icon.png");
             // 
             // cxttMenuStripEPower
             // 
@@ -235,6 +241,21 @@ namespace Experimential_Software
             this.cxtMnuDCOperatingMode.Text = "Chế độ vận hành";
             this.cxtMnuDCOperatingMode.Click += new System.EventHandler(this.cxtMnuDCOperatingMode_Click);
             // 
+            // tvDataSaved
+            // 
+            this.tvDataSaved.BackColor = System.Drawing.Color.White;
+            this.tvDataSaved.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tvDataSaved.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvDataSaved.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvDataSaved.ImageIndex = 3;
+            this.tvDataSaved.ImageList = this.imgListIconMnuStrip;
+            this.tvDataSaved.Location = new System.Drawing.Point(0, 0);
+            this.tvDataSaved.Name = "tvDataSaved";
+            this.tvDataSaved.SelectedImageIndex = 0;
+            this.tvDataSaved.Size = new System.Drawing.Size(174, 631);
+            this.tvDataSaved.TabIndex = 0;
+            this.tvDataSaved.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvDataSaved_NodeMouseDoubleClick);
+            // 
             // pnlMain
             // 
             this.pnlMain.AllowDrop = true;
@@ -242,9 +263,9 @@ namespace Experimential_Software
             this.pnlMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlMain.BackColor = System.Drawing.Color.White;
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(115, 127);
+            this.pnlMain.Location = new System.Drawing.Point(176, 127);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(790, 633);
+            this.pnlMain.Size = new System.Drawing.Size(743, 633);
             this.pnlMain.TabIndex = 3;
             this.pnlMain.TabStop = true;
             this.pnlMain.ZoomFactor = 1D;
@@ -280,7 +301,6 @@ namespace Experimential_Software
             // 
             this.btnBusPower_Ver.BackColor = System.Drawing.Color.Transparent;
             this.btnBusPower_Ver.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
-            this.btnBusPower_Ver.ImageIndex = 0;
             this.btnBusPower_Ver.IsContainPhead = false;
             this.btnBusPower_Ver.IsContainPtail = false;
             this.btnBusPower_Ver.IsMove = false;
@@ -450,7 +470,6 @@ namespace Experimential_Software
             this.btnTransformer3P_Ver.PTail = new System.Drawing.Point(0, 0);
             this.btnTransformer3P_Ver.Size = new System.Drawing.Size(50, 50);
             this.btnTransformer3P_Ver.TabIndex = 0;
-            this.btnTransformer3P_Ver.Text = "Transfoner 3P";
             this.btnTransformer3P_Ver.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.btnTransformer3P_Ver.UseVisualStyleBackColor = false;
             this.btnTransformer3P_Ver.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTransformer3P_MouseDown);
@@ -563,10 +582,10 @@ namespace Experimential_Software
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1028, 760);
+            this.ClientSize = new System.Drawing.Size(1042, 760);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlTool);
-            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.pnlTreeView);
             this.Controls.Add(this.panel2);
             this.MainMenuStrip = this.mnuStripBar;
             this.Name = "frmCapstone";
@@ -579,6 +598,7 @@ namespace Experimential_Software
             this.panel2.PerformLayout();
             this.mnuStripBar.ResumeLayout(false);
             this.mnuStripBar.PerformLayout();
+            this.pnlTreeView.ResumeLayout(false);
             this.pnlTool.ResumeLayout(false);
             this.pnlFlowTool.ResumeLayout(false);
             this.cxttMenuStripEPower.ResumeLayout(false);
@@ -588,7 +608,7 @@ namespace Experimential_Software
 
         #endregion
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel pnlTreeView;
         public ConnectableE LinePower;
         public System.Windows.Forms.Panel pnlTool;
         public System.Windows.Forms.Label lblLine;
@@ -601,7 +621,7 @@ namespace Experimential_Software
         public System.Windows.Forms.ImageList imgListEPower;
         private System.Windows.Forms.ToolStripMenuItem mnuFile;
         private System.Windows.Forms.ImageList imgListTool;
-        private System.Windows.Forms.ImageList imgListIconCtrl;
+        private System.Windows.Forms.ImageList imgListIconMnuStrip;
         public System.Windows.Forms.MenuStrip mnuStripBar;
         public System.Windows.Forms.ToolStripMenuItem mnuFileNew;
         public System.Windows.Forms.ToolStripMenuItem mnuFileOpen;
@@ -618,6 +638,7 @@ namespace Experimential_Software
         private System.Windows.Forms.ToolStripMenuItem cxtMnuDCDrawnCurve;
         private System.Windows.Forms.ToolStripMenuItem cxtMnuDCOperatingMode;
         public System.Windows.Forms.ContextMenuStrip cxttMenuStripEPower;
+        private System.Windows.Forms.TreeView tvDataSaved;
     }
 }
 

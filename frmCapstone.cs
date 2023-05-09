@@ -18,7 +18,9 @@ using Experimential_Software.DAO.DAO_LoadData;
 using Experimential_Software.DAO.DAO_MBA2Data;
 using Experimential_Software.DAO.DAO_SaveAndReadPowerSystem;
 using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
+using Experimential_Software.DAO.DAOProcessTreeView;
 using System.Numerics;
+using System.IO;
 
 namespace Experimential_Software
 {
@@ -42,11 +44,10 @@ namespace Experimential_Software
         protected List<IMouseOnEndsControl> _iEPowers = new List<IMouseOnEndsControl>();
         public List<IMouseOnEndsControl> IEPowers { get => _iEPowers; set => _iEPowers = value; }
 
-        //Process new file, open, save
-        //  protected ProcessMnuFile _processMnuFile;
-
-
         protected double _zoomFactor = 1;
+
+        //TreeView Path FolderSaved
+        protected string _folderSaved_Path = "E:/Code_Visual/Experimential_Software/TreeDataSaved";
 
         public frmCapstone()
         {
@@ -62,6 +63,10 @@ namespace Experimential_Software
 
             //this.FixScaleSizeForm();
             this.LoadImageMenuFile();
+
+            //Load TreeView
+            this.LoadDataTreeView(this._folderSaved_Path, null);
+
             // this._processMnuFile = new ProcessMnuFile(this);
             this.pnlMain.PanelMainMouse.FrmCapstone = this;
             this.lblLine.Text = "Zoom = " + this.pnlMain.ZoomFactor;
@@ -100,14 +105,13 @@ namespace Experimential_Software
 
         }
 
-
         protected virtual void LoadImageMenuFile()
         {
-            if (this.imgListIconCtrl.Images.Count == 0) return;
+            if (this.imgListIconMnuStrip.Images.Count == 0) return;
 
-            this.mnuFileNew.Image = this.imgListIconCtrl.Images[0];
-            this.mnuFileOpen.Image = this.imgListIconCtrl.Images[1];
-            this.mnuFileSave.Image = this.imgListIconCtrl.Images[2];
+            this.mnuFileNew.Image = this.imgListIconMnuStrip.Images[0];
+            this.mnuFileOpen.Image = this.imgListIconMnuStrip.Images[1];
+            this.mnuFileSave.Image = this.imgListIconMnuStrip.Images[2];
         }
 
         protected virtual void FixScaleSizeForm()
@@ -124,7 +128,8 @@ namespace Experimential_Software
 
         private void frmCapstone_Resize(object sender, EventArgs e)
         {
-            this.WindowState = FormWindowState.Maximized; // set window state to normal
+            // this.WindowState = FormWindowState.Maximized; // set window state to normal
+            if (this.LineConnectList.Count > 0) this.DrawAllLineOnPanel();
         }
 
         protected virtual void OpenFormSetBaseMVA()
@@ -135,8 +140,85 @@ namespace Experimential_Software
             frmBuildNew.DTPPowerSystem = this._dtoPowerSystem;
             frmBuildNew.ShowDialog();
 
-         //   MessageBox.Show("MVA = " + this._dtoPowerSystem.PowreBase_S_MVA + ", Frequency = " + this._dtoPowerSystem.Frequency_System_Hz);
+            //   MessageBox.Show("MVA = " + this._dtoPowerSystem.PowreBase_S_MVA + ", Frequency = " + this._dtoPowerSystem.Frequency_System_Hz);
         }
+
+        #region _Load_Tree_View_Data_Saved
+        protected virtual void LoadDataTreeView(string folderPath, TreeNode parentNode)
+        {
+            this.tvDataSaved.Nodes.Clear();
+            int posSeperate = folderPath.LastIndexOf('/');
+            string nameNodeOri = folderPath.Substring(posSeperate + 1);
+            TreeNode nodeParentOri = new TreeNode(nameNodeOri); // tạo một nút mới với tên là tên thư mục
+            this.tvDataSaved.Nodes.Add(nodeParentOri);
+            nodeParentOri.ImageIndex = 3;
+            nodeParentOri.SelectedImageIndex = 3;
+
+            //Add Child Nodes 
+            this.GetNodeFolderChildInFolderOrigin(folderPath, nodeParentOri);
+            //Expand tree view
+            // Tìm node gốc
+            TreeNode rootNode = this.tvDataSaved.Nodes[0];
+            if (rootNode != null) rootNode.ExpandAll();
+
+        }
+
+        private void GetNodeFolderChildInFolderOrigin(string folderPath, TreeNode parentNode)
+        {
+            string[] directories = Directory.GetDirectories(folderPath); // lấy danh sách các thư mục con
+            if (directories.Length == 0)
+            {
+                this.AddNodeDatabaseOnTreeView(folderPath, parentNode);
+                return;
+            }
+
+            foreach (string directory in directories)
+            {
+                TreeNode node = new TreeNode(Path.GetFileName(directory)); // tạo một nút mới với tên là tên thư mục
+                parentNode.Nodes.Add(node); // thêm nút con vào nút cha
+                node.ImageIndex = 3;
+                node.SelectedImageIndex = 3;
+
+                this.GetNodeFolderChildInFolderOrigin(directory, node); // load thư mục con của thư mục hiện tại
+            }
+        }
+
+        protected void AddNodeDatabaseOnTreeView(string folderPath, TreeNode parentNode)
+        {
+            // Tạo đối tượng DirectoryInfo để truy cập vào thư mục
+            DirectoryInfo folder = new DirectoryInfo(folderPath);
+
+            // Lấy danh sách các tệp tin txt
+            FileInfo[] files = folder.GetFiles("*.txt");
+
+            // Duyệt danh sách tệp tin và thêm chúng vào TreeView
+            foreach (FileInfo file in files)
+            {
+                // Tạo một TreeNode mới với tên là tên tệp tin
+                TreeNode node = new TreeNode(file.Name);
+
+                parentNode.Nodes.Add(node); // thêm file Database con vào nút cha
+                node.ImageIndex = 4;
+                node.SelectedImageIndex = 4;
+            }
+        }
+
+
+        private void tvDataSaved_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            TreeNode selectedNode = e.Node;
+            if (!selectedNode.Text.Contains("txt")) return;
+
+            string pathFile = DAOProcessTreeView.Instance.GetPathOpenFileOnTreeView(this._folderSaved_Path, selectedNode);
+
+            //not use treeview => null path
+            this.OpenDatabaseFormSave(pathFile);
+
+        }
+
+      
+        #endregion _Load_Tree_View_Data_Saved
+
 
         #endregion Load_Form
 
@@ -349,6 +431,8 @@ namespace Experimential_Software
                 control.Location = dropLocation;
                 ConnectableE ePower = control as ConnectableE;
 
+                if (ePower.GenerateModeE == GenerateMode.LoadDatabase) return;
+
                 ePower.PreLocation = dropLocation;
 
                 this._ePowers.Add(ePower);
@@ -433,7 +517,7 @@ namespace Experimential_Software
             frmDrawnCurve frmDrawnCurve = new frmDrawnCurve();
             frmDrawnCurve.AllEPowers = this._ePowers;
             frmDrawnCurve.BusLoadExamnined = this._ePowers.Find(x => x.IsSelected);
-           // MessageBox.Show("MVA = " + this._dtoPowerSystem.PowreBase_S_MVA + ", Frequency = " + this._dtoPowerSystem.Frequency_System_Hz);
+            // MessageBox.Show("MVA = " + this._dtoPowerSystem.PowreBase_S_MVA + ", Frequency = " + this._dtoPowerSystem.Frequency_System_Hz);
             frmDrawnCurve.Show();
         }
 
@@ -456,12 +540,18 @@ namespace Experimential_Software
         private void mnuFileOpen_Click(object sender, EventArgs e)
         {
             // this._processMnuFile.FunctionMnuFileOpen_Click(sender, e);
-            DAOProcessMenuFileStrip.Instance.FunctionMnuFileOpen_Click(this);
+            //not use treeview => null path
+            this.OpenDatabaseFormSave("");
+
+        }
+
+        protected virtual void OpenDatabaseFormSave(string path)
+        {
+            DAOProcessMenuFileStrip.Instance.FunctionMnuFileOpen_Click(this, path);
             this._zoomFactor = pnlMain.ZoomFactor;
             this.lblLine.Text = "Zoom = " + this.pnlMain.ZoomFactor;
             //Drawn Line On Panel Main After Have Info Line
             this.DrawAllLineOnPanel();
-
         }
 
         //save File
@@ -469,6 +559,9 @@ namespace Experimential_Software
         {
             // this._processMnuFile.FunctionMnuFileSave_Click(sender, e);
             DAOProcessMenuFileStrip.Instance.FunctionMnuFileSave_Click(this);
+
+            //Update TreeView
+            this.LoadDataTreeView(this._folderSaved_Path, null);
         }
 
         #endregion MenuStrip
@@ -497,6 +590,8 @@ namespace Experimential_Software
             lblYState.Text = s;
 
         }
+
+      
     }
 }
 

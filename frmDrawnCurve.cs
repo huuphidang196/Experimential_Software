@@ -67,19 +67,25 @@ namespace Experimential_Software
                 return;
             }
 
-           //Process Chart and ListBox
+            //Process Chart and ListBox
             this.ProcessDrawnChartCurveLimited();
 
             //Processing completed event
             this.ProcessingCompletedEvent();
-           
+
 
         }
 
-    
+
         protected virtual void ProcessDrawnChartCurveLimited()
         {
             List<PowerSystem> List_PS_Point = DAOGenerateListPoints.Instance.GenerateListPointStabilityLimitCurve(this._allEPowers, this._busLoadExamined);
+            if (List_PS_Point.Count == 0)
+            {
+                MessageBox.Show("Please consider this Database !", "Remider notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             this.ProcessPowerLimitOnListBox(List_PS_Point);
 
             //Drawn Curve

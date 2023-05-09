@@ -35,9 +35,15 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             // int TotalPoints = 200;
             double QLj_Run = 1;
             double P_LjRun = 0;
-            double M_Base = DAOCalculateQLJStepOne.Instance.GetEPowerPLoadFromEPowerBusLoadConsider(EPowerBusJLoad).DatabaseE.DataRecordE.DTOLoadEPower.SBase;
+
+            //EPower Load consider
+            ConnectableE ELoad = DAOCalculateQLJStepOne.Instance.GetEPowerPLoadFromEPowerBusLoadConsider(EPowerBusJLoad);
+            if (ELoad == null) return List_PowerSystem;
+
+            double M_Base = ELoad.DatabaseE.DataRecordE.DTOLoadEPower.SBase;
+
             //Stop when Q < 0
-            // int i = 0;
+
             //Get List powerSyttem
             //Send Data Before
             this.SendDataBeforeCalculate(AllEPowers, EPowerBusJLoad);
@@ -49,7 +55,6 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                 if (QLj_Run >= 0) List_PowerSystem.Add(powerRun);
                 //increase PLj Run
                 P_LjRun += 0.1;
-                // i++;
             }
 
             return List_PowerSystem;

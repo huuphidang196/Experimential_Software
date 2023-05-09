@@ -32,7 +32,7 @@ namespace Experimential_Software.Class_Database
             {
                 if (ObjectType == ObjectType.Bus)
                 {
-                    if (this.ObjectOri == ObjectOrientation.Horizontal) return 90;
+                    if (this.ObjectOri == ObjectOrientation.Horizontal) return 75;
                     return 15;
                 }
 
@@ -58,7 +58,7 @@ namespace Experimential_Software.Class_Database
                 if (ObjectType == ObjectType.Bus)
                 {
                     if (this.ObjectOri == ObjectOrientation.Horizontal) return 15;
-                    return 90;
+                    return 75;
                 }
                 if (ObjectType == ObjectType.MF) return 40;
                 if (ObjectType == ObjectType.MBA2P) return 40;

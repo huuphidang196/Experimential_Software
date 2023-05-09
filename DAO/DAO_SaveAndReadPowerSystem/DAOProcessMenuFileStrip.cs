@@ -47,9 +47,10 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
 
         #region Open_File
         //openFile
-        public void FunctionMnuFileOpen_Click(frmCapstone frmCapstone)
+        public void FunctionMnuFileOpen_Click(frmCapstone frmCapstone, string pathTreeView)
         {
-            DAOReadFilePowerSystem.Instance.FunctionMnuFileOpen_Click(frmCapstone);
+            //not use tree view => null path
+            DAOReadFilePowerSystem.Instance.FunctionMnuFileOpen_Click(frmCapstone, pathTreeView);
         }
 
         #endregion Open_File

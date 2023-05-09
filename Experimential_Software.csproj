@@ -122,6 +122,7 @@
     <Compile Include="ConnectableE.Designer.cs">
       <DependentUpon>ConnectableE.cs</DependentUpon>
     </Compile>
+    <Compile Include="DAO\DAOProcessTreeView\DAOProcessTreeView.cs" />
     <Compile Include="DAO\DAO_BusData\DAOGeneBusRecord.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOCalculateQLJStepOne.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOCalculateQLJStepSecond.cs" />
@@ -295,6 +296,8 @@
   <ItemGroup>
     <None Include="Resources\Load_Tool.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="TreeDataSaved\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

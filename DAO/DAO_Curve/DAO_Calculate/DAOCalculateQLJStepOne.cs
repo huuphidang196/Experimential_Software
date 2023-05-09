@@ -77,6 +77,11 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         public virtual ConnectableE GetEPowerPLoadFromEPowerBusLoadConsider(ConnectableE ePowerBusJLoad)
         {
             LineConnect lineConELoad = ePowerBusJLoad.ListBranch_Drawn.Find(x => x.StartEPower.DatabaseE.ObjectType == ObjectType.Load || x.EndEPower.DatabaseE.ObjectType == ObjectType.Load);
+            if (lineConELoad == null)
+            {
+                MessageBox.Show("This Bus is not connected with any Load !\nPlease Select Again!");
+                return null;
+            }
             ConnectableE ELoad = (lineConELoad.StartEPower.DatabaseE.ObjectType == ObjectType.Load) ? lineConELoad.StartEPower : lineConELoad.EndEPower;
 
             //Set EPowerLoad for Y'j0 use
@@ -98,7 +103,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             //Binary search
             //   double UJ_Found = Bisection.FindRoot(F_UJ, Uj_Min, Uj_Max, P_Lj_Run, eps);
 
-        //    MessageBox.Show("UJ_Found1 = " + UJ_Found);
+            //    MessageBox.Show("UJ_Found1 = " + UJ_Found);
 
             //Check Condition of 2.2 Equation
             bool isCurveLimit = this.CheckQLJStepOneIsOnCurve(UJ_Found);

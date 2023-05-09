@@ -24,12 +24,19 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
         private DAOReadFilePowerSystem() {; }
 
         //openFile
-        public void FunctionMnuFileOpen_Click(frmCapstone frmCapstone)
+        public void FunctionMnuFileOpen_Click(frmCapstone frmCapstone, string pathTreeView)
         {
             //Question Before Open;
             bool saveBefore = this.QuestionSaveBeforeOpen(frmCapstone);
 
             if (saveBefore) return;
+
+            //use TreeView
+            if (pathTreeView != "")
+            {
+                this.ProcessInternOpenFileUseOverallWithTreeView(frmCapstone, pathTreeView);
+                return;
+            }
 
             OpenFileDialog openFileDialogMain = new OpenFileDialog();
             openFileDialogMain.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
@@ -40,10 +47,16 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
 
             if (openFileDialogMain.ShowDialog() != DialogResult.OK) return;
 
+            string path = openFileDialogMain.FileName;
+            //   MessageBox.Show("path old = " + path);
+            this.ProcessInternOpenFileUseOverallWithTreeView(frmCapstone, path);
+
+        }
+
+        public virtual void ProcessInternOpenFileUseOverallWithTreeView(frmCapstone frmCapstone, string path)
+        {
             //Clear All 
             DAOProcessMenuFileStrip.Instance.ClearAllEPowerAndLineOnMain(frmCapstone);
-
-            string path = openFileDialogMain.FileName;
 
             //Add EPower adn Add LineConnect
             this.ProcessOpenFile(frmCapstone, path);
@@ -60,11 +73,11 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
                 return true;
             }
 
-           // frmCapstone.mnuFileNew.PerformClick();
+            // frmCapstone.mnuFileNew.PerformClick();
             return false;
         }
 
- 
+
 
         protected virtual void ProcessOpenFile(frmCapstone frmCapstone, string path)
         {
@@ -78,7 +91,7 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
             this.ProcessOpenGetLineConnect(frmCapstone, dtoPowerSystem);
         }
 
-    
+
         protected virtual DTODataPowerSystem ReadDatabaseEPowerSystem(string path)
         {
             DTODataPowerSystem dtoPowerSystem = new DTODataPowerSystem();
@@ -114,6 +127,7 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
 
                 ConnectableE ePower = new ConnectableE(frmCapstone, frmCapstone.pnlMain, databaseE, frmCapstone.imgListEPower, GenerateMode.LoadDatabase);
 
+                ePower.IsOnTool = false;
                 ePower.DoDragDrop(ePower, DragDropEffects.Move);
                 ePower.PreLocation = databaseE.OldLocation_Save;
                 frmCapstone.pnlMain.Controls.Add(ePower);
@@ -124,9 +138,11 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
                 ePower.UpdatePositonLabelInfo(); //=> use show label. I don't know it not show on panel, need code row
                 frmCapstone.CountElement = frmCapstone.EPowers.Count;
                
-                // ==> not add to List because Panel have event in frm.cs pnlMain_DragDrop . When addmain => do event
-            }
+                frmCapstone.pnlMain.SetInsideEPower(ePower);
 
+                frmCapstone.AddEPower(ePower);
+                frmCapstone.AddIMouseOnEnds(ePower);
+            }
         }
 
         #endregion Process_Get_EPower
@@ -150,12 +166,16 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
             {
                 ConnectableE StartEPower = this.GetEPowerByNameToString(frmCapstone, dataline.NameStartEPower);
                 ConnectableE EndEPower = this.GetEPowerByNameToString(frmCapstone, dataline.NameEndEPower);
-                
+
+
                 //Point Start and End Line
                 Point StartPoint = dataline.StartPoint;
                 Point EndPoint = dataline.EndPoint;
 
                 LineConnect lineConnect = new LineConnect(StartEPower, EndEPower, StartPoint, EndPoint, frmCapstone.pnlMain);
+                //Set Contain Phead andPTail
+                this.SetContainEPowerWhenSaveData(lineConnect);
+
                 //this.lineConnectList.Add(lineConnect);
                 frmCapstone.AddLine(lineConnect);
 
@@ -163,6 +183,25 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
                 StartEPower.AddLineConnectedToList(lineConnect);
                 EndEPower.AddLineConnectedToList(lineConnect);
             }
+        }
+
+        protected virtual void SetContainEPowerWhenSaveData(LineConnect lineConnect)
+        {
+            //Start
+            PointOfEnds pointStartE = this.SetContainEnds(lineConnect, lineConnect.StartEPower, lineConnect.StartPoint);
+            if (pointStartE == PointOfEnds.PointOfHead) lineConnect.StartEPower.IsContainPhead = true;
+            else lineConnect.StartEPower.IsContainPtail = true;
+
+            //End
+            PointOfEnds pointEndE = this.SetContainEnds(lineConnect, lineConnect.EndEPower, lineConnect.EndPoint);
+            if (pointStartE == PointOfEnds.PointOfHead) lineConnect.EndEPower.IsContainPhead = true;
+            else lineConnect.EndEPower.IsContainPtail = true;
+        }
+
+        protected virtual PointOfEnds SetContainEnds(LineConnect lineConnect, ConnectableE ePowerEnds, Point pointEnds)
+        {
+            PointOfEnds pEndsStart = lineConnect.CheckPointEndIsPHeadOrPTail(ePowerEnds, pointEnds);
+            return pEndsStart;
         }
 
         protected virtual ConnectableE GetEPowerByNameToString(frmCapstone frmCapstone, string ePower_Found)
@@ -177,6 +216,6 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
         //Process_Get_LineConnect
         #endregion Process_Get_LineConnect
 
-      
+
     }
 }

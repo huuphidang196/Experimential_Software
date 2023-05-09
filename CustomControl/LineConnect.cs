@@ -83,7 +83,7 @@ namespace Experimential_Software.CustomControl
             this.isSelected = false;
         }
 
-        protected virtual PointOfEnds CheckPointEndIsPHeadOrPTail(ConnectableE EPower, Point point)
+        public virtual PointOfEnds CheckPointEndIsPHeadOrPTail(ConnectableE EPower, Point point)
         {
             Point pointToEPower = this.TransferPointToEPower(EPower, point);
 
