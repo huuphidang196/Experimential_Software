@@ -129,6 +129,7 @@
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateListPoints.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateYBus.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateYState.cs" />
+    <Compile Include="DAO\DAO_Curve\DAO_IsovalForm\DAOGetTextSysemIsoval.cs" />
     <Compile Include="DAO\DAO_GeneratorData\DAOGeneMFRecord.cs" />
     <Compile Include="DAO\DAO_GeneratorData\DAOUpdateMFAfterConnectBus.cs" />
     <Compile Include="DAO\DAO_LineData\DAOGeneLineRecord.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="DAO\DAO_LoadData\DAOUpdateLoadAfterConnectBus.cs" />
     <Compile Include="DAO\DAO_MBA2Data\DAOCalculateVoltageFixed.cs" />
     <Compile Include="DAO\DAO_MBA2Data\DAOGeneMBA2Record.cs" />
+    <Compile Include="DAO\DAO_MBA2Data\DAOUpdateImpendanceWhenChangeTap.cs" />
     <Compile Include="DAO\DAO_MBA2Data\DAOUpdateMBA2AfterConnectEnds.cs" />
     <Compile Include="DAO\DAO_ProcessDelete\DAO_DeleteLineConnect\DAOProcessDeleteLineConnect.cs" />
     <Compile Include="DAO\DAO_SaveAndReadPowerSystem\DAOProcessMenuFileStrip.cs" />
@@ -199,6 +201,12 @@
     <Compile Include="frmFixedTapChanger.Designer.cs">
       <DependentUpon>frmFixedTapChanger.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmSystemIsoval.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSystemIsoval.Designer.cs">
+      <DependentUpon>frmSystemIsoval.cs</DependentUpon>
+    </Compile>
     <Compile Include="IMouseOnEndsControl.cs" />
     <Compile Include="PanelMain.cs">
       <SubType>Component</SubType>
@@ -238,6 +246,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmFixedTapChanger.resx">
       <DependentUpon>frmFixedTapChanger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSystemIsoval.resx">
+      <DependentUpon>frmSystemIsoval.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -510,7 +510,16 @@ namespace Experimential_Software
             // ctrlInstance.MouseUp += CtrlInstance_ClickContextMenuStrip;
 
         }
-
+        //ybus. Ystate
+        private void cxtMnuDCDominationDia_Click(object sender, EventArgs e)
+        {
+            frmSystemIsoval frmSystemIsoval = new frmSystemIsoval();
+            frmSystemIsoval.AllEPowers = this._ePowers;
+            frmSystemIsoval.BusLoadExamnined = this._ePowers.Find(x => x.IsSelected);
+            
+            frmSystemIsoval.Show();
+        }
+        //Isoval
         private void cxtMnuDCOperatingMode_Click(object sender, EventArgs e)
         {
             //Drawn Curve in Operating Mode
@@ -520,6 +529,7 @@ namespace Experimential_Software
             // MessageBox.Show("MVA = " + this._dtoPowerSystem.PowreBase_S_MVA + ", Frequency = " + this._dtoPowerSystem.Frequency_System_Hz);
             frmDrawnCurve.Show();
         }
+
 
         #endregion Button_Instance
 
@@ -591,7 +601,7 @@ namespace Experimential_Software
 
         }
 
-      
+       
     }
 }
 

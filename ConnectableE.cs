@@ -556,7 +556,7 @@ namespace Experimential_Software
                 return;
             }
 
-            this.ContextMenuStrip = this._formCap.cxttMenuStripEPower;
+            this.ContextMenuStrip = this._formCap.cxtMenuStripEPower;
         }
 
         protected override void OnMouseEnter(EventArgs e)

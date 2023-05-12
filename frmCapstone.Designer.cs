@@ -39,16 +39,16 @@ namespace Experimential_Software
             this.mnuFileOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileSave = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlTreeView = new System.Windows.Forms.Panel();
+            this.tvDataSaved = new System.Windows.Forms.TreeView();
+            this.imgListIconMnuStrip = new System.Windows.Forms.ImageList(this.components);
             this.pnlTool = new System.Windows.Forms.Panel();
             this.pnlFlowTool = new System.Windows.Forms.FlowLayoutPanel();
             this.imgListTool = new System.Windows.Forms.ImageList(this.components);
             this.imgListEPower = new System.Windows.Forms.ImageList(this.components);
-            this.imgListIconMnuStrip = new System.Windows.Forms.ImageList(this.components);
-            this.cxttMenuStripEPower = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cxtMenuStripEPower = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.cxtMnuDCDominationDia = new System.Windows.Forms.ToolStripMenuItem();
             this.cxtMnuDCDrawnCurve = new System.Windows.Forms.ToolStripMenuItem();
             this.cxtMnuDCOperatingMode = new System.Windows.Forms.ToolStripMenuItem();
-            this.tvDataSaved = new System.Windows.Forms.TreeView();
             this.pnlMain = new Experimential_Software.PanelMain();
             this.btnBusPower_Hor = new Experimential_Software.ConnectableE();
             this.btnBusPower_Ver = new Experimential_Software.ConnectableE();
@@ -67,7 +67,7 @@ namespace Experimential_Software
             this.pnlTreeView.SuspendLayout();
             this.pnlTool.SuspendLayout();
             this.pnlFlowTool.SuspendLayout();
-            this.cxttMenuStripEPower.SuspendLayout();
+            this.cxtMenuStripEPower.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -148,6 +148,31 @@ namespace Experimential_Software
             this.pnlTreeView.Size = new System.Drawing.Size(176, 633);
             this.pnlTreeView.TabIndex = 2;
             // 
+            // tvDataSaved
+            // 
+            this.tvDataSaved.BackColor = System.Drawing.Color.White;
+            this.tvDataSaved.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tvDataSaved.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tvDataSaved.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tvDataSaved.ImageIndex = 3;
+            this.tvDataSaved.ImageList = this.imgListIconMnuStrip;
+            this.tvDataSaved.Location = new System.Drawing.Point(0, 0);
+            this.tvDataSaved.Name = "tvDataSaved";
+            this.tvDataSaved.SelectedImageIndex = 0;
+            this.tvDataSaved.Size = new System.Drawing.Size(174, 631);
+            this.tvDataSaved.TabIndex = 0;
+            this.tvDataSaved.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvDataSaved_NodeMouseDoubleClick);
+            // 
+            // imgListIconMnuStrip
+            // 
+            this.imgListIconMnuStrip.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListIconMnuStrip.ImageStream")));
+            this.imgListIconMnuStrip.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgListIconMnuStrip.Images.SetKeyName(0, "icon_NewFile.png");
+            this.imgListIconMnuStrip.Images.SetKeyName(1, "icon_OpenFile.png");
+            this.imgListIconMnuStrip.Images.SetKeyName(2, "icon_SaveFile.png");
+            this.imgListIconMnuStrip.Images.SetKeyName(3, "FolderIcon.png");
+            this.imgListIconMnuStrip.Images.SetKeyName(4, "Text_Icon.png");
+            // 
             // pnlTool
             // 
             this.pnlTool.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
@@ -202,29 +227,20 @@ namespace Experimential_Software
             this.imgListEPower.Images.SetKeyName(5, "Line .png");
             this.imgListEPower.Images.SetKeyName(6, "Load_Run.png");
             // 
-            // imgListIconMnuStrip
+            // cxtMenuStripEPower
             // 
-            this.imgListIconMnuStrip.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListIconMnuStrip.ImageStream")));
-            this.imgListIconMnuStrip.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgListIconMnuStrip.Images.SetKeyName(0, "icon_NewFile.png");
-            this.imgListIconMnuStrip.Images.SetKeyName(1, "icon_OpenFile.png");
-            this.imgListIconMnuStrip.Images.SetKeyName(2, "icon_SaveFile.png");
-            this.imgListIconMnuStrip.Images.SetKeyName(3, "FolderIcon.png");
-            this.imgListIconMnuStrip.Images.SetKeyName(4, "Text_Icon.png");
-            // 
-            // cxttMenuStripEPower
-            // 
-            this.cxttMenuStripEPower.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cxtMenuStripEPower.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cxtMnuDCDominationDia,
             this.cxtMnuDCDrawnCurve});
-            this.cxttMenuStripEPower.Name = "cxttMenuStripEPower";
-            this.cxttMenuStripEPower.Size = new System.Drawing.Size(266, 48);
+            this.cxtMenuStripEPower.Name = "cxttMenuStripEPower";
+            this.cxtMenuStripEPower.Size = new System.Drawing.Size(266, 70);
             // 
             // cxtMnuDCDominationDia
             // 
             this.cxtMnuDCDominationDia.Name = "cxtMnuDCDominationDia";
             this.cxtMnuDCDominationDia.Size = new System.Drawing.Size(265, 22);
             this.cxtMnuDCDominationDia.Text = "Tính đẳng trị sơ đồ về thanh cái này ";
+            this.cxtMnuDCDominationDia.Click += new System.EventHandler(this.cxtMnuDCDominationDia_Click);
             // 
             // cxtMnuDCDrawnCurve
             // 
@@ -240,21 +256,6 @@ namespace Experimential_Software
             this.cxtMnuDCOperatingMode.Size = new System.Drawing.Size(164, 22);
             this.cxtMnuDCOperatingMode.Text = "Chế độ vận hành";
             this.cxtMnuDCOperatingMode.Click += new System.EventHandler(this.cxtMnuDCOperatingMode_Click);
-            // 
-            // tvDataSaved
-            // 
-            this.tvDataSaved.BackColor = System.Drawing.Color.White;
-            this.tvDataSaved.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tvDataSaved.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tvDataSaved.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tvDataSaved.ImageIndex = 3;
-            this.tvDataSaved.ImageList = this.imgListIconMnuStrip;
-            this.tvDataSaved.Location = new System.Drawing.Point(0, 0);
-            this.tvDataSaved.Name = "tvDataSaved";
-            this.tvDataSaved.SelectedImageIndex = 0;
-            this.tvDataSaved.Size = new System.Drawing.Size(174, 631);
-            this.tvDataSaved.TabIndex = 0;
-            this.tvDataSaved.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvDataSaved_NodeMouseDoubleClick);
             // 
             // pnlMain
             // 
@@ -601,7 +602,7 @@ namespace Experimential_Software
             this.pnlTreeView.ResumeLayout(false);
             this.pnlTool.ResumeLayout(false);
             this.pnlFlowTool.ResumeLayout(false);
-            this.cxttMenuStripEPower.ResumeLayout(false);
+            this.cxtMenuStripEPower.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -637,7 +638,7 @@ namespace Experimential_Software
         private System.Windows.Forms.ToolStripMenuItem cxtMnuDCDominationDia;
         private System.Windows.Forms.ToolStripMenuItem cxtMnuDCDrawnCurve;
         private System.Windows.Forms.ToolStripMenuItem cxtMnuDCOperatingMode;
-        public System.Windows.Forms.ContextMenuStrip cxttMenuStripEPower;
+        public System.Windows.Forms.ContextMenuStrip cxtMenuStripEPower;
         private System.Windows.Forms.TreeView tvDataSaved;
     }
 }

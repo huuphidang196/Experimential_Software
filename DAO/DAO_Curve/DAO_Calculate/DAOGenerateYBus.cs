@@ -5,6 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
 {
@@ -29,6 +30,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             int number_BusJ = EPowerBusJLoad.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber - 100 * (int)ObjectType.Bus;
             Complex[,] Y_Transfer = this.GetYTransferRowAndCol(CountMF, number_BusJ, YSate);
 
+           // MessageBox.Show(number_BusJ + " bus");
             //Clone Y bus temp = Y state
             Complex[,] Y_Temp = (Complex[,])Y_Transfer.Clone();
 

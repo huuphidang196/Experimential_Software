@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Experimential_Software.DAO.DAO_ProcessDelete.DAO_DeleteLineConnect;
+using System.Drawing;
 
 namespace Experimential_Software.EPowerProcess
 {
@@ -49,14 +50,10 @@ namespace Experimential_Software.EPowerProcess
 
                 this._ePowerInstance.EPowerLineTemp.ClearTwoOldLineWhenMove(lineConnect);
 
-                DAOProcessDeleteLineConnect.Instance.ProcessDeleteLineConnect(lineConnect);
-
-                this._ePowerInstance.FormCapstone.RemoveLine(lineConnect);
-
-                //Remove LineConneted outside this ListLine EPower and other EPower connected with this
-                 this._ePowerInstance.RemoveLineConnectedToList(lineConnect);
+                this.ProcessDeletePerLine(lineConnect);
+                this._ePowerInstance.FormCapstone.RemoveLine(lineConnect);     
             }
-        
+
             //remove this out EPowers
             this._ePowerInstance.FormCapstone.RemoveEPower(this._ePowerInstance);
 
@@ -66,7 +63,44 @@ namespace Experimential_Software.EPowerProcess
             this._ePowerInstance.FormCapstone.DrawAllLineOnPanel();
         }
 
-      
+        protected virtual void ProcessDeletePerLine(LineConnect lineConnect)
+        {
+            //Determine ConnectionE connect with line => set iscontainPHead or Tail
+            this.SetIsContainEPower(lineConnect);
+            //Remove Line Connect with ePower is removed outside List LineConenect of EPower Affect 
+            this.RemoveLineConnectWithERemoveOutSideEAffect(lineConnect);
+        }
+        protected virtual void SetIsContainEPower(LineConnect lineRemoved)
+        {
+            //Line alwway 2 Connect 
+            ConnectableE ortherEPower = lineRemoved.StartEPower != this._ePowerInstance ? lineRemoved.StartEPower : lineRemoved.EndEPower;
+            int numOrther = lineRemoved.StartEPower != this._ePowerInstance ? 0 : 1;
+            if (this.IsPointOfHead(lineRemoved, numOrther)) ortherEPower.IsContainPhead = false;
+            else ortherEPower.IsContainPtail = false;
+
+        }
+
+        private void RemoveLineConnectWithERemoveOutSideEAffect(LineConnect lineRemoved)
+        {
+            ConnectableE ortherEPower = lineRemoved.StartEPower != this._ePowerInstance ? lineRemoved.StartEPower : lineRemoved.EndEPower;
+
+            //Remove LinnConnected is removed from List In StartE and End
+            //Update Data EPower When EPower Connected is removed
+            //Remove before update
+            ortherEPower.RemoveLineConnectedToList(lineRemoved);
+            if (lineRemoved.StartEPower != this._ePowerInstance) lineRemoved.StartEPower = null;
+            else lineRemoved.EndEPower = null;
+            ortherEPower.UpdateDataRecordEPowerWhenConnect(true);
+
+        }
+        protected virtual bool IsPointOfHead(LineConnect lineSelected, int numberEnds)
+        {
+            PointOfEnds internPointEPower = numberEnds == 0 ? lineSelected.StartPointEPower : lineSelected.EndPointEPower;
+            bool isContainHead = internPointEPower == PointOfEnds.PointOfHead ? true : false;
+
+            return isContainHead;
+        }
+
     }
 }
 

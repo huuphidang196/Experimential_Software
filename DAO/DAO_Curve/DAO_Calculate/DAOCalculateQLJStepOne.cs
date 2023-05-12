@@ -30,6 +30,9 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         protected List<double> _rad_ThetaK_All;
         public List<double> Rad_ThetaK_All => _rad_ThetaK_All;
 
+        protected Complex[,] _YState;
+        public Complex[,] YState => _YState;
+
         protected Complex[,] YBus;
         public Complex[,] YBusIsoval => YBus;
 
@@ -69,7 +72,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             this._ePower_LoadJ = this.GetEPowerPLoadFromEPowerBusLoadConsider(EPowerBusJLoad);
             this._uJ_BusLoad = EPowerBusJLoad.DatabaseE.DataRecordE.DTOBusEPower.Voltage_pu;//Uref use Step 2 is Udm at Bus J => Bus is examined
 
-            Complex[,] YState = DAOGenerateYState.Instance.CalculateMatrixYState(allBus);
+            this._YState = DAOGenerateYState.Instance.CalculateMatrixYState(allBus);
             this.YBus = DAOGenerateYBus.Instance.CalculateYBusIsoval(this._e_AllMF.Count, EPowerBusJLoad, YState);
             this.ZBus = DAOGenerateYBus.Instance.ConvertFormYBusToZBus(YBus);
         }
@@ -93,7 +96,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             // double Uj_Min = 1e-6;
             double Uj_Min = 0;
             double Uj_Max = 2;
-            double eps = 1e-3;
+            double eps = 1e-2;
             double Q_Lj_Found = 0;
 
             Func<double, double, double> F_UJ = this.FuncFAByVoltageULoad;
@@ -140,8 +143,8 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                     break;
                 }
             }
+            //  if (Q_Lj_Found < 0 || Q_Lj_Found == double.NaN) MessageBox.Show("Uj_Step 2 = " + UJ_Found + ", QLj_2 = " + Q_Lj_Found);
 
-            // MessageBox.Show("Uj_Step 2 = " + UJ_Found + ", QLj_2 = " + Q_Lj_Found);
             return Q_Lj_Found;
         }
 
@@ -279,7 +282,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                     // MessageBox.Show("UJ_Found = " + x);
                     break;
                 }
-                x += 1e-5; // or any other small step size
+                x += 1e-4; // or any other small step size
             }
             return x;
         }

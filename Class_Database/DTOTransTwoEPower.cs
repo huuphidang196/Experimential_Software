@@ -12,7 +12,7 @@ namespace Experimential_Software.Class_Database
     public class ImpendanceMBA2
     {
         //R
-        private double _specR_pu;
+        protected double _specR_pu;
         public double SpecR_pu
         {
             get { return _specR_pu; }
@@ -20,7 +20,7 @@ namespace Experimential_Software.Class_Database
         }
 
         //X
-        private double _specX_pu;
+        protected double _specX_pu;
         public double SpecX_pu
         {
             get { return _specX_pu; }
@@ -28,7 +28,7 @@ namespace Experimential_Software.Class_Database
         }
 
         //G
-        private double _magG_pu;
+        protected double _magG_pu;
         public double MagG_pu
         {
             get { return _magG_pu; }
@@ -36,7 +36,7 @@ namespace Experimential_Software.Class_Database
         }
 
         //B
-        private double _magB_pu;
+        protected double _magB_pu;
         public double MagB_pu
         {
             get { return _magB_pu; }
@@ -69,6 +69,14 @@ namespace Experimential_Software.Class_Database
             this._magG_pu = 0;
             this._magB_pu = 0;
         }
+
+        public ImpendanceMBA2(double SpecR, double SpecX,double MagG, double MagB)
+        {
+            this._specR_pu = SpecR;
+            this._specX_pu = SpecX;
+            this._magG_pu = MagG;
+            this._magB_pu = MagB;
+        }
     }
 
     [Serializable]
@@ -89,6 +97,8 @@ namespace Experimential_Software.Class_Database
             get { return _volSec_kV; }
             set { _volSec_kV = Math.Round(value, 3); }
         }
+
+        public double K_Ratio_Vol { get { if (this._volPrim_kV != 0 && this._volSec_kV != 0) return this._volPrim_kV / this.VolSec_kV; return 1; } } //Uprim/Usec
     }
 
     [Serializable]
@@ -161,15 +171,13 @@ namespace Experimential_Software.Class_Database
 
         //Power Rating
         protected double _powerRated_MVA;
-   
+
         public double PowerRated_MVA
         {
             get { return _powerRated_MVA; }
             set { _powerRated_MVA = Math.Round(value, 3); }
         }
 
-        //Transfomer Impendance Data
-        public ImpendanceMBA2 Impendace_MBA2 { get; set; }
 
         //Voltage Rating MBA . U Ends
         public VoltageEnds VoltageEnds_Rated { get; set; }
@@ -221,6 +229,11 @@ namespace Experimential_Software.Class_Database
                 return _voltageEnds_Fixed;
             }
         }
+
+        //Transfomer Impendance Data
+
+        public ImpendanceMBA2 Impendace_MBA2 { get; set; }
+
 
     }
 }

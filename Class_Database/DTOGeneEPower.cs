@@ -89,7 +89,7 @@ namespace Experimential_Software.Class_Database
             this.Qmax_MW = 9999;
             //set Qmin 
             this.Qmin_MW = -9999;
-            //set Mbase => CSDM
+            //set Mbase => CHT
             this.MBase = 100;
         }
     }

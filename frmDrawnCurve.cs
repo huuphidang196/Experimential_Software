@@ -103,7 +103,7 @@ namespace Experimential_Software
 
             foreach (PowerSystem ps in List_PS_Point)
             {
-                this.lstBoxExperPoint.Items.Add("(P =  " + ps.P_ActivePower + ", Q = " + Math.Round(ps.Q_ReactivePower, 4));
+                this.lstBoxExperPoint.Items.Add("(P =  " + Math.Round(ps.P_ActivePower, 4) + ", Q = " + Math.Round(ps.Q_ReactivePower, 4));
             }
         }
 

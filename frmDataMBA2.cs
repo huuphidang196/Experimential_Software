@@ -36,6 +36,9 @@ namespace Experimential_Software
 
         protected double _numberTapFixed_Prim = 0;
         protected double _numberTapFixed_Sec = 0;
+
+        //ImpendanceTemp use recify temp zone impendance value 
+        protected ImpendanceMBA2 _impendanceTemp;
         public frmDataMBA2()
         {
             InitializeComponent();
@@ -68,8 +71,12 @@ namespace Experimential_Software
                 this._numberTapFixed_Prim = this._dtoMBA2EPowerRecord.NumberTapFixed_Prim;
                 this._numberTapFixed_Sec = this._dtoMBA2EPowerRecord.NumberTapFixed_Sec;
                 this.ShowDataOnFormMBA2EPowerOrigin();
+
+                //If Save then set origin
+                this._impendanceTemp = DAOUpdateImpendanceWhenChangeTap.Instance.ProcessUpdateImpendanceTempWhenStart(this._dtoMBA2EPowerRecord);
             }
         }
+
 
         #region Show_Data_Form_Main
         protected virtual void ShowDataOnFormMBA2EPowerOrigin()
@@ -78,7 +85,7 @@ namespace Experimential_Software
             this.ShowDataOnFormLineDataZone();
 
             //Show Power Rating and Inpendance Data
-            this.ShowTransformerImpendanceData();
+            this.ShowTransformerImpendanceData(this._dtoMBA2EPowerRecord.Impendace_MBA2);
 
             //Show Voltage 
             this.ShowVoltageRatingTransfomer();
@@ -107,13 +114,13 @@ namespace Experimential_Software
         }
 
         //Power Rating and Impendance Data
-        protected virtual void ShowTransformerImpendanceData()
+        protected virtual void ShowTransformerImpendanceData(ImpendanceMBA2 impenMBA2)
         {
             //Power Rating
             this.txtPowerRated.Text = this._dtoMBA2EPowerRecord.PowerRated_MVA + "";
 
             //***********Impendance Zone**********
-            ImpendanceMBA2 impenMBA2 = this._dtoMBA2EPowerRecord.Impendace_MBA2;
+            // ImpendanceMBA2 impenMBA2 = this._dtoMBA2EPowerRecord.Impendace_MBA2;
             //Spec R_pu
             this.txtSpecRpu.Text = (impenMBA2.SpecR_pu == 0) ? "0.000000" : impenMBA2.SpecR_pu.ToString("F6");
             //SpecX_pu
@@ -124,6 +131,8 @@ namespace Experimential_Software
 
             //Mag_B_pu
             this.txtMagBpu.Text = (impenMBA2.MagB_pu == 0) ? "0.000000" : impenMBA2.MagB_pu.ToString("F6");
+
+            // MessageBox.Show("mul = " + mul_K_Transfer);
         }
 
         //Show voltage Rangting Transfomer
@@ -180,6 +189,7 @@ namespace Experimential_Software
             this.lblTapTransSecFixed.Text = vol_Fixed.VolSec_kV + "";
 
         }
+
         #endregion Show_Data_Form_Main
 
         #region Func_Evnet_Down_FixedTap_Zone
@@ -229,14 +239,15 @@ namespace Experimential_Software
             //Set isInservice
             this._dtoMBA2EPowerRecord.IsInService = this.chkinService.Checked;
 
-            //********Power Rating And Impendance Zone*****
-            this.SetValuePowerRatingAndImpendance();
 
             //********Voltage Rating*****
             this.SetValueVoltageRating();
 
             //********Fixed Tap*****
             this.SetValueFixedTapAfterOKEvent();
+
+            //********Power Rating And Impendance Zone***** Below rating and fixed use for set impendance by k, k'
+            this.SetValuePowerRatingAndImpendance();
 
             DialogResult = DialogResult.OK;
         }
@@ -258,8 +269,12 @@ namespace Experimential_Software
             //MagB_pu
             double MagB_pu = double.Parse(this.txtMagBpu.Text);
 
-            ImpendanceMBA2 impenMBA2 = new ImpendanceMBA2() { SpecR_pu = SpecR_pu, SpecX_pu = SpecX_pu, MagG_pu = MagG_pu, MagB_pu = MagB_pu };
-            this._dtoMBA2EPowerRecord.Impendace_MBA2 = impenMBA2;
+            this._dtoMBA2EPowerRecord.Impendace_MBA2.SpecR_pu = SpecR_pu;
+            this._dtoMBA2EPowerRecord.Impendace_MBA2.SpecX_pu = SpecX_pu;
+            this._dtoMBA2EPowerRecord.Impendace_MBA2.MagB_pu = MagB_pu;
+            this._dtoMBA2EPowerRecord.Impendace_MBA2.MagG_pu = MagG_pu;
+
+
         }
 
         //********Voltage Rating*****
@@ -293,13 +308,6 @@ namespace Experimential_Software
 
         #endregion Function_OK_Event
 
-        #region Event_Text_Changed_Leave
-        private void CheckTextBoxValid(object sender, EventArgs e)
-        {
-
-        }
-
-        #endregion Event_Text_Changed_Leave
 
         #region Cancel_Event
         private void btnCancelMBA2_Click(object sender, EventArgs e)
@@ -355,7 +363,9 @@ namespace Experimential_Software
 
             //Apply value for Per In DTO Trans . Directly
             this.SetPercentEndsAndNumberTap(isPrim, Inter_Fixed_Per, Inter_numberTap);
-            // MessageBox.Show("Kup = " + K_remainder + ", num Tab = " + Inter_numberTap);
+
+            //Show Impendance because Impendance depend (k'/k)^2
+            this.ProcessUpdateImpendanceByTransformerRatio();
         }
 
         //Button Down
@@ -396,6 +406,9 @@ namespace Experimential_Software
 
             //Apply value for Per In DTO Trans . Directly
             this.SetPercentEndsAndNumberTap(isPrim, Inter_Fixed_Per, Inter_numberTap);
+
+            //Show Impendance because Impendance depend (k'/k)^2
+            this.ProcessUpdateImpendanceByTransformerRatio();
         }
 
         protected virtual void SetPercentEndsAndNumberTap(bool isPrim, double percentEnds, double numberTap)
@@ -428,9 +441,18 @@ namespace Experimential_Software
             //Show Again Fixed Zone
             this.ShowFixedTapDataOnFixedZone();
         }
+
+        protected virtual void ProcessUpdateImpendanceByTransformerRatio()
+        {
+            //Clone ImpendancemBA temp 
+            ImpendanceMBA2 impendanceMBA2Tem = DAOUpdateImpendanceWhenChangeTap.Instance.ProcessUpdateImpendanceByTransformerRatio(this._dtoMBA2EPowerRecord, this._impendanceTemp);
+
+            //Show textbox again. if ok => change.if Not not change
+            this.ShowTransformerImpendanceData(impendanceMBA2Tem);
+        }
         #endregion Event_Button_Up_Down
 
-       
+        #region Event_Text_Changed_Leave
         private void CheckTextBoxValidEventTextBoxLeave(object sender, EventArgs e)
         {
             TextBox txtDataChanged = sender as TextBox;
@@ -445,6 +467,8 @@ namespace Experimential_Software
                 return;
             }
             txtDataChanged.BackColor = Color.White;
+            //Set value impendance temp 
+            if ((GroupBox)txtDataChanged.Parent == this.grbImpendanceMBA2) this.SetValueForImpendanceTemp();
 
             //If Zone Power Rated => Set value immediately
             if (!txtDataChanged.Parent.Text.Contains("Voltage Rating")) return;
@@ -455,7 +479,30 @@ namespace Experimential_Software
 
             //When set rated => Fixed Zone is affeected by Rated. 
             this.ShowFixedTapDataOnFixedZone();
+
+
         }
+
+        //ImpendanceTemp
+        protected virtual void SetValueForImpendanceTemp()
+        {
+            //SpecR_pu
+            double SpecR_pu = double.Parse(this.txtSpecRpu.Text);
+            //SpecX_pu
+            double SpecX_pu = double.Parse(this.txtSpecXpu.Text);
+
+            //MagG_pu
+            double MagG_pu = double.Parse(this.txtMagGpu.Text);
+            //MagB_pu
+            double MagB_pu = double.Parse(this.txtMagBpu.Text);
+
+            this._impendanceTemp.SpecR_pu = SpecR_pu;
+            this._impendanceTemp.SpecX_pu = SpecX_pu;
+            this._impendanceTemp.MagG_pu = MagG_pu;
+            this._impendanceTemp.MagB_pu = MagB_pu;
+        }
+
+        #endregion Event_Text_Changed_Leave
     }
 
 }

@@ -67,7 +67,7 @@ namespace Experimential_Software
             this.txtPowerRated = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.grbImpendanceMBA2 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -106,7 +106,7 @@ namespace Experimential_Software
             this.grbVoltageRating.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.grbImpendanceMBA2.SuspendLayout();
             this.grbLineMBA2Data.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -467,7 +467,7 @@ namespace Experimential_Software
             // panel1
             // 
             this.panel1.Controls.Add(this.groupBox2);
-            this.panel1.Controls.Add(this.groupBox1);
+            this.panel1.Controls.Add(this.grbImpendanceMBA2);
             this.panel1.Location = new System.Drawing.Point(16, 228);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(793, 177);
@@ -520,26 +520,26 @@ namespace Experimential_Software
             this.label16.TabIndex = 0;
             this.label16.Text = "Rated";
             // 
-            // groupBox1
+            // grbImpendanceMBA2
             // 
-            this.groupBox1.BackColor = System.Drawing.Color.Transparent;
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.label17);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.txtMagBpu);
-            this.groupBox1.Controls.Add(this.textBox2);
-            this.groupBox1.Controls.Add(this.txtMagGpu);
-            this.groupBox1.Controls.Add(this.txtSpecXpu);
-            this.groupBox1.Controls.Add(this.txtSpecRpu);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.groupBox1.Location = new System.Drawing.Point(200, 0);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(593, 177);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Transformer Inpendance Data";
+            this.grbImpendanceMBA2.BackColor = System.Drawing.Color.Transparent;
+            this.grbImpendanceMBA2.Controls.Add(this.label10);
+            this.grbImpendanceMBA2.Controls.Add(this.label17);
+            this.grbImpendanceMBA2.Controls.Add(this.label8);
+            this.grbImpendanceMBA2.Controls.Add(this.label9);
+            this.grbImpendanceMBA2.Controls.Add(this.label7);
+            this.grbImpendanceMBA2.Controls.Add(this.txtMagBpu);
+            this.grbImpendanceMBA2.Controls.Add(this.textBox2);
+            this.grbImpendanceMBA2.Controls.Add(this.txtMagGpu);
+            this.grbImpendanceMBA2.Controls.Add(this.txtSpecXpu);
+            this.grbImpendanceMBA2.Controls.Add(this.txtSpecRpu);
+            this.grbImpendanceMBA2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.grbImpendanceMBA2.Location = new System.Drawing.Point(200, 0);
+            this.grbImpendanceMBA2.Name = "grbImpendanceMBA2";
+            this.grbImpendanceMBA2.Size = new System.Drawing.Size(593, 177);
+            this.grbImpendanceMBA2.TabIndex = 1;
+            this.grbImpendanceMBA2.TabStop = false;
+            this.grbImpendanceMBA2.Text = "Transformer Inpendance Data";
             // 
             // label10
             // 
@@ -889,8 +889,8 @@ namespace Experimential_Software
             this.panel1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.grbImpendanceMBA2.ResumeLayout(false);
+            this.grbImpendanceMBA2.PerformLayout();
             this.grbLineMBA2Data.ResumeLayout(false);
             this.grbLineMBA2Data.PerformLayout();
             this.ResumeLayout(false);
@@ -919,7 +919,7 @@ namespace Experimential_Software
         private System.Windows.Forms.Label lblToBusNum;
         private System.Windows.Forms.Label lblFromBusName;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox grbImpendanceMBA2;
         private System.Windows.Forms.GroupBox grbVoltageRating;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label10;
