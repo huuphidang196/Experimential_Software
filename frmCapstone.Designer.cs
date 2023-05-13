@@ -277,7 +277,7 @@ namespace Experimential_Software
             // btnBusPower_Hor
             // 
             this.btnBusPower_Hor.BackColor = System.Drawing.Color.Transparent;
-            this.btnBusPower_Hor.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnBusPower_Hor.ContainPreEpower = Experimential_Software.ContainPreEpower.NoContain;
             this.btnBusPower_Hor.ImageIndex = 0;
             this.btnBusPower_Hor.ImageList = this.imgListTool;
             this.btnBusPower_Hor.IsContainPhead = false;
@@ -301,7 +301,7 @@ namespace Experimential_Software
             // btnBusPower_Ver
             // 
             this.btnBusPower_Ver.BackColor = System.Drawing.Color.Transparent;
-            this.btnBusPower_Ver.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnBusPower_Ver.ContainPreEpower = Experimential_Software.ContainPreEpower.NoContain;
             this.btnBusPower_Ver.IsContainPhead = false;
             this.btnBusPower_Ver.IsContainPtail = false;
             this.btnBusPower_Ver.IsMove = false;
@@ -324,7 +324,7 @@ namespace Experimential_Software
             // btnMFPower_Hor
             // 
             this.btnMFPower_Hor.BackColor = System.Drawing.Color.Transparent;
-            this.btnMFPower_Hor.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnMFPower_Hor.ContainPreEpower = Experimential_Software.ContainPreEpower.NoContain;
             this.btnMFPower_Hor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMFPower_Hor.ImageIndex = 1;
             this.btnMFPower_Hor.IsContainPhead = false;
@@ -349,7 +349,7 @@ namespace Experimential_Software
             // btnMFPower_Ver
             // 
             this.btnMFPower_Ver.BackColor = System.Drawing.Color.Transparent;
-            this.btnMFPower_Ver.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnMFPower_Ver.ContainPreEpower = Experimential_Software.ContainPreEpower.NoContain;
             this.btnMFPower_Ver.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMFPower_Ver.ImageIndex = 1;
             this.btnMFPower_Ver.ImageList = this.imgListTool;
@@ -375,7 +375,7 @@ namespace Experimential_Software
             // btnTransformer2P_Hor
             // 
             this.btnTransformer2P_Hor.BackColor = System.Drawing.Color.Transparent;
-            this.btnTransformer2P_Hor.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnTransformer2P_Hor.ContainPreEpower = Experimential_Software.ContainPreEpower.NoContain;
             this.btnTransformer2P_Hor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransformer2P_Hor.ImageIndex = 2;
             this.btnTransformer2P_Hor.IsContainPhead = false;
@@ -400,7 +400,7 @@ namespace Experimential_Software
             // btnTransformer2P_Ver
             // 
             this.btnTransformer2P_Ver.BackColor = System.Drawing.Color.Transparent;
-            this.btnTransformer2P_Ver.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnTransformer2P_Ver.ContainPreEpower = Experimential_Software.ContainPreEpower.NoContain;
             this.btnTransformer2P_Ver.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransformer2P_Ver.ImageIndex = 2;
             this.btnTransformer2P_Ver.ImageList = this.imgListTool;
@@ -427,7 +427,7 @@ namespace Experimential_Software
             // btnTransformer3P_Hor
             // 
             this.btnTransformer3P_Hor.BackColor = System.Drawing.Color.Transparent;
-            this.btnTransformer3P_Hor.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnTransformer3P_Hor.ContainPreEpower = Experimential_Software.ContainPreEpower.NoContain;
             this.btnTransformer3P_Hor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransformer3P_Hor.ImageIndex = 3;
             this.btnTransformer3P_Hor.IsContainPhead = false;
@@ -452,7 +452,7 @@ namespace Experimential_Software
             // btnTransformer3P_Ver
             // 
             this.btnTransformer3P_Ver.BackColor = System.Drawing.Color.Transparent;
-            this.btnTransformer3P_Ver.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnTransformer3P_Ver.ContainPreEpower = Experimential_Software.ContainPreEpower.NoContain;
             this.btnTransformer3P_Ver.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransformer3P_Ver.ImageIndex = 3;
             this.btnTransformer3P_Ver.ImageList = this.imgListTool;
@@ -478,7 +478,7 @@ namespace Experimential_Software
             // btnLinePower_Hor
             // 
             this.btnLinePower_Hor.BackColor = System.Drawing.Color.Transparent;
-            this.btnLinePower_Hor.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnLinePower_Hor.ContainPreEpower = Experimential_Software.ContainPreEpower.NoContain;
             this.btnLinePower_Hor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLinePower_Hor.ImageIndex = 4;
             this.btnLinePower_Hor.IsContainPhead = false;
@@ -503,7 +503,7 @@ namespace Experimential_Software
             // btnLinePower_Ver
             // 
             this.btnLinePower_Ver.BackColor = System.Drawing.Color.Transparent;
-            this.btnLinePower_Ver.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnLinePower_Ver.ContainPreEpower = Experimential_Software.ContainPreEpower.NoContain;
             this.btnLinePower_Ver.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLinePower_Ver.ImageIndex = 4;
             this.btnLinePower_Ver.ImageList = this.imgListTool;
@@ -530,7 +530,7 @@ namespace Experimential_Software
             // btnLoad_Hor
             // 
             this.btnLoad_Hor.BackColor = System.Drawing.Color.Transparent;
-            this.btnLoad_Hor.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnLoad_Hor.ContainPreEpower = Experimential_Software.ContainPreEpower.NoContain;
             this.btnLoad_Hor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLoad_Hor.ImageIndex = 5;
             this.btnLoad_Hor.IsContainPhead = false;
@@ -555,7 +555,7 @@ namespace Experimential_Software
             // btnLoad_Ver
             // 
             this.btnLoad_Ver.BackColor = System.Drawing.Color.Transparent;
-            this.btnLoad_Ver.containPreEpower = Experimential_Software.ContainPreEpower.NoContain;
+            this.btnLoad_Ver.ContainPreEpower = Experimential_Software.ContainPreEpower.NoContain;
             this.btnLoad_Ver.Font = new System.Drawing.Font("Microsoft Sans Serif", 5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLoad_Ver.ImageIndex = 5;
             this.btnLoad_Ver.ImageList = this.imgListTool;

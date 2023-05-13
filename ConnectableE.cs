@@ -24,6 +24,8 @@ namespace Experimential_Software
 
         ContainPhead = 1,
         ContainPTail = 2,
+
+        ContainPIntern = 3,
     }
 
     [Serializable]
@@ -111,14 +113,13 @@ namespace Experimential_Software
 
         protected Point pHead;
         protected Point pTail;
-
+        protected Point pIntern = Point.Empty;//mba3p
         public Point PHead
         {
             get { return pHead; }
             set
             {
                 pHead = value;
-                //  Invalidate();
             }
         }
         public Point PTail
@@ -127,7 +128,15 @@ namespace Experimential_Software
             set
             {
                 pTail = value;
-                //  Invalidate();
+            }
+        }
+
+        public Point PIntern// only apply for MBA3p
+        {
+            get { return pIntern; }
+            set
+            {
+                pIntern = value;
             }
         }
 
@@ -137,12 +146,21 @@ namespace Experimential_Software
         protected bool isContainPtail;
         public bool IsContainPtail { get => isContainPtail; set => isContainPtail = value; }
 
-        public ContainPreEpower containPreEpower { get; set; }
+        protected bool isContainPIntern;
+        public bool IsContainPIntern { get => isContainPIntern; set => isContainPIntern = value; }
+
+        public ContainPreEpower ContainPreEpower { get; set; }
 
         protected bool isPHead = false;
         protected bool isPtail = false;
+        protected bool isPIntern = false;
 
         protected bool nearPhead = false;
+        public bool NearPHead => nearPhead;
+
+        protected bool nearIntern = false;
+        public bool NearPIntern => nearIntern;
+
         protected bool isMove = false;
         public bool IsMove
         {
@@ -197,6 +215,11 @@ namespace Experimential_Software
             this.isOnTool = true;
             this.isSelected = false;
 
+            if (this._databaseE.ObjectType != ObjectType.MBA3P)
+            {
+                this.pIntern = Point.Empty;
+                this.isContainPIntern = true;
+            }
             //Case new Generate diffrence Load from database
             this.ProcessBoolState();
 
@@ -220,13 +243,13 @@ namespace Experimential_Software
             {
                 this.isContainPhead = false;
                 this.isContainPtail = false;
-                this.containPreEpower = ContainPreEpower.NoContain;
+                this.ContainPreEpower = ContainPreEpower.NoContain;
                 return;
             }
 
             this.isContainPhead = this._databaseE.IsContainPhead;
             this.isContainPtail = this._databaseE.IsContainPtail;
-            this.containPreEpower = this._databaseE.ContainPreEpower;
+            this.ContainPreEpower = this._databaseE.ContainPreEpower;
         }
 
         protected virtual void SetSizeImageForEPower(DatabaseEPower databaseEPower, ImageList imgList)
@@ -380,7 +403,6 @@ namespace Experimential_Software
                     }
                     break;
                 case ObjectType.MBA2P:
-                case ObjectType.MBA3P:
                 case ObjectType.LineEPower:
                     {
                         //Circle => MBA, Line Width > Height
@@ -388,11 +410,27 @@ namespace Experimential_Software
                         {
                             this.pHead = new Point(0, Height / 2);
                             this.pTail = new Point(Width, Height / 2); //oy Top to Down
-                                                                       // MessageBox.Show("Phead = " + this.pHead + ". PTail = " + this.pTail);
                             return;
                         }
                         this.pHead = new Point(Width / 2, 0);
                         this.pTail = new Point(Width / 2, Height); //oy Top to Down
+                    }
+                    break;
+                case ObjectType.MBA3P:
+                    {
+                        //Circle => MBA, Line Width > Height
+                        if (this._databaseE.ObjectOri == ObjectOrientation.Horizontal)
+                        {
+                            this.pHead = new Point(0, Height / 2);
+                            this.pTail = new Point(Width, Height / 2); //oy Top to Down
+
+                            this.pIntern = new Point(Width / 2, 0);//
+                            return;
+                        }
+                        this.pHead = new Point(Width / 2, 0);
+                        this.pTail = new Point(Width / 2, Height); //oy Top to Down
+
+                        this.pIntern = new Point(Width, Height / 2);//I-
                     }
                     break;
                 case ObjectType.Load:
@@ -422,19 +460,52 @@ namespace Experimential_Software
             // it is on tool not flicker//nhấp nháy
             if (this.isOnTool) return;
 
-            if (this.mouseEnter && !this.isMove)
-            {
-                this.nearPhead = this.IsOnNearPHead();
-                Point pEnds = this.nearPhead ? this.pHead : this.pTail;
-                bool contained = this.nearPhead ? this.isContainPhead : this.isContainPtail;
-
-                if (contained && this._databaseE.ObjectType != ObjectType.Bus) pEnds = Point.Empty;
-
-                if (this._databaseE.ObjectType == ObjectType.MF || this._databaseE.ObjectType == ObjectType.Load) pEnds = this.pHead;
-                this.DrawCubePinkMouseNearEnds(e, pEnds);
-            }
             //Drawn Read or remove color when press and not press => update 
             this.DrawRectangleAround(e);
+
+            if (!this.mouseEnter || this.isMove) return;
+
+            if (this._databaseE.ObjectType != ObjectType.MBA3P) this.ProcessOnPaintDifferenceMBA3P(e);
+            else this.ProcessOnPaintMBA3P(e);
+        }
+
+        protected virtual void ProcessOnPaintDifferenceMBA3P(PaintEventArgs e)
+        {
+            this.nearPhead = this.IsOnNearPHead();
+            Point pEnds = this.nearPhead ? this.pHead : this.pTail;
+            bool contained = this.nearPhead ? this.isContainPhead : this.isContainPtail;
+
+            // if (contained && this._databaseE.ObjectType != ObjectType.Bus) pEnds = Point.Empty;
+            if (contained && this._databaseE.ObjectType != ObjectType.Bus) return;
+
+            if (this._databaseE.ObjectType == ObjectType.MF || this._databaseE.ObjectType == ObjectType.Load) pEnds = this.pHead;
+            this.DrawCubePinkMouseNearEnds(e, pEnds);
+        }
+
+        protected virtual void ProcessOnPaintMBA3P(PaintEventArgs e)
+        {
+            Point pEnds;
+            bool contained;
+
+            if (this.nearPhead)
+            {
+                pEnds = this.pHead;
+                contained = this.isContainPhead;
+            }
+            else if (this.nearIntern)
+            {
+                pEnds = this.pIntern;
+                contained = this.isContainPIntern;
+            }
+            else
+            {
+                pEnds = this.pTail;
+                contained = this.isContainPtail;
+            }
+
+            if (contained) return;
+
+            this.DrawCubePinkMouseNearEnds(e, pEnds);
         }
 
 
@@ -444,25 +515,64 @@ namespace Experimential_Software
 
             using (var pen = new Pen(Color.Pink, 3))
             {
-                //Get value interact with radius variable
-                int Point_Oxy = this.Width > this.Height ? pEnds.X : pEnds.Y;
-
-                int PointDrawn = this.nearPhead ? Point_Oxy : Point_Oxy - this._radiusPoint;
-
-                var rectWBigH = new Rectangle(PointDrawn, (Height - this._radiusPoint) / 2, this._radiusPoint, this._radiusPoint);
-                var rectWLessH = new Rectangle((Width - this._radiusPoint) / 2, PointDrawn, this._radiusPoint, this._radiusPoint);
-                if (this._databaseE.ObjectOri == ObjectOrientation.Horizontal)
-                {
-                    int k_Compen = this.nearPhead ? 0 : -1 * this._radiusPoint;
-                    rectWLessH = new Rectangle(pEnds.X + k_Compen , pEnds.Y - this._radiusPoint / 2, this._radiusPoint, this._radiusPoint);
-                }
-                var rectEnds = this.Width > this.Height ? rectWBigH : rectWLessH;
+                Rectangle rectEnds;
+                if (this._databaseE.ObjectType != ObjectType.MBA3P) rectEnds = this.GetRectangleDiffMBA3P(pEnds);
+                else rectEnds = this.GetRectangleMBA3P(pEnds);
 
                 e.Graphics.DrawRectangle(pen, rectEnds);
                 e.Graphics.FillRectangle(Brushes.Pink, rectEnds);
+                //   MessageBox.Show("Phead = " + this.PHead + ", Ptail = " + this.pTail + ", pIntern = " + this.pIntern);
             }
 
         }
+
+        protected virtual Rectangle GetRectangleDiffMBA3P(Point pEnds)
+        {
+            //Get value interact with radius variable
+            int Point_Oxy = this.Width > this.Height ? pEnds.X : pEnds.Y;
+
+            int PointDrawn = this.nearPhead ? Point_Oxy : Point_Oxy - this._radiusPoint;
+
+            var rectWBigH = new Rectangle(PointDrawn, (Height - this._radiusPoint) / 2, this._radiusPoint, this._radiusPoint);
+            var rectWLessH = new Rectangle((Width - this._radiusPoint) / 2, PointDrawn, this._radiusPoint, this._radiusPoint);
+            if (this._databaseE.ObjectOri == ObjectOrientation.Horizontal)
+            {
+                int k_Compen = this.nearPhead ? 0 : -1 * this._radiusPoint;
+                rectWLessH = new Rectangle(pEnds.X + k_Compen, pEnds.Y - this._radiusPoint / 2, this._radiusPoint, this._radiusPoint);
+            }
+            var rectEnds = this.Width > this.Height ? rectWBigH : rectWLessH;
+
+            return rectEnds;
+        }
+
+        protected virtual Rectangle GetRectangleMBA3P(Point pEnds)
+        {
+            int Point_Oxy, PointDrawn;
+            //Get value interact with radius variable
+            if (this._databaseE.ObjectOri == ObjectOrientation.Horizontal)
+            {
+                //Get value interact with radius variable
+                Point_Oxy = pEnds == this.pIntern ? pEnds.Y : pEnds.X;//y == x
+                if (pEnds == pIntern) PointDrawn = Point_Oxy;
+                else PointDrawn = pEnds == this.pHead ? Point_Oxy : Point_Oxy - this._radiusPoint;
+
+                //  MessageBox.Show("PointDrawn = " + PointDrawn);
+
+                var rectEnds_Hor = (pEnds == this.pIntern) ? new Rectangle((Width - this._radiusPoint) / 2, PointDrawn, this._radiusPoint, this._radiusPoint)
+                : new Rectangle(PointDrawn, (Height - this._radiusPoint) / 2, this._radiusPoint, this._radiusPoint);
+                return rectEnds_Hor;
+            }
+
+            //Get value interact with radius variable
+            Point_Oxy = pEnds == this.pIntern ? pEnds.X : pEnds.Y;//y == x
+            PointDrawn = pEnds == this.pHead ? Point_Oxy : Point_Oxy - this._radiusPoint;
+
+            var rectEnds_Ver = (pEnds == this.pIntern) ? new Rectangle(PointDrawn, (Height - this._radiusPoint) / 2, this._radiusPoint, this._radiusPoint)
+            : new Rectangle((Width - this._radiusPoint) / 2, PointDrawn, this._radiusPoint, this._radiusPoint);
+            return rectEnds_Ver;
+
+        }
+
         //Mouse Down Light around
         protected virtual void DrawRectangleAround(PaintEventArgs e)
         {
@@ -486,7 +596,7 @@ namespace Experimential_Software
 
             if (this._ePowerMouse == null) return;
 
-            this.isMove = !this.IsConnection(e.Location);
+            this.isMove = !this.IsConection(e.Location);
 
             this.isSelected = !this.isSelected;
 
@@ -538,12 +648,7 @@ namespace Experimential_Software
 
             this._ePowerMouse.ButtonInstance_MouseUp(e);
             this.isMove = false;
-          //  if (this._databaseE.ObjectType == ObjectType.Load)
-          //  {
-          //      DTOLoadEPower dtoLoad = this.DatabaseE.DataRecordE.DTOLoadEPower;
-          //      MessageBox.Show("Yl = " + dtoLoad.YLConductanceLoadPU + ", SNormal = " + dtoLoad.SNormal_MVA + ", Sbase = " + dtoLoad.SBase );
-          //  }    
-          ////  MessageBox.Show("Phead = " + this.pHead + ". PTail = " + this.pTail);
+
         }
 
         protected virtual void ShowContextMenuOfEPower()
@@ -562,6 +667,7 @@ namespace Experimential_Software
         protected override void OnMouseEnter(EventArgs e)
         {
             base.OnMouseEnter(e);
+            if (!this.isOnTool && this._databaseE.ObjectType == ObjectType.MBA3P) this.SetIsOnNearAnyPEnds();
             this.mouseEnter = true;
             Invalidate();
         }
@@ -611,29 +717,47 @@ namespace Experimential_Software
 
         #region Function_Overall
 
-        public virtual bool IsConnection(Point ePoint)
+        public virtual bool IsConection(Point ePoint)
         {
+            ObjectType objType = this._databaseE.ObjectType;
             this.isPHead = this.IsOnPHead(ePoint);
             this.isPtail = this.IsOnPTail(ePoint);
 
-            if (!this.isPHead && !this.isPtail) return false;
+            //MBA3
+            if (objType == ObjectType.MBA3P) this.isPIntern = this.IsOnPIntern(ePoint);
+
+            if (!this.isPHead && !this.isPtail && objType != ObjectType.MBA3P) return false;
+
+            if (!this.isPHead && !this.isPtail && !this.isPIntern && objType == ObjectType.MBA3P) return false;
 
             return true;
         }
 
         public virtual bool IsOnPHead(Point ePoint)
         {
-            double distance = Math.Sqrt(Math.Pow(ePoint.X - this.pHead.X, 2) + Math.Pow(ePoint.Y - this.pHead.Y, 2));
-
-            if (distance < 10) return true;
-
-            return false;
+            return this.IsContainEnds(ePoint, 0);
         }
 
 
         public virtual bool IsOnPTail(Point ePoint)
         {
-            double distance = Math.Sqrt(Math.Pow(ePoint.X - this.pTail.X, 2) + Math.Pow(ePoint.Y - this.pTail.Y, 2));
+            return this.IsContainEnds(ePoint, 1);
+        }
+
+        public virtual bool IsOnPIntern(Point ePoint)
+        {
+            return this.IsContainEnds(ePoint, 2);
+        }
+
+        protected virtual bool IsContainEnds(Point ePoint, int numEnds)
+        {
+            //Phead = 0, pTail = 1, pIntern = 2
+            Point pointEnds = this.pIntern;
+
+            if (numEnds == 0) pointEnds = this.pHead;
+            else if (numEnds == 1) pointEnds = this.pTail;
+
+            double distance = Math.Sqrt(Math.Pow(ePoint.X - pointEnds.X, 2) + Math.Pow(ePoint.Y - pointEnds.Y, 2));
 
             if (distance < 10) return true;
 
@@ -651,6 +775,35 @@ namespace Experimential_Software
             // if (this.databaseE.objectType == ObjectType.MF) distanceTail = 10000;=> Generator
             if (distanceHead < distanceTail) return true;
             return false;
+        }
+        public virtual void SetIsOnNearAnyPEnds()
+        {
+            Point pointHeadtoScreen = this.PointToScreen(this.pHead);
+            Point pointTailtoScreen = this.PointToScreen(this.pTail);
+            Point pointInterntoScreen = this.PointToScreen(this.pIntern);
+
+            double distanceHead = this.Distance(pointHeadtoScreen);
+            double distanceTail = this.Distance(pointTailtoScreen);
+            double distanceIntern = this.Distance(pointInterntoScreen);
+
+            double minDis = Math.Min(Math.Min(distanceHead, distanceTail), distanceIntern);
+
+            if (minDis == distanceIntern)
+            {
+                this.nearIntern = true;
+                this.nearPhead = false;
+                return;
+            }
+            else if (minDis == distanceHead)
+            {
+                this.nearPhead = true;
+                this.nearIntern = false;
+            }
+            else//pTail
+            {
+                this.nearPhead = false;
+                this.nearIntern = false;
+            }
         }
 
         protected virtual double Distance(Point pointCal)
@@ -674,7 +827,7 @@ namespace Experimential_Software
         #endregion Function_Overall
 
         #region Refercen_OutSide
-        public virtual void UpdateDataRecordEPowerWhenConnect(bool isRemoved)
+        public virtual void UpdateDataRecordEPowerWhenConnectOrRemove(bool isRemoved)
         {
             //Except Bus
             ObjectType objType = this._databaseE.ObjectType;
@@ -688,8 +841,14 @@ namespace Experimential_Software
                     break;
                 case ObjectType.MBA2P: // 3
                     {
-                        //Update DataDTO bus After Connect 
+                        //Update DataDTO MBA2P After Connect 
                         DAOUpdateMBA2AfterConnectEnds.Instance.UpdateMBA2AfterConnectEnds(this, isRemoved);
+                    }
+                    break;
+                case ObjectType.MBA3P: // 4
+                    {
+                        //Update DataDTO MBA3p After Connect 
+                      
                     }
                     break;
                 case ObjectType.LineEPower: // 5

@@ -70,17 +70,47 @@ namespace Experimential_Software.EPowerProcess
             //Remove Line Connect with ePower is removed outside List LineConenect of EPower Affect 
             this.RemoveLineConnectWithERemoveOutSideEAffect(lineConnect);
         }
+        #region Set_Contain_Phead_PTail_PIntern
+
         protected virtual void SetIsContainEPower(LineConnect lineRemoved)
         {
             //Line alwway 2 Connect 
             ConnectableE ortherEPower = lineRemoved.StartEPower != this._ePowerInstance ? lineRemoved.StartEPower : lineRemoved.EndEPower;
             int numOrther = lineRemoved.StartEPower != this._ePowerInstance ? 0 : 1;
             if (this.IsPointOfHead(lineRemoved, numOrther)) ortherEPower.IsContainPhead = false;
-            else ortherEPower.IsContainPtail = false;
+            else
+            {
+                if (ortherEPower.DatabaseE.ObjectType != ObjectType.MBA3P)
+                {
+                    ortherEPower.IsContainPtail = false;
+                    return;
+                }
 
+                if (this.IsPointOfIntern(lineRemoved, numOrther)) ortherEPower.IsContainPIntern = false;
+                else ortherEPower.IsContainPtail = false;
+            } 
         }
 
-        private void RemoveLineConnectWithERemoveOutSideEAffect(LineConnect lineRemoved)
+        protected virtual bool IsPointOfHead(LineConnect lineSelected, int numberEnds)
+        {
+            PointOfEnds internPointEPower = numberEnds == 0 ? lineSelected.StartPointEPower : lineSelected.EndPointEPower;
+            bool isContainHead = internPointEPower == PointOfEnds.PointOfHead ? true : false;
+
+            return isContainHead;
+        }
+
+        //Only apply for MBA3P 
+        protected virtual bool IsPointOfIntern(LineConnect lineSelected, int numberEnds)
+        {
+            PointOfEnds internPointEPower = numberEnds == 0 ? lineSelected.StartPointEPower : lineSelected.EndPointEPower;
+            bool isContainIntern = internPointEPower == PointOfEnds.PointOfIntern ? true : false;
+
+            return isContainIntern;
+        }
+
+        #endregion Set_Contain_Phead_PTail_PIntern
+
+        protected virtual void RemoveLineConnectWithERemoveOutSideEAffect(LineConnect lineRemoved)
         {
             ConnectableE ortherEPower = lineRemoved.StartEPower != this._ePowerInstance ? lineRemoved.StartEPower : lineRemoved.EndEPower;
 
@@ -90,16 +120,10 @@ namespace Experimential_Software.EPowerProcess
             ortherEPower.RemoveLineConnectedToList(lineRemoved);
             if (lineRemoved.StartEPower != this._ePowerInstance) lineRemoved.StartEPower = null;
             else lineRemoved.EndEPower = null;
-            ortherEPower.UpdateDataRecordEPowerWhenConnect(true);
+            ortherEPower.UpdateDataRecordEPowerWhenConnectOrRemove(true);
 
         }
-        protected virtual bool IsPointOfHead(LineConnect lineSelected, int numberEnds)
-        {
-            PointOfEnds internPointEPower = numberEnds == 0 ? lineSelected.StartPointEPower : lineSelected.EndPointEPower;
-            bool isContainHead = internPointEPower == PointOfEnds.PointOfHead ? true : false;
-
-            return isContainHead;
-        }
+       
 
     }
 }

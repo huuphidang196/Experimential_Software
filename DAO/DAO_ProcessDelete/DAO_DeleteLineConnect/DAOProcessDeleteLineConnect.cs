@@ -31,12 +31,43 @@ namespace Experimential_Software.DAO.DAO_ProcessDelete.DAO_DeleteLineConnect
             ConnectableE startEPower = lineRemoved.StartEPower;
             ConnectableE endEPower = lineRemoved.EndEPower;
 
-            if (this.IsPointOfHead(lineRemoved, 0)) startEPower.IsContainPhead = false;
-            else startEPower.IsContainPtail = false;
+            this.ProcessSetContainForEndsEPowerOfLineConnect(lineRemoved, startEPower);
+            this.ProcessSetContainForEndsEPowerOfLineConnect(lineRemoved, endEPower);
+        }
 
-            if (this.IsPointOfHead(lineRemoved, 1)) endEPower.IsContainPhead = false;
-            else endEPower.IsContainPtail = false;
+        protected virtual void ProcessSetContainForEndsEPowerOfLineConnect(LineConnect lineRemoved, ConnectableE EndsLineEPower)
+        {
+            int numberEnds = EndsLineEPower == lineRemoved.StartEPower ? 0 : 1;
+            if (this.IsPointOfHead(lineRemoved, numberEnds)) EndsLineEPower.IsContainPhead = false;
+            else
+            {
+                if (EndsLineEPower.DatabaseE.ObjectType != ObjectType.MBA3P)
+                {
+                    EndsLineEPower.IsContainPtail = false;
+                    return;
+                }
 
+                if (this.IsPointOfIntern(lineRemoved, numberEnds)) EndsLineEPower.IsContainPIntern = false;
+                else EndsLineEPower.IsContainPtail = false;
+            }
+
+        }
+
+        protected virtual bool IsPointOfHead(LineConnect lineSelected, int numberEnds)
+        {
+            PointOfEnds internPointEPower = numberEnds == 0 ? lineSelected.StartPointEPower : lineSelected.EndPointEPower;
+            bool isContainHead = internPointEPower == PointOfEnds.PointOfHead ? true : false;
+
+            return isContainHead;
+        }
+
+        //Only apply for MBA3P 
+        protected virtual bool IsPointOfIntern(LineConnect lineSelected, int numberEnds)
+        {
+            PointOfEnds internPointEPower = numberEnds == 0 ? lineSelected.StartPointEPower : lineSelected.EndPointEPower;
+            bool isContainIntern = internPointEPower == PointOfEnds.PointOfIntern ? true : false;
+
+            return isContainIntern;
         }
 
         private void RemoveLineConnectWithERemoveOutSideEAffect(LineConnect lineRemoved)
@@ -48,19 +79,13 @@ namespace Experimential_Software.DAO.DAO_ProcessDelete.DAO_DeleteLineConnect
             //Remove before update
             startEPower.RemoveLineConnectedToList(lineRemoved);
             lineRemoved.StartEPower = null;
-            startEPower.UpdateDataRecordEPowerWhenConnect(true);
+            startEPower.UpdateDataRecordEPowerWhenConnectOrRemove(true);
 
             endEPower.RemoveLineConnectedToList(lineRemoved);
             lineRemoved.EndEPower = null;
-            endEPower.UpdateDataRecordEPowerWhenConnect(true);
+            endEPower.UpdateDataRecordEPowerWhenConnectOrRemove(true);
         }
-        protected virtual bool IsPointOfHead(LineConnect lineSelected, int numberEnds)
-        {
-            PointOfEnds internPointEPower = numberEnds == 0 ? lineSelected.StartPointEPower : lineSelected.EndPointEPower;
-            bool isContainHead = internPointEPower == PointOfEnds.PointOfHead ? true : false;
 
-            return isContainHead;
-        }
 
         public virtual void ClearOldLine(LineConnect LineRemoved, PanelMain pnlMain_Drawn)
         {

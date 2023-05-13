@@ -11,6 +11,8 @@ namespace Experimential_Software
     {
         bool IsOnPHead(Point ePoint);
         bool IsOnPTail(Point ePoint);
+        bool IsOnPIntern(Point ePoint);
+
         public abstract void MouseMoveEnds();
        
     }

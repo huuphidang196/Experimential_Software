@@ -30,7 +30,6 @@ namespace Experimential_Software.EPowerProcess
         private Point _startPLineTemp;
         private Point _endPLinetemp;
 
-        private int _clickCount = 0;
 
         protected ProcessEPowerMove processEPowerMove;
         public ProcessEPowerMove ProcessEPowerMove => processEPowerMove;
@@ -68,6 +67,12 @@ namespace Experimential_Software.EPowerProcess
 
         protected virtual void ProcessButtonInstanceMouseDown_Move(MouseEventArgs e)
         {
+            if (this._ePower.DatabaseE.ObjectType == ObjectType.MBA3P)
+            {
+                this.ProcessSpecifiedButtonInstanceMBA3PMouseDown(e);
+                return;
+            }    
+
             bool isPhead = this._ePower.IsOnPHead(e.Location);
             bool isContainEnds = (isPhead == true) ? this._ePower.IsContainPhead : this._ePower.IsContainPtail;
 
@@ -82,7 +87,35 @@ namespace Experimential_Software.EPowerProcess
             this._startPLineTemp = this.TransferPosFindToControl(this._ePower, pointStartOnButton);
             this.allowCreatLine = true;
 
-            this._ePower.containPreEpower = isPhead == true ? ContainPreEpower.ContainPhead : ContainPreEpower.ContainPTail;
+            this._ePower.ContainPreEpower = isPhead == true ? ContainPreEpower.ContainPhead : ContainPreEpower.ContainPTail;
+        }
+
+        protected virtual void ProcessSpecifiedButtonInstanceMBA3PMouseDown(MouseEventArgs e)
+        {
+            bool isContainEnds;
+            Point pointStartOnButton;
+            if (this._ePower.IsOnPIntern(e.Location))
+            {
+                isContainEnds = this._ePower.IsContainPIntern;
+                pointStartOnButton = this._ePower.PIntern;
+            }
+            else
+            {
+                bool isPHead = this._ePower.IsOnPHead(e.Location);
+                isContainEnds = isPHead ? this._ePower.IsContainPhead : this._ePower.IsContainPtail;
+                pointStartOnButton = isPHead ? this._ePower.PHead : this._ePower.PTail;
+
+            }
+
+            if (isContainEnds) return;
+
+            //coordinate pnlMain system
+            this._startPLineTemp = this.TransferPosFindToControl(this._ePower, pointStartOnButton);
+            this.allowCreatLine = true;
+
+            if (this._ePower.IsOnPIntern(e.Location)) this._ePower.ContainPreEpower = ContainPreEpower.ContainPIntern;
+            else this._ePower.ContainPreEpower = this._ePower.IsOnPHead(e.Location) == true ? ContainPreEpower.ContainPhead : ContainPreEpower.ContainPTail;
+           
         }
 
         #endregion Mouse Down
@@ -91,8 +124,6 @@ namespace Experimential_Software.EPowerProcess
 
         public virtual void ButtonInstance_MouseMove(MouseEventArgs e)
         {
-            if (this._clickCount == 2) return;
-
             //Xử lí draw line        
             if (!this.isDragging) return;
 
@@ -166,10 +197,18 @@ namespace Experimential_Software.EPowerProcess
             if (EndEPower.DatabaseE.ObjectType != ObjectType.Bus) return;
 
             //Check endPoint is near Pheah or Ptail. not use isOnpHead or Patil beacause endLocation use mouse of other button
-            Point pointEndToBtn = EndEPower.IsOnNearPHead() ? EndEPower.PHead : EndEPower.PTail;
-
+            Point pointEndToBtn;
+            if (this._ePower.DatabaseE.ObjectType != ObjectType.MBA3P) pointEndToBtn = EndEPower.IsOnNearPHead() ? EndEPower.PHead : EndEPower.PTail;
+            else
+            {
+                EndEPower.SetIsOnNearAnyPEnds();
+                if (EndEPower.NearPIntern) pointEndToBtn = EndEPower.PIntern;
+                else if (EndEPower.NearPHead) pointEndToBtn = EndEPower.PHead;
+                else pointEndToBtn = EndEPower.PTail;
+            }
             //get bool contain Phead or Ptail
             bool isContainEnds = (pointEndToBtn == EndEPower.PHead) ? EndEPower.IsContainPhead : EndEPower.IsContainPtail;
+            if (pointEndToBtn == EndEPower.PIntern) isContainEnds = EndEPower.IsContainPIntern;
 
             if (EndEPower.DatabaseE.ObjectType == ObjectType.Bus) isContainEnds = false;//=?Bus can add > 2
             if (isContainEnds) return; //=> EndPoint has LineConnect 
@@ -192,21 +231,26 @@ namespace Experimential_Software.EPowerProcess
 
             //set 2 Contain Phead or Ptail  button Start , End is Bus not set Contain
             this.SetContainOnce(buttonInstance);
-            buttonInstance.UpdateDataRecordEPowerWhenConnect(false);
+            buttonInstance.UpdateDataRecordEPowerWhenConnectOrRemove(false);
         }
 
         protected virtual void SetContainOnce(ConnectableE btnSet)
         {
-            if (btnSet.containPreEpower == ContainPreEpower.ContainPhead)
+            if (btnSet.ContainPreEpower == ContainPreEpower.ContainPhead)
             {
                 btnSet.IsContainPhead = true;
                 return;
             }
+            else if (btnSet.ContainPreEpower == ContainPreEpower.ContainPIntern)
+            {
+                btnSet.IsContainPIntern = true;
+                return;
+            }    
             btnSet.IsContainPtail = true;
 
         }
 
-      
+
         #endregion Mouse Up
 
 
@@ -226,7 +270,7 @@ namespace Experimential_Software.EPowerProcess
                     {
                         frmDataBus frmDataBus = new frmDataBus();
                         frmDataBus.BusEPowerFixed = ePower;
-                        if (frmDataBus.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();                  
+                        if (frmDataBus.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
                     }
                     break;
                 case ObjectType.MF://Obj Type = 2
@@ -258,7 +302,7 @@ namespace Experimential_Software.EPowerProcess
                     }
                     break;
             }
-          
+
         }
         #endregion Mouse_Click
 

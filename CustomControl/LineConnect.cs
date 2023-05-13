@@ -14,6 +14,7 @@ namespace Experimential_Software.CustomControl
 
         PointOfHead = 1,
         PointOfTail = 2,
+        PointOfIntern = 3,
     }
 
     // Lớp đối tượng Line
@@ -73,19 +74,24 @@ namespace Experimential_Software.CustomControl
 
             this._startEPower = StartEPower;
             this._startPoint = start;
-            this._startPointEPower = this.CheckPointEndIsPHeadOrPTail(this._startEPower, this._startPoint);
+            this._startPointEPower = this.CheckPointEndIsPHeadOrPTailOrIntern(this._startEPower, this._startPoint);
 
 
             this._endEPower = EndEPower;
             this._endPoint = end;
-            this._endPointEPower = this.CheckPointEndIsPHeadOrPTail(this._endEPower, this._endPoint);
+            this._endPointEPower = this.CheckPointEndIsPHeadOrPTailOrIntern(this._endEPower, this._endPoint);
 
             this.isSelected = false;
         }
 
-        public virtual PointOfEnds CheckPointEndIsPHeadOrPTail(ConnectableE EPower, Point point)
+        public virtual PointOfEnds CheckPointEndIsPHeadOrPTailOrIntern(ConnectableE EPower, Point point)
         {
             Point pointToEPower = this.TransferPointToEPower(EPower, point);
+
+            if (EPower.DatabaseE.ObjectType == ObjectType.MBA3P)
+            {
+                if (pointToEPower == EPower.PIntern) return PointOfEnds.PointOfIntern;
+            }
 
             bool isPHead = pointToEPower == EPower.PHead ? true : false;
 
@@ -106,11 +112,11 @@ namespace Experimential_Software.CustomControl
         {
             Point pointToScreen = connectableE.PointToScreen(point);
             Point pointToMain = this.pnlMainDrawn.PointToClient(pointToScreen);
-         
-           return pointToMain;
+
+            return pointToMain;
         }
 
-     
+
         /// <summary>
         //numberPoint is update where. 0 then update startPoint, 1 update endPoint
         protected virtual void UpDateEndsPointInSideLine(ConnectableE EPowerUpdated, int numberPoint)
@@ -120,6 +126,8 @@ namespace Experimential_Software.CustomControl
             //Don't care EPowerUpdated is Start or End, update by PointOfEnds
             // => transfer Point PHead or PTail of EPowerUpdated to coordinate pnlMain system
             Point pointUpdated = GetPointOne == PointOfEnds.PointOfHead ? EPowerUpdated.PHead : EPowerUpdated.PTail;
+            if (GetPointOne == PointOfEnds.PointOfIntern) pointUpdated = EPowerUpdated.PIntern;
+
             Point pointToMain = this.TransferPointToMain(EPowerUpdated, pointUpdated);
 
             //=> Update Point Ends Line not Ends EPower

@@ -200,7 +200,7 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
 
         protected virtual PointOfEnds SetContainEnds(LineConnect lineConnect, ConnectableE ePowerEnds, Point pointEnds)
         {
-            PointOfEnds pEndsStart = lineConnect.CheckPointEndIsPHeadOrPTail(ePowerEnds, pointEnds);
+            PointOfEnds pEndsStart = lineConnect.CheckPointEndIsPHeadOrPTailOrIntern(ePowerEnds, pointEnds);
             return pEndsStart;
         }
 
