@@ -15,6 +15,8 @@ namespace Experimential_Software.Class_Database
 
         public DTOTransTwoEPower DTOTransTwoEPower { get; set; }
 
+        public DTOTransThreeEPower DTOTransThreeEPower { get; set; }
+
         public DTOLineEPower DTOLineEPower { get; set; }
 
         public DTOLoadEPower DTOLoadEPower { get; set; }

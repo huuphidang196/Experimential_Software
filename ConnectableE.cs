@@ -348,6 +348,12 @@ namespace Experimential_Software
                         objNumber = this._databaseE.DataRecordE.DTOTransTwoEPower.ObjectNumber;
                     }
                     break;
+                case ObjectType.MBA3P:
+                    {
+                        objName = this._databaseE.DataRecordE.DTOTransThreeEPower.ObjectName;
+                        objNumber = this._databaseE.DataRecordE.DTOTransThreeEPower.ObjectNumber;
+                    }
+                    break;
                 case ObjectType.LineEPower:
                     {
                         objName = this._databaseE.DataRecordE.DTOLineEPower.ObjectName;
@@ -821,8 +827,6 @@ namespace Experimential_Software
             this.mouseEnter = true;
             Invalidate();
         }
-
-
 
         #endregion Function_Overall
 

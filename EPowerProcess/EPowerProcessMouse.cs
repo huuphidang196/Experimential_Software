@@ -287,6 +287,13 @@ namespace Experimential_Software.EPowerProcess
                         if (frmDataMBA2.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
                     }
                     break;
+                case ObjectType.MBA3P://Obj Type = 3
+                    {
+                        frmDataMBA3 frmDataMBA3 = new frmDataMBA3();
+                        frmDataMBA3.MBA3EPowerFixed = ePower;
+                        if (frmDataMBA3.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
+                    }
+                    break;
                 case ObjectType.LineEPower://Obj Type = 5
                     {
                         frmDataBranch frmDataLineE = new frmDataBranch();

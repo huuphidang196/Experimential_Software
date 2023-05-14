@@ -16,13 +16,14 @@ namespace Experimential_Software
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmCapstone());
+             Application.Run(new frmCapstone());
             //Application.Run(new frmDataBus());
             //Application.Run(new frmDataLoad());
             //Application.Run(new frmDataBranch());
             //Application.Run(new frmDataGenerator());
             //Application.Run(new frmDataMBA2());
             //Application.Run(new frmSystemIsoval());
+           // Application.Run(new frmDataMBA3());
         }
     }
 }

@@ -52,7 +52,7 @@ namespace Experimential_Software
                 this._dtoMBA2EPowerRecord = this._mba2_EFixedData.DatabaseE.DataRecordE.DTOTransTwoEPower;
 
                 //get Old Struct => Save When Cancel because Ranger need use Voltage rated on  DTO Trans
-                this._vol_Rated_Old = this._vol_Rated_Old.CloneVoltageMBA2P(this._dtoMBA2EPowerRecord.VoltageEnds_Rated);
+                this._vol_Rated_Old = this._dtoMBA2EPowerRecord.VoltageEnds_kV_Rated;
 
                 //Set Unit Mode
                 this._unitModeMain = this._dtoMBA2EPowerRecord.UnitTap_Main;
@@ -85,7 +85,7 @@ namespace Experimential_Software
             this.ShowDataOnFormLineDataZone();
 
             //Show Power Rating and Inpendance Data
-            this.ShowTransformerImpendanceData(this._dtoMBA2EPowerRecord.Impendace_MBA2);
+            this.ShowTransformerImpendanceData(this._dtoMBA2EPowerRecord.Impendance_MBA2);
 
             //Show Voltage 
             this.ShowVoltageRatingTransfomer();
@@ -139,7 +139,7 @@ namespace Experimential_Software
         protected virtual void ShowVoltageRatingTransfomer()
         {
             //Voltage data on Manual of MBA
-            VoltageEnds2P voltageRated = this._dtoMBA2EPowerRecord.VoltageEnds_Rated;
+            VoltageEnds2P voltageRated = this._dtoMBA2EPowerRecord.VoltageEnds_kV_Rated;
 
             //Set Prim Volatage
             this.txtRatedPrimkV.Text = voltageRated.VolPrim_kV.ToString();
@@ -161,7 +161,7 @@ namespace Experimential_Software
             bool isPecentUnit = this._unitModeMain == UnitTapMode.Percent;
             this.btnTCUnitMain.Text = (isPecentUnit) ? "% Tap" : "kV Tap";
 
-            VoltageEnds2P vol_Fixed = this._dtoMBA2EPowerRecord.VoltageEnds_Fixed;
+            VoltageEnds2P vol_Fixed = this._dtoMBA2EPowerRecord.VoltageEnds_kV_Fixed;
             double percentPrim = this._dtoMBA2EPowerRecord.Percent_PrimFixed;
             double percentSec = this._dtoMBA2EPowerRecord.Percent_SecFixed;
 
@@ -269,10 +269,10 @@ namespace Experimential_Software
             //MagB_pu
             double MagB_pu = double.Parse(this.txtMagBpu.Text);
 
-            this._dtoMBA2EPowerRecord.Impendace_MBA2.SpecR_pu = SpecR_pu;
-            this._dtoMBA2EPowerRecord.Impendace_MBA2.SpecX_pu = SpecX_pu;
-            this._dtoMBA2EPowerRecord.Impendace_MBA2.MagB_pu = MagB_pu;
-            this._dtoMBA2EPowerRecord.Impendace_MBA2.MagG_pu = MagG_pu;
+            this._dtoMBA2EPowerRecord.Impendance_MBA2.SpecR_pu = SpecR_pu;
+            this._dtoMBA2EPowerRecord.Impendance_MBA2.SpecX_pu = SpecX_pu;
+            this._dtoMBA2EPowerRecord.Impendance_MBA2.MagB_pu = MagB_pu;
+            this._dtoMBA2EPowerRecord.Impendance_MBA2.MagG_pu = MagG_pu;
 
 
         }
@@ -288,7 +288,7 @@ namespace Experimential_Software
             VoltageEnds2P vol_Rated = new VoltageEnds2P() { VolPrim_kV = VolRated_Prim, VolSec_kV = VoltRated_Sec };
 
             //Set Voltage Ends
-            this._dtoMBA2EPowerRecord.VoltageEnds_Rated = vol_Rated;
+            this._dtoMBA2EPowerRecord.VoltageEnds_kV_Rated = vol_Rated;
         }
 
         //********Fixed Tap*****
@@ -313,7 +313,7 @@ namespace Experimential_Software
         private void btnCancelMBA2_Click(object sender, EventArgs e)
         {
             // Return value Voltage Rated because it is set when edit in order to tap ranger use 
-            this._dtoMBA2EPowerRecord.VoltageEnds_Rated = this._vol_Rated_Old;
+            this._dtoMBA2EPowerRecord.VoltageEnds_kV_Rated = this._vol_Rated_Old;
             //Set Old Percent
             this._dtoMBA2EPowerRecord.Percent_PrimFixed = this._perFixed_Prim_Old;
             this._dtoMBA2EPowerRecord.Percent_SecFixed = this._perFixed_Sec_Old;

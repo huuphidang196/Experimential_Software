@@ -141,6 +141,7 @@
     <Compile Include="DAO\DAO_MBA2Data\DAOGeneMBA2Record.cs" />
     <Compile Include="DAO\DAO_MBA2Data\DAOUpdateImpendanceWhenChangeTap.cs" />
     <Compile Include="DAO\DAO_MBA2Data\DAOUpdateMBA2AfterConnectEnds.cs" />
+    <Compile Include="DAO\DAO_MBA3Data\DAOGeneMBA3Record.cs" />
     <Compile Include="DAO\DAO_ProcessDelete\DAO_DeleteLineConnect\DAOProcessDeleteLineConnect.cs" />
     <Compile Include="DAO\DAO_SaveAndReadPowerSystem\DAOProcessMenuFileStrip.cs" />
     <Compile Include="DAO\DAO_SaveAndReadPowerSystem\DAOReadFilePowerSystem.cs" />

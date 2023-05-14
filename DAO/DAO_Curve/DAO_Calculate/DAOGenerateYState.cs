@@ -109,7 +109,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                     return otherEPower.DatabaseE.DataRecordE.DTOGeneEPower.ImpendanceMF.YF_Con_MF_pu;
 
                 case ObjectType.MBA2P:
-                    return otherEPower.DatabaseE.DataRecordE.DTOTransTwoEPower.Impendace_MBA2.Yb_Con_MBA2_pu;
+                    return otherEPower.DatabaseE.DataRecordE.DTOTransTwoEPower.Impendance_MBA2.Yb_Con_MBA2_pu;
 
                 case ObjectType.MBA3P:
                     break;
@@ -139,7 +139,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                 bool isPrim_MBA = this.CheckBusCosiderIsPrimBus(otherEPower, bus_Consider);
                 if (!isPrim_MBA) return new Complex(0, 0);// not CA <=> not prim => Yob = 0
 
-                return otherEPower.DatabaseE.DataRecordE.DTOTransTwoEPower.Impendace_MBA2.Y0b_Con_MBA2_pu;
+                return otherEPower.DatabaseE.DataRecordE.DTOTransTwoEPower.Impendance_MBA2.Y0b_Con_MBA2_pu;
             }
 
             if (objType == ObjectType.LineEPower)

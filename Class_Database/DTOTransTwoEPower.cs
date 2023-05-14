@@ -80,10 +80,10 @@ namespace Experimential_Software.Class_Database
     }
 
     [Serializable]
-    public class VoltageEnds2P
+    public struct VoltageEnds2P
     {
         //Prim    
-        protected double _volPrim_kV;
+        private double _volPrim_kV;
         public double VolPrim_kV
         {
             get { return _volPrim_kV; }
@@ -91,7 +91,7 @@ namespace Experimential_Software.Class_Database
         }
 
         //Sec
-        protected double _volSec_kV;
+        private double _volSec_kV;
         public double VolSec_kV
         {
             get { return _volSec_kV; }
@@ -99,17 +99,9 @@ namespace Experimential_Software.Class_Database
         }
 
         public double K_Ratio_Vol_Prim_Sec { get { if (this._volPrim_kV != 0 && this._volSec_kV != 0) return this._volPrim_kV / this._volSec_kV; return 1; } } //Uprim/Usec
-        public virtual VoltageEnds2P CloneVoltageMBA2P(VoltageEnds2P OldVolatge)
-        {
-            VoltageEnds2P voltageEnds2P = new VoltageEnds2P()
-            {
-                _volPrim_kV = OldVolatge.VolPrim_kV,
-                _volSec_kV = OldVolatge.VolSec_kV
-            };
-
-            return voltageEnds2P;
+       
     }
-}
+
 
 [Serializable]
 public enum UnitTapMode
@@ -190,20 +182,20 @@ public class DTOTransTwoEPower : DataRecordEPower
 
 
     //Voltage Rating MBA . U Ends
-    public VoltageEnds2P VoltageEnds_Rated { get; set; }
+    public VoltageEnds2P VoltageEnds_kV_Rated { get; set; }
 
     //When press btnPrim => setting count Tap and percent
     protected DTOTransTwoTapRanger _prim_RangerTap;
     public DTOTransTwoTapRanger Prim_RangerTap
     {
-        get { _prim_RangerTap.Voltage_TapZero_ByRated = this.VoltageEnds_Rated.VolPrim_kV; return _prim_RangerTap; }//tap Zero = rated Volatge busPrim
+        get { _prim_RangerTap.Voltage_TapZero_ByRated = this.VoltageEnds_kV_Rated.VolPrim_kV; return _prim_RangerTap; }//tap Zero = rated Volatge busPrim
         set { _prim_RangerTap = value; }
     }
 
     protected DTOTransTwoTapRanger _sec_RangerTap;
     public DTOTransTwoTapRanger Sec_RangerTap
     {
-        get { _sec_RangerTap.Voltage_TapZero_ByRated = this.VoltageEnds_Rated.VolSec_kV; return _sec_RangerTap; }//tap Zero = rated Volatge busSec
+        get { _sec_RangerTap.Voltage_TapZero_ByRated = this.VoltageEnds_kV_Rated.VolSec_kV; return _sec_RangerTap; }//tap Zero = rated Volatge busSec
         set { _sec_RangerTap = value; }
     }
 
@@ -229,20 +221,20 @@ public class DTOTransTwoEPower : DataRecordEPower
     }
 
     //Fixed Voltage After Adjust Tap Changer
-    protected VoltageEnds2P _voltageEnds_Fixed;
-    public VoltageEnds2P VoltageEnds_Fixed
+    protected VoltageEnds2P _voltageEnds_kV_Fixed;
+    public VoltageEnds2P VoltageEnds_kV_Fixed
     {
         get
         {
-            _voltageEnds_Fixed.VolPrim_kV = this.Percent_PrimFixed * this.VoltageEnds_Rated.VolPrim_kV;
-            _voltageEnds_Fixed.VolSec_kV = this.Percent_SecFixed * this.VoltageEnds_Rated.VolSec_kV;
-            return _voltageEnds_Fixed;
+            _voltageEnds_kV_Fixed.VolPrim_kV = this.Percent_PrimFixed * this.VoltageEnds_kV_Rated.VolPrim_kV;
+            _voltageEnds_kV_Fixed.VolSec_kV = this.Percent_SecFixed * this.VoltageEnds_kV_Rated.VolSec_kV;
+            return _voltageEnds_kV_Fixed;
         }
     }
 
     //Transfomer Impendance Data
 
-    public ImpendanceMBA2 Impendace_MBA2 { get; set; }
+    public ImpendanceMBA2 Impendance_MBA2 { get; set; }
 
 
 }

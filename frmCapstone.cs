@@ -16,11 +16,13 @@ using Experimential_Software.DAO.DAO_GeneratorData;
 using Experimential_Software.DAO.DAO_LineData;
 using Experimential_Software.DAO.DAO_LoadData;
 using Experimential_Software.DAO.DAO_MBA2Data;
+using Experimential_Software.DAO.DAO_MBA3Data;
 using Experimential_Software.DAO.DAO_SaveAndReadPowerSystem;
 using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
 using Experimential_Software.DAO.DAOProcessTreeView;
 using System.Numerics;
 using System.IO;
+
 
 namespace Experimential_Software
 {
@@ -483,6 +485,10 @@ namespace Experimential_Software
                 case ObjectType.MBA2P:
                     if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOTransTwoEPower.ObjectNumber);//dto MBA2 => 3
                     databaseE.DataRecordE.DTOTransTwoEPower = DAOGeneMBA2Record.Instance.GenerateDTOTransTwoDefault(currentExistMax);
+                    break;
+                case ObjectType.MBA3P:
+                    if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOTransThreeEPower.ObjectNumber);//dto MBA3 => 3
+                    databaseE.DataRecordE.DTOTransThreeEPower = DAOGeneMBA3Record.Instance.GenerateDTOTransThreeDefault(currentExistMax);
                     break;
                 case ObjectType.LineEPower:
                     if (ListEPowerInstance.Count != 0) currentExistMax = ListEPowerInstance.Max(x => x.DatabaseE.DataRecordE.DTOLineEPower.ObjectNumber);//dtoLine => 5.
