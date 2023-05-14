@@ -20,8 +20,8 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
 
         public virtual ImpendanceMBA2 ProcessUpdateImpendanceByTransformerRatio(DTOTransTwoEPower dtoTrans, ImpendanceMBA2 _impendanceTemp)
         {
-            double ratioFixed_Ks = dtoTrans.VoltageEnds_Fixed.K_Ratio_Vol;
-            double ratioRated_K = dtoTrans.VoltageEnds_Rated.K_Ratio_Vol;
+            double ratioFixed_Ks = dtoTrans.VoltageEnds_Fixed.K_Ratio_Vol_Prim_Sec;
+            double ratioRated_K = dtoTrans.VoltageEnds_Rated.K_Ratio_Vol_Prim_Sec;
 
             //  MessageBox.Show("ratioFixed_Ks =" + ratioFixed_Ks + ", ratioRated_K = " + ratioRated_K);
 
@@ -46,8 +46,8 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
         //When Start
         public virtual ImpendanceMBA2 ProcessUpdateImpendanceTempWhenStart(DTOTransTwoEPower dtoTrans)
         {
-            double ratioFixed_Ks = dtoTrans.VoltageEnds_Fixed.K_Ratio_Vol;
-            double ratioRated_K = dtoTrans.VoltageEnds_Rated.K_Ratio_Vol;
+            double ratioFixed_Ks = dtoTrans.VoltageEnds_Fixed.K_Ratio_Vol_Prim_Sec;
+            double ratioRated_K = dtoTrans.VoltageEnds_Rated.K_Ratio_Vol_Prim_Sec;
 
             double mul_K_Transfer = Math.Round(ratioFixed_Ks / ratioRated_K, 6);
 

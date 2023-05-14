@@ -22,7 +22,7 @@ namespace Experimential_Software
         protected DTOTransTwoEPower _dtoMBA2EPowerRecord;
 
         //Zone Voltage Rating and Fixed Tap Zone
-        protected VoltageEnds _vol_Rated_Old = new VoltageEnds();
+        protected VoltageEnds2P _vol_Rated_Old = new VoltageEnds2P();
 
         //Fixed . same DTO Voltage Rated
         protected double _perFixed_Prim_Old = 0;
@@ -52,7 +52,7 @@ namespace Experimential_Software
                 this._dtoMBA2EPowerRecord = this._mba2_EFixedData.DatabaseE.DataRecordE.DTOTransTwoEPower;
 
                 //get Old Struct => Save When Cancel because Ranger need use Voltage rated on  DTO Trans
-                this._vol_Rated_Old = this._dtoMBA2EPowerRecord.VoltageEnds_Rated;
+                this._vol_Rated_Old = this._vol_Rated_Old.CloneVoltageMBA2P(this._dtoMBA2EPowerRecord.VoltageEnds_Rated);
 
                 //Set Unit Mode
                 this._unitModeMain = this._dtoMBA2EPowerRecord.UnitTap_Main;
@@ -139,7 +139,7 @@ namespace Experimential_Software
         protected virtual void ShowVoltageRatingTransfomer()
         {
             //Voltage data on Manual of MBA
-            VoltageEnds voltageRated = this._dtoMBA2EPowerRecord.VoltageEnds_Rated;
+            VoltageEnds2P voltageRated = this._dtoMBA2EPowerRecord.VoltageEnds_Rated;
 
             //Set Prim Volatage
             this.txtRatedPrimkV.Text = voltageRated.VolPrim_kV.ToString();
@@ -161,7 +161,7 @@ namespace Experimential_Software
             bool isPecentUnit = this._unitModeMain == UnitTapMode.Percent;
             this.btnTCUnitMain.Text = (isPecentUnit) ? "% Tap" : "kV Tap";
 
-            VoltageEnds vol_Fixed = this._dtoMBA2EPowerRecord.VoltageEnds_Fixed;
+            VoltageEnds2P vol_Fixed = this._dtoMBA2EPowerRecord.VoltageEnds_Fixed;
             double percentPrim = this._dtoMBA2EPowerRecord.Percent_PrimFixed;
             double percentSec = this._dtoMBA2EPowerRecord.Percent_SecFixed;
 
@@ -285,7 +285,7 @@ namespace Experimential_Software
             //Rated Voltage Sec
             double VoltRated_Sec = double.Parse(this.txtRatedSeckV.Text);
 
-            VoltageEnds vol_Rated = new VoltageEnds() { VolPrim_kV = VolRated_Prim, VolSec_kV = VoltRated_Sec };
+            VoltageEnds2P vol_Rated = new VoltageEnds2P() { VolPrim_kV = VolRated_Prim, VolSec_kV = VoltRated_Sec };
 
             //Set Voltage Ends
             this._dtoMBA2EPowerRecord.VoltageEnds_Rated = vol_Rated;

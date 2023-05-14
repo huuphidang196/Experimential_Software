@@ -112,6 +112,7 @@
     <Compile Include="Class_Database\DTOGeneEPower.cs" />
     <Compile Include="Class_Database\DTOLineEPower.cs" />
     <Compile Include="Class_Database\DTOLoadEPower.cs" />
+    <Compile Include="Class_Database\DTOTransThreeEPower.cs" />
     <Compile Include="Class_Database\DTOTransTwoEPower.cs" />
     <Compile Include="Class_Process_MnuFile\ProcessMnuFile.cs" />
     <Compile Include="Class_Database\DatabaseLineConnect.cs" />
@@ -189,6 +190,12 @@
     <Compile Include="frmDataMBA2.Designer.cs">
       <DependentUpon>frmDataMBA2.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmDataMBA3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDataMBA3.Designer.cs">
+      <DependentUpon>frmDataMBA3.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDrawnCurve.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -240,6 +247,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmDataMBA2.resx">
       <DependentUpon>frmDataMBA2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDataMBA3.resx">
+      <DependentUpon>frmDataMBA3.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDrawnCurve.resx">
       <DependentUpon>frmDrawnCurve.cs</DependentUpon>
