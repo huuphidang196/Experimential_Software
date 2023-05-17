@@ -51,13 +51,13 @@ namespace Experimential_Software
             this.chkInService = new System.Windows.Forms.CheckBox();
             this.txtLoadID = new System.Windows.Forms.TextBox();
             this.lblBusNameConn = new System.Windows.Forms.Label();
+            this.lblBusNumberConn = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnOKLoad = new System.Windows.Forms.Button();
             this.btnCancelLoad = new System.Windows.Forms.Button();
-            this.lblBusNumberConn = new System.Windows.Forms.Label();
             this.tabCtrlLoad.SuspendLayout();
             this.tabPowerFlow.SuspendLayout();
             this.pnlPowerFlowSub1.SuspendLayout();
@@ -319,6 +319,17 @@ namespace Experimential_Software
             this.lblBusNameConn.TabIndex = 1;
             this.lblBusNameConn.Text = "101";
             // 
+            // lblBusNumberConn
+            // 
+            this.lblBusNumberConn.BackColor = System.Drawing.Color.Snow;
+            this.lblBusNumberConn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblBusNumberConn.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBusNumberConn.Location = new System.Drawing.Point(15, 57);
+            this.lblBusNumberConn.Name = "lblBusNumberConn";
+            this.lblBusNumberConn.Size = new System.Drawing.Size(158, 24);
+            this.lblBusNumberConn.TabIndex = 0;
+            this.lblBusNumberConn.Text = "101";
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -380,17 +391,6 @@ namespace Experimential_Software
             this.btnCancelLoad.UseVisualStyleBackColor = true;
             this.btnCancelLoad.Click += new System.EventHandler(this.btnCancelLoad_Click);
             // 
-            // lblBusNumberConn
-            // 
-            this.lblBusNumberConn.BackColor = System.Drawing.Color.Snow;
-            this.lblBusNumberConn.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblBusNumberConn.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBusNumberConn.Location = new System.Drawing.Point(15, 57);
-            this.lblBusNumberConn.Name = "lblBusNumberConn";
-            this.lblBusNumberConn.Size = new System.Drawing.Size(158, 24);
-            this.lblBusNumberConn.TabIndex = 0;
-            this.lblBusNumberConn.Text = "101";
-            // 
             // frmDataLoad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -400,6 +400,7 @@ namespace Experimential_Software
             this.Controls.Add(this.btnCancelLoad);
             this.Controls.Add(this.btnOKLoad);
             this.Controls.Add(this.panel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmDataLoad";

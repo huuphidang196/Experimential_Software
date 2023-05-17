@@ -5,6 +5,7 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Experimential_Software.Class_Database;
 using Experimential_Software.CustomControl;
 
 namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
@@ -60,7 +61,9 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                     List<ConnectableE> ListOverallTwoBus = List_ortherEPowerOfOrtherBus.Intersect(List_otherEPowers).ToList();
                     foreach (ConnectableE overallEPower in ListOverallTwoBus)
                     {
-                        Y_State[i, j] = -1 * this.GetYijOfEPowerAffectedByRX(overallEPower);
+                        if (overallEPower.DatabaseE.ObjectType != ObjectType.MBA3P) Y_State[i, j] = -1 * this.GetYijOfEPowerAffectedByRXGetYIJPerBus(overallEPower);
+                        else Y_State[i, j] = -1 * this.GetPerConnectYijOfEPowerAffectedByRXSpecifiedForMBA3P(overallEPower, ortherBus, bus_Consider);
+                        //bus Consider not orther bus beacause Examine where is BusConsider of overallEPower
                     }
 
                 }
@@ -86,21 +89,23 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         protected virtual Complex GetAllYijOtherEPowerConnectBusConsider(List<ConnectableE> List_otherEPower, ConnectableE bus_Consider)
         {
             Complex Sigmoid = 0;
-            foreach (ConnectableE otherEPower in List_otherEPower)
+            foreach (ConnectableE ortherEPower in List_otherEPower)
             {
+                Complex y_ij_otherEPower = 0;
                 //Yij <= R, X
-                Complex y_ij_otherEPower = this.GetYijOfEPowerAffectedByRX(otherEPower);
+                if (ortherEPower.DatabaseE.ObjectType != ObjectType.MBA3P) y_ij_otherEPower = this.GetYijOfEPowerAffectedByRXGetYIJPerBus(ortherEPower);
+                else y_ij_otherEPower = this.GetSumYijOfEPowerAffectedByRXSpecifiedForMBA3P(ortherEPower, bus_Consider);
                 //Get Yi0 if other EPower is MBA, Line , maybe MF still is considered
-                Complex y_i0_otherEPower = this.GetYioOfEPowerAfftecdByGB(otherEPower, bus_Consider);
+                Complex y_i0_otherEPower = this.GetYioOfEPowerAfftecdByGB(ortherEPower, bus_Consider);
 
-                Sigmoid +=  y_ij_otherEPower + y_i0_otherEPower;
+                Sigmoid += y_ij_otherEPower + y_i0_otherEPower;
             }
 
             return Sigmoid;
         }
 
         //Calculate per Yij =< R, X
-        protected virtual Complex GetYijOfEPowerAffectedByRX(ConnectableE otherEPower)
+        protected virtual Complex GetYijOfEPowerAffectedByRXGetYIJPerBus(ConnectableE otherEPower)
         {
             ObjectType objType = otherEPower.DatabaseE.ObjectType;
             switch (objType)
@@ -110,10 +115,6 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
 
                 case ObjectType.MBA2P:
                     return otherEPower.DatabaseE.DataRecordE.DTOTransTwoEPower.Impendance_MBA2.Yb_Con_MBA2_pu;
-
-                case ObjectType.MBA3P:
-                    break;
-
                 case ObjectType.LineEPower:
                     return otherEPower.DatabaseE.DataRecordE.DTOLineEPower.ImpendanceLineE.Yij_Con_LineE_pu;
 
@@ -122,6 +123,46 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             }
 
             return new Complex(0, 0);
+        }
+        //Calculate per Yij =< R, X Specified for MBA3P
+        protected virtual Complex GetSumYijOfEPowerAffectedByRXSpecifiedForMBA3P(ConnectableE otherEPower, ConnectableE bus_Consider)
+        {
+            DTOBusEPower dtoBusConsider = bus_Consider.DatabaseE.DataRecordE.DTOBusEPower;
+            DTOTransThreeEPower dtoMBA3P = otherEPower.DatabaseE.DataRecordE.DTOTransThreeEPower;
+            //Check BusConsider is Where ?
+            if (dtoMBA3P.DTOBus_From.ObjectNumber == dtoBusConsider.ObjectNumber) return dtoMBA3P.Impendance_MBA3.Yb_Sum_Con_Relative_Prim;//Sum prim
+            else if (dtoMBA3P.DTOBus_Ter.ObjectNumber == dtoBusConsider.ObjectNumber) return dtoMBA3P.Impendance_MBA3.Yb_Sum_Con_Relative_Ter;//Sum Ter
+            return dtoMBA3P.Impendance_MBA3.Yb_Sum_Con_Relative_Sec;//Sum Sec
+        }
+
+        //bus Consider not orther bus beacause Examine where is BusConsider of overallEPower
+        protected virtual Complex GetPerConnectYijOfEPowerAffectedByRXSpecifiedForMBA3P(ConnectableE overallEPower, ConnectableE orther_Bus, ConnectableE bus_Consider)
+        {
+            DTOBusEPower dtoBusConsider = bus_Consider.DatabaseE.DataRecordE.DTOBusEPower;
+            DTOBusEPower dtoBusOrther = orther_Bus.DatabaseE.DataRecordE.DTOBusEPower;
+
+            DTOTransThreeEPower dtoMBA3P = overallEPower.DatabaseE.DataRecordE.DTOTransThreeEPower;
+
+            Complex Yij_Prim_Ter = dtoMBA3P.Impendance_MBA3.Yij_Con_Relative_Prim_Ter;
+            Complex Yij_Prim_Sec = dtoMBA3P.Impendance_MBA3.Yij_Con_Relative_Prim_Sec;
+            Complex Yij_Ter_Sec = dtoMBA3P.Impendance_MBA3.Yij_Con_Relative_Ter_Sec;
+
+            //Bus Consider is bus From
+            if (dtoBusConsider.ObjectNumber == dtoMBA3P.DTOBus_From.ObjectNumber)
+            {
+                if (dtoBusOrther.ObjectNumber == dtoMBA3P.DTOBus_Ter.ObjectNumber) return Yij_Prim_Ter;
+                return Yij_Prim_Sec;
+            }
+            // Bus Consder is bus Ter            
+            if (dtoBusConsider.ObjectNumber == dtoMBA3P.DTOBus_Ter.ObjectNumber)
+            {
+                if (dtoBusOrther.ObjectNumber == dtoMBA3P.DTOBus_From.ObjectNumber) return Yij_Prim_Ter;
+                return Yij_Ter_Sec;
+            }
+
+            // Bus Consder is bus Sec         
+            if (dtoBusOrther.ObjectNumber == dtoMBA3P.DTOBus_From.ObjectNumber) return Yij_Prim_Sec;
+            return Yij_Ter_Sec;
         }
 
         #region Calculate_Per_Yi0_G_B
@@ -176,30 +217,30 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                 List<LineConnect> Lines_OtherE = otherEPower.ListBranch_Drawn;
                 //if OtherEpower is Load or MF then not add into list
                 //Certainly is Line, MBA2, MBA3
-                ConnectableE busConnectedOther = this.GetOtherBusConnectWithOtherEPower(Lines_OtherE, bus_Consider, otherEPower);
+                List<ConnectableE> listEOrtherBus = this.GetOtherBusConnectWithOtherEPower(Lines_OtherE, bus_Consider, otherEPower);
 
-                if (busConnectedOther == null) continue;
-                List_ortherBusEPowers.Add(busConnectedOther);
+                if (listEOrtherBus == null || listEOrtherBus.Count == 0) continue;
+                List_ortherBusEPowers.AddRange(listEOrtherBus);
             }
 
             return List_ortherBusEPowers;
         }
 
-        protected virtual ConnectableE GetOtherBusConnectWithOtherEPower(List<LineConnect> lines_OrtherE, ConnectableE bus_Consider, ConnectableE otherEPower)
+        protected virtual List<ConnectableE> GetOtherBusConnectWithOtherEPower(List<LineConnect> lines_OrtherE, ConnectableE bus_Consider, ConnectableE otherEPower)
         {
             if (otherEPower.DatabaseE.ObjectType == ObjectType.Load || otherEPower.DatabaseE.ObjectType == ObjectType.MF) return null;
-
+            List<ConnectableE> listEOrtherBus = new List<ConnectableE>();
             //input Certainly is Line, MBA2, MBA3
             foreach (LineConnect line_orther in lines_OrtherE)
             {
                 //if other Epower is not connected with orther Bus then continue 
                 //Load or MF only Connect with 1 bus
-                //per Line have 1 bus because other End is Other bus
-                if (line_orther.StartEPower != bus_Consider && line_orther.StartEPower != otherEPower) return line_orther.StartEPower;
-                if (line_orther.EndEPower != bus_Consider && line_orther.EndEPower != otherEPower) return line_orther.EndEPower;
+                //per Line have 1 bus because other End is Other bus, expcept MBA3P
+                if (line_orther.StartEPower != bus_Consider && line_orther.StartEPower != otherEPower) listEOrtherBus.Add(line_orther.StartEPower);
+                if (line_orther.EndEPower != bus_Consider && line_orther.EndEPower != otherEPower) listEOrtherBus.Add(line_orther.EndEPower);
             }
 
-            return null;
+            return listEOrtherBus;
         }
         #endregion Get_All_Orther_Bus
     }

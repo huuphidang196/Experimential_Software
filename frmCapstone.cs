@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Experimential_Software.Class_Database;
-using Experimential_Software.Class_Process_MnuFile;
 using Experimential_Software.CustomControl;
 using Experimential_Software.Class_Calculate;
 using Experimential_Software.DAO.DAO_BusData;
@@ -22,7 +21,7 @@ using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
 using Experimential_Software.DAO.DAOProcessTreeView;
 using System.Numerics;
 using System.IO;
-
+using Experimential_Software.DAO.DAOCapstone;
 
 namespace Experimential_Software
 {
@@ -63,7 +62,8 @@ namespace Experimential_Software
 
             this.OpenFormSetBaseMVA();
 
-            //this.FixScaleSizeForm();
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+
             this.LoadImageMenuFile();
 
             //Load TreeView
@@ -114,18 +114,6 @@ namespace Experimential_Software
             this.mnuFileNew.Image = this.imgListIconMnuStrip.Images[0];
             this.mnuFileOpen.Image = this.imgListIconMnuStrip.Images[1];
             this.mnuFileSave.Image = this.imgListIconMnuStrip.Images[2];
-        }
-
-        protected virtual void FixScaleSizeForm()
-        {
-            this.FormBorderStyle = FormBorderStyle.FixedSingle;
-
-            // fix form không thể thu nhỏ hoặc phóng to
-            this.MinimizeBox = false;
-            this.MaximizeBox = true;
-            this.MaximumSize = this.Size; // giới hạn kích thước lớn nhất bằng kích thước hiện tại
-            this.MinimumSize = this.Size; // giới hạn kích thước nhỏ nhất bằng kích thước hiện tại
-                                          //Experimental by Form Data Bus. After set again
         }
 
         private void frmCapstone_Resize(object sender, EventArgs e)
@@ -218,7 +206,7 @@ namespace Experimential_Software
 
         }
 
-      
+
         #endregion _Load_Tree_View_Data_Saved
 
 
@@ -316,6 +304,7 @@ namespace Experimential_Software
             Point endPoint = lineConnect.EndPoint;
 
             pnlMain.CreateGraphics().DrawLine(Pens.Black, startPoint, endPoint);
+
         }
 
 
@@ -396,13 +385,18 @@ namespace Experimential_Software
 
         private void PrcocessLineDrawnSelectAndRemoveLineDrawn(MouseEventArgs e)
         {
-            //select line in Panel, set isSelected false for all btn
-            this.SetIsSelectedEPower(null);
+            if (e.Button == MouseButtons.Left)
+            {
+                //select line in Panel, set isSelected false for all btn
+                this.SetIsSelectedEPower(null);
 
-            if (this.lineConnectList.Count == 0) return;
+                if (this.lineConnectList.Count == 0) return;
 
-            //Process set isSelected and Color for Line
-            this.pnlMain.PanelMainMouse.ProcessMain_MouseCDown(this.lineConnectList, e);
+                //Process set isSelected and Color for Line
+                this.pnlMain.PanelMainMouse.ProcessMain_MouseCDown(this.lineConnectList, e);
+
+                return;
+            }
 
             //find Line is Selected
             LineConnect lineSeleted = pnlMain.PanelMainMouse.FindLineConnectIsSelected(this.lineConnectList);
@@ -412,15 +406,19 @@ namespace Experimential_Software
 
             //Set falsse other Line is not selected near mouse
             this.pnlMain.PanelMainMouse.SetFalseSelectedOtherLine(lineSeleted, this.lineConnectList);
-            //Remove Line Drawn When Press Ctrl
-            if (Control.ModifierKeys == Keys.Control) this.pnlMain.ProcessDeleteLine(this);
-        }
+            //Show Context Menu strip
+            this.cxtRemoveLineDrawn.Show(this.pnlMain.PointToScreen(e.Location));
 
+        }
+        private void xóaLineNàyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Remove Line Drawn When press Remove On Context menu strip
+            this.pnlMain.ProcessDeleteLine(this);
+        }
         private void pnlMain_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Move;
         }
-
 
         private void pnlMain_DragDrop(object sender, DragEventArgs e)
         {
@@ -435,11 +433,11 @@ namespace Experimential_Software
 
                 if (ePower.GenerateModeE == GenerateMode.LoadDatabase) return;
 
-                ePower.PreLocation = dropLocation;
-
+                ePower.PreLocation = DAOProcessCapstone.Instance.CalculatePreLocationWhenInstance(this._zoomFactor, dropLocation, this._ePowers, this.pnlMain);
                 this._ePowers.Add(ePower);
                 this._iEPowers.Add(ePower);
                 ePower.IsOnTool = false;
+                
 
                 this._zoomFactor = pnlMain.ZoomFactor;
                 pnlMain.SetInsideEPower(ePower);
@@ -454,7 +452,6 @@ namespace Experimential_Software
                 control.Dispose();
             }
         }
-
 
         /// <summary>
 
@@ -522,7 +519,7 @@ namespace Experimential_Software
             frmSystemIsoval frmSystemIsoval = new frmSystemIsoval();
             frmSystemIsoval.AllEPowers = this._ePowers;
             frmSystemIsoval.BusLoadExamnined = this._ePowers.Find(x => x.IsSelected);
-            
+
             frmSystemIsoval.Show();
         }
         //Isoval
@@ -607,7 +604,7 @@ namespace Experimential_Software
 
         }
 
-       
+
     }
 }
 

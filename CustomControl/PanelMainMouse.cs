@@ -64,7 +64,7 @@ namespace Experimential_Software.CustomControl
             double S_DT = Math.Sqrt(part_CV * (part_CV - dis_AB) * (part_CV - dis_AC) * (part_CV - dis_BC));
 
             double distance = S_DT / dis_BC; // tính khoảng cách từ điểm đến đường Line
-            return Math.Abs(distance) < 5; // nếu khoảng cách nhỏ hơn 5 thì coi như nằm trên đường Line
+            return Math.Abs(distance) < 10; // nếu khoảng cách nhỏ hơn 5 thì coi như nằm trên đường Line
         }
 
 
@@ -83,13 +83,9 @@ namespace Experimential_Software.CustomControl
 
         public virtual LineConnect FindLineConnectIsSelected(List<LineConnect> lineConnectList)
         {
-            foreach (LineConnect lineConnect in lineConnectList)
-            {
-                if (!lineConnect.IsSelected) continue;
-
-                return lineConnect;
-            }
-            return null;
+            LineConnect lineSelected = lineConnectList.Find(x => x.IsSelected);
+           
+            return lineSelected;
         }
 
         public virtual LineConnect FindLineConnectEPower(List<LineConnect> lineConnectList, ConnectableE ePower)
@@ -105,54 +101,66 @@ namespace Experimential_Software.CustomControl
 
 
         #endregion Line
-/*
-        public virtual void ProcessSetNumberObjetEPower(ConnectableE EPower_Instance)
-        {
-            // Lấy danh sách tất cả các ConnectionE control có trong pnlMain
-            List<ConnectableE> EPowers = this.GetListEPowerOnMain();
+        /*
+         * 
+         *  public virtual LineConnect FindLineConnectIsSelected(List<LineConnect> lineConnectList)
+                {
+                    
+                    foreach (LineConnect lineConnect in lineConnectList)
+                    {
+                        if (!lineConnect.IsSelected) continue;
 
-            ObjectType type_Instance = EPower_Instance.DatabaseE.ObjectType;
-            int count = (int)type_Instance * 100;
+                        return lineConnect;
+                    }
+                    return null;
+                }
+                public virtual void ProcessSetNumberObjetEPower(ConnectableE EPower_Instance)
+                {
+                    // Lấy danh sách tất cả các ConnectionE control có trong pnlMain
+                    List<ConnectableE> EPowers = this.GetListEPowerOnMain();
 
-            // Duyệt qua danh sách các ConnectionE control và thực hiện các xử lý cần thiết
-            foreach (ConnectableE ePower in EPowers)
-            {
-                // Code xử lý cho từng ConnectionE control
-                if (ePower.DatabaseE.ObjectType == type_Instance) count++;
+                    ObjectType type_Instance = EPower_Instance.DatabaseE.ObjectType;
+                    int count = (int)type_Instance * 100;
 
-            }
-            // set Obj number = count current + 1;
-           EPower_Instance.DatabaseE.DataRecordE.ObjectNumber = count + 1;
-        }
+                    // Duyệt qua danh sách các ConnectionE control và thực hiện các xử lý cần thiết
+                    foreach (ConnectableE ePower in EPowers)
+                    {
+                        // Code xử lý cho từng ConnectionE control
+                        if (ePower.DatabaseE.ObjectType == type_Instance) count++;
 
-        public virtual void ProcessSetNumberEPowerAfterDelete(ConnectableE EPower_Deleted)
-        {
-            // Lấy danh sách tất cả các ConnectionE control có trong pnlMain
-            List<ConnectableE> EPowers = this.GetListEPowerOnMain();
+                    }
+                    // set Obj number = count current + 1;
+                   EPower_Instance.DatabaseE.DataRecordE.ObjectNumber = count + 1;
+                }
 
-            ObjectType type_Instance = EPower_Deleted.DatabaseE.ObjectType;
-            // Duyệt qua danh sách các ConnectionE control và thực hiện các xử lý cần thiết
-            foreach (ConnectableE ePower in EPowers)
-            {
-                // Code xử lý cho từng ConnectionE control
-                if (ePower.DatabaseE.ObjectType != type_Instance) continue;
+                public virtual void ProcessSetNumberEPowerAfterDelete(ConnectableE EPower_Deleted)
+                {
+                    // Lấy danh sách tất cả các ConnectionE control có trong pnlMain
+                    List<ConnectableE> EPowers = this.GetListEPowerOnMain();
 
-                int numberObj = ePower.DatabaseE.DataRecordE.ObjectNumber;
-                if (numberObj < EPower_Deleted.DatabaseE.DataRecordE.ObjectNumber) continue;
+                    ObjectType type_Instance = EPower_Deleted.DatabaseE.ObjectType;
+                    // Duyệt qua danh sách các ConnectionE control và thực hiện các xử lý cần thiết
+                    foreach (ConnectableE ePower in EPowers)
+                    {
+                        // Code xử lý cho từng ConnectionE control
+                        if (ePower.DatabaseE.ObjectType != type_Instance) continue;
 
-                //Reduce number obj
-                ePower.DatabaseE.DataRecordE.ObjectNumber -= 1;
-                // //Set data show on EPower
-                ePower.SetDataLabelInfo();
-            }
-        }
+                        int numberObj = ePower.DatabaseE.DataRecordE.ObjectNumber;
+                        if (numberObj < EPower_Deleted.DatabaseE.DataRecordE.ObjectNumber) continue;
 
-        protected virtual List<ConnectableE> GetListEPowerOnMain()
-        {
-            if (this._frmCapstone != null) return this._frmCapstone.EPowers;
+                        //Reduce number obj
+                        ePower.DatabaseE.DataRecordE.ObjectNumber -= 1;
+                        // //Set data show on EPower
+                        ePower.SetDataLabelInfo();
+                    }
+                }
 
-            return this.pnlMainDrawn.Controls.OfType<ConnectableE>().ToList();
-        }
-*/
+                protected virtual List<ConnectableE> GetListEPowerOnMain()
+                {
+                    if (this._frmCapstone != null) return this._frmCapstone.EPowers;
+
+                    return this.pnlMainDrawn.Controls.OfType<ConnectableE>().ToList();
+                }
+        */
     }
 }

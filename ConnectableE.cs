@@ -14,6 +14,7 @@ using Experimential_Software.DAO.DAO_GeneratorData;
 using Experimential_Software.DAO.DAO_MBA2Data;
 using Experimential_Software.DAO.DAO_LineData;
 using Experimential_Software.DAO.DAO_LoadData;
+using Experimential_Software.DAO.DAO_MBA3Data;
 
 namespace Experimential_Software
 {
@@ -831,7 +832,7 @@ namespace Experimential_Software
         #endregion Function_Overall
 
         #region Refercen_OutSide
-        public virtual void UpdateDataRecordEPowerWhenConnectOrRemove(bool isRemoved)
+        public virtual void UpdateDataRecordEPowerWhenConnectOrRemove(bool isRemovedLineCon)
         {
             //Except Bus
             ObjectType objType = this._databaseE.ObjectType;
@@ -846,19 +847,19 @@ namespace Experimential_Software
                 case ObjectType.MBA2P: // 3
                     {
                         //Update DataDTO MBA2P After Connect 
-                        DAOUpdateMBA2AfterConnectEnds.Instance.UpdateMBA2AfterConnectEnds(this, isRemoved);
+                        DAOUpdateMBA2AfterConnectEnds.Instance.UpdateMBA2AfterConnectEnds(this, isRemovedLineCon);
                     }
                     break;
                 case ObjectType.MBA3P: // 4
                     {
                         //Update DataDTO MBA3p After Connect 
-                      
+                        DAOUpdateMBA3AfterConnectEnds.Instance.UpdateMBA3AfterConnectEnds(this, isRemovedLineCon);
                     }
                     break;
                 case ObjectType.LineEPower: // 5
                     {
                         //Update DataDTO bus After Connect 
-                        DAOUpdateLineAfterConnectEnds.Instance.UpdateLineAfterConnectEnds(this, isRemoved);
+                        DAOUpdateLineAfterConnectEnds.Instance.UpdateLineAfterConnectEnds(this, isRemovedLineCon);
                     }
                     break;
                 case ObjectType.Load://6

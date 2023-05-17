@@ -72,18 +72,18 @@ namespace Experimential_Software
             this.label6 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chkInService = new System.Windows.Forms.CheckBox();
+            this.txtMachineName = new System.Windows.Forms.TextBox();
             this.txtMachineID = new System.Windows.Forms.TextBox();
             this.lblBusConnTypeCode = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblBusNameConnMF = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.lblBusNumConnMF = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.btnOKGene = new System.Windows.Forms.Button();
             this.btnCancelGene = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtMachineName = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.tabCtrlPowerFlow.SuspendLayout();
             this.tabPowerFlow.SuspendLayout();
@@ -569,6 +569,14 @@ namespace Experimential_Software
             this.chkInService.Text = "In Service";
             this.chkInService.UseVisualStyleBackColor = true;
             // 
+            // txtMachineName
+            // 
+            this.txtMachineName.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMachineName.Location = new System.Drawing.Point(316, 80);
+            this.txtMachineName.Name = "txtMachineName";
+            this.txtMachineName.Size = new System.Drawing.Size(151, 24);
+            this.txtMachineName.TabIndex = 2;
+            // 
             // txtMachineID
             // 
             this.txtMachineID.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -617,6 +625,16 @@ namespace Experimential_Software
             this.label2.Size = new System.Drawing.Size(69, 17);
             this.label2.TabIndex = 0;
             this.label2.Text = "Bus Name";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(214, 86);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(96, 17);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Machine Name";
             // 
             // lblBusNumConnMF
             // 
@@ -670,24 +688,6 @@ namespace Experimential_Software
             this.btnCancelGene.UseVisualStyleBackColor = true;
             this.btnCancelGene.Click += new System.EventHandler(this.btnCancelGene_Click);
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(214, 86);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(96, 17);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "Machine Name";
-            // 
-            // txtMachineName
-            // 
-            this.txtMachineName.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMachineName.Location = new System.Drawing.Point(316, 80);
-            this.txtMachineName.Name = "txtMachineName";
-            this.txtMachineName.Size = new System.Drawing.Size(151, 24);
-            this.txtMachineName.TabIndex = 2;
-            // 
             // frmDataGenerator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
@@ -698,6 +698,7 @@ namespace Experimential_Software
             this.Controls.Add(this.btnOKGene);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;

@@ -190,12 +190,14 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
             //Start
             PointOfEnds pointStartE = this.SetContainEnds(lineConnect, lineConnect.StartEPower, lineConnect.StartPoint);
             if (pointStartE == PointOfEnds.PointOfHead) lineConnect.StartEPower.IsContainPhead = true;
-            else lineConnect.StartEPower.IsContainPtail = true;
+            else if (pointStartE == PointOfEnds.PointOfTail) lineConnect.StartEPower.IsContainPtail = true;
+            else lineConnect.StartEPower.IsContainPIntern = true;
 
             //End
             PointOfEnds pointEndE = this.SetContainEnds(lineConnect, lineConnect.EndEPower, lineConnect.EndPoint);
-            if (pointStartE == PointOfEnds.PointOfHead) lineConnect.EndEPower.IsContainPhead = true;
-            else lineConnect.EndEPower.IsContainPtail = true;
+            if (pointEndE == PointOfEnds.PointOfHead) lineConnect.EndEPower.IsContainPhead = true;
+            else if (pointEndE == PointOfEnds.PointOfTail) lineConnect.EndEPower.IsContainPtail = true;
+            else lineConnect.EndEPower.IsContainPIntern = true;
         }
 
         protected virtual PointOfEnds SetContainEnds(LineConnect lineConnect, ConnectableE ePowerEnds, Point pointEnds)

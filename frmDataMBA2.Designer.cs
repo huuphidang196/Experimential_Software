@@ -869,6 +869,7 @@ namespace Experimential_Software
             this.Controls.Add(this.btnOkMBA2);
             this.Controls.Add(this.pnlManagerTabCtrl);
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;

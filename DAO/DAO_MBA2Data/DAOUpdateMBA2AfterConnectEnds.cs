@@ -83,7 +83,6 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
 
         protected virtual void ProcessRemovedDTOBusRemoved(ConnectableE mba2EPower, DTOBusEPower dtoBusEPower)
         {
-            //if LineConnected with LineEPower not removed then remove other dto
             bool isDTOFrom = (dtoBusEPower.ObjectNumber == mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_From.ObjectNumber);
 
             //false <=> Bus from is removed 

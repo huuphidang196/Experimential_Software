@@ -20,6 +20,8 @@ namespace Experimential_Software.Class_Database
 
         public bool IsContainPhead { get; set; }
 
+        public bool IsContainInterm { get; set; }
+
         public bool IsContainPtail { get; set; }
 
         public ContainPreEpower ContainPreEpower { get; set; }

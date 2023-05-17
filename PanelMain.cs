@@ -28,11 +28,14 @@ namespace Experimential_Software
         public PanelMain()
         {
             InitializeComponent();
+
             this._pnlMainMouse = new PanelMainMouse(this);
             this.AutoScroll = true;
             if (this._zoomFactor == 0) this._zoomFactor = 1;
+          
         }
-
+     
+        #region Zoom_Factor
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             base.OnMouseWheel(e);
@@ -96,7 +99,10 @@ namespace Experimential_Software
             ePower.UpdatePositonLabelInfo();
         }
 
+        #endregion Zoom_Factor
+
         #region Key  
+
         public virtual void ProcessDeleteLine(frmCapstone frmCapstone)
         {
             //Find Line is Seleted
@@ -120,7 +126,7 @@ namespace Experimential_Software
 
         #endregion Key
 
-  
+
     }
 }
 

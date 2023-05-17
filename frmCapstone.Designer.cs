@@ -49,6 +49,8 @@ namespace Experimential_Software
             this.cxtMnuDCDominationDia = new System.Windows.Forms.ToolStripMenuItem();
             this.cxtMnuDCDrawnCurve = new System.Windows.Forms.ToolStripMenuItem();
             this.cxtMnuDCOperatingMode = new System.Windows.Forms.ToolStripMenuItem();
+            this.cxtRemoveLineDrawn = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.xóaLineNàyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain = new Experimential_Software.PanelMain();
             this.btnBusPower_Hor = new Experimential_Software.ConnectableE();
             this.btnBusPower_Ver = new Experimential_Software.ConnectableE();
@@ -62,30 +64,42 @@ namespace Experimential_Software
             this.btnLinePower_Ver = new Experimential_Software.ConnectableE();
             this.btnLoad_Hor = new Experimential_Software.ConnectableE();
             this.btnLoad_Ver = new Experimential_Software.ConnectableE();
+            this.vIewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.powerFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnNewFile = new System.Windows.Forms.Button();
+            this.btnOpen = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.mnuStripBar.SuspendLayout();
             this.pnlTreeView.SuspendLayout();
             this.pnlTool.SuspendLayout();
             this.pnlFlowTool.SuspendLayout();
             this.cxtMenuStripEPower.SuspendLayout();
+            this.cxtRemoveLineDrawn.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.panel2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.panel2.Controls.Add(this.btnSave);
+            this.panel2.Controls.Add(this.btnOpen);
+            this.panel2.Controls.Add(this.btnNewFile);
             this.panel2.Controls.Add(this.lblLine);
             this.panel2.Controls.Add(this.mnuStripBar);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1042, 127);
+            this.panel2.Size = new System.Drawing.Size(1085, 71);
             this.panel2.TabIndex = 1;
             // 
             // lblLine
             // 
             this.lblLine.AutoSize = true;
             this.lblLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLine.Location = new System.Drawing.Point(12, 63);
+            this.lblLine.Location = new System.Drawing.Point(858, 27);
             this.lblLine.Name = "lblLine";
             this.lblLine.Size = new System.Drawing.Size(133, 20);
             this.lblLine.TabIndex = 2;
@@ -95,11 +109,17 @@ namespace Experimential_Software
             // mnuStripBar
             // 
             this.mnuStripBar.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            this.mnuStripBar.Font = new System.Drawing.Font("Tahoma", 10F);
             this.mnuStripBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuFile});
+            this.mnuFile,
+            this.vIewToolStripMenuItem,
+            this.viewToolStripMenuItem1,
+            this.powerFlowToolStripMenuItem,
+            this.toolsToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.mnuStripBar.Location = new System.Drawing.Point(0, 0);
             this.mnuStripBar.Name = "mnuStripBar";
-            this.mnuStripBar.Size = new System.Drawing.Size(1042, 24);
+            this.mnuStripBar.Size = new System.Drawing.Size(1085, 25);
             this.mnuStripBar.TabIndex = 3;
             this.mnuStripBar.Text = "menuStrip1";
             // 
@@ -110,14 +130,14 @@ namespace Experimential_Software
             this.mnuFileOpen,
             this.mnuFileSave});
             this.mnuFile.Name = "mnuFile";
-            this.mnuFile.Size = new System.Drawing.Size(37, 20);
+            this.mnuFile.Size = new System.Drawing.Size(38, 21);
             this.mnuFile.Text = "File";
             // 
             // mnuFileNew
             // 
             this.mnuFileNew.Name = "mnuFileNew";
             this.mnuFileNew.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.mnuFileNew.Size = new System.Drawing.Size(167, 22);
+            this.mnuFileNew.Size = new System.Drawing.Size(180, 22);
             this.mnuFileNew.Text = "New File";
             this.mnuFileNew.Click += new System.EventHandler(this.mnuFileNew_Click);
             // 
@@ -125,7 +145,7 @@ namespace Experimential_Software
             // 
             this.mnuFileOpen.Name = "mnuFileOpen";
             this.mnuFileOpen.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.mnuFileOpen.Size = new System.Drawing.Size(167, 22);
+            this.mnuFileOpen.Size = new System.Drawing.Size(180, 22);
             this.mnuFileOpen.Text = "Open File";
             this.mnuFileOpen.Click += new System.EventHandler(this.mnuFileOpen_Click);
             // 
@@ -133,7 +153,7 @@ namespace Experimential_Software
             // 
             this.mnuFileSave.Name = "mnuFileSave";
             this.mnuFileSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.mnuFileSave.Size = new System.Drawing.Size(167, 22);
+            this.mnuFileSave.Size = new System.Drawing.Size(180, 22);
             this.mnuFileSave.Text = "Save";
             this.mnuFileSave.Click += new System.EventHandler(this.mnuFileSave_Click);
             // 
@@ -143,14 +163,14 @@ namespace Experimential_Software
             this.pnlTreeView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlTreeView.Controls.Add(this.tvDataSaved);
             this.pnlTreeView.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlTreeView.Location = new System.Drawing.Point(0, 127);
+            this.pnlTreeView.Location = new System.Drawing.Point(0, 71);
             this.pnlTreeView.Name = "pnlTreeView";
-            this.pnlTreeView.Size = new System.Drawing.Size(176, 633);
+            this.pnlTreeView.Size = new System.Drawing.Size(176, 689);
             this.pnlTreeView.TabIndex = 2;
             // 
             // tvDataSaved
             // 
-            this.tvDataSaved.BackColor = System.Drawing.Color.White;
+            this.tvDataSaved.BackColor = System.Drawing.Color.WhiteSmoke;
             this.tvDataSaved.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tvDataSaved.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tvDataSaved.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -159,7 +179,7 @@ namespace Experimential_Software
             this.tvDataSaved.Location = new System.Drawing.Point(0, 0);
             this.tvDataSaved.Name = "tvDataSaved";
             this.tvDataSaved.SelectedImageIndex = 0;
-            this.tvDataSaved.Size = new System.Drawing.Size(174, 631);
+            this.tvDataSaved.Size = new System.Drawing.Size(174, 687);
             this.tvDataSaved.TabIndex = 0;
             this.tvDataSaved.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvDataSaved_NodeMouseDoubleClick);
             // 
@@ -178,9 +198,9 @@ namespace Experimential_Software
             this.pnlTool.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.pnlTool.Controls.Add(this.pnlFlowTool);
             this.pnlTool.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlTool.Location = new System.Drawing.Point(919, 127);
+            this.pnlTool.Location = new System.Drawing.Point(962, 71);
             this.pnlTool.Name = "pnlTool";
-            this.pnlTool.Size = new System.Drawing.Size(123, 633);
+            this.pnlTool.Size = new System.Drawing.Size(123, 689);
             this.pnlTool.TabIndex = 1;
             // 
             // pnlFlowTool
@@ -201,7 +221,7 @@ namespace Experimential_Software
             this.pnlFlowTool.Location = new System.Drawing.Point(0, 0);
             this.pnlFlowTool.Name = "pnlFlowTool";
             this.pnlFlowTool.Padding = new System.Windows.Forms.Padding(5, 15, 0, 0);
-            this.pnlFlowTool.Size = new System.Drawing.Size(123, 633);
+            this.pnlFlowTool.Size = new System.Drawing.Size(123, 689);
             this.pnlFlowTool.TabIndex = 1;
             // 
             // imgListTool
@@ -229,11 +249,12 @@ namespace Experimential_Software
             // 
             // cxtMenuStripEPower
             // 
+            this.cxtMenuStripEPower.ImageScalingSize = new System.Drawing.Size(30, 30);
             this.cxtMenuStripEPower.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cxtMnuDCDominationDia,
             this.cxtMnuDCDrawnCurve});
             this.cxtMenuStripEPower.Name = "cxttMenuStripEPower";
-            this.cxtMenuStripEPower.Size = new System.Drawing.Size(266, 70);
+            this.cxtMenuStripEPower.Size = new System.Drawing.Size(266, 48);
             // 
             // cxtMnuDCDominationDia
             // 
@@ -257,6 +278,20 @@ namespace Experimential_Software
             this.cxtMnuDCOperatingMode.Text = "Chế độ vận hành";
             this.cxtMnuDCOperatingMode.Click += new System.EventHandler(this.cxtMnuDCOperatingMode_Click);
             // 
+            // cxtRemoveLineDrawn
+            // 
+            this.cxtRemoveLineDrawn.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.xóaLineNàyToolStripMenuItem});
+            this.cxtRemoveLineDrawn.Name = "cxtRemoveLineDrawn";
+            this.cxtRemoveLineDrawn.Size = new System.Drawing.Size(145, 26);
+            // 
+            // xóaLineNàyToolStripMenuItem
+            // 
+            this.xóaLineNàyToolStripMenuItem.Name = "xóaLineNàyToolStripMenuItem";
+            this.xóaLineNàyToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.xóaLineNàyToolStripMenuItem.Text = "Xóa Line này ";
+            this.xóaLineNàyToolStripMenuItem.Click += new System.EventHandler(this.xóaLineNàyToolStripMenuItem_Click);
+            // 
             // pnlMain
             // 
             this.pnlMain.AllowDrop = true;
@@ -264,9 +299,9 @@ namespace Experimential_Software
             this.pnlMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlMain.BackColor = System.Drawing.Color.White;
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(176, 127);
+            this.pnlMain.Location = new System.Drawing.Point(176, 71);
             this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(743, 633);
+            this.pnlMain.Size = new System.Drawing.Size(786, 689);
             this.pnlMain.TabIndex = 3;
             this.pnlMain.TabStop = true;
             this.pnlMain.ZoomFactor = 1D;
@@ -281,6 +316,7 @@ namespace Experimential_Software
             this.btnBusPower_Hor.ImageIndex = 0;
             this.btnBusPower_Hor.ImageList = this.imgListTool;
             this.btnBusPower_Hor.IsContainPhead = false;
+            this.btnBusPower_Hor.IsContainPIntern = false;
             this.btnBusPower_Hor.IsContainPtail = false;
             this.btnBusPower_Hor.IsMove = false;
             this.btnBusPower_Hor.IsOnTool = true;
@@ -291,6 +327,7 @@ namespace Experimential_Software
             this.btnBusPower_Hor.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
             this.btnBusPower_Hor.Name = "btnBusPower_Hor";
             this.btnBusPower_Hor.PHead = new System.Drawing.Point(0, 0);
+            this.btnBusPower_Hor.PIntern = new System.Drawing.Point(0, 0);
             this.btnBusPower_Hor.PreLocation = new System.Drawing.Point(0, 0);
             this.btnBusPower_Hor.PTail = new System.Drawing.Point(0, 0);
             this.btnBusPower_Hor.Size = new System.Drawing.Size(50, 50);
@@ -303,6 +340,7 @@ namespace Experimential_Software
             this.btnBusPower_Ver.BackColor = System.Drawing.Color.Transparent;
             this.btnBusPower_Ver.ContainPreEpower = Experimential_Software.ContainPreEpower.NoContain;
             this.btnBusPower_Ver.IsContainPhead = false;
+            this.btnBusPower_Ver.IsContainPIntern = false;
             this.btnBusPower_Ver.IsContainPtail = false;
             this.btnBusPower_Ver.IsMove = false;
             this.btnBusPower_Ver.IsOnTool = true;
@@ -313,6 +351,7 @@ namespace Experimential_Software
             this.btnBusPower_Ver.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
             this.btnBusPower_Ver.Name = "btnBusPower_Ver";
             this.btnBusPower_Ver.PHead = new System.Drawing.Point(0, 0);
+            this.btnBusPower_Ver.PIntern = new System.Drawing.Point(0, 0);
             this.btnBusPower_Ver.PreLocation = new System.Drawing.Point(0, 0);
             this.btnBusPower_Ver.PTail = new System.Drawing.Point(0, 0);
             this.btnBusPower_Ver.Size = new System.Drawing.Size(50, 50);
@@ -328,6 +367,7 @@ namespace Experimential_Software
             this.btnMFPower_Hor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMFPower_Hor.ImageIndex = 1;
             this.btnMFPower_Hor.IsContainPhead = false;
+            this.btnMFPower_Hor.IsContainPIntern = false;
             this.btnMFPower_Hor.IsContainPtail = false;
             this.btnMFPower_Hor.IsMove = false;
             this.btnMFPower_Hor.IsOnTool = true;
@@ -338,6 +378,7 @@ namespace Experimential_Software
             this.btnMFPower_Hor.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
             this.btnMFPower_Hor.Name = "btnMFPower_Hor";
             this.btnMFPower_Hor.PHead = new System.Drawing.Point(0, 0);
+            this.btnMFPower_Hor.PIntern = new System.Drawing.Point(0, 0);
             this.btnMFPower_Hor.PreLocation = new System.Drawing.Point(0, 0);
             this.btnMFPower_Hor.PTail = new System.Drawing.Point(0, 0);
             this.btnMFPower_Hor.Size = new System.Drawing.Size(50, 50);
@@ -354,6 +395,7 @@ namespace Experimential_Software
             this.btnMFPower_Ver.ImageIndex = 1;
             this.btnMFPower_Ver.ImageList = this.imgListTool;
             this.btnMFPower_Ver.IsContainPhead = false;
+            this.btnMFPower_Ver.IsContainPIntern = false;
             this.btnMFPower_Ver.IsContainPtail = false;
             this.btnMFPower_Ver.IsMove = false;
             this.btnMFPower_Ver.IsOnTool = true;
@@ -364,6 +406,7 @@ namespace Experimential_Software
             this.btnMFPower_Ver.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
             this.btnMFPower_Ver.Name = "btnMFPower_Ver";
             this.btnMFPower_Ver.PHead = new System.Drawing.Point(0, 0);
+            this.btnMFPower_Ver.PIntern = new System.Drawing.Point(0, 0);
             this.btnMFPower_Ver.PreLocation = new System.Drawing.Point(0, 0);
             this.btnMFPower_Ver.PTail = new System.Drawing.Point(0, 0);
             this.btnMFPower_Ver.Size = new System.Drawing.Size(50, 50);
@@ -379,6 +422,7 @@ namespace Experimential_Software
             this.btnTransformer2P_Hor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransformer2P_Hor.ImageIndex = 2;
             this.btnTransformer2P_Hor.IsContainPhead = false;
+            this.btnTransformer2P_Hor.IsContainPIntern = false;
             this.btnTransformer2P_Hor.IsContainPtail = false;
             this.btnTransformer2P_Hor.IsMove = false;
             this.btnTransformer2P_Hor.IsOnTool = true;
@@ -389,6 +433,7 @@ namespace Experimential_Software
             this.btnTransformer2P_Hor.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
             this.btnTransformer2P_Hor.Name = "btnTransformer2P_Hor";
             this.btnTransformer2P_Hor.PHead = new System.Drawing.Point(0, 0);
+            this.btnTransformer2P_Hor.PIntern = new System.Drawing.Point(0, 0);
             this.btnTransformer2P_Hor.PreLocation = new System.Drawing.Point(0, 0);
             this.btnTransformer2P_Hor.PTail = new System.Drawing.Point(0, 0);
             this.btnTransformer2P_Hor.Size = new System.Drawing.Size(50, 50);
@@ -405,6 +450,7 @@ namespace Experimential_Software
             this.btnTransformer2P_Ver.ImageIndex = 2;
             this.btnTransformer2P_Ver.ImageList = this.imgListTool;
             this.btnTransformer2P_Ver.IsContainPhead = false;
+            this.btnTransformer2P_Ver.IsContainPIntern = false;
             this.btnTransformer2P_Ver.IsContainPtail = false;
             this.btnTransformer2P_Ver.IsMove = false;
             this.btnTransformer2P_Ver.IsOnTool = true;
@@ -415,6 +461,7 @@ namespace Experimential_Software
             this.btnTransformer2P_Ver.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
             this.btnTransformer2P_Ver.Name = "btnTransformer2P_Ver";
             this.btnTransformer2P_Ver.PHead = new System.Drawing.Point(0, 0);
+            this.btnTransformer2P_Ver.PIntern = new System.Drawing.Point(0, 0);
             this.btnTransformer2P_Ver.PreLocation = new System.Drawing.Point(0, 0);
             this.btnTransformer2P_Ver.PTail = new System.Drawing.Point(0, 0);
             this.btnTransformer2P_Ver.Size = new System.Drawing.Size(50, 50);
@@ -431,6 +478,7 @@ namespace Experimential_Software
             this.btnTransformer3P_Hor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransformer3P_Hor.ImageIndex = 3;
             this.btnTransformer3P_Hor.IsContainPhead = false;
+            this.btnTransformer3P_Hor.IsContainPIntern = false;
             this.btnTransformer3P_Hor.IsContainPtail = false;
             this.btnTransformer3P_Hor.IsMove = false;
             this.btnTransformer3P_Hor.IsOnTool = true;
@@ -441,6 +489,7 @@ namespace Experimential_Software
             this.btnTransformer3P_Hor.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
             this.btnTransformer3P_Hor.Name = "btnTransformer3P_Hor";
             this.btnTransformer3P_Hor.PHead = new System.Drawing.Point(0, 0);
+            this.btnTransformer3P_Hor.PIntern = new System.Drawing.Point(0, 0);
             this.btnTransformer3P_Hor.PreLocation = new System.Drawing.Point(0, 0);
             this.btnTransformer3P_Hor.PTail = new System.Drawing.Point(0, 0);
             this.btnTransformer3P_Hor.Size = new System.Drawing.Size(50, 50);
@@ -457,6 +506,7 @@ namespace Experimential_Software
             this.btnTransformer3P_Ver.ImageIndex = 3;
             this.btnTransformer3P_Ver.ImageList = this.imgListTool;
             this.btnTransformer3P_Ver.IsContainPhead = false;
+            this.btnTransformer3P_Ver.IsContainPIntern = false;
             this.btnTransformer3P_Ver.IsContainPtail = false;
             this.btnTransformer3P_Ver.IsMove = false;
             this.btnTransformer3P_Ver.IsOnTool = true;
@@ -467,6 +517,7 @@ namespace Experimential_Software
             this.btnTransformer3P_Ver.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
             this.btnTransformer3P_Ver.Name = "btnTransformer3P_Ver";
             this.btnTransformer3P_Ver.PHead = new System.Drawing.Point(0, 0);
+            this.btnTransformer3P_Ver.PIntern = new System.Drawing.Point(0, 0);
             this.btnTransformer3P_Ver.PreLocation = new System.Drawing.Point(0, 0);
             this.btnTransformer3P_Ver.PTail = new System.Drawing.Point(0, 0);
             this.btnTransformer3P_Ver.Size = new System.Drawing.Size(50, 50);
@@ -482,6 +533,7 @@ namespace Experimential_Software
             this.btnLinePower_Hor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLinePower_Hor.ImageIndex = 4;
             this.btnLinePower_Hor.IsContainPhead = false;
+            this.btnLinePower_Hor.IsContainPIntern = false;
             this.btnLinePower_Hor.IsContainPtail = false;
             this.btnLinePower_Hor.IsMove = false;
             this.btnLinePower_Hor.IsOnTool = true;
@@ -492,6 +544,7 @@ namespace Experimential_Software
             this.btnLinePower_Hor.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
             this.btnLinePower_Hor.Name = "btnLinePower_Hor";
             this.btnLinePower_Hor.PHead = new System.Drawing.Point(0, 0);
+            this.btnLinePower_Hor.PIntern = new System.Drawing.Point(0, 0);
             this.btnLinePower_Hor.PreLocation = new System.Drawing.Point(0, 0);
             this.btnLinePower_Hor.PTail = new System.Drawing.Point(0, 0);
             this.btnLinePower_Hor.Size = new System.Drawing.Size(50, 50);
@@ -508,6 +561,7 @@ namespace Experimential_Software
             this.btnLinePower_Ver.ImageIndex = 4;
             this.btnLinePower_Ver.ImageList = this.imgListTool;
             this.btnLinePower_Ver.IsContainPhead = false;
+            this.btnLinePower_Ver.IsContainPIntern = false;
             this.btnLinePower_Ver.IsContainPtail = false;
             this.btnLinePower_Ver.IsMove = false;
             this.btnLinePower_Ver.IsOnTool = true;
@@ -518,6 +572,7 @@ namespace Experimential_Software
             this.btnLinePower_Ver.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
             this.btnLinePower_Ver.Name = "btnLinePower_Ver";
             this.btnLinePower_Ver.PHead = new System.Drawing.Point(0, 0);
+            this.btnLinePower_Ver.PIntern = new System.Drawing.Point(0, 0);
             this.btnLinePower_Ver.PreLocation = new System.Drawing.Point(0, 0);
             this.btnLinePower_Ver.PTail = new System.Drawing.Point(0, 0);
             this.btnLinePower_Ver.Size = new System.Drawing.Size(50, 50);
@@ -534,6 +589,7 @@ namespace Experimential_Software
             this.btnLoad_Hor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLoad_Hor.ImageIndex = 5;
             this.btnLoad_Hor.IsContainPhead = false;
+            this.btnLoad_Hor.IsContainPIntern = false;
             this.btnLoad_Hor.IsContainPtail = false;
             this.btnLoad_Hor.IsMove = false;
             this.btnLoad_Hor.IsOnTool = true;
@@ -544,6 +600,7 @@ namespace Experimential_Software
             this.btnLoad_Hor.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
             this.btnLoad_Hor.Name = "btnLoad_Hor";
             this.btnLoad_Hor.PHead = new System.Drawing.Point(0, 0);
+            this.btnLoad_Hor.PIntern = new System.Drawing.Point(0, 0);
             this.btnLoad_Hor.PreLocation = new System.Drawing.Point(0, 0);
             this.btnLoad_Hor.PTail = new System.Drawing.Point(0, 0);
             this.btnLoad_Hor.Size = new System.Drawing.Size(50, 50);
@@ -560,6 +617,7 @@ namespace Experimential_Software
             this.btnLoad_Ver.ImageIndex = 5;
             this.btnLoad_Ver.ImageList = this.imgListTool;
             this.btnLoad_Ver.IsContainPhead = false;
+            this.btnLoad_Ver.IsContainPIntern = false;
             this.btnLoad_Ver.IsContainPtail = false;
             this.btnLoad_Ver.IsMove = false;
             this.btnLoad_Ver.IsOnTool = true;
@@ -570,6 +628,7 @@ namespace Experimential_Software
             this.btnLoad_Ver.Margin = new System.Windows.Forms.Padding(3, 20, 3, 3);
             this.btnLoad_Ver.Name = "btnLoad_Ver";
             this.btnLoad_Ver.PHead = new System.Drawing.Point(0, 0);
+            this.btnLoad_Ver.PIntern = new System.Drawing.Point(0, 0);
             this.btnLoad_Ver.PreLocation = new System.Drawing.Point(0, 0);
             this.btnLoad_Ver.PTail = new System.Drawing.Point(0, 0);
             this.btnLoad_Ver.Size = new System.Drawing.Size(50, 50);
@@ -578,12 +637,75 @@ namespace Experimential_Software
             this.btnLoad_Ver.UseVisualStyleBackColor = false;
             this.btnLoad_Ver.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLoad_MouseDown);
             // 
+            // vIewToolStripMenuItem
+            // 
+            this.vIewToolStripMenuItem.Name = "vIewToolStripMenuItem";
+            this.vIewToolStripMenuItem.Size = new System.Drawing.Size(43, 21);
+            this.vIewToolStripMenuItem.Text = "Edit";
+            // 
+            // viewToolStripMenuItem1
+            // 
+            this.viewToolStripMenuItem1.Name = "viewToolStripMenuItem1";
+            this.viewToolStripMenuItem1.Size = new System.Drawing.Size(47, 21);
+            this.viewToolStripMenuItem1.Text = "View";
+            // 
+            // powerFlowToolStripMenuItem
+            // 
+            this.powerFlowToolStripMenuItem.Name = "powerFlowToolStripMenuItem";
+            this.powerFlowToolStripMenuItem.Size = new System.Drawing.Size(89, 21);
+            this.powerFlowToolStripMenuItem.Text = "Power Flow";
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(46, 21);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // btnNewFile
+            // 
+            this.btnNewFile.ImageIndex = 0;
+            this.btnNewFile.ImageList = this.imgListIconMnuStrip;
+            this.btnNewFile.Location = new System.Drawing.Point(9, 32);
+            this.btnNewFile.Name = "btnNewFile";
+            this.btnNewFile.Size = new System.Drawing.Size(30, 30);
+            this.btnNewFile.TabIndex = 0;
+            this.btnNewFile.UseVisualStyleBackColor = true;
+            this.btnNewFile.Click += new System.EventHandler(this.mnuFileNew_Click);
+            // 
+            // btnOpen
+            // 
+            this.btnOpen.ImageIndex = 1;
+            this.btnOpen.ImageList = this.imgListIconMnuStrip;
+            this.btnOpen.Location = new System.Drawing.Point(52, 32);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(30, 30);
+            this.btnOpen.TabIndex = 0;
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.mnuFileOpen_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.ImageIndex = 2;
+            this.btnSave.ImageList = this.imgListIconMnuStrip;
+            this.btnSave.Location = new System.Drawing.Point(95, 32);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(30, 30);
+            this.btnSave.TabIndex = 0;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.mnuFileSave_Click);
+            // 
             // frmCapstone
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1042, 760);
+            this.ClientSize = new System.Drawing.Size(1085, 760);
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.pnlTool);
             this.Controls.Add(this.pnlTreeView);
@@ -603,6 +725,7 @@ namespace Experimential_Software
             this.pnlTool.ResumeLayout(false);
             this.pnlFlowTool.ResumeLayout(false);
             this.cxtMenuStripEPower.ResumeLayout(false);
+            this.cxtRemoveLineDrawn.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -621,7 +744,6 @@ namespace Experimential_Software
         public PanelMain pnlMain;
         public System.Windows.Forms.ImageList imgListEPower;
         private System.Windows.Forms.ToolStripMenuItem mnuFile;
-        private System.Windows.Forms.ImageList imgListTool;
         private System.Windows.Forms.ImageList imgListIconMnuStrip;
         public System.Windows.Forms.MenuStrip mnuStripBar;
         public System.Windows.Forms.ToolStripMenuItem mnuFileNew;
@@ -640,6 +762,17 @@ namespace Experimential_Software
         private System.Windows.Forms.ToolStripMenuItem cxtMnuDCOperatingMode;
         public System.Windows.Forms.ContextMenuStrip cxtMenuStripEPower;
         private System.Windows.Forms.TreeView tvDataSaved;
+        private System.Windows.Forms.ContextMenuStrip cxtRemoveLineDrawn;
+        private System.Windows.Forms.ToolStripMenuItem xóaLineNàyToolStripMenuItem;
+        public System.Windows.Forms.ImageList imgListTool;
+        private System.Windows.Forms.ToolStripMenuItem vIewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem powerFlowToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
+        private System.Windows.Forms.Button btnNewFile;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnOpen;
     }
 }
 

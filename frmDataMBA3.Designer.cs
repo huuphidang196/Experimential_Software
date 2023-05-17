@@ -32,6 +32,25 @@ namespace Experimential_Software
             this.pnlOverall = new System.Windows.Forms.Panel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPowerFlow = new System.Windows.Forms.TabPage();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.grbDescription = new System.Windows.Forms.GroupBox();
+            this.rtbDescription = new System.Windows.Forms.RichTextBox();
+            this.grbFixedTap = new System.Windows.Forms.GroupBox();
+            this.btnTransUnit = new System.Windows.Forms.Button();
+            this.txtVolFixedSec = new System.Windows.Forms.TextBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.txtVolFixedTer = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.txtVolFixedPrim = new System.Windows.Forms.TextBox();
+            this.label34 = new System.Windows.Forms.Label();
+            this.lblTransUnit = new System.Windows.Forms.Label();
+            this.lblPerUnitSec = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.lblPerUnitTer = new System.Windows.Forms.Label();
+            this.lblTransSec = new System.Windows.Forms.Label();
+            this.lblPerUnitPrim = new System.Windows.Forms.Label();
+            this.lblTransTer = new System.Windows.Forms.Label();
+            this.lblTransPrim = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.grbImpedanceMBA3P = new System.Windows.Forms.GroupBox();
             this.txtMagB = new System.Windows.Forms.TextBox();
@@ -48,6 +67,7 @@ namespace Experimential_Software
             this.label14 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.txtSpecR_Prim = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.grbDataMBA3 = new System.Windows.Forms.GroupBox();
             this.txtRatedkV_Sec = new System.Windows.Forms.TextBox();
@@ -89,39 +109,19 @@ namespace Experimential_Software
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.grbFixedTap = new System.Windows.Forms.GroupBox();
-            this.btnTransUnit = new System.Windows.Forms.Button();
-            this.label28 = new System.Windows.Forms.Label();
-            this.txtVolFixedPrim = new System.Windows.Forms.TextBox();
-            this.label29 = new System.Windows.Forms.Label();
-            this.txtVolFixedTer = new System.Windows.Forms.TextBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.txtVolFixedSec = new System.Windows.Forms.TextBox();
-            this.lblTransUnit = new System.Windows.Forms.Label();
-            this.lblTransPrim = new System.Windows.Forms.Label();
-            this.lblTransTer = new System.Windows.Forms.Label();
-            this.lblTransSec = new System.Windows.Forms.Label();
-            this.lblPerUnitPrim = new System.Windows.Forms.Label();
-            this.lblPerUnitTer = new System.Windows.Forms.Label();
-            this.lblPerUnitSec = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
-            this.grbDescription = new System.Windows.Forms.GroupBox();
-            this.rtbDescription = new System.Windows.Forms.RichTextBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.pnlOverall.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPowerFlow.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.grbDescription.SuspendLayout();
+            this.grbFixedTap.SuspendLayout();
             this.panel2.SuspendLayout();
             this.grbImpedanceMBA3P.SuspendLayout();
             this.grbDataMBA3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.grbBasicData.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.grbFixedTap.SuspendLayout();
-            this.grbDescription.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlOverall
@@ -155,6 +155,210 @@ namespace Experimential_Software
             this.tabPowerFlow.TabIndex = 0;
             this.tabPowerFlow.Text = "Transformer Power Flow";
             this.tabPowerFlow.UseVisualStyleBackColor = true;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.grbDescription);
+            this.panel3.Controls.Add(this.grbFixedTap);
+            this.panel3.Location = new System.Drawing.Point(21, 580);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(811, 218);
+            this.panel3.TabIndex = 2;
+            // 
+            // grbDescription
+            // 
+            this.grbDescription.Controls.Add(this.rtbDescription);
+            this.grbDescription.Dock = System.Windows.Forms.DockStyle.Right;
+            this.grbDescription.Location = new System.Drawing.Point(480, 0);
+            this.grbDescription.Name = "grbDescription";
+            this.grbDescription.Size = new System.Drawing.Size(331, 218);
+            this.grbDescription.TabIndex = 1;
+            this.grbDescription.TabStop = false;
+            this.grbDescription.Text = "Description";
+            // 
+            // rtbDescription
+            // 
+            this.rtbDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtbDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbDescription.Location = new System.Drawing.Point(3, 22);
+            this.rtbDescription.Name = "rtbDescription";
+            this.rtbDescription.Size = new System.Drawing.Size(325, 193);
+            this.rtbDescription.TabIndex = 0;
+            this.rtbDescription.Text = "";
+            // 
+            // grbFixedTap
+            // 
+            this.grbFixedTap.Controls.Add(this.btnTransUnit);
+            this.grbFixedTap.Controls.Add(this.txtVolFixedSec);
+            this.grbFixedTap.Controls.Add(this.label30);
+            this.grbFixedTap.Controls.Add(this.txtVolFixedTer);
+            this.grbFixedTap.Controls.Add(this.label29);
+            this.grbFixedTap.Controls.Add(this.txtVolFixedPrim);
+            this.grbFixedTap.Controls.Add(this.label34);
+            this.grbFixedTap.Controls.Add(this.lblTransUnit);
+            this.grbFixedTap.Controls.Add(this.lblPerUnitSec);
+            this.grbFixedTap.Controls.Add(this.label28);
+            this.grbFixedTap.Controls.Add(this.lblPerUnitTer);
+            this.grbFixedTap.Controls.Add(this.lblTransSec);
+            this.grbFixedTap.Controls.Add(this.lblPerUnitPrim);
+            this.grbFixedTap.Controls.Add(this.lblTransTer);
+            this.grbFixedTap.Controls.Add(this.lblTransPrim);
+            this.grbFixedTap.Dock = System.Windows.Forms.DockStyle.Left;
+            this.grbFixedTap.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grbFixedTap.Location = new System.Drawing.Point(0, 0);
+            this.grbFixedTap.Name = "grbFixedTap";
+            this.grbFixedTap.Size = new System.Drawing.Size(461, 218);
+            this.grbFixedTap.TabIndex = 0;
+            this.grbFixedTap.TabStop = false;
+            this.grbFixedTap.Text = "Fixed Tap";
+            // 
+            // btnTransUnit
+            // 
+            this.btnTransUnit.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTransUnit.Location = new System.Drawing.Point(91, 32);
+            this.btnTransUnit.Name = "btnTransUnit";
+            this.btnTransUnit.Size = new System.Drawing.Size(89, 25);
+            this.btnTransUnit.TabIndex = 0;
+            this.btnTransUnit.Text = "% Tap";
+            this.btnTransUnit.UseVisualStyleBackColor = true;
+            this.btnTransUnit.Click += new System.EventHandler(this.btnTransUnit_Click);
+            // 
+            // txtVolFixedSec
+            // 
+            this.txtVolFixedSec.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVolFixedSec.Location = new System.Drawing.Point(91, 175);
+            this.txtVolFixedSec.Name = "txtVolFixedSec";
+            this.txtVolFixedSec.Size = new System.Drawing.Size(89, 24);
+            this.txtVolFixedSec.TabIndex = 2;
+            this.txtVolFixedSec.Leave += new System.EventHandler(this.TextBoxVolFixed_Leave);
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Location = new System.Drawing.Point(32, 178);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(34, 17);
+            this.label30.TabIndex = 0;
+            this.label30.Text = "Sec.";
+            // 
+            // txtVolFixedTer
+            // 
+            this.txtVolFixedTer.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVolFixedTer.Location = new System.Drawing.Point(91, 124);
+            this.txtVolFixedTer.Name = "txtVolFixedTer";
+            this.txtVolFixedTer.Size = new System.Drawing.Size(89, 24);
+            this.txtVolFixedTer.TabIndex = 2;
+            this.txtVolFixedTer.Leave += new System.EventHandler(this.TextBoxVolFixed_Leave);
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.Location = new System.Drawing.Point(32, 127);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(32, 17);
+            this.label29.TabIndex = 0;
+            this.label29.Text = "Ter.";
+            // 
+            // txtVolFixedPrim
+            // 
+            this.txtVolFixedPrim.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtVolFixedPrim.Location = new System.Drawing.Point(91, 74);
+            this.txtVolFixedPrim.Name = "txtVolFixedPrim";
+            this.txtVolFixedPrim.Size = new System.Drawing.Size(89, 24);
+            this.txtVolFixedPrim.TabIndex = 2;
+            this.txtVolFixedPrim.Leave += new System.EventHandler(this.TextBoxVolFixed_Leave);
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label34.Location = new System.Drawing.Point(351, 23);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(72, 34);
+            this.label34.TabIndex = 0;
+            this.label34.Text = "Per Unit\r\nTurn Ratio\r\n";
+            // 
+            // lblTransUnit
+            // 
+            this.lblTransUnit.AutoSize = true;
+            this.lblTransUnit.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTransUnit.Location = new System.Drawing.Point(230, 40);
+            this.lblTransUnit.Name = "lblTransUnit";
+            this.lblTransUnit.Size = new System.Drawing.Size(50, 17);
+            this.lblTransUnit.TabIndex = 0;
+            this.lblTransUnit.Text = "kV Tap";
+            // 
+            // lblPerUnitSec
+            // 
+            this.lblPerUnitSec.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblPerUnitSec.Location = new System.Drawing.Point(339, 173);
+            this.lblPerUnitSec.Name = "lblPerUnitSec";
+            this.lblPerUnitSec.Size = new System.Drawing.Size(82, 24);
+            this.lblPerUnitSec.TabIndex = 1;
+            this.lblPerUnitSec.Text = "101";
+            this.lblPerUnitSec.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label28.Location = new System.Drawing.Point(32, 77);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(39, 17);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "Prim.";
+            // 
+            // lblPerUnitTer
+            // 
+            this.lblPerUnitTer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblPerUnitTer.Location = new System.Drawing.Point(339, 122);
+            this.lblPerUnitTer.Name = "lblPerUnitTer";
+            this.lblPerUnitTer.Size = new System.Drawing.Size(82, 24);
+            this.lblPerUnitTer.TabIndex = 1;
+            this.lblPerUnitTer.Text = "101";
+            this.lblPerUnitTer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblTransSec
+            // 
+            this.lblTransSec.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTransSec.Location = new System.Drawing.Point(214, 173);
+            this.lblTransSec.Name = "lblTransSec";
+            this.lblTransSec.Size = new System.Drawing.Size(82, 24);
+            this.lblTransSec.TabIndex = 1;
+            this.lblTransSec.Text = "101";
+            this.lblTransSec.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblPerUnitPrim
+            // 
+            this.lblPerUnitPrim.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblPerUnitPrim.Location = new System.Drawing.Point(339, 72);
+            this.lblPerUnitPrim.Name = "lblPerUnitPrim";
+            this.lblPerUnitPrim.Size = new System.Drawing.Size(82, 24);
+            this.lblPerUnitPrim.TabIndex = 1;
+            this.lblPerUnitPrim.Text = "1.1";
+            this.lblPerUnitPrim.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblTransTer
+            // 
+            this.lblTransTer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTransTer.Location = new System.Drawing.Point(214, 122);
+            this.lblTransTer.Name = "lblTransTer";
+            this.lblTransTer.Size = new System.Drawing.Size(82, 24);
+            this.lblTransTer.TabIndex = 1;
+            this.lblTransTer.Text = "101";
+            this.lblTransTer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblTransPrim
+            // 
+            this.lblTransPrim.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblTransPrim.Location = new System.Drawing.Point(214, 72);
+            this.lblTransPrim.Name = "lblTransPrim";
+            this.lblTransPrim.Size = new System.Drawing.Size(82, 24);
+            this.lblTransPrim.TabIndex = 1;
+            this.lblTransPrim.Text = "101";
+            this.lblTransPrim.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel2
             // 
@@ -199,6 +403,7 @@ namespace Experimential_Software
             this.txtMagB.Size = new System.Drawing.Size(106, 24);
             this.txtMagB.TabIndex = 2;
             this.txtMagB.Text = "0.0000000";
+            this.txtMagB.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // txtSpecX_Sec
             // 
@@ -208,6 +413,7 @@ namespace Experimential_Software
             this.txtSpecX_Sec.Size = new System.Drawing.Size(106, 24);
             this.txtSpecX_Sec.TabIndex = 2;
             this.txtSpecX_Sec.Text = "101";
+            this.txtSpecX_Sec.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // label18
             // 
@@ -237,6 +443,7 @@ namespace Experimential_Software
             this.txtSpecX_Ter.Size = new System.Drawing.Size(106, 24);
             this.txtSpecX_Ter.TabIndex = 2;
             this.txtSpecX_Ter.Text = "101";
+            this.txtSpecX_Ter.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // label13
             // 
@@ -255,6 +462,7 @@ namespace Experimential_Software
             this.txtMagG.Name = "txtMagG";
             this.txtMagG.Size = new System.Drawing.Size(106, 24);
             this.txtMagG.TabIndex = 2;
+            this.txtMagG.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // txtSpecR_Sec
             // 
@@ -263,6 +471,7 @@ namespace Experimential_Software
             this.txtSpecR_Sec.Name = "txtSpecR_Sec";
             this.txtSpecR_Sec.Size = new System.Drawing.Size(106, 24);
             this.txtSpecR_Sec.TabIndex = 2;
+            this.txtSpecR_Sec.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // txtSpecX_Prim
             // 
@@ -272,6 +481,7 @@ namespace Experimential_Software
             this.txtSpecX_Prim.Size = new System.Drawing.Size(106, 24);
             this.txtSpecX_Prim.TabIndex = 2;
             this.txtSpecX_Prim.Text = "101";
+            this.txtSpecX_Prim.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // label17
             // 
@@ -290,6 +500,7 @@ namespace Experimential_Software
             this.txtSpecR_Ter.Name = "txtSpecR_Ter";
             this.txtSpecR_Ter.Size = new System.Drawing.Size(106, 24);
             this.txtSpecR_Ter.TabIndex = 2;
+            this.txtSpecR_Ter.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // label14
             // 
@@ -318,6 +529,17 @@ namespace Experimential_Software
             this.txtSpecR_Prim.Name = "txtSpecR_Prim";
             this.txtSpecR_Prim.Size = new System.Drawing.Size(106, 24);
             this.txtSpecR_Prim.TabIndex = 2;
+            this.txtSpecR_Prim.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(16, 94);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(97, 17);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "W_Ter_R (pu)";
             // 
             // label10
             // 
@@ -365,6 +587,7 @@ namespace Experimential_Software
             this.txtRatedkV_Sec.Name = "txtRatedkV_Sec";
             this.txtRatedkV_Sec.Size = new System.Drawing.Size(135, 24);
             this.txtRatedkV_Sec.TabIndex = 2;
+            this.txtRatedkV_Sec.Leave += new System.EventHandler(this.TextBoxRatedLeave);
             // 
             // txtRatedkV_Ter
             // 
@@ -373,6 +596,7 @@ namespace Experimential_Software
             this.txtRatedkV_Ter.Name = "txtRatedkV_Ter";
             this.txtRatedkV_Ter.Size = new System.Drawing.Size(135, 24);
             this.txtRatedkV_Ter.TabIndex = 2;
+            this.txtRatedkV_Ter.Leave += new System.EventHandler(this.TextBoxRatedLeave);
             // 
             // txtBaseMVA_Sec
             // 
@@ -381,6 +605,7 @@ namespace Experimential_Software
             this.txtBaseMVA_Sec.Name = "txtBaseMVA_Sec";
             this.txtBaseMVA_Sec.Size = new System.Drawing.Size(106, 24);
             this.txtBaseMVA_Sec.TabIndex = 2;
+            this.txtBaseMVA_Sec.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // txtRatedkV_Prim
             // 
@@ -390,6 +615,7 @@ namespace Experimential_Software
             this.txtRatedkV_Prim.Size = new System.Drawing.Size(135, 24);
             this.txtRatedkV_Prim.TabIndex = 2;
             this.txtRatedkV_Prim.Text = "101";
+            this.txtRatedkV_Prim.Leave += new System.EventHandler(this.TextBoxRatedLeave);
             // 
             // txtBaseMVA_Ter
             // 
@@ -398,6 +624,7 @@ namespace Experimential_Software
             this.txtBaseMVA_Ter.Name = "txtBaseMVA_Ter";
             this.txtBaseMVA_Ter.Size = new System.Drawing.Size(106, 24);
             this.txtBaseMVA_Ter.TabIndex = 2;
+            this.txtBaseMVA_Ter.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // label27
             // 
@@ -426,6 +653,7 @@ namespace Experimential_Software
             this.txtBaseMVA_Prim.Name = "txtBaseMVA_Prim";
             this.txtBaseMVA_Prim.Size = new System.Drawing.Size(106, 24);
             this.txtBaseMVA_Prim.TabIndex = 2;
+            this.txtBaseMVA_Prim.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // label26
             // 
@@ -606,6 +834,7 @@ namespace Experimential_Software
             this.txtTrans3PNumber.Name = "txtTrans3PNumber";
             this.txtTrans3PNumber.Size = new System.Drawing.Size(106, 24);
             this.txtTrans3PNumber.TabIndex = 2;
+            this.txtTrans3PNumber.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // lblBusNameW3
             // 
@@ -757,224 +986,15 @@ namespace Experimential_Software
             this.label1.TabIndex = 0;
             this.label1.Text = "W1 Prim. Bus Number";
             // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(16, 94);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(97, 17);
-            this.label12.TabIndex = 0;
-            this.label12.Text = "W_Ter_R (pu)";
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.grbDescription);
-            this.panel3.Controls.Add(this.grbFixedTap);
-            this.panel3.Location = new System.Drawing.Point(21, 580);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(811, 218);
-            this.panel3.TabIndex = 2;
-            // 
-            // grbFixedTap
-            // 
-            this.grbFixedTap.Controls.Add(this.btnTransUnit);
-            this.grbFixedTap.Controls.Add(this.txtVolFixedSec);
-            this.grbFixedTap.Controls.Add(this.label30);
-            this.grbFixedTap.Controls.Add(this.txtVolFixedTer);
-            this.grbFixedTap.Controls.Add(this.label29);
-            this.grbFixedTap.Controls.Add(this.txtVolFixedPrim);
-            this.grbFixedTap.Controls.Add(this.label34);
-            this.grbFixedTap.Controls.Add(this.lblTransUnit);
-            this.grbFixedTap.Controls.Add(this.lblPerUnitSec);
-            this.grbFixedTap.Controls.Add(this.label28);
-            this.grbFixedTap.Controls.Add(this.lblPerUnitTer);
-            this.grbFixedTap.Controls.Add(this.lblTransSec);
-            this.grbFixedTap.Controls.Add(this.lblPerUnitPrim);
-            this.grbFixedTap.Controls.Add(this.lblTransTer);
-            this.grbFixedTap.Controls.Add(this.lblTransPrim);
-            this.grbFixedTap.Dock = System.Windows.Forms.DockStyle.Left;
-            this.grbFixedTap.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grbFixedTap.Location = new System.Drawing.Point(0, 0);
-            this.grbFixedTap.Name = "grbFixedTap";
-            this.grbFixedTap.Size = new System.Drawing.Size(461, 218);
-            this.grbFixedTap.TabIndex = 0;
-            this.grbFixedTap.TabStop = false;
-            this.grbFixedTap.Text = "Fixed Tap";
-            // 
-            // btnTransUnit
-            // 
-            this.btnTransUnit.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnTransUnit.Location = new System.Drawing.Point(91, 32);
-            this.btnTransUnit.Name = "btnTransUnit";
-            this.btnTransUnit.Size = new System.Drawing.Size(89, 25);
-            this.btnTransUnit.TabIndex = 0;
-            this.btnTransUnit.Text = "% Tap";
-            this.btnTransUnit.UseVisualStyleBackColor = true;
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.Location = new System.Drawing.Point(32, 77);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(39, 17);
-            this.label28.TabIndex = 0;
-            this.label28.Text = "Prim.";
-            // 
-            // txtVolFixedPrim
-            // 
-            this.txtVolFixedPrim.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVolFixedPrim.Location = new System.Drawing.Point(91, 74);
-            this.txtVolFixedPrim.Name = "txtVolFixedPrim";
-            this.txtVolFixedPrim.Size = new System.Drawing.Size(89, 24);
-            this.txtVolFixedPrim.TabIndex = 2;
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label29.Location = new System.Drawing.Point(32, 127);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(32, 17);
-            this.label29.TabIndex = 0;
-            this.label29.Text = "Ter.";
-            // 
-            // txtVolFixedTer
-            // 
-            this.txtVolFixedTer.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVolFixedTer.Location = new System.Drawing.Point(91, 124);
-            this.txtVolFixedTer.Name = "txtVolFixedTer";
-            this.txtVolFixedTer.Size = new System.Drawing.Size(89, 24);
-            this.txtVolFixedTer.TabIndex = 2;
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label30.Location = new System.Drawing.Point(32, 178);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(34, 17);
-            this.label30.TabIndex = 0;
-            this.label30.Text = "Sec.";
-            // 
-            // txtVolFixedSec
-            // 
-            this.txtVolFixedSec.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVolFixedSec.Location = new System.Drawing.Point(91, 175);
-            this.txtVolFixedSec.Name = "txtVolFixedSec";
-            this.txtVolFixedSec.Size = new System.Drawing.Size(89, 24);
-            this.txtVolFixedSec.TabIndex = 2;
-            // 
-            // lblTransUnit
-            // 
-            this.lblTransUnit.AutoSize = true;
-            this.lblTransUnit.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTransUnit.Location = new System.Drawing.Point(230, 40);
-            this.lblTransUnit.Name = "lblTransUnit";
-            this.lblTransUnit.Size = new System.Drawing.Size(50, 17);
-            this.lblTransUnit.TabIndex = 0;
-            this.lblTransUnit.Text = "kV Tap";
-            // 
-            // lblTransPrim
-            // 
-            this.lblTransPrim.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTransPrim.Location = new System.Drawing.Point(214, 72);
-            this.lblTransPrim.Name = "lblTransPrim";
-            this.lblTransPrim.Size = new System.Drawing.Size(82, 24);
-            this.lblTransPrim.TabIndex = 1;
-            this.lblTransPrim.Text = "101";
-            this.lblTransPrim.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblTransTer
-            // 
-            this.lblTransTer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTransTer.Location = new System.Drawing.Point(214, 122);
-            this.lblTransTer.Name = "lblTransTer";
-            this.lblTransTer.Size = new System.Drawing.Size(82, 24);
-            this.lblTransTer.TabIndex = 1;
-            this.lblTransTer.Text = "101";
-            this.lblTransTer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblTransSec
-            // 
-            this.lblTransSec.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblTransSec.Location = new System.Drawing.Point(214, 173);
-            this.lblTransSec.Name = "lblTransSec";
-            this.lblTransSec.Size = new System.Drawing.Size(82, 24);
-            this.lblTransSec.TabIndex = 1;
-            this.lblTransSec.Text = "101";
-            this.lblTransSec.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblPerUnitPrim
-            // 
-            this.lblPerUnitPrim.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblPerUnitPrim.Location = new System.Drawing.Point(339, 72);
-            this.lblPerUnitPrim.Name = "lblPerUnitPrim";
-            this.lblPerUnitPrim.Size = new System.Drawing.Size(82, 24);
-            this.lblPerUnitPrim.TabIndex = 1;
-            this.lblPerUnitPrim.Text = "1.1";
-            this.lblPerUnitPrim.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblPerUnitTer
-            // 
-            this.lblPerUnitTer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblPerUnitTer.Location = new System.Drawing.Point(339, 122);
-            this.lblPerUnitTer.Name = "lblPerUnitTer";
-            this.lblPerUnitTer.Size = new System.Drawing.Size(82, 24);
-            this.lblPerUnitTer.TabIndex = 1;
-            this.lblPerUnitTer.Text = "101";
-            this.lblPerUnitTer.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblPerUnitSec
-            // 
-            this.lblPerUnitSec.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblPerUnitSec.Location = new System.Drawing.Point(339, 173);
-            this.lblPerUnitSec.Name = "lblPerUnitSec";
-            this.lblPerUnitSec.Size = new System.Drawing.Size(82, 24);
-            this.lblPerUnitSec.TabIndex = 1;
-            this.lblPerUnitSec.Text = "101";
-            this.lblPerUnitSec.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.Location = new System.Drawing.Point(351, 23);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(72, 34);
-            this.label34.TabIndex = 0;
-            this.label34.Text = "Per Unit\r\nTurn Ratio\r\n";
-            // 
-            // grbDescription
-            // 
-            this.grbDescription.Controls.Add(this.rtbDescription);
-            this.grbDescription.Dock = System.Windows.Forms.DockStyle.Right;
-            this.grbDescription.Location = new System.Drawing.Point(480, 0);
-            this.grbDescription.Name = "grbDescription";
-            this.grbDescription.Size = new System.Drawing.Size(331, 218);
-            this.grbDescription.TabIndex = 1;
-            this.grbDescription.TabStop = false;
-            this.grbDescription.Text = "Description";
-            // 
-            // rtbDescription
-            // 
-            this.rtbDescription.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbDescription.Location = new System.Drawing.Point(3, 22);
-            this.rtbDescription.Name = "rtbDescription";
-            this.rtbDescription.Size = new System.Drawing.Size(325, 193);
-            this.rtbDescription.TabIndex = 0;
-            this.rtbDescription.Text = "";
-            // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(302, 885);
+            this.btnOK.Location = new System.Drawing.Point(312, 885);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 27);
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
             // 
             // btnCancel
             // 
@@ -984,6 +1004,7 @@ namespace Experimential_Software
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // frmDataMBA3
             // 
@@ -995,7 +1016,10 @@ namespace Experimential_Software
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.pnlOverall);
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmDataMBA3";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Three Winding Transformer Data Record";
@@ -1003,6 +1027,10 @@ namespace Experimential_Software
             this.pnlOverall.ResumeLayout(false);
             this.tabControl1.ResumeLayout(false);
             this.tabPowerFlow.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.grbDescription.ResumeLayout(false);
+            this.grbFixedTap.ResumeLayout(false);
+            this.grbFixedTap.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.grbImpedanceMBA3P.ResumeLayout(false);
             this.grbImpedanceMBA3P.PerformLayout();
@@ -1011,10 +1039,6 @@ namespace Experimential_Software
             this.panel1.ResumeLayout(false);
             this.grbBasicData.ResumeLayout(false);
             this.grbBasicData.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.grbFixedTap.ResumeLayout(false);
-            this.grbFixedTap.PerformLayout();
-            this.grbDescription.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

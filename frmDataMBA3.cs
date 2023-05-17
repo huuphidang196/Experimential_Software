@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Experimential_Software.Class_Database;
-
+using Experimential_Software.DAO.DAO_MBA3Data;
 
 namespace Experimential_Software
 {
@@ -18,6 +18,14 @@ namespace Experimential_Software
         public ConnectableE MBA3EPowerFixed { get => _mba3PEPower; set => _mba3PEPower = value; }
 
         protected DTOTransThreeEPower _dtoMBA3P;
+
+        //temp
+        protected UnitTapMode _unitModeMain = UnitTapMode.Percent;
+
+        //percent Fixed temp
+        protected double _perFixedPrimTemp_100 = 1;
+        protected double _perFixedTerTemp_100 = 0;
+        protected double _perFixedSecTemp_100 = 0;
 
         public frmDataMBA3()
         {
@@ -29,7 +37,11 @@ namespace Experimential_Software
             if (this._mba3PEPower != null)
             {
                 this._dtoMBA3P = this._mba3PEPower.DatabaseE.DataRecordE.DTOTransThreeEPower;
+                this._unitModeMain = this._dtoMBA3P.UnitTap_Main;
 
+                this._perFixedPrimTemp_100 = Math.Round((this._dtoMBA3P.Percent_PrimFixed - 1) * 100, 4);
+                this._perFixedTerTemp_100 = Math.Round((this._dtoMBA3P.Percent_TerFixed - 1) * 100, 4);
+                this._perFixedSecTemp_100 = Math.Round((this._dtoMBA3P.Percent_SecFixed - 1) * 100, 4);
                 //Show Zone Basic Data
                 this.ShowZoneBasicDataTransformer3P();
 
@@ -40,7 +52,7 @@ namespace Experimential_Software
                 this.ShowTransformerData();
 
                 //Fixed Tap
-                this.ShowFixedTap();
+                this.ShowFixedTapWheOpenForm();
             }
         }
 
@@ -124,46 +136,222 @@ namespace Experimential_Software
         }
 
         //Fixed Tap
-        protected virtual void ShowFixedTap()
+        protected virtual void ShowFixedTapWheOpenForm()
         {
-            //Unit Mode for btnUnit and lblTransUnit
-            UnitTapMode unitMode = this._dtoMBA3P.UnitTap_Main;
-
-            //btnTransTap
-            this.btnTransUnit.Text = (unitMode == UnitTapMode.Percent) ? "% Tap" : "kV Tap";
-
-            //lblTransUnit
-            this.lblTransUnit.Text = (unitMode == UnitTapMode.Percent) ? "kV Tap" : "% Tap";
-
-            //Voltage Fixed Prim
-            double Per_Prim = Math.Round((this._dtoMBA3P.Percent_PrimFixed - 1) * 100, 4);
-            this.txtVolFixedPrim.Text = (unitMode == UnitTapMode.Percent) ? Per_Prim + "" : this._dtoMBA3P.VoltageEnds_kV_Fixed.VolPrim_kV + "";
-            //Tertiary
-            double Per_Ter = Math.Round((this._dtoMBA3P.Percent_TerFixed - 1) * 100, 4);
-            this.txtVolFixedTer.Text = (unitMode == UnitTapMode.Percent) ? Per_Ter + "" : this._dtoMBA3P.VoltageEnds_kV_Fixed.VolTer_kV + "";
-            //Sec
-            double Per_Sec = Math.Round((this._dtoMBA3P.Percent_SecFixed - 1) * 100, 4);
-            this.txtVolFixedSec.Text = (unitMode == UnitTapMode.Percent) ? Per_Sec + "" : this._dtoMBA3P.VoltageEnds_kV_Fixed.VolSec_kV + "";
-
-            //lblTrans Fixed
-            this.lblTransPrim.Text = (unitMode == UnitTapMode.Percent) ? this._dtoMBA3P.VoltageEnds_kV_Fixed.VolPrim_kV + "" : this._dtoMBA3P.Percent_PrimFixed + "";
-            //Tertiary
-            this.lblTransTer.Text = (unitMode == UnitTapMode.Percent) ? this._dtoMBA3P.VoltageEnds_kV_Fixed.VolTer_kV + "" : this._dtoMBA3P.Percent_TerFixed + "";
-            //Sec
-            this.lblTransSec.Text = (unitMode == UnitTapMode.Percent) ? this._dtoMBA3P.VoltageEnds_kV_Fixed.VolSec_kV + "" : this._dtoMBA3P.Percent_SecFixed + "";
-
-            //Per unit
-            //Prim
-            this.lblPerUnitPrim.Text = Per_Prim + "";
-            //Ter
-            this.lblPerUnitTer.Text = Per_Ter + "";
-            //Sec
-            this.lblPerUnitSec.Text = Per_Sec + "";
+            //Separate in order to txtLeave use
+            this.ShowFixedVolatgeKVBySpecVoltage(this._dtoMBA3P.VoltageEnds_kV_Fixed);
 
             //Description
             this.rtbDescription.Text = this._dtoMBA3P.Description;
         }
 
+        protected virtual void ShowFixedVolatgeKVBySpecVoltage(VoltageEnds3P voltageFixed3P)
+        {
+            //btnTransTap
+            this.btnTransUnit.Text = (this._unitModeMain == UnitTapMode.Percent) ? "% Tap" : "kV Tap";
+
+            //lblTransUnit
+            this.lblTransUnit.Text = (this._unitModeMain == UnitTapMode.Percent) ? "kV Tap" : "% Tap";
+
+            //Voltage Fixed Prim
+
+            this.txtVolFixedPrim.Text = (this._unitModeMain == UnitTapMode.Percent) ? this._perFixedPrimTemp_100.ToString("F4") : voltageFixed3P.VolPrim_kV.ToString("F3");
+            //Tertiary
+
+            this.txtVolFixedTer.Text = (this._unitModeMain == UnitTapMode.Percent) ? this._perFixedTerTemp_100.ToString("F4") : voltageFixed3P.VolTer_kV.ToString("F3");
+            //Sec
+
+            this.txtVolFixedSec.Text = (this._unitModeMain == UnitTapMode.Percent) ? this._perFixedSecTemp_100.ToString("F4") : voltageFixed3P.VolSec_kV.ToString("F3");
+
+            //lblTrans Fixed
+            this.lblTransPrim.Text = (this._unitModeMain == UnitTapMode.Percent) ? voltageFixed3P.VolPrim_kV.ToString("F3") : this._perFixedPrimTemp_100.ToString("F4");
+            //Tertiary
+            this.lblTransTer.Text = (this._unitModeMain == UnitTapMode.Percent) ? voltageFixed3P.VolTer_kV.ToString("F3") : this._perFixedTerTemp_100.ToString("F4");
+            //Sec
+            this.lblTransSec.Text = (this._unitModeMain == UnitTapMode.Percent) ? voltageFixed3P.VolSec_kV.ToString("F3") : this._perFixedSecTemp_100.ToString("F4");
+
+            //Per unit
+            //Prim
+            this.lblPerUnitPrim.Text = (1 + this._perFixedPrimTemp_100 / 100).ToString("F3");
+            //Ter
+            this.lblPerUnitTer.Text = (1 + this._perFixedTerTemp_100 / 100).ToString("F3");
+            //Sec
+            this.lblPerUnitSec.Text = (1 + this._perFixedSecTemp_100 / 100).ToString("F3");
+        }
+
         #endregion Show_Data
+
+        #region Leave_TextBox
+        //OVerall for Impedance, objectMBA3P, Volatage
+        private void TextBoxLeaveValidNumber(object sender, EventArgs e)
+        {
+            TextBox txtDataChanged = sender as TextBox;
+
+            // bool isAllValid = txtDataChanged.Text.Replace(".", "").Replace("-", "").All(c => char.IsDigit(c));
+            bool isAllValid = double.TryParse(txtDataChanged.Text, out double result);
+            if (!isAllValid)
+            {
+                MessageBox.Show(txtDataChanged.Text + " Invalid decimal number detected!", "Request To Re-Enter Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDataChanged.BackColor = Color.Yellow;
+                txtDataChanged.Focus();
+                return;
+            }
+            txtDataChanged.BackColor = Color.White;
+        }
+        //Voltage Rated
+        private void TextBoxRatedLeave(object sender, EventArgs e)
+        {
+            //Check Valid number
+            this.TextBoxLeaveValidNumber(sender, e);
+
+            //Show Again Fixed Zone when voltage rated changed
+            this.ProcessEventVoltageFixedChange();
+        }
+
+        //Apply for VoltageFixed
+        private void TextBoxVolFixed_Leave(object sender, EventArgs e)
+        {
+            //Check Valid number
+            this.TextBoxLeaveValidNumber(sender, e);
+
+            // Valid => Show Again Voltage Fixed
+            this.ProcessEventVoltageFixedChange();
+
+        }
+
+        protected virtual void ProcessEventVoltageFixedChange()
+        {
+            this.SetPercentTemp();
+
+            this.SetVoltageFixed();           
+         //   MessageBox.Show("Fixed Prim = " + voltageFixed3P.VolPrim_kV + ", Ter = " + voltageFixed3P.VolTer_kV + ", Sec = " + voltageFixed3P.VolSec_kV);s          
+        }
+
+        protected virtual void SetVoltageFixed()
+        {
+            //Show Again Fixed Zone when voltage rated changed
+            VoltageEnds3P voltageRated3P = DAOGeneMBA3Record.Instance.GenerateVoltageEndsByText(txtRatedkV_Prim.Text, txtRatedkV_Ter.Text, txtRatedkV_Sec.Text);
+            VoltageEnds3P voltageFixed3P = DAOGeneMBA3Record.Instance.GenerateVoltageEndsFixedByUnitMode(this._perFixedPrimTemp_100, this._perFixedTerTemp_100, this._perFixedSecTemp_100, voltageRated3P);
+            this.ShowFixedVolatgeKVBySpecVoltage(voltageFixed3P);
+        }
+
+        protected virtual void SetPercentTemp()
+        {
+            //Set Per temp in order to Show VoltageFixed Use
+            this._perFixedPrimTemp_100 = DAOGeneMBA3Record.Instance.GetPercentVoltageFixedDisplayOneHundredPercent(this.txtVolFixedPrim.Text, this.txtRatedkV_Prim.Text, this._unitModeMain);
+            this._perFixedTerTemp_100 = DAOGeneMBA3Record.Instance.GetPercentVoltageFixedDisplayOneHundredPercent(this.txtVolFixedTer.Text, this.txtRatedkV_Ter.Text, this._unitModeMain);
+            this._perFixedSecTemp_100 = DAOGeneMBA3Record.Instance.GetPercentVoltageFixedDisplayOneHundredPercent(this.txtVolFixedSec.Text, this.txtRatedkV_Sec.Text, this._unitModeMain);
+        }
+
+        #endregion Leave_TextBox
+
+        #region OK_Event_Set_Data
+        private void btnOK_Click(object sender, EventArgs e)
+        {
+            //Set Zone Basic Data
+            this.SetZoneBasicData();
+            //Transformer Impedance Data
+            this.SetZoneImpedanceData();
+            //Set Zone Transformer Data
+            this.SetZoneTransformerData();
+            //SetZone Fixed Tap
+            this.SetZoneFixedTap();
+            //Descreiption
+            this._dtoMBA3P.Description = this.rtbDescription.Text;
+
+            DialogResult = DialogResult.OK;
+        }
+
+
+        protected virtual void SetZoneBasicData()
+        {
+            //this MBA3P
+            //Object Number
+            this._dtoMBA3P.ObjectNumber = int.Parse(this.txtTrans3PNumber.Text);
+            //Object Name
+            this._dtoMBA3P.ObjectName = this.txtTrans3PName.Text;
+            //Set index  InService
+            this._dtoMBA3P.Index_InService = this.cboInService.SelectedIndex;
+        }
+
+        protected virtual void SetZoneImpedanceData()
+        {
+            //SpecRX Prim
+            double SpecR_Prim = double.Parse(this.txtSpecR_Prim.Text);
+            double SpecX_Prim = double.Parse(this.txtSpecX_Prim.Text);
+            SpecImpedanceMBA3RX SpecPrim = DAOGeneMBA3Record.Instance.GenerateSpecRX(SpecR_Prim, SpecX_Prim);
+            this._dtoMBA3P.Impendance_MBA3.SpecRX_Prim = SpecPrim;
+
+            //SpecRX Tertiary
+            double SpecR_Ter = double.Parse(this.txtSpecR_Ter.Text);
+            double SpecX_Ter = double.Parse(this.txtSpecX_Ter.Text);
+            SpecImpedanceMBA3RX SpecTer = DAOGeneMBA3Record.Instance.GenerateSpecRX(SpecR_Ter, SpecX_Ter);
+            this._dtoMBA3P.Impendance_MBA3.SpecRX_Ter = SpecTer;
+
+            //SpecRX Sec
+            double SpecR_Sec = double.Parse(this.txtSpecR_Sec.Text);
+            double SpecX_Sec = double.Parse(this.txtSpecX_Sec.Text);
+            SpecImpedanceMBA3RX SpecSec = DAOGeneMBA3Record.Instance.GenerateSpecRX(SpecR_Sec, SpecX_Sec);
+            this._dtoMBA3P.Impendance_MBA3.SpecRX_Sec = SpecSec;
+
+            //Mag G,B
+            double MagG = double.Parse(this.txtMagG.Text);
+            double MagB = double.Parse(this.txtMagB.Text);
+            this._dtoMBA3P.Impendance_MBA3.MagG_pu = MagG;
+            this._dtoMBA3P.Impendance_MBA3.MagB_pu = MagB;
+
+        }
+
+        protected virtual void SetZoneTransformerData()
+        {
+            //MVA base Prim
+            this._dtoMBA3P.Trans3Winding_MVABase.BaseMVA_Prim = double.Parse(this.txtBaseMVA_Prim.Text);
+            //MVA base Ter
+            this._dtoMBA3P.Trans3Winding_MVABase.BaseMVA_Ter = double.Parse(this.txtBaseMVA_Ter.Text);
+            //MVA base Sec 
+            this._dtoMBA3P.Trans3Winding_MVABase.BaseMVA_Sec = double.Parse(this.txtBaseMVA_Sec.Text);
+
+            //Volatage Rated
+            double vol_ratedPrim = double.Parse(this.txtRatedkV_Prim.Text);
+            double vol_ratedTer = double.Parse(this.txtRatedkV_Ter.Text);
+            double vol_ratedSec = double.Parse(this.txtRatedkV_Sec.Text);
+            this._dtoMBA3P.VoltageEnds_kV_Rated = DAOGeneMBA3Record.Instance.GenerateVoltageEndsByNumber(vol_ratedPrim, vol_ratedTer, vol_ratedSec);
+
+        }
+
+        protected virtual void SetZoneFixedTap()
+        {
+            this._dtoMBA3P.UnitTap_Main = this._unitModeMain;
+            //Only Save Per for Fixed Tap
+            if (this._unitModeMain == UnitTapMode.Percent)
+            {
+                this._dtoMBA3P.Percent_PrimFixed = 1 + double.Parse(this.txtVolFixedPrim.Text) / 100;
+                this._dtoMBA3P.Percent_TerFixed = 1 + double.Parse(this.txtVolFixedTer.Text) / 100;
+                this._dtoMBA3P.Percent_SecFixed = 1 + double.Parse(this.txtVolFixedSec.Text) / 100;
+
+                return;
+            }
+
+            //kV Mode
+            this._dtoMBA3P.Percent_PrimFixed = 1 + this._perFixedPrimTemp_100 / 100;
+            this._dtoMBA3P.Percent_TerFixed = 1 + this._perFixedTerTemp_100 / 100;
+            this._dtoMBA3P.Percent_SecFixed = 1 + this._perFixedSecTemp_100 / 100;
+        }
+
+
+        #endregion OK_Event_Set_Data
+
+        //Change Unit Tap Main
+        private void btnTransUnit_Click(object sender, EventArgs e)
+        {
+            this._unitModeMain = (this._unitModeMain == UnitTapMode.Percent) ? UnitTapMode.KV_Number : UnitTapMode.Percent;
+
+            this.SetVoltageFixed();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
