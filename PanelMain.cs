@@ -32,18 +32,26 @@ namespace Experimential_Software
             this._pnlMainMouse = new PanelMainMouse(this);
             this.AutoScroll = true;
             if (this._zoomFactor == 0) this._zoomFactor = 1;
-          
+
         }
-     
+
         #region Zoom_Factor
         protected override void OnMouseWheel(MouseEventArgs e)
         {
             base.OnMouseWheel(e);
 
-            if (Control.ModifierKeys != Keys.Control) return;
-
             // Lấy vị trí con trỏ chuột trong control
             Point mouseLocation = e.Location;
+
+            if (Control.ModifierKeys != Keys.Control)
+            {
+                this.AutoScroll = true;
+
+                this.ProcessAllEPowerWhenMouseWheel(mouseLocation);
+                return;
+            }
+            this.AutoScroll = false;
+
 
             // Tính toán độ zoom hiện tại
             double zoomPer = e.Delta > 0 ? 1.1 : (1 / 1.1);  // e.Delta là giá trị của bánh xe chuột
@@ -57,6 +65,12 @@ namespace Experimential_Software
 
             if (this._zoomFactor == this._minZoom || this._zoomFactor == this._maxZooom) return;
 
+            this.ProcessAllEPowerWhenMouseWheel(mouseLocation);
+          
+        }
+
+        protected virtual void ProcessAllEPowerWhenMouseWheel(Point mouseLocation)
+        {
             List<ConnectableE> EPowers = this.PanelMainMouse.FrmCapstone.EPowers;
             // Phóng to hoặc thu nhỏ các control trong panel
             foreach (ConnectableE ePower in EPowers)
@@ -71,8 +85,8 @@ namespace Experimential_Software
             int oldX = ePower.PreLocation.X;
             int oldY = ePower.PreLocation.Y;
 
-            int newX = (int)mouseLocation.X + (int)((oldX - (int)mouseLocation.X) * this._zoomFactor);
-            int newY = (int)mouseLocation.Y + (int)((oldY - (int)mouseLocation.Y) * this._zoomFactor);
+            int newX = (int)((double)mouseLocation.X + (oldX - mouseLocation.X) * this._zoomFactor);
+            int newY = (int)((double)mouseLocation.Y + (oldY - mouseLocation.Y) * this._zoomFactor);
 
             // Set lại vị trí và kích thước của control
             ePower.Location = new Point(newX, newY);

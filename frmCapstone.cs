@@ -433,13 +433,14 @@ namespace Experimential_Software
 
                 if (ePower.GenerateModeE == GenerateMode.LoadDatabase) return;
 
+                this._zoomFactor = pnlMain.ZoomFactor;
+
                 ePower.PreLocation = DAOProcessCapstone.Instance.CalculatePreLocationWhenInstance(this._zoomFactor, dropLocation, this._ePowers, this.pnlMain);
                 this._ePowers.Add(ePower);
                 this._iEPowers.Add(ePower);
                 ePower.IsOnTool = false;
                 
 
-                this._zoomFactor = pnlMain.ZoomFactor;
                 pnlMain.SetInsideEPower(ePower);
 
                 //Open Data Record the first

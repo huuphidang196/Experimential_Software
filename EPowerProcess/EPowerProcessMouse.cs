@@ -9,6 +9,7 @@ using Experimential_Software.DAO.DAO_LoadData;
 using Experimential_Software.DAO.DAO_LineData;
 using Experimential_Software.DAO.DAO_GeneratorData;
 using Experimential_Software.DAO.DAO_MBA2Data;
+using Experimential_Software.DAO.DAOCapstone;
 
 namespace Experimential_Software.EPowerProcess
 {
@@ -71,7 +72,7 @@ namespace Experimential_Software.EPowerProcess
             {
                 this.ProcessSpecifiedButtonInstanceMBA3PMouseDown(e);
                 return;
-            }    
+            }
 
             bool isPhead = this._ePower.IsOnPHead(e.Location);
             bool isContainEnds = (isPhead == true) ? this._ePower.IsContainPhead : this._ePower.IsContainPtail;
@@ -115,7 +116,7 @@ namespace Experimential_Software.EPowerProcess
 
             if (this._ePower.IsOnPIntern(e.Location)) this._ePower.ContainPreEpower = ContainPreEpower.ContainPIntern;
             else this._ePower.ContainPreEpower = this._ePower.IsOnPHead(e.Location) == true ? ContainPreEpower.ContainPhead : ContainPreEpower.ContainPTail;
-           
+
         }
 
         #endregion Mouse Down
@@ -180,7 +181,9 @@ namespace Experimential_Software.EPowerProcess
 
             this._ePower.Location = this.TransferPosMouseToControl(e);
             //After move update again postion of Epower. When move difference Zoom
-            this._ePower.PreLocation = this._ePower.Location;
+            double zoomFactor = this._ePower.PanelMain.ZoomFactor;
+            this._ePower.PreLocation = DAOProcessCapstone.Instance.CalculatePreLocationWhenInstance(zoomFactor, this._ePower.Location, this._ePower.FormCapstone.EPowers, this._ePower.PanelMain);
+ 
         }
 
         protected virtual void CheckAndAddLineConnet(ConnectableE buttonInstance)
@@ -245,7 +248,7 @@ namespace Experimential_Software.EPowerProcess
             {
                 btnSet.IsContainPIntern = true;
                 return;
-            }    
+            }
             btnSet.IsContainPtail = true;
 
         }

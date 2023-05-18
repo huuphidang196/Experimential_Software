@@ -655,7 +655,6 @@ namespace Experimential_Software
 
             this._ePowerMouse.ButtonInstance_MouseUp(e);
             this.isMove = false;
-
         }
 
         protected virtual void ShowContextMenuOfEPower()
