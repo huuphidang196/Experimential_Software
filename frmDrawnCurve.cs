@@ -96,10 +96,6 @@ namespace Experimential_Software
         //ListBox P, Q
         protected virtual void ProcessPowerLimitOnListBox(List<PowerSystem> List_PS_Point)
         {
-            // MessageBox.Show(this._allEPowers.Count + ", bus = " + this._busLoadExamined.ToString());
-
-            //   string s = this.ExperimentalYState(this._allEPowers);
-            //   MessageBox.Show(s);
 
             foreach (PowerSystem ps in List_PS_Point)
             {
@@ -213,6 +209,7 @@ namespace Experimential_Software
                 s += "\n";
             }
             return s;
+            
         }
 
         private void btnReset_MouseDown(object sender, MouseEventArgs e)

@@ -31,9 +31,12 @@ namespace Experimential_Software.CustomControl
                 Point startLine = lineConnect.StartPoint;
                 Point endLine = lineConnect.EndPoint;
                 // kiểm tra vị trí click có nằm trên đường Line không
-                if (!IsPointOnLine(e.Location, startLine, endLine)) continue;
-
-                lineConnect.IsSelected = !lineConnect.IsSelected;
+                if (!IsPointOnLine(e.Location, startLine, endLine))
+                {
+                    lineConnect.IsSelected = false;
+                }
+                else lineConnect.IsSelected = !lineConnect.IsSelected;
+               
                 this.AdjustmentColorSelected(lineConnect);
             }
         }
@@ -60,11 +63,8 @@ namespace Experimential_Software.CustomControl
             double dis_AC = Math.Sqrt(Math.Pow((p.X - start.X), 2) + Math.Pow((p.Y - start.Y), 2));
             double dis_BC = Math.Sqrt(Math.Pow((end.X - start.X), 2) + Math.Pow((end.Y - start.Y), 2));
 
-            double part_CV = (dis_AB + dis_AC + dis_BC) / 2;
-            double S_DT = Math.Sqrt(part_CV * (part_CV - dis_AB) * (part_CV - dis_AC) * (part_CV - dis_BC));
-
-            double distance = S_DT / dis_BC; // tính khoảng cách từ điểm đến đường Line
-            return Math.Abs(distance) < 10; // nếu khoảng cách nhỏ hơn 5 thì coi như nằm trên đường Line
+            double distance = (dis_AB + dis_AC) - dis_BC; // if same Line -> distance = 0
+            return Math.Abs(distance) < 5; // nếu khoảng cách nhỏ hơn 5 thì coi như nằm trên đường Line
         }
 
 
@@ -84,7 +84,7 @@ namespace Experimential_Software.CustomControl
         public virtual LineConnect FindLineConnectIsSelected(List<LineConnect> lineConnectList)
         {
             LineConnect lineSelected = lineConnectList.Find(x => x.IsSelected);
-           
+
             return lineSelected;
         }
 

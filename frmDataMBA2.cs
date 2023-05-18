@@ -122,15 +122,15 @@ namespace Experimential_Software
             //***********Impendance Zone**********
             // ImpendanceMBA2 impenMBA2 = this._dtoMBA2EPowerRecord.Impendace_MBA2;
             //Spec R_pu
-            this.txtSpecRpu.Text = (impenMBA2.SpecR_pu == 0) ? "0.000000" : impenMBA2.SpecR_pu.ToString("F6");
+            this.txtSpecRpu.Text = impenMBA2.SpecR_pu.ToString("F6");
             //SpecX_pu
-            this.txtSpecXpu.Text = (impenMBA2.SpecX_pu == 0) ? "0.000000" : impenMBA2.SpecX_pu.ToString("F6");
+            this.txtSpecXpu.Text = impenMBA2.SpecX_pu.ToString("F6");
 
             //Mag_G_pu
-            this.txtMagGpu.Text = (impenMBA2.MagG_pu == 0) ? "0.000000" : impenMBA2.MagG_pu.ToString("F6");
+            this.txtMagGpu.Text = impenMBA2.MagG_pu.ToString("F6");
 
             //Mag_B_pu
-            this.txtMagBpu.Text = (impenMBA2.MagB_pu == 0) ? "0.000000" : impenMBA2.MagB_pu.ToString("F6");
+            this.txtMagBpu.Text = impenMBA2.MagB_pu.ToString("F6");
 
             // MessageBox.Show("mul = " + mul_K_Transfer);
         }
@@ -304,6 +304,12 @@ namespace Experimential_Software
             //Save Number FixedTap prim and Sec
             this._dtoMBA2EPowerRecord.NumberTapFixed_Prim = this._numberTapFixed_Prim;
             this._dtoMBA2EPowerRecord.NumberTapFixed_Sec = this._numberTapFixed_Sec;
+
+            //Set Percent if user not change Tap by Button
+            double perFixed_Prim = DAOCalculateVoltageFixed.Instance.GetPercentVoltageFixedByVoltageRated(this.txtRatedPrimkV.Text, this.txtFixedPrimkV.Text, this._unitModeMain);
+            double perFixed_Sec = DAOCalculateVoltageFixed.Instance.GetPercentVoltageFixedByVoltageRated(this.txtRatedSeckV.Text, this.txtFixedSeckV.Text, this._unitModeMain);
+            this._dtoMBA2EPowerRecord.Percent_PrimFixed = perFixed_Prim;
+            this._dtoMBA2EPowerRecord.Percent_SecFixed = perFixed_Sec;
         }
 
         #endregion Function_OK_Event

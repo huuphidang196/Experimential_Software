@@ -136,6 +136,7 @@
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateListPoints.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateYBus.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateYState.cs" />
+    <Compile Include="DAO\DAO_Curve\DAO_Check_Stability\DAOCheckStability.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_IsovalForm\DAOGetTextSysemIsoval.cs" />
     <Compile Include="DAO\DAO_GeneratorData\DAOGeneMFRecord.cs" />
     <Compile Include="DAO\DAO_GeneratorData\DAOUpdateMFAfterConnectBus.cs" />

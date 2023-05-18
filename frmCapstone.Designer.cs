@@ -32,15 +32,23 @@ namespace Experimential_Software
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCapstone));
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.imgListIconMnuStrip = new System.Windows.Forms.ImageList(this.components);
+            this.btnOpen = new System.Windows.Forms.Button();
+            this.btnNewFile = new System.Windows.Forms.Button();
             this.lblLine = new System.Windows.Forms.Label();
             this.mnuStripBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileNew = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuFileSave = new System.Windows.Forms.ToolStripMenuItem();
+            this.vIewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.powerFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlTreeView = new System.Windows.Forms.Panel();
             this.tvDataSaved = new System.Windows.Forms.TreeView();
-            this.imgListIconMnuStrip = new System.Windows.Forms.ImageList(this.components);
             this.pnlTool = new System.Windows.Forms.Panel();
             this.pnlFlowTool = new System.Windows.Forms.FlowLayoutPanel();
             this.imgListTool = new System.Windows.Forms.ImageList(this.components);
@@ -64,14 +72,6 @@ namespace Experimential_Software
             this.btnLinePower_Ver = new Experimential_Software.ConnectableE();
             this.btnLoad_Hor = new Experimential_Software.ConnectableE();
             this.btnLoad_Ver = new Experimential_Software.ConnectableE();
-            this.vIewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.powerFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnNewFile = new System.Windows.Forms.Button();
-            this.btnOpen = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.mnuStripBar.SuspendLayout();
             this.pnlTreeView.SuspendLayout();
@@ -94,6 +94,49 @@ namespace Experimential_Software
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1085, 71);
             this.panel2.TabIndex = 1;
+            // 
+            // btnSave
+            // 
+            this.btnSave.ImageIndex = 2;
+            this.btnSave.ImageList = this.imgListIconMnuStrip;
+            this.btnSave.Location = new System.Drawing.Point(95, 32);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(30, 30);
+            this.btnSave.TabIndex = 0;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.mnuFileSave_Click);
+            // 
+            // imgListIconMnuStrip
+            // 
+            this.imgListIconMnuStrip.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListIconMnuStrip.ImageStream")));
+            this.imgListIconMnuStrip.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgListIconMnuStrip.Images.SetKeyName(0, "icon_NewFile.png");
+            this.imgListIconMnuStrip.Images.SetKeyName(1, "icon_OpenFile.png");
+            this.imgListIconMnuStrip.Images.SetKeyName(2, "icon_SaveFile.png");
+            this.imgListIconMnuStrip.Images.SetKeyName(3, "FolderIcon.png");
+            this.imgListIconMnuStrip.Images.SetKeyName(4, "Text_Icon.png");
+            // 
+            // btnOpen
+            // 
+            this.btnOpen.ImageIndex = 1;
+            this.btnOpen.ImageList = this.imgListIconMnuStrip;
+            this.btnOpen.Location = new System.Drawing.Point(52, 32);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(30, 30);
+            this.btnOpen.TabIndex = 0;
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.mnuFileOpen_Click);
+            // 
+            // btnNewFile
+            // 
+            this.btnNewFile.ImageIndex = 0;
+            this.btnNewFile.ImageList = this.imgListIconMnuStrip;
+            this.btnNewFile.Location = new System.Drawing.Point(9, 32);
+            this.btnNewFile.Name = "btnNewFile";
+            this.btnNewFile.Size = new System.Drawing.Size(30, 30);
+            this.btnNewFile.TabIndex = 0;
+            this.btnNewFile.UseVisualStyleBackColor = true;
+            this.btnNewFile.Click += new System.EventHandler(this.mnuFileNew_Click);
             // 
             // lblLine
             // 
@@ -157,6 +200,36 @@ namespace Experimential_Software
             this.mnuFileSave.Text = "Save";
             this.mnuFileSave.Click += new System.EventHandler(this.mnuFileSave_Click);
             // 
+            // vIewToolStripMenuItem
+            // 
+            this.vIewToolStripMenuItem.Name = "vIewToolStripMenuItem";
+            this.vIewToolStripMenuItem.Size = new System.Drawing.Size(43, 21);
+            this.vIewToolStripMenuItem.Text = "Edit";
+            // 
+            // viewToolStripMenuItem1
+            // 
+            this.viewToolStripMenuItem1.Name = "viewToolStripMenuItem1";
+            this.viewToolStripMenuItem1.Size = new System.Drawing.Size(47, 21);
+            this.viewToolStripMenuItem1.Text = "View";
+            // 
+            // powerFlowToolStripMenuItem
+            // 
+            this.powerFlowToolStripMenuItem.Name = "powerFlowToolStripMenuItem";
+            this.powerFlowToolStripMenuItem.Size = new System.Drawing.Size(89, 21);
+            this.powerFlowToolStripMenuItem.Text = "Power Flow";
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(46, 21);
+            this.helpToolStripMenuItem.Text = "Help";
+            // 
             // pnlTreeView
             // 
             this.pnlTreeView.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -182,16 +255,6 @@ namespace Experimential_Software
             this.tvDataSaved.Size = new System.Drawing.Size(174, 687);
             this.tvDataSaved.TabIndex = 0;
             this.tvDataSaved.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvDataSaved_NodeMouseDoubleClick);
-            // 
-            // imgListIconMnuStrip
-            // 
-            this.imgListIconMnuStrip.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListIconMnuStrip.ImageStream")));
-            this.imgListIconMnuStrip.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgListIconMnuStrip.Images.SetKeyName(0, "icon_NewFile.png");
-            this.imgListIconMnuStrip.Images.SetKeyName(1, "icon_OpenFile.png");
-            this.imgListIconMnuStrip.Images.SetKeyName(2, "icon_SaveFile.png");
-            this.imgListIconMnuStrip.Images.SetKeyName(3, "FolderIcon.png");
-            this.imgListIconMnuStrip.Images.SetKeyName(4, "Text_Icon.png");
             // 
             // pnlTool
             // 
@@ -636,69 +699,6 @@ namespace Experimential_Software
             this.btnLoad_Ver.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.btnLoad_Ver.UseVisualStyleBackColor = false;
             this.btnLoad_Ver.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLoad_MouseDown);
-            // 
-            // vIewToolStripMenuItem
-            // 
-            this.vIewToolStripMenuItem.Name = "vIewToolStripMenuItem";
-            this.vIewToolStripMenuItem.Size = new System.Drawing.Size(43, 21);
-            this.vIewToolStripMenuItem.Text = "Edit";
-            // 
-            // viewToolStripMenuItem1
-            // 
-            this.viewToolStripMenuItem1.Name = "viewToolStripMenuItem1";
-            this.viewToolStripMenuItem1.Size = new System.Drawing.Size(47, 21);
-            this.viewToolStripMenuItem1.Text = "View";
-            // 
-            // powerFlowToolStripMenuItem
-            // 
-            this.powerFlowToolStripMenuItem.Name = "powerFlowToolStripMenuItem";
-            this.powerFlowToolStripMenuItem.Size = new System.Drawing.Size(89, 21);
-            this.powerFlowToolStripMenuItem.Text = "Power Flow";
-            // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(52, 21);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(46, 21);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // btnNewFile
-            // 
-            this.btnNewFile.ImageIndex = 0;
-            this.btnNewFile.ImageList = this.imgListIconMnuStrip;
-            this.btnNewFile.Location = new System.Drawing.Point(9, 32);
-            this.btnNewFile.Name = "btnNewFile";
-            this.btnNewFile.Size = new System.Drawing.Size(30, 30);
-            this.btnNewFile.TabIndex = 0;
-            this.btnNewFile.UseVisualStyleBackColor = true;
-            this.btnNewFile.Click += new System.EventHandler(this.mnuFileNew_Click);
-            // 
-            // btnOpen
-            // 
-            this.btnOpen.ImageIndex = 1;
-            this.btnOpen.ImageList = this.imgListIconMnuStrip;
-            this.btnOpen.Location = new System.Drawing.Point(52, 32);
-            this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(30, 30);
-            this.btnOpen.TabIndex = 0;
-            this.btnOpen.UseVisualStyleBackColor = true;
-            this.btnOpen.Click += new System.EventHandler(this.mnuFileOpen_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.ImageIndex = 2;
-            this.btnSave.ImageList = this.imgListIconMnuStrip;
-            this.btnSave.Location = new System.Drawing.Point(95, 32);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(30, 30);
-            this.btnSave.TabIndex = 0;
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.mnuFileSave_Click);
             // 
             // frmCapstone
             // 

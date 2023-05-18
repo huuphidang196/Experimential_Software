@@ -382,7 +382,7 @@ namespace Experimential_Software
         {
             this.PrcocessLineDrawnSelectAndRemoveLineDrawn(e);
         }
-
+      
         private void PrcocessLineDrawnSelectAndRemoveLineDrawn(MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -400,7 +400,6 @@ namespace Experimential_Software
 
             //find Line is Selected
             LineConnect lineSeleted = pnlMain.PanelMainMouse.FindLineConnectIsSelected(this.lineConnectList);
-
             //Set false
             if (lineSeleted == null) return;
 
@@ -605,7 +604,7 @@ namespace Experimential_Software
 
         }
 
-
+     
     }
 }
 

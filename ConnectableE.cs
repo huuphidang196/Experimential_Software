@@ -82,6 +82,8 @@ namespace Experimential_Software
         protected Label lblInfo;
         public Label LblInfoE { get => lblInfo; set => lblInfo = value; }
 
+        public readonly int SizeLabel = 7;
+
 
         //List LineConnected with this EPower
         protected List<LineConnect> _listBranch_Drawn;
@@ -298,7 +300,7 @@ namespace Experimential_Software
         protected virtual void GenerateDataLabelInfo()
         {
             this.lblInfo = new Label();
-            this.lblInfo.Font = new Font("Sans-serif", 8, FontStyle.Regular);
+            this.lblInfo.Font = new Font("Sans-serif", SizeLabel, FontStyle.Regular);
             this.lblInfo.AutoSize = true;
             this.lblInfo.Visible = true;
 
@@ -320,7 +322,7 @@ namespace Experimential_Software
 
         public virtual void UpdatePositonLabelInfo()
         {
-            this.lblInfo.Location = new Point(this.Location.X - 120, this.Location.Y - 20);
+            this.lblInfo.Location = new Point(this.Location.X - 50, this.Location.Y - 30);
         }
 
         public override string ToString()
@@ -369,7 +371,7 @@ namespace Experimential_Software
                     break;
             }
 
-            return objType + " " + objNumber + ", Name : " + objName;
+            return objType + " " + objNumber + "\nName : " + objName;
         }
 
         public virtual void SetPHeadAndPtail()

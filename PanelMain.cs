@@ -106,7 +106,7 @@ namespace Experimential_Software
             Image originalImage = this._pnlMainMouse.FrmCapstone.imgListEPower.Images[numberImage];
             ePower.UpdateScaleImage(originalImage, (float)this._zoomFactor);
 
-            ePower.LblInfoE.Font = new Font("Sans-serif", (int)(8 * this._zoomFactor), FontStyle.Regular);
+            ePower.LblInfoE.Font = new Font("Sans-serif", (int)(ePower.SizeLabel * this._zoomFactor), FontStyle.Regular);
 
             ePower.SetPHeadAndPtail();
 
