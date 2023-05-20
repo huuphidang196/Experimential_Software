@@ -30,33 +30,7 @@ namespace Experimential_Software.Class_Calculate
 
         protected int number_BusJ;
 
-        public TestResult(int number_BusJ)
-        {
-            this.dataInputPower = new DTODataInputPowerSystem(null);
-
-            dataInputPower.AddEMF(1.05);
-            dataInputPower.AddEMF(0.9848);
-            dataInputPower.AddEMF(1.0007);
-            dataInputPower.AddEMF(1.0003);
-
-            dataInputPower.AddRadThetaEMF(0);
-            dataInputPower.AddRadThetaEMF(-0.0456);
-            dataInputPower.AddRadThetaEMF(-0.0398);
-            dataInputPower.AddRadThetaEMF(-0.0568);
-
-            dataInputPower.AddReactPowerQLimit(-9999, 9999);//alway satify
-            dataInputPower.AddReactPowerQLimit(-10, 90);
-            dataInputPower.AddReactPowerQLimit(30, 150);
-            dataInputPower.AddReactPowerQLimit(-100, 10);
-
-            
-
-            this.pointCurve = new CalPointCurveStepOne(null, 1, number_BusJ, 1);
-            this.Ybus = this.pointCurve.YBusIsoval;
-            this.ZBus = this.pointCurve.ZBusIsoval;
-            this.number_BusJ = number_BusJ;
-
-        }
+        
         public string ShowYBus()
         {
             int Count_FBus = this.dataInputPower.E_AllMF.Count;

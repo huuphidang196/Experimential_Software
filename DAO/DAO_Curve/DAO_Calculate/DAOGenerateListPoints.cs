@@ -37,7 +37,8 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         }
         private DAOGenerateListPoints() { }
 
-        protected double _deltaP = 0.01;
+        protected double _min_DeltaP = 1.5625e-3;
+        protected double _deltaP = 0.05;
 
         //Get List Point PL, QL. Input are List EPowers and Bus j
         public virtual List<PowerSystem> GenerateListPointStabilityLimitCurve(List<ConnectableE> AllEPowers, ConnectableE EPowerBusJLoad)
@@ -45,8 +46,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             List<PowerSystem> List_PowerSystem = new List<PowerSystem>();
 
             // Set deltaP = 0 when Get List beacause SingleTon
-            this._deltaP = 0.01;
-            double QLj_Run = 0;
+            double QLj_Run = 0.01;
             double P_LjRun = 0;
             //Pmax <=> Q_Lj = 0;
 
@@ -61,7 +61,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             //Get List powerSyttem
             //Send Data Before
             this.SendDataBeforeCalculate(AllEPowers, EPowerBusJLoad);
-            while (QLj_Run >= 0)
+            while (QLj_Run > -0.2)
             {
                 QLj_Run = this.CalculateQLjEquivalentPLj(P_LjRun);
                 PowerSystem powerRun = new PowerSystem(P_LjRun * S_Base, QLj_Run * S_Base);
@@ -69,31 +69,26 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                 //Add into List
                 if (QLj_Run >= 0) List_PowerSystem.Add(powerRun);
 
-                bool isQNegative = (QLj_Run == double.NaN);
-                //increase PLj Run
-                P_LjRun = this.ProcessIncreasePLJRun(P_LjRun, isQNegative);
-                //Process Again Q if Q < 0
-                if (QLj_Run < 0) QLj_Run = 0;
-
+                P_LjRun = this.CalculateP_LRunByQLjRun(P_LjRun, QLj_Run);
+                 //if (QLj_Run < 2.8) MessageBox.Show("P = " + powerRun.P_ActivePower + ", Q = " + powerRun.Q_ReactivePower);
             }
 
             return List_PowerSystem;
         }
 
-        protected virtual double ProcessIncreasePLJRun(double P_LjRun_Cur, bool isQNegative)
+        private double CalculateP_LRunByQLjRun(double P_LjRun, double QLj_Run)
         {
-            //Q_Lj_Run < 0
-            if (isQNegative && this._deltaP > 1e-3)
+            if (QLj_Run < 0 && this._deltaP >= this._min_DeltaP)
             {
-                //Q <0  then P retun previous value 
-                P_LjRun_Cur -= this._deltaP;
-                this._deltaP /= 10;
-               // MessageBox.Show("delta = " + this._deltaP + ". P = " + (P_LjRun_Cur + this._deltaP));
+                //Return before value
+                P_LjRun -= this._deltaP;
+                //Devide2 delta
+                this._deltaP /= 2;
             }
-            double P_LjRun_Cal = P_LjRun_Cur + this._deltaP;
 
-            return P_LjRun_Cal;
+            return P_LjRun += this._deltaP;
         }
+
 
         #region Send_Data_For_StepOne
         //Overall Form Isoval use
@@ -137,5 +132,18 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             double QLj_Run = DAOCalculateQLJStepOne.Instance.GetQLjSuitableForStablePower(P_LjRun);
             return QLj_Run;
         }
+
+
+        ////Experimental
+        public virtual void MessageBoxResult(List<ConnectableE> ListE)
+        {
+            string s = "";
+            foreach (ConnectableE item in ListE)
+            {
+                s += item.ToString() + ", ";
+            }
+            MessageBox.Show(s);
+        }
+        ////Experimental
     }
 }

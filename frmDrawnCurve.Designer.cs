@@ -29,9 +29,9 @@ namespace Experimential_Software
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlinfoLoad = new System.Windows.Forms.Panel();
             this.lblStateSystem = new System.Windows.Forms.Label();
@@ -146,6 +146,7 @@ namespace Experimential_Software
             this.btnCancel.TabIndex = 0;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
             // btnPrint
             // 
@@ -229,8 +230,11 @@ namespace Experimential_Software
             // 
             // pnlListBoxPoints
             // 
+            this.pnlListBoxPoints.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlListBoxPoints.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlListBoxPoints.Controls.Add(this.lstBoxExperPoint);
-            this.pnlListBoxPoints.Dock = System.Windows.Forms.DockStyle.Right;
             this.pnlListBoxPoints.Location = new System.Drawing.Point(646, 0);
             this.pnlListBoxPoints.Name = "pnlListBoxPoints";
             this.pnlListBoxPoints.Size = new System.Drawing.Size(130, 385);
@@ -243,7 +247,7 @@ namespace Experimential_Software
             this.lstBoxExperPoint.FormattingEnabled = true;
             this.lstBoxExperPoint.Location = new System.Drawing.Point(0, 0);
             this.lstBoxExperPoint.Name = "lstBoxExperPoint";
-            this.lstBoxExperPoint.Size = new System.Drawing.Size(130, 385);
+            this.lstBoxExperPoint.Size = new System.Drawing.Size(128, 383);
             this.lstBoxExperPoint.TabIndex = 0;
             // 
             // pnlCharChild
@@ -251,9 +255,10 @@ namespace Experimential_Software
             this.pnlCharChild.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCharChild.Controls.Add(this.pnlProgress);
             this.pnlCharChild.Controls.Add(this.chartCurveLimted);
+            this.pnlCharChild.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlCharChild.Location = new System.Drawing.Point(0, 0);
             this.pnlCharChild.Name = "pnlCharChild";
-            this.pnlCharChild.Size = new System.Drawing.Size(640, 382);
+            this.pnlCharChild.Size = new System.Drawing.Size(640, 385);
             this.pnlCharChild.TabIndex = 3;
             // 
             // pnlProgress
@@ -285,18 +290,18 @@ namespace Experimential_Software
             // 
             // chartCurveLimted
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartCurveLimted.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.chartCurveLimted.ChartAreas.Add(chartArea2);
             this.chartCurveLimted.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chartCurveLimted.Legends.Add(legend1);
+            legend2.Name = "Legend1";
+            this.chartCurveLimted.Legends.Add(legend2);
             this.chartCurveLimted.Location = new System.Drawing.Point(0, 0);
             this.chartCurveLimted.Name = "chartCurveLimted";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartCurveLimted.Series.Add(series1);
-            this.chartCurveLimted.Size = new System.Drawing.Size(638, 380);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.chartCurveLimted.Series.Add(series2);
+            this.chartCurveLimted.Size = new System.Drawing.Size(638, 383);
             this.chartCurveLimted.TabIndex = 1;
             this.chartCurveLimted.Text = "Miền làm ciệc ổn định trong mặt phẳng công suất P-Q";
             // 

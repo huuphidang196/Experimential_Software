@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
 
 namespace Experimential_Software.Class_Database
@@ -30,6 +31,7 @@ namespace Experimential_Software.Class_Database
         }
     }
     [Serializable]
+
     public class DTOBusConnectMFComparer : IComparer<DTOBusEPower>
     {
         public int Compare(DTOBusEPower x, DTOBusEPower y)
@@ -53,9 +55,10 @@ namespace Experimential_Software.Class_Database
         {
             List<DTOBusEPower> List_DTO_Bus = this.GetListDTOBusConnectWithMF(allMF);
             this._e_AllMF = List_DTO_Bus.Select(e => e.Voltage_pu).ToList();
+           
             this._rad_ThetaK_All = List_DTO_Bus.Select(rad => rad.Angle_rad).ToList();
-
             this._q_GK_Limits = this.GetListReactPowerLimit(allMF);
+
         }
 
         //get listDTObus Connect with MF
@@ -64,7 +67,6 @@ namespace Experimential_Software.Class_Database
             List<DTOBusEPower> List_DTO_Bus = allMF.Select(dtoMF => dtoMF.DatabaseE.DataRecordE.DTOGeneEPower.DTOBusConnected).ToList();
             //Sort List
             List_DTO_Bus.Sort(new DTOBusConnectMFComparer());
-
             return List_DTO_Bus;
         }
 
@@ -78,26 +80,7 @@ namespace Experimential_Software.Class_Database
 
             return List_DTO_MF.Select(qGK => new ReactPowerQLimit(qGK.PowerMachineMF.Qmin_MW, qGK.PowerMachineMF.Qmax_MW)).ToList();
         }
-
-
-
-        //Experimental
-        public virtual void AddEMF(double E_MF)
-        {
-            this._e_AllMF.Add(E_MF);
-        }
-
-        public virtual void AddRadThetaEMF(double rad_E_MF)
-        {
-            this._rad_ThetaK_All.Add(rad_E_MF);
-        }
-
-        public virtual void AddReactPowerQLimit(double Q_Gk_Min, double Q_Gk_Max)
-        {
-            ReactPowerQLimit reactP = new ReactPowerQLimit(Q_Gk_Min, Q_Gk_Max);
-            this._q_GK_Limits.Add(reactP);
-        }
-        //Experimental
+     
     }
 
     public class ReactPowerQLimit

@@ -53,6 +53,7 @@ namespace Experimential_Software
             //Get Ystae from StepOne
             this.YState = DAOCalculateQLJStepOne.Instance.YState;
             this.YBus = DAOCalculateQLJStepOne.Instance.YBusIsoval;
+            //this.YBus = DAOCalculateQLJStepOne.Instance.ZBusIsoval;
         }
 
         protected virtual void ShowDataOnForm()

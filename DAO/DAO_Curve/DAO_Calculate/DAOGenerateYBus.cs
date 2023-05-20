@@ -30,7 +30,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             int number_BusJ = EPowerBusJLoad.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber - 100 * (int)ObjectType.Bus;
             Complex[,] Y_Transfer = this.GetYTransferRowAndCol(CountMF, number_BusJ, YSate);
 
-           // MessageBox.Show(number_BusJ + " bus");
+            // MessageBox.Show(number_BusJ + " bus");
             //Clone Y bus temp = Y state
             Complex[,] Y_Temp = (Complex[,])Y_Transfer.Clone();
 
@@ -118,11 +118,13 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         #endregion YBus_Isoval
 
         #region Z_Bus_Isoval
+        
         // Chuyển ma trận tổng dẫn sang ma trận tổng trở
         public virtual Complex[,] ConvertFormYBusToZBus(Complex[,] YBus)
         {
+            Complex[,] YBusClone = (Complex[,])YBus.Clone();
             //Chuyển ma trận số phức thành ma trận DenseMatrix:
-            DenseMatrix denseMatrix = DenseMatrix.OfArray((Complex[,])YBus.Clone());
+            DenseMatrix denseMatrix = DenseMatrix.OfArray(YBusClone);
 
             //Tìm ma trận nghịch đảo:
             DenseMatrix inverseMatrix = (DenseMatrix)denseMatrix.Inverse();
@@ -132,6 +134,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
 
             return ZBus;
         }
+           
 
         // Z_ko , k = 1 --> F + 1, j default = 3 (<=> 4)
         public virtual Complex GetZIOFromYBus(int branchI, Complex[,] YBus, ConnectableE ELoad)

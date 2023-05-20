@@ -44,9 +44,9 @@ namespace Experimential_Software
             this.label5 = new System.Windows.Forms.Label();
             this.pnlShowYState = new System.Windows.Forms.Panel();
             this.pnlContainRTBYState = new System.Windows.Forms.Panel();
+            this.lblYStateBelow = new System.Windows.Forms.Label();
             this.pnlShowYBus = new System.Windows.Forms.Panel();
             this.pnlContainRTBYBus = new System.Windows.Forms.Panel();
-            this.lblYStateBelow = new System.Windows.Forms.Label();
             this.lblYBusBelow = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.pnlTitleYState.SuspendLayout();
@@ -164,7 +164,7 @@ namespace Experimential_Software
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(100, 18);
             this.label6.TabIndex = 1;
-            this.label6.Text = "Bus Examined";
+            this.label6.Text = "Examined Bus";
             // 
             // lblBusExamined
             // 
@@ -228,6 +228,15 @@ namespace Experimential_Software
             this.pnlContainRTBYState.Size = new System.Drawing.Size(807, 328);
             this.pnlContainRTBYState.TabIndex = 1;
             // 
+            // lblYStateBelow
+            // 
+            this.lblYStateBelow.AutoSize = true;
+            this.lblYStateBelow.Location = new System.Drawing.Point(8, 15);
+            this.lblYStateBelow.Name = "lblYStateBelow";
+            this.lblYStateBelow.Size = new System.Drawing.Size(84, 16);
+            this.lblYStateBelow.TabIndex = 1;
+            this.lblYStateBelow.Text = "Matrix YState";
+            // 
             // pnlShowYBus
             // 
             this.pnlShowYBus.Controls.Add(this.pnlContainRTBYBus);
@@ -251,23 +260,14 @@ namespace Experimential_Software
             this.pnlContainRTBYBus.Size = new System.Drawing.Size(543, 328);
             this.pnlContainRTBYBus.TabIndex = 1;
             // 
-            // lblYStateBelow
-            // 
-            this.lblYStateBelow.AutoSize = true;
-            this.lblYStateBelow.Location = new System.Drawing.Point(8, 15);
-            this.lblYStateBelow.Name = "lblYStateBelow";
-            this.lblYStateBelow.Size = new System.Drawing.Size(84, 16);
-            this.lblYStateBelow.TabIndex = 1;
-            this.lblYStateBelow.Text = "Matrix YState";
-            // 
             // lblYBusBelow
             // 
             this.lblYBusBelow.AutoSize = true;
             this.lblYBusBelow.Location = new System.Drawing.Point(16, 15);
             this.lblYBusBelow.Name = "lblYBusBelow";
-            this.lblYBusBelow.Size = new System.Drawing.Size(84, 16);
+            this.lblYBusBelow.Size = new System.Drawing.Size(82, 16);
             this.lblYBusBelow.TabIndex = 1;
-            this.lblYBusBelow.Text = "Matrix YState";
+            this.lblYBusBelow.Text = "Matrix YSBus";
             // 
             // frmSystemIsoval
             // 

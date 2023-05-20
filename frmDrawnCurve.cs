@@ -220,5 +220,10 @@ namespace Experimential_Software
             this.lblProgress.Text = "Program is Processing ...";
             this.lblProgress.Visible = true;
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

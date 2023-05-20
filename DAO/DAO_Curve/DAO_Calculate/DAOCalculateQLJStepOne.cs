@@ -75,6 +75,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             this._YState = DAOGenerateYState.Instance.CalculateMatrixYState(allBus);
             this.YBus = DAOGenerateYBus.Instance.CalculateYBusIsoval(this._e_AllMF.Count, EPowerBusJLoad, YState);
             this.ZBus = DAOGenerateYBus.Instance.ConvertFormYBusToZBus(YBus);
+
         }
 
         public virtual ConnectableE GetEPowerPLoadFromEPowerBusLoadConsider(ConnectableE ePowerBusJLoad)
@@ -96,17 +97,13 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             // double Uj_Min = 1e-6;
             double Uj_Min = 0;
             double Uj_Max = 2;
-            double eps = 1e-2;
+            double eps = 0.3;
             double Q_Lj_Found = 0;
 
             Func<double, double, double> F_UJ = this.FuncFAByVoltageULoad;
 
             // Use BruteForceSearch method in order to Find UJ variable
             double UJ_Found = BruteForceSearch(F_UJ, Uj_Min, Uj_Max, P_Lj_Run, eps);
-            //Binary search
-            //   double UJ_Found = Bisection.FindRoot(F_UJ, Uj_Min, Uj_Max, P_Lj_Run, eps);
-
-            //    MessageBox.Show("UJ_Found1 = " + UJ_Found);
 
             //Check Condition of 2.2 Equation
             bool isCurveLimit = this.CheckQLJStepOneIsOnCurve(UJ_Found);
@@ -129,9 +126,6 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
 
                 UJ_Found = BruteForceSearch(F_UJ, Uj_Min, Uj_Max, P_Lj_Run, eps);
 
-                //Binary search
-                // UJ_Found = Bisection.FindRoot(F_UJ, Uj_Min, Uj_Max, P_Lj_Run, eps);
-
                 //Check Step 2 in Script of Step One in order to Set list satify and unsatify
                 isCurveLimit = this.CheckQLJStepTwoIsOnCurve(UJ_Found);
                 // this.ExperimentalPrintValueOfLists();
@@ -143,7 +137,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                     break;
                 }
             }
-            //  if (Q_Lj_Found < 0 || Q_Lj_Found == double.NaN) MessageBox.Show("Uj_Step 2 = " + UJ_Found + ", QLj_2 = " + Q_Lj_Found);
+            //if (Q_Lj_Found < 0 || Q_Lj_Found == double.NaN) MessageBox.Show("Uj_Step 2 = " + UJ_Found + ", QLj_2 = " + Q_Lj_Found);
 
             return Q_Lj_Found;
         }

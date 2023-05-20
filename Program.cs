@@ -16,7 +16,7 @@ namespace Experimential_Software
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-             Application.Run(new frmCapstone());
+            Application.Run(new frmCapstone());
             //Application.Run(new frmDataBus());
             //Application.Run(new frmDataLoad());
             //Application.Run(new frmDataBranch());
