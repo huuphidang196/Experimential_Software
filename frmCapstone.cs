@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Experimential_Software.Class_Database;
 using Experimential_Software.CustomControl;
-using Experimential_Software.Class_Calculate;
 using Experimential_Software.DAO.DAO_BusData;
 using Experimential_Software.DAO.DAO_GeneratorData;
 using Experimential_Software.DAO.DAO_LineData;

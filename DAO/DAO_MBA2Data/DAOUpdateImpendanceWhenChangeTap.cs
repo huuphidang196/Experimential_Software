@@ -33,9 +33,9 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
             double SpecX_pu = _impendanceTemp.SpecX_pu * mul_K_Transfer;
 
             //MagG_pu
-            double MagG_pu = _impendanceTemp.MagG_pu * mul_K_Transfer;
+            double MagG_pu = _impendanceTemp.MagG_pu / mul_K_Transfer;
             //MagB_pu
-            double MagB_pu = _impendanceTemp.MagB_pu * mul_K_Transfer;
+            double MagB_pu = _impendanceTemp.MagB_pu / mul_K_Transfer;
 
             //Clone ImpendancemBA temp 
             ImpendanceMBA2 impendanceMBA2Tem = new ImpendanceMBA2(SpecR_pu, SpecX_pu, MagG_pu, MagB_pu);

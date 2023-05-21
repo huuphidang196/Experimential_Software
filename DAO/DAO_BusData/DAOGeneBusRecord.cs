@@ -32,6 +32,7 @@ namespace Experimential_Software.DAO.DAO_BusData
 
             dtoBusE.TypeCodeBus = TypeCodeBus.Non_Gen_Bus;
             dtoBusE.BasekV = 0;
+            dtoBusE.KChangerTap = 1;
             dtoBusE.Voltage_pu = 1;
             dtoBusE.Angle_rad = 0;
 

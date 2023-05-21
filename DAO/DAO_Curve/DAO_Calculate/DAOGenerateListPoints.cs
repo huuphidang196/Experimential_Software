@@ -37,8 +37,12 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         }
         private DAOGenerateListPoints() { }
 
-        protected double _min_DeltaP = 1.5625e-3;
-        protected double _deltaP = 0.05;
+        protected double QLj_Run = 0.01;
+
+        protected double _min_DeltaP = 0.00624;
+
+        protected double _delta_Default = 0.05;
+        protected double _deltaP = 0;
 
         //Get List Point PL, QL. Input are List EPowers and Bus j
         public virtual List<PowerSystem> GenerateListPointStabilityLimitCurve(List<ConnectableE> AllEPowers, ConnectableE EPowerBusJLoad)
@@ -46,7 +50,8 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             List<PowerSystem> List_PowerSystem = new List<PowerSystem>();
 
             // Set deltaP = 0 when Get List beacause SingleTon
-            double QLj_Run = 0.01;
+            this._deltaP = this._delta_Default;
+            this.QLj_Run = 0.01;
             double P_LjRun = 0;
             //Pmax <=> Q_Lj = 0;
 
@@ -61,29 +66,31 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             //Get List powerSyttem
             //Send Data Before
             this.SendDataBeforeCalculate(AllEPowers, EPowerBusJLoad);
-            while (QLj_Run > -0.2)
+            while (this.QLj_Run > 0)
             {
-                QLj_Run = this.CalculateQLjEquivalentPLj(P_LjRun);
-                PowerSystem powerRun = new PowerSystem(P_LjRun * S_Base, QLj_Run * S_Base);
+                this.QLj_Run = this.CalculateQLjEquivalentPLj(P_LjRun);
+                PowerSystem powerRun = new PowerSystem(P_LjRun * S_Base, this.QLj_Run * S_Base);
 
                 //Add into List
-                if (QLj_Run >= 0) List_PowerSystem.Add(powerRun);
-
-                P_LjRun = this.CalculateP_LRunByQLjRun(P_LjRun, QLj_Run);
-                 //if (QLj_Run < 2.8) MessageBox.Show("P = " + powerRun.P_ActivePower + ", Q = " + powerRun.Q_ReactivePower);
+                if (this.QLj_Run >= 0) List_PowerSystem.Add(powerRun);
+                P_LjRun = this.CalculateP_LRunByQLjRun(P_LjRun);
+                //MessageBox.Show("P = " + powerRun.P_ActivePower + ", Q = " + powerRun.Q_ReactivePower + ", delta = " + this._deltaP);
             }
 
             return List_PowerSystem;
         }
 
-        private double CalculateP_LRunByQLjRun(double P_LjRun, double QLj_Run)
+        protected virtual double CalculateP_LRunByQLjRun(double P_LjRun)
         {
-            if (QLj_Run < 0 && this._deltaP >= this._min_DeltaP)
+            if (this.QLj_Run < 0 && this._deltaP >= this._min_DeltaP)
             {
                 //Return before value
                 P_LjRun -= this._deltaP;
                 //Devide2 delta
                 this._deltaP /= 2;
+
+                //Set Again value Q
+                this.QLj_Run = 1;
             }
 
             return P_LjRun += this._deltaP;

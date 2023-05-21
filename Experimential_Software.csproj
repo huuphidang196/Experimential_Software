@@ -104,12 +104,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class_Calculate\CalculateCurve\CalPointCurveStepTwo.cs" />
-    <Compile Include="Class_Calculate\Calculate_Y\CalculateYBus.cs" />
-    <Compile Include="Class_Calculate\Calculate_Y\CalculateYState.cs" />
-    <Compile Include="Class_Calculate\CalculateCurve\CalPointCurveStepOne.cs" />
     <Compile Include="Class_Database\DTODataInputPowerSystem.cs" />
-    <Compile Include="Class_Calculate\TestResult.cs" />
     <Compile Include="Class_Database\DataRecordEPower.cs" />
     <Compile Include="Class_Database\DataRecordEPowerCtrl.cs" />
     <Compile Include="Class_Database\DTOBusEPower.cs" />

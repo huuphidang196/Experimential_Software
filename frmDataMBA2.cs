@@ -249,8 +249,11 @@ namespace Experimential_Software
             //********Power Rating And Impendance Zone***** Below rating and fixed use for set impendance by k, k'
             this.SetValuePowerRatingAndImpendance();
 
+            this.ChangeVoltageValueOnBusConnectWithMBA2();
+
             DialogResult = DialogResult.OK;
         }
+
 
         //********Power Rating And Impendance Zone*****
         protected virtual void SetValuePowerRatingAndImpendance()
@@ -310,6 +313,16 @@ namespace Experimential_Software
             double perFixed_Sec = DAOCalculateVoltageFixed.Instance.GetPercentVoltageFixedByVoltageRated(this.txtRatedSeckV.Text, this.txtFixedSeckV.Text, this._unitModeMain);
             this._dtoMBA2EPowerRecord.Percent_PrimFixed = perFixed_Prim;
             this._dtoMBA2EPowerRecord.Percent_SecFixed = perFixed_Sec;
+        }
+
+        //Change Voltage When change Tap
+        protected virtual void ChangeVoltageValueOnBusConnectWithMBA2()
+        {
+            // U bus Sec         
+            if (this._dtoMBA2EPowerRecord.DTOBus_To == null) return;
+            double percentPrimFixed = this._dtoMBA2EPowerRecord.Percent_PrimFixed;
+            if (percentPrimFixed != 0) this._dtoMBA2EPowerRecord.DTOBus_To.KChangerTap = (1 / percentPrimFixed);
+            // MessageBox.Show("Bus To = " + this._dtoMBA2EPowerRecord.DTOBus_To.KChangerTap);
         }
 
         #endregion Function_OK_Event

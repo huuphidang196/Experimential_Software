@@ -13,6 +13,7 @@ using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
 using System.Windows.Forms.DataVisualization.Charting;
 using Experimential_Software.CustomControl;
 using System.Media;
+using Experimential_Software.DAO.DAO_Curve.DAO_Check_Stability;
 
 namespace Experimential_Software
 {
@@ -24,6 +25,7 @@ namespace Experimential_Software
         // Bus Examinate connect with Load
         protected ConnectableE _busLoadExamined;
         public ConnectableE BusLoadExamnined { get => _busLoadExamined; set => _busLoadExamined = value; }
+        public object FindIntersection { get; private set; }
 
         public frmDrawnCurve()
         {
@@ -58,6 +60,8 @@ namespace Experimential_Software
             this.chartCurveLimted.Legends.Clear();
         }
 
+        #region Button_Reset_Event
+
         private void btnReset_Click(object sender, EventArgs e)
         {
             if (this._busLoadExamined == null)
@@ -76,6 +80,16 @@ namespace Experimential_Software
 
         }
 
+        private void btnReset_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.pnlProgress.Visible = true;
+            this.lblCmdReset.Visible = false;
+
+            this.lblProgress.Text = "Program is Processing ...";
+            this.lblProgress.Visible = true;
+        }
+        #endregion Button_Reset_Event
+
 
         protected virtual void ProcessDrawnChartCurveLimited()
         {
@@ -90,6 +104,25 @@ namespace Experimential_Software
 
             //Drawn Curve
             this.DrawnChartCurveLimited(List_PS_Point);
+
+            //Find Point Limit On Curve
+            this.CheckStabilitySystem();
+
+        }
+
+        protected virtual void CheckStabilitySystem()
+        {
+            PointF? pSectionLimit = DAOCheckStability.Instance.FindIntersection(this.chartCurveLimted.Series["Data"], this.chartCurveLimted.Series["PointLoad"]);
+            if (pSectionLimit == null)
+            {
+                this.lblStateSystem.Text = "Hệ thống không ổn định";
+                return;
+            }
+
+            PowerSystem pointLimitOnCurve = new PowerSystem(pSectionLimit.Value.Y, pSectionLimit.Value.X);
+            this.AddPointCircleOnChart(pointLimitOnCurve, "PointLoad");
+            this.lblStateSystem.Text = "Hệ thống dang làm việc ổn định";
+
         }
 
 
@@ -157,10 +190,18 @@ namespace Experimential_Software
         {
             string nameSeri = "PointLoad";
             this.chartCurveLimted.Series.Add(nameSeri);
-            this.chartCurveLimted.Series[nameSeri].Color = Color.Red;
-
+            this.chartCurveLimted.Series[nameSeri].Color = Color.Black;
             PowerSystem power_Load = new PowerSystem(this.GetDTOLoadConectWithBusConsider().PLoad, this.GetDTOLoadConectWithBusConsider().QLoad);
 
+            //Add O Point
+            this.chartCurveLimted.Series[nameSeri].Points.Add(new DataPoint(0, 0));
+            //Ad Point Circle
+            this.AddPointCircleOnChart(power_Load, nameSeri);
+
+        }
+
+        protected virtual void AddPointCircleOnChart(PowerSystem power_Load, string nameSeri)
+        {
             //Set Color Point and Radius point display
             DataPoint point_Load = new DataPoint(power_Load.Q_ReactivePower, power_Load.P_ActivePower);
             point_Load.MarkerColor = Color.Red;
@@ -168,8 +209,24 @@ namespace Experimential_Software
             point_Load.MarkerSize = 10;
             this.chartCurveLimted.Series[nameSeri].Points.Add(point_Load);
 
+            // Ghi giá trị position vào bên cạnh điểm
+            // Đặt định dạng chữ in đậm cho nhãn
+            point_Load.Font = new Font(point_Load.Font, FontStyle.Bold);
+
+            // Các thiết lập khác cho nhãn
+            point_Load.LabelForeColor = Color.Black;
+            point_Load.LabelBackColor = Color.SandyBrown;
+            point_Load.LabelBorderColor = Color.Transparent;
+
+
+            // Lấy tọa độ X và Y của điểm
+            double x = Math.Round(point_Load.XValue, 3);
+            double y = Math.Round(point_Load.YValues[0], 3); // Giả sử chỉ có một giá trị Y
+            point_Load.Label = $"(P= {y},Q= {x})";
+            point_Load.IsValueShownAsLabel = true;
+
             //set type seri
-            this.chartCurveLimted.Series[nameSeri].ChartType = SeriesChartType.Point;
+            this.chartCurveLimted.Series[nameSeri].ChartType = SeriesChartType.Line;
         }
         #endregion Drawn_Chart_Curve
 
@@ -190,6 +247,13 @@ namespace Experimential_Software
             return ePower_load.DatabaseE.DataRecordE.DTOLoadEPower;
         }
 
+        //Button Close event
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+
         //*********Experimental => Remove when complete**************
         private string ExperimentalYState(List<ConnectableE> allEPowers)
         {
@@ -209,21 +273,9 @@ namespace Experimential_Software
                 s += "\n";
             }
             return s;
-            
+
         }
 
-        private void btnReset_MouseDown(object sender, MouseEventArgs e)
-        {
-            this.pnlProgress.Visible = true;
-            this.lblCmdReset.Visible = false;
 
-            this.lblProgress.Text = "Program is Processing ...";
-            this.lblProgress.Visible = true;
-        }
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
     }
 }

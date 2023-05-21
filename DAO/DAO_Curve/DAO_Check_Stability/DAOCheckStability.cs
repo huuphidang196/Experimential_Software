@@ -19,25 +19,22 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Check_Stability
 
         private DAOCheckStability() { }
 
-
-        private PointF? FindIntersection(Series series1, Series series2)
+      
+        public virtual PointF? FindIntersection(Series series_Curve, Series Series_PointM)
         {
-            for (int i = 0; i < series1.Points.Count - 1; i++)
-            {
-                PointF p1 = new PointF((float)series1.Points[i].XValue, (float)series1.Points[i].YValues[0]);
-                PointF p2 = new PointF((float)series1.Points[i + 1].XValue, (float)series1.Points[i + 1].YValues[0]);
+            PointF p1 = new PointF(0, 0);
+            PointF p2 = new PointF((float)Series_PointM.Points[1].XValue, (float)Series_PointM.Points[1].YValues[0]);
 
-                for (int j = 0; j < series2.Points.Count - 1; j++)
+            for (int i = 0; i < series_Curve.Points.Count - 1; i++)
+            {           
+                PointF p3 = new PointF((float)series_Curve.Points[i].XValue, (float)series_Curve.Points[i].YValues[0]);
+                PointF p4 = new PointF((float)series_Curve.Points[i + 1].XValue, (float)series_Curve.Points[i + 1].YValues[0]);
+
+                // Sử dụng phương trình đường thẳng để kiểm tra xem hai đường thẳng có giao nhau không
+                PointF? intersection = GetIntersection(p1, p2, p3, p4);
+                if (intersection.HasValue)
                 {
-                    PointF p3 = new PointF((float)series2.Points[j].XValue, (float)series2.Points[j].YValues[0]);
-                    PointF p4 = new PointF((float)series2.Points[j + 1].XValue, (float)series2.Points[j + 1].YValues[0]);
-
-                    // Sử dụng phương trình đường thẳng để kiểm tra xem hai đường thẳng có giao nhau không
-                    PointF? intersection = GetIntersection(p1, p2, p3, p4);
-                    if (intersection.HasValue)
-                    {
-                        return intersection.Value;
-                    }
+                    return intersection.Value;
                 }
             }
 
@@ -57,8 +54,9 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Check_Stability
             float ua = ((p4.X - p3.X) * (p1.Y - p3.Y) - (p4.Y - p3.Y) * (p1.X - p3.X)) / denominator;
             float ub = ((p2.X - p1.X) * (p1.Y - p3.Y) - (p2.Y - p1.Y) * (p1.X - p3.X)) / denominator;
 
-            // Kiểm tra xem điểm giao nằm trong đoạn thẳng hay không
-            if (ua >= 0 && ua <= 1 && ub >= 0 && ub <= 1)
+            // Kiểm tra xem điểm giao nằm trong đoạn thẳng hay không, Dối với OM thì nếu ổn đinh giao sẽ nẳm ngoài OM <=> ua > 1. <1 tức ko ổn định vì 
+            //giao điểm nằm trong OM hoặc dưỡi OM tức M > limit Value
+            if (ua > 1 && ub >= 0 && ub <= 1)
             {
                 float intersectionX = p1.X + ua * (p2.X - p1.X);
                 float intersectionY = p1.Y + ua * (p2.Y - p1.Y);
