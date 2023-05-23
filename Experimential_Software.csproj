@@ -212,6 +212,12 @@
     <Compile Include="frmFixedTapChanger.Designer.cs">
       <DependentUpon>frmFixedTapChanger.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmHelpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmHelpForm.Designer.cs">
+      <DependentUpon>frmHelpForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSystemIsoval.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -260,6 +266,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmFixedTapChanger.resx">
       <DependentUpon>frmFixedTapChanger.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmHelpForm.resx">
+      <DependentUpon>frmHelpForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSystemIsoval.resx">
       <DependentUpon>frmSystemIsoval.cs</DependentUpon>
@@ -323,6 +332,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="TreeDataSaved\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Clock100.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -74,9 +74,17 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                 //Add into List
                 if (this.QLj_Run >= 0) List_PowerSystem.Add(powerRun);
                 P_LjRun = this.CalculateP_LRunByQLjRun(P_LjRun);
+
                 //MessageBox.Show("P = " + powerRun.P_ActivePower + ", Q = " + powerRun.Q_ReactivePower + ", delta = " + this._deltaP);
             }
 
+            //Add Point M(Last_P,0) in order to drawn continous curve
+            if (double.IsNaN(this.QLj_Run) && List_PowerSystem.Count > 1)
+            {
+                double Last_P_Lj = List_PowerSystem[List_PowerSystem.Count - 1].P_ActivePower;
+                PowerSystem powerRun = new PowerSystem(Last_P_Lj, 0);
+                List_PowerSystem.Add(powerRun);
+            }
             return List_PowerSystem;
         }
 

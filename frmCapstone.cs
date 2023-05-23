@@ -545,6 +545,13 @@ namespace Experimential_Software
             this.LoadDataTreeView(this._folderSaved_Path, null);
         }
 
+        //Help how to use softWare
+        private void mnuStripHelpUseSW_Click(object sender, EventArgs e)
+        {
+            frmHelpForm frmHelpForm = new frmHelpForm();
+            frmHelpForm.ShowDialog();
+        }
+
         #endregion MenuStrip
 
         //Experimental CalculateYstate
@@ -572,7 +579,7 @@ namespace Experimential_Software
 
         }
 
-     
+       
     }
 }
 

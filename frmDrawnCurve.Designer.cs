@@ -29,9 +29,9 @@ namespace Experimential_Software
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlinfoLoad = new System.Windows.Forms.Panel();
             this.lblStateSystem = new System.Windows.Forms.Label();
@@ -43,9 +43,10 @@ namespace Experimential_Software
             this.btnReset = new System.Windows.Forms.Button();
             this.pnlTChar = new System.Windows.Forms.Panel();
             this.pnlProbability = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblProbability = new System.Windows.Forms.Label();
+            this.lblProbilityOfInstability = new System.Windows.Forms.Label();
             this.pnlTCharImage = new System.Windows.Forms.Panel();
+            this.ptbClockWise = new System.Windows.Forms.PictureBox();
+            this.ptbClockPercent = new System.Windows.Forms.PictureBox();
             this.pnlChar = new System.Windows.Forms.Panel();
             this.pnlListBoxPoints = new System.Windows.Forms.Panel();
             this.lstBoxExperPoint = new System.Windows.Forms.ListBox();
@@ -59,6 +60,9 @@ namespace Experimential_Software
             this.pnlButtonControl.SuspendLayout();
             this.pnlTChar.SuspendLayout();
             this.pnlProbability.SuspendLayout();
+            this.pnlTCharImage.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbClockWise)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbClockPercent)).BeginInit();
             this.pnlChar.SuspendLayout();
             this.pnlListBoxPoints.SuspendLayout();
             this.pnlCharChild.SuspendLayout();
@@ -157,6 +161,7 @@ namespace Experimential_Software
             this.btnPrint.TabIndex = 0;
             this.btnPrint.Text = "Print";
             this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // btnReset
             // 
@@ -183,40 +188,55 @@ namespace Experimential_Software
             // 
             // pnlProbability
             // 
-            this.pnlProbability.Controls.Add(this.label2);
-            this.pnlProbability.Controls.Add(this.lblProbability);
-            this.pnlProbability.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlProbability.Controls.Add(this.lblProbilityOfInstability);
+            this.pnlProbability.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlProbability.Location = new System.Drawing.Point(0, 299);
             this.pnlProbability.Name = "pnlProbability";
             this.pnlProbability.Size = new System.Drawing.Size(345, 86);
             this.pnlProbability.TabIndex = 1;
             // 
-            // label2
+            // lblProbilityOfInstability
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(63, 36);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(164, 18);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Xác suất mất ổn định : ";
-            // 
-            // lblProbability
-            // 
-            this.lblProbability.AutoSize = true;
-            this.lblProbability.Location = new System.Drawing.Point(233, 36);
-            this.lblProbability.Name = "lblProbability";
-            this.lblProbability.Size = new System.Drawing.Size(39, 18);
-            this.lblProbability.TabIndex = 1;
-            this.lblProbability.Text = "25%";
+            this.lblProbilityOfInstability.AutoSize = true;
+            this.lblProbilityOfInstability.Location = new System.Drawing.Point(63, 36);
+            this.lblProbilityOfInstability.Name = "lblProbilityOfInstability";
+            this.lblProbilityOfInstability.Size = new System.Drawing.Size(164, 18);
+            this.lblProbilityOfInstability.TabIndex = 0;
+            this.lblProbilityOfInstability.Text = "Xác suất mất ổn định : ";
             // 
             // pnlTCharImage
             // 
-            this.pnlTCharImage.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.pnlTCharImage.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTCharImage.BackColor = System.Drawing.Color.Gainsboro;
+            this.pnlTCharImage.Controls.Add(this.ptbClockWise);
+            this.pnlTCharImage.Controls.Add(this.ptbClockPercent);
             this.pnlTCharImage.Location = new System.Drawing.Point(0, 0);
             this.pnlTCharImage.Name = "pnlTCharImage";
             this.pnlTCharImage.Size = new System.Drawing.Size(345, 299);
             this.pnlTCharImage.TabIndex = 0;
+            // 
+            // ptbClockWise
+            // 
+            this.ptbClockWise.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ptbClockWise.BackColor = System.Drawing.Color.Transparent;
+            this.ptbClockWise.Location = new System.Drawing.Point(101, 105);
+            this.ptbClockWise.Name = "ptbClockWise";
+            this.ptbClockWise.Size = new System.Drawing.Size(120, 120);
+            this.ptbClockWise.TabIndex = 1;
+            this.ptbClockWise.TabStop = false;
+            this.ptbClockWise.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+            // 
+            // ptbClockPercent
+            // 
+            this.ptbClockPercent.BackColor = System.Drawing.Color.Transparent;
+            this.ptbClockPercent.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ptbClockPercent.Image = global::Experimential_Software.Properties.Resources.Clock100;
+            this.ptbClockPercent.Location = new System.Drawing.Point(0, 0);
+            this.ptbClockPercent.Name = "ptbClockPercent";
+            this.ptbClockPercent.Size = new System.Drawing.Size(345, 299);
+            this.ptbClockPercent.TabIndex = 0;
+            this.ptbClockPercent.TabStop = false;
             // 
             // pnlChar
             // 
@@ -252,6 +272,7 @@ namespace Experimential_Software
             // 
             // pnlCharChild
             // 
+            this.pnlCharChild.BackColor = System.Drawing.SystemColors.ControlLight;
             this.pnlCharChild.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCharChild.Controls.Add(this.pnlProgress);
             this.pnlCharChild.Controls.Add(this.chartCurveLimted);
@@ -290,17 +311,19 @@ namespace Experimential_Software
             // 
             // chartCurveLimted
             // 
-            chartArea2.Name = "ChartArea1";
-            this.chartCurveLimted.ChartAreas.Add(chartArea2);
+            this.chartCurveLimted.BackColor = System.Drawing.Color.Gainsboro;
+            this.chartCurveLimted.BorderlineColor = System.Drawing.Color.WhiteSmoke;
+            chartArea1.Name = "ChartArea1";
+            this.chartCurveLimted.ChartAreas.Add(chartArea1);
             this.chartCurveLimted.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend2.Name = "Legend1";
-            this.chartCurveLimted.Legends.Add(legend2);
+            legend1.Name = "Legend1";
+            this.chartCurveLimted.Legends.Add(legend1);
             this.chartCurveLimted.Location = new System.Drawing.Point(0, 0);
             this.chartCurveLimted.Name = "chartCurveLimted";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.chartCurveLimted.Series.Add(series2);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartCurveLimted.Series.Add(series1);
             this.chartCurveLimted.Size = new System.Drawing.Size(638, 383);
             this.chartCurveLimted.TabIndex = 1;
             this.chartCurveLimted.Text = "Miền làm ciệc ổn định trong mặt phẳng công suất P-Q";
@@ -324,6 +347,9 @@ namespace Experimential_Software
             this.pnlTChar.ResumeLayout(false);
             this.pnlProbability.ResumeLayout(false);
             this.pnlProbability.PerformLayout();
+            this.pnlTCharImage.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.ptbClockWise)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ptbClockPercent)).EndInit();
             this.pnlChar.ResumeLayout(false);
             this.pnlListBoxPoints.ResumeLayout(false);
             this.pnlCharChild.ResumeLayout(false);
@@ -348,8 +374,7 @@ namespace Experimential_Software
         private System.Windows.Forms.Panel pnlTChar;
         private System.Windows.Forms.Panel pnlTCharImage;
         private System.Windows.Forms.Panel pnlProbability;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label lblProbability;
+        private System.Windows.Forms.Label lblProbilityOfInstability;
         private System.Windows.Forms.Panel pnlChar;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartCurveLimted;
         private System.Windows.Forms.ListBox lstBoxExperPoint;
@@ -358,5 +383,7 @@ namespace Experimential_Software
         private System.Windows.Forms.Panel pnlCharChild;
         private System.Windows.Forms.Label lblCmdReset;
         private System.Windows.Forms.Label lblProgress;
+        private System.Windows.Forms.PictureBox ptbClockPercent;
+        private System.Windows.Forms.PictureBox ptbClockWise;
     }
 }

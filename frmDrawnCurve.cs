@@ -14,6 +14,7 @@ using System.Windows.Forms.DataVisualization.Charting;
 using Experimential_Software.CustomControl;
 using System.Media;
 using Experimential_Software.DAO.DAO_Curve.DAO_Check_Stability;
+using System.Drawing.Drawing2D;
 
 namespace Experimential_Software
 {
@@ -26,6 +27,13 @@ namespace Experimential_Software
         protected ConnectableE _busLoadExamined;
         public ConnectableE BusLoadExamnined { get => _busLoadExamined; set => _busLoadExamined = value; }
         public object FindIntersection { get; private set; }
+
+        protected int _countPressReset = 0;
+
+        // Góc alpha (đơn vị: độ)
+        protected float _alpha = -145; // Góc xoay 45 độ (ví dụ)
+
+        protected float _perRotTen = 24;
 
         public frmDrawnCurve()
         {
@@ -41,6 +49,7 @@ namespace Experimential_Software
             }
         }
 
+
         protected virtual void ShowDataOnForm()
         {
             lblNumberBusLoad.Text = (this._busLoadExamined.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber - 100 * (int)ObjectType.Bus) + "";
@@ -52,6 +61,7 @@ namespace Experimential_Software
 
         protected virtual void SetValueStartForChart()
         {
+            this.chartCurveLimted.BackColor = Color.LightGray;
             this.chartCurveLimted.Titles.Add("Miền làm việc ổn định trong mặt phẳng công suất P-Q");
             this.chartCurveLimted.Titles[0].Font = new Font("Tohoma", 11, FontStyle.Bold);
             this.chartCurveLimted.Titles[0].ForeColor = Color.Black;
@@ -59,6 +69,66 @@ namespace Experimential_Software
             // Ẩn phần chú thích mặc định của Chart
             this.chartCurveLimted.Legends.Clear();
         }
+
+
+        #region Picture_Box
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+
+            // Tâm của tam giác
+            float centerX = 60;
+            float centerY = 60;
+
+            // Kích thước cạnh tam giác
+            float sideLength = 35;
+            float sideLengthScaled = (float)(sideLength * Math.Sqrt(2));
+
+            // Tạo ma trận biến đổi để xoay tam giác và hình vuông
+            Matrix transformationMatrix = new Matrix();
+            transformationMatrix.RotateAt(_alpha, new PointF(centerX, centerY));
+
+            // Đỉnh tam giác
+            PointF[] trianglePoints = new PointF[]
+            {
+        new PointF(centerX, centerY - sideLengthScaled / 2),
+        new PointF(centerX + sideLengthScaled / 2, centerY ),
+        new PointF(centerX - sideLengthScaled / 2, centerY)
+            };
+
+            // Áp dụng biến đổi vào đỉnh tam giác
+            transformationMatrix.TransformPoints(trianglePoints);
+
+            // Vẽ tam giác
+            g.FillPolygon(Brushes.Brown, trianglePoints);
+
+            // Tạo hình vuông dính vào cạnh đáy của tam giác
+            PointF bottomLeft = trianglePoints[2];
+
+            // Kích thước cạnh hình vuông
+            float squareSize = sideLengthScaled;
+
+            // Tạo ma trận biến đổi cho hình vuông
+            Matrix squareTransformationMatrix = new Matrix();
+            squareTransformationMatrix.RotateAt(_alpha, bottomLeft);
+
+            // Đỉnh hình vuông
+            PointF[] squarePoints = new PointF[]
+            {
+        bottomLeft,
+        new PointF(bottomLeft.X + squareSize, bottomLeft.Y),
+        new PointF(bottomLeft.X + squareSize, bottomLeft.Y + squareSize),
+        new PointF(bottomLeft.X, bottomLeft.Y + squareSize)
+            };
+
+            // Áp dụng biến đổi vào đỉnh hình vuông
+            squareTransformationMatrix.TransformPoints(squarePoints);
+
+            // Vẽ hình vuông
+            g.FillPolygon(Brushes.Orange, squarePoints);
+
+        }
+        #endregion Picture_Box
 
         #region Button_Reset_Event
 
@@ -70,6 +140,10 @@ namespace Experimential_Software
                 this.Close();
                 return;
             }
+
+            if (this._countPressReset >= 1) return;
+
+            this._countPressReset++;
 
             //Process Chart and ListBox
             this.ProcessDrawnChartCurveLimited();
@@ -91,6 +165,7 @@ namespace Experimential_Software
         #endregion Button_Reset_Event
 
 
+        #region Process_Chart_Curve
         protected virtual void ProcessDrawnChartCurveLimited()
         {
             List<PowerSystem> List_PS_Point = DAOGenerateListPoints.Instance.GenerateListPointStabilityLimitCurve(this._allEPowers, this._busLoadExamined);
@@ -108,21 +183,64 @@ namespace Experimential_Software
             //Find Point Limit On Curve
             this.CheckStabilitySystem();
 
+            //Find Pgh Qgh
+            this.FindPLimitAndQLimitWhenStabilitySystem();
+
+            //Set Percent Stability
+            this.SetClockWiseStaticReserveFactor();
         }
 
         protected virtual void CheckStabilitySystem()
         {
-            PointF? pSectionLimit = DAOCheckStability.Instance.FindIntersection(this.chartCurveLimted.Series["Data"], this.chartCurveLimted.Series["PointLoad"]);
+            PointF? pSectionLimit = DAOCheckStability.Instance.FindInterSectionPQLimtOnCurve(this.chartCurveLimted.Series["Data"], this.chartCurveLimted.Series["PointLoad"]);
             if (pSectionLimit == null)
             {
                 this.lblStateSystem.Text = "Hệ thống không ổn định";
+                this.lblProbilityOfInstability.Text = "Xác suất mất ổn định : 100%";
                 return;
             }
 
             PowerSystem pointLimitOnCurve = new PowerSystem(pSectionLimit.Value.Y, pSectionLimit.Value.X);
             this.AddPointCircleOnChart(pointLimitOnCurve, "PointLoad");
-            this.lblStateSystem.Text = "Hệ thống dang làm việc ổn định";
 
+            DataPoint pLoad = this.chartCurveLimted.Series["PointLoad"].Points[1];
+            this.lblStateSystem.Text = (pSectionLimit.Value.X == pLoad.XValue && pSectionLimit.Value.Y == pLoad.YValues[0]) ? " Hệ thống đang làm việc trên biên giới ổn định " : "Hệ thống dang làm việc ổn định";
+            this.lblProbilityOfInstability.Text = (pSectionLimit.Value.X == pLoad.XValue && pSectionLimit.Value.Y == pLoad.YValues[0]) ? "Xác suất mất ổn định : 50%" : "Xác suất mất ổn định : 0%";
+
+
+        }
+
+        protected virtual void FindPLimitAndQLimitWhenStabilitySystem()
+        {
+            //Check if Count PointSeries < 3 <=> not stability Not Drawn
+            if (this.chartCurveLimted.Series["PointLoad"].Points.Count < 3) return;
+
+            string nameSeri = "PointPQLimit";
+            this.chartCurveLimted.Series.Add(nameSeri);
+            this.chartCurveLimted.Series[nameSeri].Color = Color.DarkOrange;
+
+            //Find Qgh
+            PointF? qGH_SectionLimit = DAOCheckStability.Instance.FindInterSectionQGHLimtOnCurve(this.chartCurveLimted.Series["Data"], this.chartCurveLimted.Series["PointLoad"]);
+            if (qGH_SectionLimit != null)
+            {
+                PowerSystem pointQGHLimit = new PowerSystem(qGH_SectionLimit.Value.Y, qGH_SectionLimit.Value.X);
+                this.AddPointCircleOnChart(pointQGHLimit, "PointPQLimit");
+                this.chartCurveLimted.Series["PointPQLimit"].Points[0].Label = $"(Qgh = {qGH_SectionLimit.Value.X})";
+            }
+            //Add M(p0,Q0)
+            DataPoint dataM0 = this.chartCurveLimted.Series["PointLoad"].Points[1];
+            PowerSystem pointM0 = new PowerSystem(dataM0.YValues[0], dataM0.XValue);
+            this.AddPointCircleOnChart(pointM0, "PointPQLimit");
+            this.chartCurveLimted.Series["PointPQLimit"].Points[1].Label = $"M0";
+
+            //Find Pgh
+            PointF? pGH_SectionLimit = DAOCheckStability.Instance.FindInterSectionPGHLimtOnCurve(this.chartCurveLimted.Series["Data"], this.chartCurveLimted.Series["PointLoad"]);
+            if (pGH_SectionLimit != null)
+            {
+                PowerSystem pointPGHLimit = new PowerSystem(pGH_SectionLimit.Value.Y, pGH_SectionLimit.Value.X);
+                this.AddPointCircleOnChart(pointPGHLimit, "PointPQLimit");
+                this.chartCurveLimted.Series["PointPQLimit"].Points[2].Label = $"(Pgh = {pGH_SectionLimit.Value.Y})";
+            }
         }
 
 
@@ -135,6 +253,25 @@ namespace Experimential_Software
                 this.lstBoxExperPoint.Items.Add("(P =  " + Math.Round(ps.P_ActivePower, 4) + ", Q = " + Math.Round(ps.Q_ReactivePower, 4));
             }
         }
+
+        //Set ClockWise
+        protected virtual void SetClockWiseStaticReserveFactor()
+        {
+            DataPoint pointPgh = this.chartCurveLimted.Series["PointPQLimit"].Points[2];
+
+            double Pgh = pointPgh.YValues[0];
+
+            DataPoint pointM0 = this.chartCurveLimted.Series["PointPQLimit"].Points[1];
+
+            double P0 = pointM0.YValues[0];
+
+            double Percent = 100 - (P0 / Pgh) * 100;
+
+            this._alpha += (float)Percent;
+            this.ptbClockWise.Invalidate();
+        }
+
+        #endregion Process_Chart_Curve
 
         #region Drawn_Chart_Curve
         //Drawn
@@ -159,7 +296,7 @@ namespace Experimential_Software
 
             // Thiết lập giới hạn của trục Y từ -5 đến 5
             this.chartCurveLimted.ChartAreas[0].AxisY.Minimum = 0;
-            this.chartCurveLimted.ChartAreas[0].AxisY.Maximum = Pmax + 100;
+            this.chartCurveLimted.ChartAreas[0].AxisY.Maximum = Pmax + 50;
 
             // Thiết lập khoảng cách giữa các ô chia trên trục X là 1 đơn vị
             this.chartCurveLimted.ChartAreas[0].AxisX.Interval = 50;
@@ -190,7 +327,7 @@ namespace Experimential_Software
         {
             string nameSeri = "PointLoad";
             this.chartCurveLimted.Series.Add(nameSeri);
-            this.chartCurveLimted.Series[nameSeri].Color = Color.Black;
+            this.chartCurveLimted.Series[nameSeri].Color = Color.Red;
             PowerSystem power_Load = new PowerSystem(this.GetDTOLoadConectWithBusConsider().PLoad, this.GetDTOLoadConectWithBusConsider().QLoad);
 
             //Add O Point
@@ -228,6 +365,8 @@ namespace Experimential_Software
             //set type seri
             this.chartCurveLimted.Series[nameSeri].ChartType = SeriesChartType.Line;
         }
+
+
         #endregion Drawn_Chart_Curve
 
         protected virtual void ProcessingCompletedEvent()
@@ -254,28 +393,12 @@ namespace Experimential_Software
         }
 
 
-        //*********Experimental => Remove when complete**************
-        private string ExperimentalYState(List<ConnectableE> allEPowers)
+        #region Print_Click
+        private void btnPrint_Click(object sender, EventArgs e)
         {
-            //Get List All Bus from AllEPowers
-            List<ConnectableE> allBus = allEPowers.FindAll(x => x.DatabaseE.ObjectType == ObjectType.Bus);
-            //Sort List All Bus by ObjNumber
-            allBus.Sort(new BusEPowerComparer());
-
-            string s = "";
-            Complex[,] YState = DAOGenerateYState.Instance.CalculateMatrixYState(allBus);
-            for (int i = 0; i < YState.GetLength(0); i++)
-            {
-                for (int j = 0; j < YState.GetLength(1); j++)
-                {
-                    s += YState[i, j] + new string(' ', 5);
-                }
-                s += "\n";
-            }
-            return s;
-
+            
         }
 
-
+        #endregion Print_Click
     }
 }

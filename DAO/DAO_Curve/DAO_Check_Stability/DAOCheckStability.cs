@@ -19,14 +19,39 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Check_Stability
 
         private DAOCheckStability() { }
 
-      
-        public virtual PointF? FindIntersection(Series series_Curve, Series Series_PointM)
+        public virtual PointF? FindInterSectionPQLimtOnCurve(Series series_Curve, Series Series_PointM)
         {
+            //Get Intersect M' On curve
             PointF p1 = new PointF(0, 0);
             PointF p2 = new PointF((float)Series_PointM.Points[1].XValue, (float)Series_PointM.Points[1].YValues[0]);
 
+            return this.FindIntersection(series_Curve, p1, p2);
+        }
+
+        //PGh
+        public virtual PointF? FindInterSectionPGHLimtOnCurve(Series series_Curve, Series Series_PointM)
+        {
+            //Get Intersect M' On curve
+            PointF p1 = new PointF((float)Series_PointM.Points[1].XValue, 0);//Qo
+            PointF p2 = new PointF((float)Series_PointM.Points[1].XValue, (float)Series_PointM.Points[1].YValues[0]);//M(P0,Q0)
+
+            return this.FindIntersection(series_Curve, p1, p2);
+        }
+
+        //QGH
+        public virtual PointF? FindInterSectionQGHLimtOnCurve(Series series_Curve, Series Series_PointM)
+        {
+            //Get Intersect M' On curve
+            PointF p1 = new PointF(0, (float)Series_PointM.Points[1].YValues[0]);//Po
+            PointF p2 = new PointF((float)Series_PointM.Points[1].XValue, (float)Series_PointM.Points[1].YValues[0]);//M(P0,Q0)
+
+            return this.FindIntersection(series_Curve, p1, p2);
+        }
+        public virtual PointF? FindIntersection(Series series_Curve, PointF p1, PointF p2)
+        {
+
             for (int i = 0; i < series_Curve.Points.Count - 1; i++)
-            {           
+            {
                 PointF p3 = new PointF((float)series_Curve.Points[i].XValue, (float)series_Curve.Points[i].YValues[0]);
                 PointF p4 = new PointF((float)series_Curve.Points[i + 1].XValue, (float)series_Curve.Points[i + 1].YValues[0]);
 

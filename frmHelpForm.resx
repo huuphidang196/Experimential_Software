@@ -117,29 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Line " type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Line .png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Load_Tool" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Load_Tool.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BUS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BUS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MF" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MF.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Tranmisson line" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Tranmisson line.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="mba 2 cuộn dây" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\mba 2 cuộn dây.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Tranmisson line1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Tranmisson line1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Clock100" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Clock100.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="richTextBox1.Text" xml:space="preserve">
+    <value>                                        ********* Hướng dẫn sử dụng *********
+
+
+  - Để phóng to thu nhỏ : Giữ CTRl + lăn con chuột
+  - Xem Database thiết bị : Giữ Ctrl + click chuột trái
+  - Để xóa Line : Nhấn chuột trái chọn Line cần xóa , sau đó nhấn chuột phải chọn "Remove this LineDrawn"
+  - Để xóa phần tử hệ thống : Chuột trái phần tủ cần xóa  =&gt; Phần tử có viền màu đỏ =&gt; bấm Delete
+     Hỗ trợ các shortcut ctrl + S, ctrl +  N,ctrl + O 
+  - Để thêm phần tử điện vào sơ đồ : Nhấn giữ chuột trái kéo thả thiết bị từ Panel Tool vào Panel
+  - Để chạy tính Ybus, Ystate, chạy Curve. 
+    + Bấm chọn Bus nối với Load cần tính
+    + Sau khi Bus được viền màu đỏ chứng tỏ Bus đã được chọn
+    + Đưa con trỏ vào Bus rồi nhấn chuột trái =&gt; Chọn Option.</value>
   </data>
 </root>
