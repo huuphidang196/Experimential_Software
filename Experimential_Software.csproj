@@ -131,6 +131,7 @@
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateListPoints.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateYBus.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateYState.cs" />
+    <Compile Include="DAO\DAO_Curve\DAO_Calculate_ManyCurve\DAOCalculateManyCurve.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Check_Stability\DAOCheckStability.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_IsovalForm\DAOGetTextSysemIsoval.cs" />
     <Compile Include="DAO\DAO_GeneratorData\DAOGeneMFRecord.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="DAO\DAO_MBA2Data\DAOUpdateImpendanceWhenChangeTap.cs" />
     <Compile Include="DAO\DAO_MBA2Data\DAOUpdateMBA2AfterConnectEnds.cs" />
     <Compile Include="DAO\DAO_MBA3Data\DAOGeneMBA3Record.cs" />
+    <Compile Include="DAO\DAO_MBA3Data\DAOUpdateImpendanceMBA3WhenChangeTap.cs" />
     <Compile Include="DAO\DAO_MBA3Data\DAOUpdateMBA3AfterConnectEnds.cs" />
     <Compile Include="DAO\DAO_ProcessDelete\DAO_DeleteLineConnect\DAOProcessDeleteLineConnect.cs" />
     <Compile Include="DAO\DAO_SaveAndReadPowerSystem\DAOProcessMenuFileStrip.cs" />

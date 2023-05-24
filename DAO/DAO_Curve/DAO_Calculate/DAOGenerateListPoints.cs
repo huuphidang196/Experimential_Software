@@ -45,7 +45,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         protected double _deltaP = 0;
 
         //Get List Point PL, QL. Input are List EPowers and Bus j
-        public virtual List<PowerSystem> GenerateListPointStabilityLimitCurve(List<ConnectableE> AllEPowers, ConnectableE EPowerBusJLoad)
+        public virtual List<PowerSystem> GenerateListPointStabilityLimitCurve(List<ConnectableE> AllEPowers, ConnectableE EPowerBusJLoad, bool isTest, int minCount)
         {
             List<PowerSystem> List_PowerSystem = new List<PowerSystem>();
 
@@ -73,6 +73,14 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
 
                 //Add into List
                 if (this.QLj_Run >= 0) List_PowerSystem.Add(powerRun);
+                
+                ///Test
+                if (isTest)
+                {
+                    if (List_PowerSystem.Count >= minCount) return List_PowerSystem;
+                } 
+                    
+                //Test
                 P_LjRun = this.CalculateP_LRunByQLjRun(P_LjRun);
 
                 //MessageBox.Show("P = " + powerRun.P_ActivePower + ", Q = " + powerRun.Q_ReactivePower + ", delta = " + this._deltaP);

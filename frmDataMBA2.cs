@@ -249,7 +249,7 @@ namespace Experimential_Software
             //********Power Rating And Impendance Zone***** Below rating and fixed use for set impendance by k, k'
             this.SetValuePowerRatingAndImpendance();
 
-            this.ChangeVoltageValueOnBusConnectWithMBA2();
+            //this.ChangeVoltageValueOnBusConnectWithMBA2();
 
             DialogResult = DialogResult.OK;
         }

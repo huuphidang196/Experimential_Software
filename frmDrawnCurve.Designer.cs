@@ -29,9 +29,9 @@ namespace Experimential_Software
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlinfoLoad = new System.Windows.Forms.Panel();
             this.lblStateSystem = new System.Windows.Forms.Label();
@@ -42,32 +42,54 @@ namespace Experimential_Software
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.pnlTChar = new System.Windows.Forms.Panel();
-            this.pnlProbability = new System.Windows.Forms.Panel();
-            this.lblProbilityOfInstability = new System.Windows.Forms.Label();
             this.pnlTCharImage = new System.Windows.Forms.Panel();
             this.ptbClockWise = new System.Windows.Forms.PictureBox();
             this.ptbClockPercent = new System.Windows.Forms.PictureBox();
+            this.pnlProbability = new System.Windows.Forms.Panel();
+            this.lblProbilityOfInstability = new System.Windows.Forms.Label();
             this.pnlChar = new System.Windows.Forms.Panel();
-            this.pnlListBoxPoints = new System.Windows.Forms.Panel();
-            this.lstBoxExperPoint = new System.Windows.Forms.ListBox();
+            this.pnlOverall = new System.Windows.Forms.Panel();
+            this.pnlTop = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.grbModeDrawn = new System.Windows.Forms.GroupBox();
+            this.pnlRamdomLeft = new System.Windows.Forms.Panel();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtCountCurve = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtMaxPer = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtMinPer = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.pnlBelow = new System.Windows.Forms.Panel();
             this.pnlCharChild = new System.Windows.Forms.Panel();
             this.pnlProgress = new System.Windows.Forms.Panel();
             this.lblCmdReset = new System.Windows.Forms.Label();
             this.lblProgress = new System.Windows.Forms.Label();
             this.chartCurveLimted = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.pnlListBoxPoints = new System.Windows.Forms.Panel();
+            this.lstBoxExperPoint = new System.Windows.Forms.ListBox();
+            this.chkOneCurve = new System.Windows.Forms.CheckBox();
+            this.chkManyCurve = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.pnlinfoLoad.SuspendLayout();
             this.pnlButtonControl.SuspendLayout();
             this.pnlTChar.SuspendLayout();
-            this.pnlProbability.SuspendLayout();
             this.pnlTCharImage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbClockWise)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbClockPercent)).BeginInit();
+            this.pnlProbability.SuspendLayout();
             this.pnlChar.SuspendLayout();
-            this.pnlListBoxPoints.SuspendLayout();
+            this.pnlOverall.SuspendLayout();
+            this.pnlTop.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.grbModeDrawn.SuspendLayout();
+            this.pnlRamdomLeft.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.pnlBelow.SuspendLayout();
             this.pnlCharChild.SuspendLayout();
             this.pnlProgress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCurveLimted)).BeginInit();
+            this.pnlListBoxPoints.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -86,7 +108,7 @@ namespace Experimential_Software
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.6868F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.3132F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1133, 486);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1168, 618);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // pnlinfoLoad
@@ -98,7 +120,7 @@ namespace Experimential_Software
             this.pnlinfoLoad.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlinfoLoad.Location = new System.Drawing.Point(3, 3);
             this.pnlinfoLoad.Name = "pnlinfoLoad";
-            this.pnlinfoLoad.Size = new System.Drawing.Size(776, 89);
+            this.pnlinfoLoad.Size = new System.Drawing.Size(801, 115);
             this.pnlinfoLoad.TabIndex = 0;
             // 
             // lblStateSystem
@@ -136,9 +158,9 @@ namespace Experimential_Software
             this.pnlButtonControl.Controls.Add(this.btnPrint);
             this.pnlButtonControl.Controls.Add(this.btnReset);
             this.pnlButtonControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlButtonControl.Location = new System.Drawing.Point(785, 3);
+            this.pnlButtonControl.Location = new System.Drawing.Point(810, 3);
             this.pnlButtonControl.Name = "pnlButtonControl";
-            this.pnlButtonControl.Size = new System.Drawing.Size(345, 89);
+            this.pnlButtonControl.Size = new System.Drawing.Size(355, 115);
             this.pnlButtonControl.TabIndex = 1;
             // 
             // btnCancel
@@ -178,31 +200,13 @@ namespace Experimential_Software
             // pnlTChar
             // 
             this.pnlTChar.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.pnlTChar.Controls.Add(this.pnlProbability);
             this.pnlTChar.Controls.Add(this.pnlTCharImage);
+            this.pnlTChar.Controls.Add(this.pnlProbability);
             this.pnlTChar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlTChar.Location = new System.Drawing.Point(785, 98);
+            this.pnlTChar.Location = new System.Drawing.Point(810, 124);
             this.pnlTChar.Name = "pnlTChar";
-            this.pnlTChar.Size = new System.Drawing.Size(345, 385);
+            this.pnlTChar.Size = new System.Drawing.Size(355, 491);
             this.pnlTChar.TabIndex = 2;
-            // 
-            // pnlProbability
-            // 
-            this.pnlProbability.Controls.Add(this.lblProbilityOfInstability);
-            this.pnlProbability.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlProbability.Location = new System.Drawing.Point(0, 299);
-            this.pnlProbability.Name = "pnlProbability";
-            this.pnlProbability.Size = new System.Drawing.Size(345, 86);
-            this.pnlProbability.TabIndex = 1;
-            // 
-            // lblProbilityOfInstability
-            // 
-            this.lblProbilityOfInstability.AutoSize = true;
-            this.lblProbilityOfInstability.Location = new System.Drawing.Point(63, 36);
-            this.lblProbilityOfInstability.Name = "lblProbilityOfInstability";
-            this.lblProbilityOfInstability.Size = new System.Drawing.Size(164, 18);
-            this.lblProbilityOfInstability.TabIndex = 0;
-            this.lblProbilityOfInstability.Text = "Xác suất mất ổn định : ";
             // 
             // pnlTCharImage
             // 
@@ -238,37 +242,163 @@ namespace Experimential_Software
             this.ptbClockPercent.TabIndex = 0;
             this.ptbClockPercent.TabStop = false;
             // 
+            // pnlProbability
+            // 
+            this.pnlProbability.Controls.Add(this.lblProbilityOfInstability);
+            this.pnlProbability.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlProbability.Location = new System.Drawing.Point(0, 305);
+            this.pnlProbability.Name = "pnlProbability";
+            this.pnlProbability.Size = new System.Drawing.Size(355, 186);
+            this.pnlProbability.TabIndex = 1;
+            // 
+            // lblProbilityOfInstability
+            // 
+            this.lblProbilityOfInstability.AutoSize = true;
+            this.lblProbilityOfInstability.Location = new System.Drawing.Point(63, 36);
+            this.lblProbilityOfInstability.Name = "lblProbilityOfInstability";
+            this.lblProbilityOfInstability.Size = new System.Drawing.Size(164, 18);
+            this.lblProbilityOfInstability.TabIndex = 0;
+            this.lblProbilityOfInstability.Text = "Xác suất mất ổn định : ";
+            // 
             // pnlChar
             // 
-            this.pnlChar.Controls.Add(this.pnlListBoxPoints);
-            this.pnlChar.Controls.Add(this.pnlCharChild);
+            this.pnlChar.Controls.Add(this.pnlOverall);
             this.pnlChar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlChar.Location = new System.Drawing.Point(3, 98);
+            this.pnlChar.Location = new System.Drawing.Point(3, 124);
             this.pnlChar.Name = "pnlChar";
-            this.pnlChar.Size = new System.Drawing.Size(776, 385);
+            this.pnlChar.Size = new System.Drawing.Size(801, 491);
             this.pnlChar.TabIndex = 3;
             // 
-            // pnlListBoxPoints
+            // pnlOverall
             // 
-            this.pnlListBoxPoints.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pnlListBoxPoints.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlListBoxPoints.Controls.Add(this.lstBoxExperPoint);
-            this.pnlListBoxPoints.Location = new System.Drawing.Point(646, 0);
-            this.pnlListBoxPoints.Name = "pnlListBoxPoints";
-            this.pnlListBoxPoints.Size = new System.Drawing.Size(130, 385);
-            this.pnlListBoxPoints.TabIndex = 4;
+            this.pnlOverall.Controls.Add(this.pnlTop);
+            this.pnlOverall.Controls.Add(this.pnlBelow);
+            this.pnlOverall.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlOverall.Location = new System.Drawing.Point(0, 0);
+            this.pnlOverall.Name = "pnlOverall";
+            this.pnlOverall.Size = new System.Drawing.Size(801, 491);
+            this.pnlOverall.TabIndex = 0;
             // 
-            // lstBoxExperPoint
+            // pnlTop
             // 
-            this.lstBoxExperPoint.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstBoxExperPoint.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstBoxExperPoint.FormattingEnabled = true;
-            this.lstBoxExperPoint.Location = new System.Drawing.Point(0, 0);
-            this.lstBoxExperPoint.Name = "lstBoxExperPoint";
-            this.lstBoxExperPoint.Size = new System.Drawing.Size(128, 383);
-            this.lstBoxExperPoint.TabIndex = 0;
+            this.pnlTop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlTop.Controls.Add(this.panel1);
+            this.pnlTop.Controls.Add(this.pnlRamdomLeft);
+            this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlTop.Location = new System.Drawing.Point(0, 0);
+            this.pnlTop.Name = "pnlTop";
+            this.pnlTop.Size = new System.Drawing.Size(801, 100);
+            this.pnlTop.TabIndex = 4;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.grbModeDrawn);
+            this.panel1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel1.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel1.Location = new System.Drawing.Point(559, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(240, 98);
+            this.panel1.TabIndex = 1;
+            // 
+            // grbModeDrawn
+            // 
+            this.grbModeDrawn.Controls.Add(this.chkManyCurve);
+            this.grbModeDrawn.Controls.Add(this.chkOneCurve);
+            this.grbModeDrawn.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grbModeDrawn.Location = new System.Drawing.Point(0, 0);
+            this.grbModeDrawn.Name = "grbModeDrawn";
+            this.grbModeDrawn.Size = new System.Drawing.Size(240, 95);
+            this.grbModeDrawn.TabIndex = 0;
+            this.grbModeDrawn.TabStop = false;
+            this.grbModeDrawn.Text = "Mode Drawn :";
+            // 
+            // pnlRamdomLeft
+            // 
+            this.pnlRamdomLeft.Controls.Add(this.groupBox1);
+            this.pnlRamdomLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlRamdomLeft.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pnlRamdomLeft.Location = new System.Drawing.Point(0, 0);
+            this.pnlRamdomLeft.Name = "pnlRamdomLeft";
+            this.pnlRamdomLeft.Size = new System.Drawing.Size(516, 98);
+            this.pnlRamdomLeft.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.txtCountCurve);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.txtMaxPer);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.txtMinPer);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(516, 95);
+            this.groupBox1.TabIndex = 2;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Data Curve";
+            // 
+            // txtCountCurve
+            // 
+            this.txtCountCurve.Location = new System.Drawing.Point(362, 60);
+            this.txtCountCurve.Name = "txtCountCurve";
+            this.txtCountCurve.Size = new System.Drawing.Size(100, 24);
+            this.txtCountCurve.TabIndex = 1;
+            this.txtCountCurve.Text = "8760";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(360, 26);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(87, 17);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Count Curve";
+            // 
+            // txtMaxPer
+            // 
+            this.txtMaxPer.Location = new System.Drawing.Point(194, 60);
+            this.txtMaxPer.Name = "txtMaxPer";
+            this.txtMaxPer.Size = new System.Drawing.Size(100, 24);
+            this.txtMaxPer.TabIndex = 1;
+            this.txtMaxPer.Text = "100";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(191, 26);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(130, 17);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Max Value (percent)";
+            // 
+            // txtMinPer
+            // 
+            this.txtMinPer.Location = new System.Drawing.Point(27, 60);
+            this.txtMinPer.Name = "txtMinPer";
+            this.txtMinPer.Size = new System.Drawing.Size(100, 24);
+            this.txtMinPer.TabIndex = 1;
+            this.txtMinPer.Text = "30";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(24, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(125, 17);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Min Value (percent)";
+            // 
+            // pnlBelow
+            // 
+            this.pnlBelow.Controls.Add(this.pnlCharChild);
+            this.pnlBelow.Controls.Add(this.pnlListBoxPoints);
+            this.pnlBelow.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlBelow.Location = new System.Drawing.Point(0, 106);
+            this.pnlBelow.Name = "pnlBelow";
+            this.pnlBelow.Size = new System.Drawing.Size(801, 385);
+            this.pnlBelow.TabIndex = 3;
             // 
             // pnlCharChild
             // 
@@ -313,29 +443,73 @@ namespace Experimential_Software
             // 
             this.chartCurveLimted.BackColor = System.Drawing.Color.Gainsboro;
             this.chartCurveLimted.BorderlineColor = System.Drawing.Color.WhiteSmoke;
-            chartArea1.Name = "ChartArea1";
-            this.chartCurveLimted.ChartAreas.Add(chartArea1);
+            chartArea4.Name = "ChartArea1";
+            this.chartCurveLimted.ChartAreas.Add(chartArea4);
             this.chartCurveLimted.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chartCurveLimted.Legends.Add(legend1);
+            legend4.Name = "Legend1";
+            this.chartCurveLimted.Legends.Add(legend4);
             this.chartCurveLimted.Location = new System.Drawing.Point(0, 0);
             this.chartCurveLimted.Name = "chartCurveLimted";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartCurveLimted.Series.Add(series1);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chartCurveLimted.Series.Add(series4);
             this.chartCurveLimted.Size = new System.Drawing.Size(638, 383);
             this.chartCurveLimted.TabIndex = 1;
             this.chartCurveLimted.Text = "Miền làm ciệc ổn định trong mặt phẳng công suất P-Q";
+            // 
+            // pnlListBoxPoints
+            // 
+            this.pnlListBoxPoints.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlListBoxPoints.Controls.Add(this.lstBoxExperPoint);
+            this.pnlListBoxPoints.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnlListBoxPoints.Location = new System.Drawing.Point(646, 0);
+            this.pnlListBoxPoints.Name = "pnlListBoxPoints";
+            this.pnlListBoxPoints.Size = new System.Drawing.Size(155, 385);
+            this.pnlListBoxPoints.TabIndex = 4;
+            // 
+            // lstBoxExperPoint
+            // 
+            this.lstBoxExperPoint.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstBoxExperPoint.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lstBoxExperPoint.FormattingEnabled = true;
+            this.lstBoxExperPoint.Location = new System.Drawing.Point(0, 0);
+            this.lstBoxExperPoint.Name = "lstBoxExperPoint";
+            this.lstBoxExperPoint.Size = new System.Drawing.Size(153, 383);
+            this.lstBoxExperPoint.TabIndex = 0;
+            // 
+            // chkOneCurve
+            // 
+            this.chkOneCurve.AutoSize = true;
+            this.chkOneCurve.Location = new System.Drawing.Point(39, 26);
+            this.chkOneCurve.Name = "chkOneCurve";
+            this.chkOneCurve.Size = new System.Drawing.Size(93, 21);
+            this.chkOneCurve.TabIndex = 0;
+            this.chkOneCurve.Text = "One Curve";
+            this.chkOneCurve.UseVisualStyleBackColor = true;
+            this.chkOneCurve.CheckStateChanged += new System.EventHandler(this.chkOneCurve_CheckStateChanged);
+            // 
+            // chkManyCurve
+            // 
+            this.chkManyCurve.AutoSize = true;
+            this.chkManyCurve.Location = new System.Drawing.Point(39, 60);
+            this.chkManyCurve.Name = "chkManyCurve";
+            this.chkManyCurve.Size = new System.Drawing.Size(101, 21);
+            this.chkManyCurve.TabIndex = 0;
+            this.chkManyCurve.Text = "Many Curve";
+            this.chkManyCurve.UseVisualStyleBackColor = true;
+            this.chkManyCurve.CheckStateChanged += new System.EventHandler(this.chkManyCurve_CheckStateChanged);
             // 
             // frmDrawnCurve
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1133, 486);
+            this.ClientSize = new System.Drawing.Size(1168, 618);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmDrawnCurve";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Working domain allows conditional static stability limit ";
@@ -345,17 +519,26 @@ namespace Experimential_Software
             this.pnlinfoLoad.PerformLayout();
             this.pnlButtonControl.ResumeLayout(false);
             this.pnlTChar.ResumeLayout(false);
-            this.pnlProbability.ResumeLayout(false);
-            this.pnlProbability.PerformLayout();
             this.pnlTCharImage.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ptbClockWise)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ptbClockPercent)).EndInit();
+            this.pnlProbability.ResumeLayout(false);
+            this.pnlProbability.PerformLayout();
             this.pnlChar.ResumeLayout(false);
-            this.pnlListBoxPoints.ResumeLayout(false);
+            this.pnlOverall.ResumeLayout(false);
+            this.pnlTop.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.grbModeDrawn.ResumeLayout(false);
+            this.grbModeDrawn.PerformLayout();
+            this.pnlRamdomLeft.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.pnlBelow.ResumeLayout(false);
             this.pnlCharChild.ResumeLayout(false);
             this.pnlProgress.ResumeLayout(false);
             this.pnlProgress.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCurveLimted)).EndInit();
+            this.pnlListBoxPoints.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -385,5 +568,20 @@ namespace Experimential_Software
         private System.Windows.Forms.Label lblProgress;
         private System.Windows.Forms.PictureBox ptbClockPercent;
         private System.Windows.Forms.PictureBox ptbClockWise;
+        private System.Windows.Forms.Panel pnlBelow;
+        private System.Windows.Forms.Panel pnlTop;
+        private System.Windows.Forms.Panel pnlOverall;
+        private System.Windows.Forms.Panel pnlRamdomLeft;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox txtCountCurve;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox txtMaxPer;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox txtMinPer;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox grbModeDrawn;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.CheckBox chkManyCurve;
+        private System.Windows.Forms.CheckBox chkOneCurve;
     }
 }

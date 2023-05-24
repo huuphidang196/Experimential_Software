@@ -23,9 +23,12 @@ namespace Experimential_Software
         protected UnitTapMode _unitModeMain = UnitTapMode.Percent;
 
         //percent Fixed temp
-        protected double _perFixedPrimTemp_100 = 1;
+        protected double _perFixedPrimTemp_100 = 0;
         protected double _perFixedTerTemp_100 = 0;
         protected double _perFixedSecTemp_100 = 0;
+
+        //Impendance Tap Zero 
+        protected ImpedanceMBA3 _impedanceMBA3_TapZero;
 
         public frmDataMBA3()
         {
@@ -53,6 +56,8 @@ namespace Experimential_Software
 
                 //Fixed Tap
                 this.ShowFixedTapWheOpenForm();
+
+                this._impedanceMBA3_TapZero = DAOUpdateImpendanceMBA3WhenChangeTap.Instance.GetImpedanceMBA3PTapZeroWhenStart(this._dtoMBA3P);
             }
         }
 
@@ -223,9 +228,11 @@ namespace Experimential_Software
         {
             this.SetPercentTemp();
 
-            this.SetVoltageFixed();           
-         //   MessageBox.Show("Fixed Prim = " + voltageFixed3P.VolPrim_kV + ", Ter = " + voltageFixed3P.VolTer_kV + ", Sec = " + voltageFixed3P.VolSec_kV);s          
+            this.SetVoltageFixed();
+
+            //   MessageBox.Show("Fixed Prim = " + voltageFixed3P.VolPrim_kV + ", Ter = " + voltageFixed3P.VolTer_kV + ", Sec = " + voltageFixed3P.VolSec_kV);s          
         }
+
 
         protected virtual void SetVoltageFixed()
         {
@@ -233,6 +240,7 @@ namespace Experimential_Software
             VoltageEnds3P voltageRated3P = DAOGeneMBA3Record.Instance.GenerateVoltageEndsByText(txtRatedkV_Prim.Text, txtRatedkV_Ter.Text, txtRatedkV_Sec.Text);
             VoltageEnds3P voltageFixed3P = DAOGeneMBA3Record.Instance.GenerateVoltageEndsFixedByUnitMode(this._perFixedPrimTemp_100, this._perFixedTerTemp_100, this._perFixedSecTemp_100, voltageRated3P);
             this.ShowFixedVolatgeKVBySpecVoltage(voltageFixed3P);
+
         }
 
         protected virtual void SetPercentTemp()

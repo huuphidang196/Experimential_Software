@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Experimential_Software.Class_Database;
 
 namespace Experimential_Software.DAO.DAO_MBA2Data
@@ -23,19 +24,19 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
             double ratioFixed_Ks = dtoTrans.VoltageEnds_kV_Fixed.K_Ratio_Vol_Prim_Sec;
             double ratioRated_K = dtoTrans.VoltageEnds_kV_Rated.K_Ratio_Vol_Prim_Sec;
 
-            //  MessageBox.Show("ratioFixed_Ks =" + ratioFixed_Ks + ", ratioRated_K = " + ratioRated_K);
+          //  MessageBox.Show("ratioFixed_Ks =" + ratioFixed_Ks + ", ratioRated_K = " + ratioRated_K);
 
-            double mul_K_Transfer = Math.Round(ratioFixed_Ks / ratioRated_K, 6);
-
+            double mul_K_Transfer = Math.Round(Math.Pow(ratioFixed_Ks / ratioRated_K, 2), 6);
+            //m = (k'/k)^2
             //SpecR_pu
             double SpecR_pu = _impendanceTemp.SpecR_pu * mul_K_Transfer;
             //SpecX_pu
             double SpecX_pu = _impendanceTemp.SpecX_pu * mul_K_Transfer;
 
-            //MagG_pu
-            double MagG_pu = _impendanceTemp.MagG_pu / mul_K_Transfer;
-            //MagB_pu
-            double MagB_pu = _impendanceTemp.MagB_pu / mul_K_Transfer;
+            //MagG_pu not change when change Tap
+            double MagG_pu = _impendanceTemp.MagG_pu;
+            //MagB_pu  not change when change Tap
+            double MagB_pu = _impendanceTemp.MagB_pu;
 
             //Clone ImpendancemBA temp 
             ImpendanceMBA2 impendanceMBA2Tem = new ImpendanceMBA2(SpecR_pu, SpecX_pu, MagG_pu, MagB_pu);
@@ -49,9 +50,9 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
             double ratioFixed_Ks = dtoTrans.VoltageEnds_kV_Fixed.K_Ratio_Vol_Prim_Sec;
             double ratioRated_K = dtoTrans.VoltageEnds_kV_Rated.K_Ratio_Vol_Prim_Sec;
 
-            double mul_K_Transfer = Math.Round(ratioFixed_Ks / ratioRated_K, 6);
+            double mul_K_Transfer = Math.Round(Math.Pow(ratioFixed_Ks / ratioRated_K, 2), 6);
 
-            //  MessageBox.Show("ratioFixed_Ks =" + ratioFixed_Ks + ", ratioRated_K = " + ratioRated_K);
+        //    MessageBox.Show("ratioFixed_Ks =" + ratioFixed_Ks + ", ratioRated_K = " + ratioRated_K);
             ImpendanceMBA2 impendanceOld = dtoTrans.Impendance_MBA2;
 
             //SpecR_pu
@@ -59,10 +60,10 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
             //SpecX_pu
             double SpecX_pu = impendanceOld.SpecX_pu / mul_K_Transfer;
 
-            //MagG_pu
-            double MagG_pu = impendanceOld.MagG_pu * mul_K_Transfer;
-            //MagB_pu
-            double MagB_pu = impendanceOld.MagB_pu * mul_K_Transfer;
+            //MagG_pu  not change when change Tap
+            double MagG_pu = impendanceOld.MagG_pu;
+            //MagB_pu  not change when change Tap
+            double MagB_pu = impendanceOld.MagB_pu;
 
             //Clone ImpendancemBA temp 
             ImpendanceMBA2 impendanceMBA2Tem = new ImpendanceMBA2(SpecR_pu, SpecX_pu, MagG_pu, MagB_pu);

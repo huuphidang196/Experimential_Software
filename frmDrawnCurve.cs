@@ -15,6 +15,7 @@ using Experimential_Software.CustomControl;
 using System.Media;
 using Experimential_Software.DAO.DAO_Curve.DAO_Check_Stability;
 using System.Drawing.Drawing2D;
+using Experimential_Software.DAO.DAO_Curve.DAO_Calculate_ManyCurve;
 
 namespace Experimential_Software
 {
@@ -34,6 +35,11 @@ namespace Experimential_Software
         protected float _alpha = -145; // Góc xoay 45 độ (ví dụ)
 
         protected float _perRotTen = 24;
+        //Test
+        protected bool isTest = false;
+        protected double _delta = 1;
+        protected double _dismaxValueTest = 25;
+        protected int _countMin = 30;
 
         public frmDrawnCurve()
         {
@@ -44,11 +50,24 @@ namespace Experimential_Software
         {
             if (this._busLoadExamined != null)
             {
+                this.SetDefaultPanelRandom();
                 this.ShowDataOnForm();
                 this.SetValueStartForChart();
             }
         }
 
+        protected virtual void SetDefaultPanelRandom()
+        {
+            //Min Per
+            this.txtMinPer.Text = 100 + "";
+            //Max Per
+            this.txtMaxPer.Text = 100 + "";
+            // Many Curve
+            this.txtCountCurve.Text = 1 + "";
+
+            //Check Box 1 Curve
+            this.chkOneCurve.Checked = true;
+        }
 
         protected virtual void ShowDataOnForm()
         {
@@ -145,6 +164,11 @@ namespace Experimential_Software
 
             this._countPressReset++;
 
+            if (this.isTest)
+            {
+                this.TestInOrderGetListValue();
+                return;
+            }
             //Process Chart and ListBox
             this.ProcessDrawnChartCurveLimited();
 
@@ -152,6 +176,47 @@ namespace Experimential_Software
             this.ProcessingCompletedEvent();
 
 
+        }
+
+        protected virtual void TestInOrderGetListValue()
+        {
+            int bus_08 = 8;
+            int bus_06 = 6;
+            int bus_05 = 5;
+
+            ConnectableE ELoadConnect = DAOCalculateManyCurve.Instance.GetELoadFromBusConsider(this._allEPowers, bus_06);
+            double P_Load = ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.PLoad;
+
+            double P_Max = P_Load + this._dismaxValueTest;
+            while (P_Load <= P_Max)
+            {
+
+                List<PowerSystem> List_PS_Point = DAOGenerateListPoints.Instance.GenerateListPointStabilityLimitCurve(this._allEPowers, this._busLoadExamined, this.isTest, this._countMin);
+                if (List_PS_Point.Count < this._countMin)
+                {
+                    //Up P, Q
+                    //Change P,Q + delta
+                    ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.PLoad += this._delta;
+                    ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.QLoad += this._delta;
+
+                    P_Load = ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.PLoad;
+                    continue;
+                }
+
+                P_Load = ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.PLoad;
+                double Q_Load = ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.QLoad;
+
+                this.lstBoxExperPoint.Items.Add("(P =  " + P_Load + ", Q = " + Q_Load);
+
+                //Up P, Q
+                //Change P,Q + delta
+                ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.PLoad += this._delta;
+                ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.QLoad += this._delta;
+
+                P_Load = ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.PLoad;
+            }
+            //Processing completed event
+            this.ProcessingCompletedEvent();
         }
 
         private void btnReset_MouseDown(object sender, MouseEventArgs e)
@@ -168,7 +233,7 @@ namespace Experimential_Software
         #region Process_Chart_Curve
         protected virtual void ProcessDrawnChartCurveLimited()
         {
-            List<PowerSystem> List_PS_Point = DAOGenerateListPoints.Instance.GenerateListPointStabilityLimitCurve(this._allEPowers, this._busLoadExamined);
+            List<PowerSystem> List_PS_Point = DAOGenerateListPoints.Instance.GenerateListPointStabilityLimitCurve(this._allEPowers, this._busLoadExamined, this.isTest, this._countMin);
             if (List_PS_Point.Count == 0)
             {
                 MessageBox.Show("Please consider this Database !", "Remider notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -186,8 +251,6 @@ namespace Experimential_Software
             //Find Pgh Qgh
             this.FindPLimitAndQLimitWhenStabilitySystem();
 
-            //Set Percent Stability
-            this.SetClockWiseStaticReserveFactor();
         }
 
         protected virtual void CheckStabilitySystem()
@@ -204,7 +267,7 @@ namespace Experimential_Software
             this.AddPointCircleOnChart(pointLimitOnCurve, "PointLoad");
 
             DataPoint pLoad = this.chartCurveLimted.Series["PointLoad"].Points[1];
-            this.lblStateSystem.Text = (pSectionLimit.Value.X == pLoad.XValue && pSectionLimit.Value.Y == pLoad.YValues[0]) ? " Hệ thống đang làm việc trên biên giới ổn định " : "Hệ thống dang làm việc ổn định";
+            this.lblStateSystem.Text = (pSectionLimit.Value.X == pLoad.XValue && pSectionLimit.Value.Y == pLoad.YValues[0]) ? " Hệ thống đang làm việc trên biên giới ổn định " : "Hệ thống đang làm việc ổn định";
             this.lblProbilityOfInstability.Text = (pSectionLimit.Value.X == pLoad.XValue && pSectionLimit.Value.Y == pLoad.YValues[0]) ? "Xác suất mất ổn định : 50%" : "Xác suất mất ổn định : 0%";
 
 
@@ -240,6 +303,9 @@ namespace Experimential_Software
                 PowerSystem pointPGHLimit = new PowerSystem(pGH_SectionLimit.Value.Y, pGH_SectionLimit.Value.X);
                 this.AddPointCircleOnChart(pointPGHLimit, "PointPQLimit");
                 this.chartCurveLimted.Series["PointPQLimit"].Points[2].Label = $"(Pgh = {pGH_SectionLimit.Value.Y})";
+
+                //Set Percent Stability
+                this.SetClockWiseStaticReserveFactor();
             }
         }
 
@@ -396,9 +462,26 @@ namespace Experimential_Software
         #region Print_Click
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         #endregion Print_Click
+
+        #region Check_Box
+
+        #endregion Check_Box
+
+        private void chkManyCurve_CheckStateChanged(object sender, EventArgs e)
+        {
+            bool ManyChecked = this.chkManyCurve.Checked;
+            this.chkOneCurve.Checked = !ManyChecked;
+
+        }
+
+        private void chkOneCurve_CheckStateChanged(object sender, EventArgs e)
+        {
+            bool OneChecked = this.chkOneCurve.Checked;
+            this.chkManyCurve.Checked = !OneChecked;
+        }
     }
 }
