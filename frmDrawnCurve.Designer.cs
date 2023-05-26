@@ -29,9 +29,9 @@ namespace Experimential_Software
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlinfoLoad = new System.Windows.Forms.Panel();
             this.lblStateSystem = new System.Windows.Forms.Label();
@@ -48,10 +48,11 @@ namespace Experimential_Software
             this.pnlProbability = new System.Windows.Forms.Panel();
             this.lblProbilityOfInstability = new System.Windows.Forms.Label();
             this.pnlChar = new System.Windows.Forms.Panel();
-            this.pnlOverall = new System.Windows.Forms.Panel();
             this.pnlTop = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.grbModeDrawn = new System.Windows.Forms.GroupBox();
+            this.chkManyCurve = new System.Windows.Forms.CheckBox();
+            this.chkOneCurve = new System.Windows.Forms.CheckBox();
             this.pnlRamdomLeft = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.txtCountCurve = new System.Windows.Forms.TextBox();
@@ -68,8 +69,7 @@ namespace Experimential_Software
             this.chartCurveLimted = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pnlListBoxPoints = new System.Windows.Forms.Panel();
             this.lstBoxExperPoint = new System.Windows.Forms.ListBox();
-            this.chkOneCurve = new System.Windows.Forms.CheckBox();
-            this.chkManyCurve = new System.Windows.Forms.CheckBox();
+            this.pnlOverall = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.pnlinfoLoad.SuspendLayout();
             this.pnlButtonControl.SuspendLayout();
@@ -79,7 +79,6 @@ namespace Experimential_Software
             ((System.ComponentModel.ISupportInitialize)(this.ptbClockPercent)).BeginInit();
             this.pnlProbability.SuspendLayout();
             this.pnlChar.SuspendLayout();
-            this.pnlOverall.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.panel1.SuspendLayout();
             this.grbModeDrawn.SuspendLayout();
@@ -90,6 +89,7 @@ namespace Experimential_Software
             this.pnlProgress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCurveLimted)).BeginInit();
             this.pnlListBoxPoints.SuspendLayout();
+            this.pnlOverall.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -269,16 +269,6 @@ namespace Experimential_Software
             this.pnlChar.Size = new System.Drawing.Size(801, 491);
             this.pnlChar.TabIndex = 3;
             // 
-            // pnlOverall
-            // 
-            this.pnlOverall.Controls.Add(this.pnlTop);
-            this.pnlOverall.Controls.Add(this.pnlBelow);
-            this.pnlOverall.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlOverall.Location = new System.Drawing.Point(0, 0);
-            this.pnlOverall.Name = "pnlOverall";
-            this.pnlOverall.Size = new System.Drawing.Size(801, 491);
-            this.pnlOverall.TabIndex = 0;
-            // 
             // pnlTop
             // 
             this.pnlTop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -313,6 +303,28 @@ namespace Experimential_Software
             this.grbModeDrawn.TabStop = false;
             this.grbModeDrawn.Text = "Mode Drawn :";
             // 
+            // chkManyCurve
+            // 
+            this.chkManyCurve.AutoSize = true;
+            this.chkManyCurve.Location = new System.Drawing.Point(39, 60);
+            this.chkManyCurve.Name = "chkManyCurve";
+            this.chkManyCurve.Size = new System.Drawing.Size(101, 21);
+            this.chkManyCurve.TabIndex = 0;
+            this.chkManyCurve.Text = "Many Curve";
+            this.chkManyCurve.UseVisualStyleBackColor = true;
+            this.chkManyCurve.CheckStateChanged += new System.EventHandler(this.chkManyCurve_CheckStateChanged);
+            // 
+            // chkOneCurve
+            // 
+            this.chkOneCurve.AutoSize = true;
+            this.chkOneCurve.Location = new System.Drawing.Point(39, 26);
+            this.chkOneCurve.Name = "chkOneCurve";
+            this.chkOneCurve.Size = new System.Drawing.Size(93, 21);
+            this.chkOneCurve.TabIndex = 0;
+            this.chkOneCurve.Text = "One Curve";
+            this.chkOneCurve.UseVisualStyleBackColor = true;
+            this.chkOneCurve.CheckStateChanged += new System.EventHandler(this.chkOneCurve_CheckStateChanged);
+            // 
             // pnlRamdomLeft
             // 
             this.pnlRamdomLeft.Controls.Add(this.groupBox1);
@@ -346,6 +358,7 @@ namespace Experimential_Software
             this.txtCountCurve.Size = new System.Drawing.Size(100, 24);
             this.txtCountCurve.TabIndex = 1;
             this.txtCountCurve.Text = "8760";
+            this.txtCountCurve.Leave += new System.EventHandler(this.txtCountCurve_Leave);
             // 
             // label4
             // 
@@ -363,6 +376,7 @@ namespace Experimential_Software
             this.txtMaxPer.Size = new System.Drawing.Size(100, 24);
             this.txtMaxPer.TabIndex = 1;
             this.txtMaxPer.Text = "100";
+            this.txtMaxPer.Leave += new System.EventHandler(this.txtCountCurve_Leave);
             // 
             // label3
             // 
@@ -380,6 +394,7 @@ namespace Experimential_Software
             this.txtMinPer.Size = new System.Drawing.Size(100, 24);
             this.txtMinPer.TabIndex = 1;
             this.txtMinPer.Text = "30";
+            this.txtMinPer.Leave += new System.EventHandler(this.txtCountCurve_Leave);
             // 
             // label2
             // 
@@ -403,13 +418,12 @@ namespace Experimential_Software
             // pnlCharChild
             // 
             this.pnlCharChild.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.pnlCharChild.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCharChild.Controls.Add(this.pnlProgress);
             this.pnlCharChild.Controls.Add(this.chartCurveLimted);
-            this.pnlCharChild.Dock = System.Windows.Forms.DockStyle.Left;
+            this.pnlCharChild.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCharChild.Location = new System.Drawing.Point(0, 0);
             this.pnlCharChild.Name = "pnlCharChild";
-            this.pnlCharChild.Size = new System.Drawing.Size(640, 385);
+            this.pnlCharChild.Size = new System.Drawing.Size(646, 385);
             this.pnlCharChild.TabIndex = 3;
             // 
             // pnlProgress
@@ -443,20 +457,20 @@ namespace Experimential_Software
             // 
             this.chartCurveLimted.BackColor = System.Drawing.Color.Gainsboro;
             this.chartCurveLimted.BorderlineColor = System.Drawing.Color.WhiteSmoke;
-            chartArea4.Name = "ChartArea1";
-            this.chartCurveLimted.ChartAreas.Add(chartArea4);
+            chartArea1.Name = "ChartArea1";
+            this.chartCurveLimted.ChartAreas.Add(chartArea1);
             this.chartCurveLimted.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend4.Name = "Legend1";
-            this.chartCurveLimted.Legends.Add(legend4);
+            legend1.Name = "Legend1";
+            this.chartCurveLimted.Legends.Add(legend1);
             this.chartCurveLimted.Location = new System.Drawing.Point(0, 0);
             this.chartCurveLimted.Name = "chartCurveLimted";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chartCurveLimted.Series.Add(series4);
-            this.chartCurveLimted.Size = new System.Drawing.Size(638, 383);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartCurveLimted.Series.Add(series1);
+            this.chartCurveLimted.Size = new System.Drawing.Size(646, 385);
             this.chartCurveLimted.TabIndex = 1;
-            this.chartCurveLimted.Text = "Miền làm ciệc ổn định trong mặt phẳng công suất P-Q";
+            this.chartCurveLimted.Text = "Miền làm việc ổn định trong mặt phẳng công suất P-Q";
             // 
             // pnlListBoxPoints
             // 
@@ -478,27 +492,15 @@ namespace Experimential_Software
             this.lstBoxExperPoint.Size = new System.Drawing.Size(153, 383);
             this.lstBoxExperPoint.TabIndex = 0;
             // 
-            // chkOneCurve
+            // pnlOverall
             // 
-            this.chkOneCurve.AutoSize = true;
-            this.chkOneCurve.Location = new System.Drawing.Point(39, 26);
-            this.chkOneCurve.Name = "chkOneCurve";
-            this.chkOneCurve.Size = new System.Drawing.Size(93, 21);
-            this.chkOneCurve.TabIndex = 0;
-            this.chkOneCurve.Text = "One Curve";
-            this.chkOneCurve.UseVisualStyleBackColor = true;
-            this.chkOneCurve.CheckStateChanged += new System.EventHandler(this.chkOneCurve_CheckStateChanged);
-            // 
-            // chkManyCurve
-            // 
-            this.chkManyCurve.AutoSize = true;
-            this.chkManyCurve.Location = new System.Drawing.Point(39, 60);
-            this.chkManyCurve.Name = "chkManyCurve";
-            this.chkManyCurve.Size = new System.Drawing.Size(101, 21);
-            this.chkManyCurve.TabIndex = 0;
-            this.chkManyCurve.Text = "Many Curve";
-            this.chkManyCurve.UseVisualStyleBackColor = true;
-            this.chkManyCurve.CheckStateChanged += new System.EventHandler(this.chkManyCurve_CheckStateChanged);
+            this.pnlOverall.Controls.Add(this.pnlTop);
+            this.pnlOverall.Controls.Add(this.pnlBelow);
+            this.pnlOverall.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlOverall.Location = new System.Drawing.Point(0, 0);
+            this.pnlOverall.Name = "pnlOverall";
+            this.pnlOverall.Size = new System.Drawing.Size(801, 491);
+            this.pnlOverall.TabIndex = 0;
             // 
             // frmDrawnCurve
             // 
@@ -508,8 +510,6 @@ namespace Experimential_Software
             this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.Name = "frmDrawnCurve";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Working domain allows conditional static stability limit ";
@@ -525,7 +525,6 @@ namespace Experimential_Software
             this.pnlProbability.ResumeLayout(false);
             this.pnlProbability.PerformLayout();
             this.pnlChar.ResumeLayout(false);
-            this.pnlOverall.ResumeLayout(false);
             this.pnlTop.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.grbModeDrawn.ResumeLayout(false);
@@ -539,6 +538,7 @@ namespace Experimential_Software
             this.pnlProgress.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCurveLimted)).EndInit();
             this.pnlListBoxPoints.ResumeLayout(false);
+            this.pnlOverall.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -570,7 +570,6 @@ namespace Experimential_Software
         private System.Windows.Forms.PictureBox ptbClockWise;
         private System.Windows.Forms.Panel pnlBelow;
         private System.Windows.Forms.Panel pnlTop;
-        private System.Windows.Forms.Panel pnlOverall;
         private System.Windows.Forms.Panel pnlRamdomLeft;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox txtCountCurve;
@@ -583,5 +582,6 @@ namespace Experimential_Software
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.CheckBox chkManyCurve;
         private System.Windows.Forms.CheckBox chkOneCurve;
+        private System.Windows.Forms.Panel pnlOverall;
     }
 }

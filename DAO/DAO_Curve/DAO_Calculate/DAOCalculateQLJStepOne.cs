@@ -96,7 +96,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         {
             // double Uj_Min = 1e-6;
             double Uj_Min = 0;
-            double Uj_Max = 2;
+            double Uj_Max = 1.8;
             double eps = 0.3;
             double Q_Lj_Found = 0;
 
@@ -128,7 +128,6 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
 
                 //Check Step 2 in Script of Step One in order to Set list satify and unsatify
                 isCurveLimit = this.CheckQLJStepTwoIsOnCurve(UJ_Found);
-                // this.ExperimentalPrintValueOfLists();
 
                 if (isCurveLimit)
                 {
@@ -137,25 +136,8 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                     break;
                 }
             }
-            //if (Q_Lj_Found < 0 || Q_Lj_Found == double.NaN) MessageBox.Show("Uj_Step 2 = " + UJ_Found + ", QLj_2 = " + Q_Lj_Found);
 
             return Q_Lj_Found;
-        }
-
-        protected virtual void ExperimentalPrintValueOfLists()
-        {
-            string s = "Satify : ";
-            foreach (int KPower in this._ePower_Satify)
-            {
-                s += "MF " + (KPower + 1) + " ,";
-            }
-
-            s += "\nUnSatify : ";
-            foreach (int KPower in this._ePower_UnSatify)
-            {
-                s += "MF " + (KPower + 1) + " ,";
-            }
-            MessageBox.Show(s);
         }
 
         #region Check_IsOnCurve_StepOne
@@ -271,12 +253,9 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             while (x < Uj_Max)
             {
                 fx = F_UJ(x, P_lj_Run);
-                if (Math.Abs(fx) < eps)
-                {
-                    // MessageBox.Show("UJ_Found = " + x);
-                    break;
-                }
-                x += 1e-4; // or any other small step size
+                if (Math.Abs(fx) < eps) break;
+              
+                x += 2e-3; // or any other small step size
             }
             return x;
         }

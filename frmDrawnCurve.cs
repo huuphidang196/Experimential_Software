@@ -16,6 +16,8 @@ using System.Media;
 using Experimential_Software.DAO.DAO_Curve.DAO_Check_Stability;
 using System.Drawing.Drawing2D;
 using Experimential_Software.DAO.DAO_Curve.DAO_Calculate_ManyCurve;
+using System.Diagnostics;
+using System.IO;
 
 namespace Experimential_Software
 {
@@ -29,23 +31,20 @@ namespace Experimential_Software
         public ConnectableE BusLoadExamnined { get => _busLoadExamined; set => _busLoadExamined = value; }
         public object FindIntersection { get; private set; }
 
-        protected int _countPressReset = 0;
-
         // Góc alpha (đơn vị: độ)
         protected float _alpha = -145; // Góc xoay 45 độ (ví dụ)
-
         protected float _perRotTen = 24;
-        //Test
-        protected bool isTest = false;
-        protected double _delta = 1;
-        protected double _dismaxValueTest = 25;
-        protected int _countMin = 30;
+
+        protected bool isOneCurve = true;
+        protected double _maxPpre = 100;
+        protected double _maxQpre = 100;
 
         public frmDrawnCurve()
         {
             InitializeComponent();
         }
 
+        #region Form_Load
         private void frmDrawnCurve_Load(object sender, EventArgs e)
         {
             if (this._busLoadExamined != null)
@@ -67,6 +66,7 @@ namespace Experimential_Software
 
             //Check Box 1 Curve
             this.chkOneCurve.Checked = true;
+            this.isOneCurve = true;
         }
 
         protected virtual void ShowDataOnForm()
@@ -87,8 +87,27 @@ namespace Experimential_Software
 
             // Ẩn phần chú thích mặc định của Chart
             this.chartCurveLimted.Legends.Clear();
+
+            this.chartCurveLimted.ChartAreas[0].AxisX.Minimum = 0;
+            // Thiết lập giới hạn của trục X từ 0 đến max + 10
+            this.chartCurveLimted.ChartAreas[0].AxisX.Maximum = this._maxQpre + 50;
+
+            //// Thiết lập giới hạn của trục Y từ -5 đến
+            this.chartCurveLimted.ChartAreas[0].AxisY.Minimum = 0;
+            this.chartCurveLimted.ChartAreas[0].AxisY.Maximum = this._maxPpre + 100;
+
+
+            // Thiết lập khoảng cách giữa các ô chia trên trục X là 1 đơn vị
+            this.chartCurveLimted.ChartAreas[0].AxisX.Interval = 50;
+
+            // Thiết lập khoảng cách giữa các ô chia trên trục Y là 0.5 đơn vị
+            this.chartCurveLimted.ChartAreas[0].AxisY.Interval = 50;
+
+            this.chartCurveLimted.ChartAreas[0].AxisX.Title = "Q (Mvar)"; // Đặt tên cho trục X
+            this.chartCurveLimted.ChartAreas[0].AxisY.Title = "P (MW)"; // Đặt tên cho trục Y
         }
 
+        #endregion Form_Load
 
         #region Picture_Box
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
@@ -159,64 +178,34 @@ namespace Experimential_Software
                 this.Close();
                 return;
             }
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
 
-            if (this._countPressReset >= 1) return;
+            this.chartCurveLimted.Series.Clear();
+            this._maxPpre = this._maxQpre = 100;
 
-            this._countPressReset++;
+            int toltalCount = int.Parse(this.txtCountCurve.Text);
+            double rateMin = double.Parse(this.txtMinPer.Text) / 100;
+            double rateMax = double.Parse(this.txtMaxPer.Text) / 100;
 
-            if (this.isTest)
+            //Generate Old Dictionary Power Load Old
+            Dictionary<string, PowerSystem> Dic_PQ_Old = DAOCalculateManyCurve.Instance.GetDictionaryPowerSystemOld(this._allEPowers);
+
+            for (int i = 0; i < toltalCount; i++)
             {
-                this.TestInOrderGetListValue();
-                return;
-            }
-            //Process Chart and ListBox
-            this.ProcessDrawnChartCurveLimited();
-
-            //Processing completed event
-            this.ProcessingCompletedEvent();
-
-
-        }
-
-        protected virtual void TestInOrderGetListValue()
-        {
-            int bus_08 = 8;
-            int bus_06 = 6;
-            int bus_05 = 5;
-
-            ConnectableE ELoadConnect = DAOCalculateManyCurve.Instance.GetELoadFromBusConsider(this._allEPowers, bus_06);
-            double P_Load = ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.PLoad;
-
-            double P_Max = P_Load + this._dismaxValueTest;
-            while (P_Load <= P_Max)
-            {
-
-                List<PowerSystem> List_PS_Point = DAOGenerateListPoints.Instance.GenerateListPointStabilityLimitCurve(this._allEPowers, this._busLoadExamined, this.isTest, this._countMin);
-                if (List_PS_Point.Count < this._countMin)
-                {
-                    //Up P, Q
-                    //Change P,Q + delta
-                    ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.PLoad += this._delta;
-                    ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.QLoad += this._delta;
-
-                    P_Load = ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.PLoad;
-                    continue;
-                }
-
-                P_Load = ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.PLoad;
-                double Q_Load = ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.QLoad;
-
-                this.lstBoxExperPoint.Items.Add("(P =  " + P_Load + ", Q = " + Q_Load);
-
-                //Up P, Q
-                //Change P,Q + delta
-                ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.PLoad += this._delta;
-                ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.QLoad += this._delta;
-
-                P_Load = ELoadConnect.DatabaseE.DataRecordE.DTOLoadEPower.PLoad;
+                //Reccify PLoad, QLoad All Load
+                this._allEPowers = DAOCalculateManyCurve.Instance.RecifyAllPowerSystemLoad(this._allEPowers, Dic_PQ_Old, rateMin, rateMax);
+                //Process Chart and ListBox
+                this.ProcessDrawnChartCurveLimited(i + 1);
             }
             //Processing completed event
-            this.ProcessingCompletedEvent();
+            this.ProcessingCompletedEvent(Dic_PQ_Old);
+
+            // Thực hiện các tác vụ hoặc đoạn code khác trong Window Form
+
+            stopwatch.Stop();
+            TimeSpan duration = stopwatch.Elapsed;
+            MessageBox.Show("Time = " + string.Format("{0}:{1:D2}", duration.Minutes, duration.Seconds));
         }
 
         private void btnReset_MouseDown(object sender, MouseEventArgs e)
@@ -231,19 +220,21 @@ namespace Experimential_Software
 
 
         #region Process_Chart_Curve
-        protected virtual void ProcessDrawnChartCurveLimited()
+        protected virtual void ProcessDrawnChartCurveLimited(int numberSeries)
         {
-            List<PowerSystem> List_PS_Point = DAOGenerateListPoints.Instance.GenerateListPointStabilityLimitCurve(this._allEPowers, this._busLoadExamined, this.isTest, this._countMin);
+            List<PowerSystem> List_PS_Point = DAOGenerateListPoints.Instance.GenerateListPointStabilityLimitCurve(this._allEPowers, this._busLoadExamined);
             if (List_PS_Point.Count == 0)
             {
-                MessageBox.Show("Please consider this Database !", "Remider notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (this.isOneCurve) MessageBox.Show("Please consider this Database !", "Remider notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            this.ProcessPowerLimitOnListBox(List_PS_Point);
-
             //Drawn Curve
-            this.DrawnChartCurveLimited(List_PS_Point);
+            this.DrawnChartCurveLimited(List_PS_Point, numberSeries);
+
+            if (!this.isOneCurve) return;
+
+            this.ProcessPowerLimitOnListBox(List_PS_Point);
 
             //Find Point Limit On Curve
             this.CheckStabilitySystem();
@@ -255,7 +246,7 @@ namespace Experimential_Software
 
         protected virtual void CheckStabilitySystem()
         {
-            PointF? pSectionLimit = DAOCheckStability.Instance.FindInterSectionPQLimtOnCurve(this.chartCurveLimted.Series["Data"], this.chartCurveLimted.Series["PointLoad"]);
+            PointF? pSectionLimit = DAOCheckStability.Instance.FindInterSectionPQLimtOnCurve(this.chartCurveLimted.Series["Data1"], this.chartCurveLimted.Series["PointLoad"]);
             if (pSectionLimit == null)
             {
                 this.lblStateSystem.Text = "Hệ thống không ổn định";
@@ -283,7 +274,7 @@ namespace Experimential_Software
             this.chartCurveLimted.Series[nameSeri].Color = Color.DarkOrange;
 
             //Find Qgh
-            PointF? qGH_SectionLimit = DAOCheckStability.Instance.FindInterSectionQGHLimtOnCurve(this.chartCurveLimted.Series["Data"], this.chartCurveLimted.Series["PointLoad"]);
+            PointF? qGH_SectionLimit = DAOCheckStability.Instance.FindInterSectionQGHLimtOnCurve(this.chartCurveLimted.Series["Data1"], this.chartCurveLimted.Series["PointLoad"]);
             if (qGH_SectionLimit != null)
             {
                 PowerSystem pointQGHLimit = new PowerSystem(qGH_SectionLimit.Value.Y, qGH_SectionLimit.Value.X);
@@ -297,7 +288,7 @@ namespace Experimential_Software
             this.chartCurveLimted.Series["PointPQLimit"].Points[1].Label = $"M0";
 
             //Find Pgh
-            PointF? pGH_SectionLimit = DAOCheckStability.Instance.FindInterSectionPGHLimtOnCurve(this.chartCurveLimted.Series["Data"], this.chartCurveLimted.Series["PointLoad"]);
+            PointF? pGH_SectionLimit = DAOCheckStability.Instance.FindInterSectionPGHLimtOnCurve(this.chartCurveLimted.Series["Data1"], this.chartCurveLimted.Series["PointLoad"]);
             if (pGH_SectionLimit != null)
             {
                 PowerSystem pointPGHLimit = new PowerSystem(pGH_SectionLimit.Value.Y, pGH_SectionLimit.Value.X);
@@ -341,51 +332,49 @@ namespace Experimential_Software
 
         #region Drawn_Chart_Curve
         //Drawn
-        private void DrawnChartCurveLimited(List<PowerSystem> list_PS_Point)
+        private void DrawnChartCurveLimited(List<PowerSystem> list_PS_Point, int numberSeries)
         {
-            this.SetLimtValueChartAndPerUnit(list_PS_Point);
+            this.SetLimtValueChartAndPerUnit(list_PS_Point, numberSeries);
 
             //Add list point on Chart
-            this.AddListPointPowerSystemFoundOnChart(list_PS_Point);
-            //Add point P, Q at Load connect bus considered
-            this.AddPointLoadOnChart();
+            this.AddListPointPowerSystemFoundOnChart(list_PS_Point, numberSeries);
+
         }
 
         //limte value and per unit value
-        protected virtual void SetLimtValueChartAndPerUnit(List<PowerSystem> list_PS_Point)
+        protected virtual void SetLimtValueChartAndPerUnit(List<PowerSystem> list_PS_Point, int numberSeries)
         {
-            double Pmax = list_PS_Point.Max(P => P.P_ActivePower);
-            double Qmax = list_PS_Point.Max(Q => Q.Q_ReactivePower);
+            if (numberSeries > 1) return;
+
+            double Pmax = list_PS_Point.Max(S => S.P_ActivePower);
+            double Qmax = list_PS_Point.Max(S => S.Q_ReactivePower);
+
+            this._maxPpre = Math.Max(Pmax, this._maxPpre);
+            this._maxQpre = Math.Max(Qmax, this._maxQpre);
+
             // Thiết lập giới hạn của trục X từ 0 đến max + 10
-            this.chartCurveLimted.ChartAreas[0].AxisX.Minimum = 0;
-            this.chartCurveLimted.ChartAreas[0].AxisX.Maximum = Qmax + 50;
+            this.chartCurveLimted.ChartAreas[0].AxisX.Maximum = this._maxQpre + 400;
 
-            // Thiết lập giới hạn của trục Y từ -5 đến 5
-            this.chartCurveLimted.ChartAreas[0].AxisY.Minimum = 0;
-            this.chartCurveLimted.ChartAreas[0].AxisY.Maximum = Pmax + 50;
-
-            // Thiết lập khoảng cách giữa các ô chia trên trục X là 1 đơn vị
-            this.chartCurveLimted.ChartAreas[0].AxisX.Interval = 50;
-
-            // Thiết lập khoảng cách giữa các ô chia trên trục Y là 0.5 đơn vị
-            this.chartCurveLimted.ChartAreas[0].AxisY.Interval = 50;
+            //// Thiết lập giới hạn của trục Y từ -5 đến
+            this.chartCurveLimted.ChartAreas[0].AxisY.Maximum = this._maxPpre + 400;
 
         }
 
-        protected void AddListPointPowerSystemFoundOnChart(List<PowerSystem> list_PS_Point)
+        protected void AddListPointPowerSystemFoundOnChart(List<PowerSystem> list_PS_Point, int numberSeries)
         {
-            this.chartCurveLimted.Series.Clear(); // Xóa hết các chuỗi dữ liệu có sẵn trên Chart
-            this.chartCurveLimted.Series.Add("Data"); // Thêm một chuỗi dữ liệu mới với tên là "Data"
+            string nameData = "Data" + numberSeries;
+            this.chartCurveLimted.Series.Add(nameData); // Thêm một chuỗi dữ liệu mới với tên là "Data"
 
             foreach (PowerSystem point in list_PS_Point)
             {
-                this.chartCurveLimted.Series["Data"].Points.AddXY(point.Q_ReactivePower, point.P_ActivePower); // Thêm từng điểm vào chuỗi dữ liệu "Data"
+                this.chartCurveLimted.Series[nameData].Points.AddXY(point.Q_ReactivePower, point.P_ActivePower); // Thêm từng điểm vào chuỗi dữ liệu "Data"
             }
 
-            this.chartCurveLimted.ChartAreas[0].AxisX.Title = "Q (Mvar)"; // Đặt tên cho trục X
-            this.chartCurveLimted.ChartAreas[0].AxisY.Title = "P (MW)"; // Đặt tên cho trục Y
+            this.chartCurveLimted.Series[nameData].ChartType = SeriesChartType.Line;
+            this.chartCurveLimted.Series[nameData].Color = Color.Blue;
 
-            this.chartCurveLimted.Series["Data"].ChartType = SeriesChartType.Line;
+            //Add point P, Q at Load connect bus considered
+            if (this.isOneCurve) this.AddPointLoadOnChart();
         }
 
         //Add point P, Q at Load connect bus considered
@@ -435,12 +424,20 @@ namespace Experimential_Software
 
         #endregion Drawn_Chart_Curve
 
-        protected virtual void ProcessingCompletedEvent()
+        protected virtual void ProcessingCompletedEvent(Dictionary<string, PowerSystem> Dic_PQ_Old)
         {
             this.pnlProgress.Visible = false;
 
+            //Save Old Power Load
+            this._allEPowers = DAOCalculateManyCurve.Instance.ReturnAllPowerSystemLoadOrigin(this._allEPowers, Dic_PQ_Old);
+            //Add point P, Q at Load connect bus considered
+            if (!this.isOneCurve) this.AddPointLoadOnChart();
+
             // Initialize SoundPlayer
-            SoundPlayer player = new SoundPlayer("E:/Code_Visual/Sound/Sound_Completed.wav");
+            string absolutePath = @"E:/Code_Visual/Experimential_Software/Library/Library_Sound/Sound_Completed.wav";
+            string relativePath = Path.Combine(Application.StartupPath, Path.GetFileName(absolutePath));
+
+            SoundPlayer player = new SoundPlayer("");
 
             //Play Sound
             player.Play();
@@ -469,12 +466,11 @@ namespace Experimential_Software
 
         #region Check_Box
 
-        #endregion Check_Box
-
         private void chkManyCurve_CheckStateChanged(object sender, EventArgs e)
         {
             bool ManyChecked = this.chkManyCurve.Checked;
             this.chkOneCurve.Checked = !ManyChecked;
+            this.ProcessCountDrawn();
 
         }
 
@@ -482,6 +478,34 @@ namespace Experimential_Software
         {
             bool OneChecked = this.chkOneCurve.Checked;
             this.chkManyCurve.Checked = !OneChecked;
+            this.ProcessCountDrawn();
         }
+
+        protected virtual void ProcessCountDrawn()
+        {
+            this.isOneCurve = this.chkOneCurve.Checked;
+            this.txtCountCurve.Text = (this.isOneCurve) ? "1" : "8760";
+            this.txtMinPer.Text = (this.isOneCurve) ? "100" : "30";
+        }
+
+        #endregion Check_Box
+
+        #region TextBoxLeave
+        private void txtCountCurve_Leave(object sender, EventArgs e)
+        {
+            TextBox txtDataChanged = sender as TextBox;
+
+            bool isNumber = double.TryParse(txtDataChanged.Text, out double result);
+            if (!isNumber || result == 0)
+            {
+                MessageBox.Show("Bạn hãy xem xét lại số vừa nhập !", "Số Không Hợp Lệ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtDataChanged.BackColor = Color.Yellow;
+            }
+
+            txtDataChanged.BackColor = Color.WhiteSmoke;
+
+        }
+
+        #endregion TextBoxLeave
     }
 }

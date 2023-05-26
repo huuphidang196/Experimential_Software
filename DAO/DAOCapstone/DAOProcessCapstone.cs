@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,5 +56,17 @@ namespace Experimential_Software.DAO.DAOCapstone
         }
 
 
+        //Get Path
+        public virtual string GetPathChildFolder(string appDirectory, string childFolderName)
+        {
+            //Creat Parent Folder
+            string parentDirectory = appDirectory;
+            string subDirectory = childFolderName;
+
+            // Kết hợp đường dẫn của thư mục cha và tên thư mục con
+            string fullPath = Path.Combine(parentDirectory, subDirectory);
+
+            return fullPath;
+        }
     }
 }

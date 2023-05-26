@@ -21,6 +21,7 @@ using Experimential_Software.DAO.DAOProcessTreeView;
 using System.Numerics;
 using System.IO;
 using Experimential_Software.DAO.DAOCapstone;
+using System.Reflection;
 
 namespace Experimential_Software
 {
@@ -47,7 +48,7 @@ namespace Experimential_Software
         protected double _zoomFactor = 1;
 
         //TreeView Path FolderSaved
-        protected string _folderSaved_Path = "E:/Code_Visual/Experimential_Software/TreeDataSaved";
+        protected string _folderSaved_Path = "";//"E:/Code_Visual/Experimential_Software/TreeDataSaved";
 
         public frmCapstone()
         {
@@ -56,9 +57,6 @@ namespace Experimential_Software
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Experimental Calculate YBus
-            //this.ExperimentalYBus();
-
             this.OpenFormSetBaseMVA();
 
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -66,13 +64,11 @@ namespace Experimential_Software
             this.LoadImageMenuFile();
 
             //Load TreeView
-            this.LoadDataTreeView(this._folderSaved_Path, null);
+            this.LoadDataTreeView();
 
-            // this._processMnuFile = new ProcessMnuFile(this);
             this.pnlMain.PanelMainMouse.FrmCapstone = this;
             this.lblLine.Text = "Zoom = " + this.pnlMain.ZoomFactor;
         }
-
 
         #region Load_Form
         protected virtual void LoadImageMenuFile()
@@ -97,23 +93,24 @@ namespace Experimential_Software
             frmBuildNewCase frmBuildNew = new frmBuildNewCase();
             frmBuildNew.DTPPowerSystem = this._dtoPowerSystem;
             frmBuildNew.ShowDialog();
-
-            //   MessageBox.Show("MVA = " + this._dtoPowerSystem.PowreBase_S_MVA + ", Frequency = " + this._dtoPowerSystem.Frequency_System_Hz);
         }
 
         #region _Load_Tree_View_Data_Saved
-        protected virtual void LoadDataTreeView(string folderPath, TreeNode parentNode)
+        protected virtual void LoadDataTreeView()
         {
+            string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            this._folderSaved_Path = this.CreatFolderSave(appDirectory);
+
             this.tvDataSaved.Nodes.Clear();
-            int posSeperate = folderPath.LastIndexOf('/');
-            string nameNodeOri = folderPath.Substring(posSeperate + 1);
+            int posSeperate = this._folderSaved_Path.LastIndexOf('\\');
+            string nameNodeOri = this._folderSaved_Path.Substring(posSeperate + 1);
             TreeNode nodeParentOri = new TreeNode(nameNodeOri); // tạo một nút mới với tên là tên thư mục
             this.tvDataSaved.Nodes.Add(nodeParentOri);
             nodeParentOri.ImageIndex = 3;
             nodeParentOri.SelectedImageIndex = 3;
 
             //Add Child Nodes 
-            this.GetNodeFolderChildInFolderOrigin(folderPath, nodeParentOri);
+            this.GetNodeFolderChildInFolderOrigin(this._folderSaved_Path, nodeParentOri);
             //Expand tree view
             // Tìm node gốc
             TreeNode rootNode = this.tvDataSaved.Nodes[0];
@@ -121,7 +118,27 @@ namespace Experimential_Software
 
         }
 
-        private void GetNodeFolderChildInFolderOrigin(string folderPath, TreeNode parentNode)
+        protected virtual string CreatFolderSave(string appDirectory)
+        {
+            //Creat Parent Folder
+            string subDirectory = "Curve_SoftWare";
+            // Kết hợp đường dẫn của thư mục cha và tên thư mục con
+            string fullPathSW = DAOProcessCapstone.Instance.GetPathChildFolder(appDirectory, subDirectory);
+
+            // Kiểm tra xem thư mục con đã tồn tại chưa
+            if (!Directory.Exists(fullPathSW)) Directory.CreateDirectory(fullPathSW);
+
+            string treeFolderName = "TreeDataSaved";
+            string fullPathTree = DAOProcessCapstone.Instance.GetPathChildFolder(fullPathSW, treeFolderName);
+
+            // Kiểm tra xem thư mục con đã tồn tại chưa
+            if (Directory.Exists(fullPathTree)) return fullPathTree;
+            // Tạo thư mục con
+            Directory.CreateDirectory(fullPathTree);
+            return fullPathTree;
+        }
+
+        protected virtual void GetNodeFolderChildInFolderOrigin(string folderPath, TreeNode parentNode)
         {
             string[] directories = Directory.GetDirectories(folderPath); // lấy danh sách các thư mục con
             if (directories.Length == 0)
@@ -176,7 +193,6 @@ namespace Experimential_Software
 
 
         #endregion _Load_Tree_View_Data_Saved
-
 
         #endregion Load_Form
 
@@ -350,7 +366,7 @@ namespace Experimential_Software
         {
             this.PrcocessLineDrawnSelectAndRemoveLineDrawn(e);
         }
-      
+
         private void PrcocessLineDrawnSelectAndRemoveLineDrawn(MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -406,7 +422,7 @@ namespace Experimential_Software
                 this._ePowers.Add(ePower);
                 this._iEPowers.Add(ePower);
                 ePower.IsOnTool = false;
-                
+
 
                 pnlMain.SetInsideEPower(ePower);
 
@@ -542,7 +558,7 @@ namespace Experimential_Software
             DAOProcessMenuFileStrip.Instance.FunctionMnuFileSave_Click(this);
 
             //Update TreeView
-            this.LoadDataTreeView(this._folderSaved_Path, null);
+            this.LoadDataTreeView();
         }
 
         //Help how to use softWare
@@ -579,7 +595,7 @@ namespace Experimential_Software
 
         }
 
-       
+
     }
 }
 

@@ -45,7 +45,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         protected double _deltaP = 0;
 
         //Get List Point PL, QL. Input are List EPowers and Bus j
-        public virtual List<PowerSystem> GenerateListPointStabilityLimitCurve(List<ConnectableE> AllEPowers, ConnectableE EPowerBusJLoad, bool isTest, int minCount)
+        public virtual List<PowerSystem> GenerateListPointStabilityLimitCurve(List<ConnectableE> AllEPowers, ConnectableE EPowerBusJLoad)
         {
             List<PowerSystem> List_PowerSystem = new List<PowerSystem>();
 
@@ -53,7 +53,6 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             this._deltaP = this._delta_Default;
             this.QLj_Run = 0.01;
             double P_LjRun = 0;
-            //Pmax <=> Q_Lj = 0;
 
             //EPower Load consider
             ConnectableE ELoad = DAOCalculateQLJStepOne.Instance.GetEPowerPLoadFromEPowerBusLoadConsider(EPowerBusJLoad);
@@ -62,7 +61,6 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             double S_Base = ELoad.DatabaseE.DataRecordE.DTOLoadEPower.SBase;
 
             //Stop when Q < 0
-
             //Get List powerSyttem
             //Send Data Before
             this.SendDataBeforeCalculate(AllEPowers, EPowerBusJLoad);
@@ -72,15 +70,8 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                 PowerSystem powerRun = new PowerSystem(P_LjRun * S_Base, this.QLj_Run * S_Base);
 
                 //Add into List
-                if (this.QLj_Run >= 0) List_PowerSystem.Add(powerRun);
-                
-                ///Test
-                if (isTest)
-                {
-                    if (List_PowerSystem.Count >= minCount) return List_PowerSystem;
-                } 
-                    
-                //Test
+                if (this.QLj_Run >= 0) List_PowerSystem.Add(powerRun);                
+           
                 P_LjRun = this.CalculateP_LRunByQLjRun(P_LjRun);
 
                 //MessageBox.Show("P = " + powerRun.P_ActivePower + ", Q = " + powerRun.Q_ReactivePower + ", delta = " + this._deltaP);
@@ -155,18 +146,5 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             double QLj_Run = DAOCalculateQLJStepOne.Instance.GetQLjSuitableForStablePower(P_LjRun);
             return QLj_Run;
         }
-
-
-        ////Experimental
-        public virtual void MessageBoxResult(List<ConnectableE> ListE)
-        {
-            string s = "";
-            foreach (ConnectableE item in ListE)
-            {
-                s += item.ToString() + ", ";
-            }
-            MessageBox.Show(s);
-        }
-        ////Experimental
     }
 }

@@ -333,6 +333,7 @@
     <None Include="Resources\Load_Tool.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Library\Library_Sound\" />
     <Folder Include="TreeDataSaved\" />
   </ItemGroup>
   <ItemGroup>
