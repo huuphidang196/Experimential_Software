@@ -8,16 +8,17 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Experimential_Software.Class_Database;
-using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
 using System.Windows.Forms.DataVisualization.Charting;
-using Experimential_Software.CustomControl;
 using System.Media;
-using Experimential_Software.DAO.DAO_Curve.DAO_Check_Stability;
 using System.Drawing.Drawing2D;
-using Experimential_Software.DAO.DAO_Curve.DAO_Calculate_ManyCurve;
 using System.Diagnostics;
 using System.IO;
+
+using Experimential_Software.Class_Database;
+using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
+using Experimential_Software.DAO.DAO_Curve.DAO_Check_Stability;
+using Experimential_Software.DAO.DAO_Curve.DAO_Calculate_ManyCurve;
+using Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath;
 
 namespace Experimential_Software
 {
@@ -353,7 +354,7 @@ namespace Experimential_Software
             this._maxQpre = Math.Max(Qmax, this._maxQpre);
 
             // Thiết lập giới hạn của trục X từ 0 đến max + 10
-            this.chartCurveLimted.ChartAreas[0].AxisX.Maximum = this._maxQpre + 400;
+            this.chartCurveLimted.ChartAreas[0].AxisX.Maximum = this._maxQpre + 300;
 
             //// Thiết lập giới hạn của trục Y từ -5 đến
             this.chartCurveLimted.ChartAreas[0].AxisY.Maximum = this._maxPpre + 400;
@@ -421,9 +422,6 @@ namespace Experimential_Software
             this.chartCurveLimted.Series[nameSeri].ChartType = SeriesChartType.Line;
         }
 
-
-        #endregion Drawn_Chart_Curve
-
         protected virtual void ProcessingCompletedEvent(Dictionary<string, PowerSystem> Dic_PQ_Old)
         {
             this.pnlProgress.Visible = false;
@@ -433,11 +431,10 @@ namespace Experimential_Software
             //Add point P, Q at Load connect bus considered
             if (!this.isOneCurve) this.AddPointLoadOnChart();
 
-            // Initialize SoundPlayer
-            string absolutePath = @"E:/Code_Visual/Experimential_Software/Library/Library_Sound/Sound_Completed.wav";
-            string relativePath = Path.Combine(Application.StartupPath, Path.GetFileName(absolutePath));
 
-            SoundPlayer player = new SoundPlayer("");
+            //Creat folder Library Sound
+            string pathSound = DAOGeneratePathFolder.Instance.CreatFolderLibrarySound();
+            SoundPlayer player = new SoundPlayer(pathSound);
 
             //Play Sound
             player.Play();
@@ -449,6 +446,8 @@ namespace Experimential_Software
             return ePower_load.DatabaseE.DataRecordE.DTOLoadEPower;
         }
 
+        #endregion Drawn_Chart_Curve
+
         //Button Close event
         private void btnCancel_Click(object sender, EventArgs e)
         {
@@ -459,7 +458,34 @@ namespace Experimential_Software
         #region Print_Click
         private void btnPrint_Click(object sender, EventArgs e)
         {
+            // Lấy kích thước và vị trí của Form
+            Rectangle formBounds = Bounds;
+            int formWidth = formBounds.Width;
+            int formHeight = formBounds.Height;
+            int formX = formBounds.Left;
+            int formY = formBounds.Top;
 
+            // Tạo một Bitmap để chứa ảnh snip
+            Bitmap snipBitmap = new Bitmap(formWidth, formHeight);
+
+            // Copy nội dung của Form vào Bitmap
+            using (Graphics graphics = Graphics.FromImage(snipBitmap))
+            {
+                graphics.CopyFromScreen(formX + 2, formY + 2, 0, 0, new Size(formWidth - 2, formHeight - 2));
+            }
+
+            // Lưu ảnh snip vào đường dẫn chỉ định
+            string savePath = DAOGeneratePathFolder.Instance.CreatFolderLibraryImageDrawnCurve();
+
+            int numberBus = this._busLoadExamined.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber - 100 * (int)ObjectType.Bus;
+            string fileName = "Bus_" + numberBus.ToString("D2") + "_Drawn" + int.Parse(this.txtCountCurve.Text) + "Curve.jpg"; // Tên tệp tin muốn lưu
+
+            string filePath = Path.Combine(savePath, fileName); // Kết hợp đường dẫn thư mục và tên tệp tin
+
+            snipBitmap.Save(filePath); // Lưu đối tượng Image vào đường dẫn đã xác định
+
+            // Hiển thị thông báo khi hoàn tất snip ảnh
+            MessageBox.Show("Save Success!");
         }
 
         #endregion Print_Click

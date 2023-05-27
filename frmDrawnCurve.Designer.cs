@@ -48,6 +48,7 @@ namespace Experimential_Software
             this.pnlProbability = new System.Windows.Forms.Panel();
             this.lblProbilityOfInstability = new System.Windows.Forms.Label();
             this.pnlChar = new System.Windows.Forms.Panel();
+            this.pnlOverall = new System.Windows.Forms.Panel();
             this.pnlTop = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.grbModeDrawn = new System.Windows.Forms.GroupBox();
@@ -69,7 +70,6 @@ namespace Experimential_Software
             this.chartCurveLimted = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pnlListBoxPoints = new System.Windows.Forms.Panel();
             this.lstBoxExperPoint = new System.Windows.Forms.ListBox();
-            this.pnlOverall = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1.SuspendLayout();
             this.pnlinfoLoad.SuspendLayout();
             this.pnlButtonControl.SuspendLayout();
@@ -79,6 +79,7 @@ namespace Experimential_Software
             ((System.ComponentModel.ISupportInitialize)(this.ptbClockPercent)).BeginInit();
             this.pnlProbability.SuspendLayout();
             this.pnlChar.SuspendLayout();
+            this.pnlOverall.SuspendLayout();
             this.pnlTop.SuspendLayout();
             this.panel1.SuspendLayout();
             this.grbModeDrawn.SuspendLayout();
@@ -89,7 +90,6 @@ namespace Experimential_Software
             this.pnlProgress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCurveLimted)).BeginInit();
             this.pnlListBoxPoints.SuspendLayout();
-            this.pnlOverall.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -108,7 +108,7 @@ namespace Experimential_Software
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.6868F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.3132F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1168, 618);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(275, 618);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // pnlinfoLoad
@@ -268,6 +268,16 @@ namespace Experimential_Software
             this.pnlChar.Name = "pnlChar";
             this.pnlChar.Size = new System.Drawing.Size(801, 491);
             this.pnlChar.TabIndex = 3;
+            // 
+            // pnlOverall
+            // 
+            this.pnlOverall.Controls.Add(this.pnlTop);
+            this.pnlOverall.Controls.Add(this.pnlBelow);
+            this.pnlOverall.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlOverall.Location = new System.Drawing.Point(0, 0);
+            this.pnlOverall.Name = "pnlOverall";
+            this.pnlOverall.Size = new System.Drawing.Size(184, 491);
+            this.pnlOverall.TabIndex = 0;
             // 
             // pnlTop
             // 
@@ -492,16 +502,6 @@ namespace Experimential_Software
             this.lstBoxExperPoint.Size = new System.Drawing.Size(153, 383);
             this.lstBoxExperPoint.TabIndex = 0;
             // 
-            // pnlOverall
-            // 
-            this.pnlOverall.Controls.Add(this.pnlTop);
-            this.pnlOverall.Controls.Add(this.pnlBelow);
-            this.pnlOverall.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlOverall.Location = new System.Drawing.Point(0, 0);
-            this.pnlOverall.Name = "pnlOverall";
-            this.pnlOverall.Size = new System.Drawing.Size(801, 491);
-            this.pnlOverall.TabIndex = 0;
-            // 
             // frmDrawnCurve
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
@@ -525,6 +525,7 @@ namespace Experimential_Software
             this.pnlProbability.ResumeLayout(false);
             this.pnlProbability.PerformLayout();
             this.pnlChar.ResumeLayout(false);
+            this.pnlOverall.ResumeLayout(false);
             this.pnlTop.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.grbModeDrawn.ResumeLayout(false);
@@ -538,7 +539,6 @@ namespace Experimential_Software
             this.pnlProgress.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCurveLimted)).EndInit();
             this.pnlListBoxPoints.ResumeLayout(false);
-            this.pnlOverall.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

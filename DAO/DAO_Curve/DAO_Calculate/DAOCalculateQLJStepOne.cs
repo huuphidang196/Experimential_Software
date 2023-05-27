@@ -94,9 +94,8 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
 
         public virtual double GetQLjSuitableForStablePower(double P_Lj_Run)
         {
-            // double Uj_Min = 1e-6;
             double Uj_Min = 0;
-            double Uj_Max = 1.8;
+            double Uj_Max = 2;
             double eps = 0.3;
             double Q_Lj_Found = 0;
 
@@ -254,7 +253,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             {
                 fx = F_UJ(x, P_lj_Run);
                 if (Math.Abs(fx) < eps) break;
-              
+
                 x += 2e-3; // or any other small step size
             }
             return x;
@@ -301,10 +300,10 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             //(I.2)Calculate Q_1a => Aa, A1, alpha_k, T12, P_Lj_Run, Tk2, Tk1
 
             //Caculate Aa
-            double Aa = this.CalculateAaStep1();
+            double Aa = this.CalculateAaStepOne();
 
             //Caculate A1
-            double A1 = this.CalculateA1Step1(Uj);
+            double A1 = this.CalculateA1StepOne(Uj);
 
             //Calculate Qa1
             double Q_A1 = this.CalculateQAOneStepOne(T12, Aa, A1, Uj, P_Lj_Run);
@@ -320,7 +319,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             return FA1_Uj;
         }
         //Aa k = 1 -> F
-        protected virtual double CalculateAaStep1()
+        protected virtual double CalculateAaStepOne()
         {
             bool isReal = true;
             double R = this.GetROrXFromZJ0(isReal);
@@ -338,7 +337,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         //Aa k = 1 -> F
 
         //A1 k = 2 -> F
-        protected virtual double CalculateA1Step1(double Uj)
+        protected virtual double CalculateA1StepOne(double Uj)
         {
             double A1 = 0;
             for (int k = 1; k < this.E_AllMF.Count; k++)
@@ -365,7 +364,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                 double T_K1 = this.CalculateTK1(k, Uj);
 
                 double numerator = Math.Sin(2 * alpha_K) * T_K2 * Uj;
-                double denominator = Math.Sqrt(T_K2 * Uj * Uj - Math.Pow(T_K1, 2));
+                double denominator = Math.Sqrt(T_K2 * Math.Pow(Uj, 2) - Math.Pow(T_K1, 2));
 
                 SigmodTwo += (numerator / denominator);
             }
@@ -431,7 +430,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
 
             //Caculate 2 eleement of sum F_AK_Uj
             double F_AK_Ele1 = (T_K2 * Math.Pow(Math.Cos(2 * alpha_K), 2) * Uj) / Q_AK;
-            double F_AK_Ele2 = (T_K1 * Math.Sin(4 * alpha_K) * T_K2 * Uj) / (2 * Q_AK * Math.Sqrt(T_K2 * Uj * Uj - T_K1 * T_K1));
+            double F_AK_Ele2 = (T_K1 * Math.Sin(4 * alpha_K) * T_K2 * Uj) / (2 * Q_AK * Math.Sqrt(T_K2 * Math.Pow(Uj, 2) - Math.Pow(T_K1, 2)));
 
             double F_AK_Uj = F_AK_Ele1 - F_AK_Ele2;
 
@@ -474,10 +473,10 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             //(I.2)Calculate Q_1a => Aa, A1, alpha_k, T12, P_Lj_Run, Tk2, Tk1
 
             //Caculate Aa
-            double Aa = this.CalculateAaStep1();
+            double Aa = this.CalculateAaStepOne();
 
             //Caculate A1
-            double A1 = this.CalculateA1Step1(Uj);
+            double A1 = this.CalculateA1StepOne(Uj);
 
             //Calculate Qa1
             double Q_A1 = this.CalculateQAOneStepOne(T12, Aa, A1, Uj, P_Lj_Run);
@@ -631,7 +630,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         public virtual double GetRectPowerQKZero(int k)
         {
             // Qk0 -> Ek, Zk0, alpha_k0
-            double Z_K0 = this.GetZK0FormYBusAndK(k);
+            double Z_K0 = this.GetZK0FromYBusAndK(k);
             //alpha_K0
             double alpha_K0 = this.GetAlphaK0(k);
             //EK
@@ -644,7 +643,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         //Q_K0
 
         //ZK0
-        public virtual double GetZK0FormYBusAndK(int k)
+        public virtual double GetZK0FromYBusAndK(int k)
         {
             Complex Z_K0_Complex = DAOGenerateYBus.Instance.GetZIOFromYBus(k + 1, this.YBus, this._ePower_LoadJ);
             double Z_K0 = Complex.Abs(Z_K0_Complex);
@@ -664,8 +663,8 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
         //R or X => Get Z_J0 
         public virtual double GetROrXFromZJ0(bool isReal)
         {
-            Complex Z_j0_Complex = this.GetZK0FormYBusAndK(this.E_AllMF.Count);
-            //(I.2.1) Calculate Aa => alphak, F, Zkj, R -> Ro, X0 -> Expermitally calculate by Yj0. not seperate YL and Yjo'
+            Complex Z_j0_Complex = this.GetZK0FromYBusAndK(this.E_AllMF.Count);
+            //(I.2.1) Calculate Aa => alphak, F, Zkj, R -> Ro, X0 -> calculate vu Yjo'
             double Ro = Z_j0_Complex.Real;
             double Xo = Z_j0_Complex.Imaginary;
 

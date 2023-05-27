@@ -32,7 +32,10 @@ namespace Experimential_Software
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCapstone));
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnSave = new System.Windows.Forms.Button();
             this.imgListIconMnuStrip = new System.Windows.Forms.ImageList(this.components);
+            this.btnOpen = new System.Windows.Forms.Button();
+            this.btnNewFile = new System.Windows.Forms.Button();
             this.lblLine = new System.Windows.Forms.Label();
             this.mnuStripBar = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,24 +47,13 @@ namespace Experimential_Software
             this.powerFlowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuStripHelpUseSW = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlTreeView = new System.Windows.Forms.Panel();
             this.tvDataSaved = new System.Windows.Forms.TreeView();
             this.pnlTool = new System.Windows.Forms.Panel();
             this.pnlFlowTool = new System.Windows.Forms.FlowLayoutPanel();
-            this.imgListTool = new System.Windows.Forms.ImageList(this.components);
-            this.imgListEPower = new System.Windows.Forms.ImageList(this.components);
-            this.cxtMenuStripEPower = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cxtMnuDCDominationDia = new System.Windows.Forms.ToolStripMenuItem();
-            this.cxtMnuDCDrawnCurve = new System.Windows.Forms.ToolStripMenuItem();
-            this.cxtMnuDCOperatingMode = new System.Windows.Forms.ToolStripMenuItem();
-            this.cxtRemoveLineDrawn = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.xóaLineNàyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnOpen = new System.Windows.Forms.Button();
-            this.btnNewFile = new System.Windows.Forms.Button();
-            this.mnuStripHelpUseSW = new System.Windows.Forms.ToolStripMenuItem();
-            this.pnlMain = new Experimential_Software.PanelMain();
             this.btnBusPower_Hor = new Experimential_Software.ConnectableE();
+            this.imgListTool = new System.Windows.Forms.ImageList(this.components);
             this.btnBusPower_Ver = new Experimential_Software.ConnectableE();
             this.btnMFPower_Hor = new Experimential_Software.ConnectableE();
             this.btnMFPower_Ver = new Experimential_Software.ConnectableE();
@@ -73,6 +65,14 @@ namespace Experimential_Software
             this.btnLinePower_Ver = new Experimential_Software.ConnectableE();
             this.btnLoad_Hor = new Experimential_Software.ConnectableE();
             this.btnLoad_Ver = new Experimential_Software.ConnectableE();
+            this.imgListEPower = new System.Windows.Forms.ImageList(this.components);
+            this.cxtMenuStripEPower = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cxtMnuDCDominationDia = new System.Windows.Forms.ToolStripMenuItem();
+            this.cxtMnuDCDrawnCurve = new System.Windows.Forms.ToolStripMenuItem();
+            this.cxtMnuDCOperatingMode = new System.Windows.Forms.ToolStripMenuItem();
+            this.cxtRemoveLineDrawn = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.xóaLineNàyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnlMain = new Experimential_Software.PanelMain();
             this.panel2.SuspendLayout();
             this.mnuStripBar.SuspendLayout();
             this.pnlTreeView.SuspendLayout();
@@ -96,6 +96,17 @@ namespace Experimential_Software
             this.panel2.Size = new System.Drawing.Size(1085, 71);
             this.panel2.TabIndex = 1;
             // 
+            // btnSave
+            // 
+            this.btnSave.ImageIndex = 2;
+            this.btnSave.ImageList = this.imgListIconMnuStrip;
+            this.btnSave.Location = new System.Drawing.Point(95, 32);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(30, 30);
+            this.btnSave.TabIndex = 0;
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.mnuFileSave_Click);
+            // 
             // imgListIconMnuStrip
             // 
             this.imgListIconMnuStrip.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListIconMnuStrip.ImageStream")));
@@ -106,16 +117,28 @@ namespace Experimential_Software
             this.imgListIconMnuStrip.Images.SetKeyName(3, "FolderIcon.png");
             this.imgListIconMnuStrip.Images.SetKeyName(4, "Text_Icon.png");
             // 
-            // lblLine
+            // btnOpen
             // 
-            this.lblLine.AutoSize = true;
-            this.lblLine.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblLine.Location = new System.Drawing.Point(858, 36);
-            this.lblLine.Name = "lblLine";
-            this.lblLine.Size = new System.Drawing.Size(133, 20);
-            this.lblLine.TabIndex = 2;
-            this.lblLine.Text = "Command is here";
-            this.lblLine.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblLine_MouseDown);
+            this.btnOpen.ImageIndex = 1;
+            this.btnOpen.ImageList = this.imgListIconMnuStrip;
+            this.btnOpen.Location = new System.Drawing.Point(52, 32);
+            this.btnOpen.Name = "btnOpen";
+            this.btnOpen.Size = new System.Drawing.Size(30, 30);
+            this.btnOpen.TabIndex = 0;
+            this.btnOpen.UseVisualStyleBackColor = true;
+            this.btnOpen.Click += new System.EventHandler(this.mnuFileOpen_Click);
+            // 
+            // btnNewFile
+            // 
+            this.btnNewFile.ImageIndex = 0;
+            this.btnNewFile.ImageList = this.imgListIconMnuStrip;
+            this.btnNewFile.Location = new System.Drawing.Point(9, 32);
+            this.btnNewFile.Name = "btnNewFile";
+            this.btnNewFile.Size = new System.Drawing.Size(30, 30);
+            this.btnNewFile.TabIndex = 0;
+            this.btnNewFile.UseVisualStyleBackColor = true;
+            this.btnNewFile.Click += new System.EventHandler(this.mnuFileNew_Click);
+            // 
             // 
             // mnuStripBar
             // 
@@ -200,6 +223,13 @@ namespace Experimential_Software
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(46, 21);
             this.helpToolStripMenuItem.Text = "Help";
             // 
+            // mnuStripHelpUseSW
+            // 
+            this.mnuStripHelpUseSW.Name = "mnuStripHelpUseSW";
+            this.mnuStripHelpUseSW.Size = new System.Drawing.Size(232, 22);
+            this.mnuStripHelpUseSW.Text = "Cách sử dụng Phần mềm";
+            this.mnuStripHelpUseSW.Click += new System.EventHandler(this.mnuStripHelpUseSW_Click);
+            // 
             // pnlTreeView
             // 
             this.pnlTreeView.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -258,137 +288,6 @@ namespace Experimential_Software
             this.pnlFlowTool.Size = new System.Drawing.Size(123, 689);
             this.pnlFlowTool.TabIndex = 1;
             // 
-            // imgListTool
-            // 
-            this.imgListTool.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListTool.ImageStream")));
-            this.imgListTool.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgListTool.Images.SetKeyName(0, "BUS_Tool.png");
-            this.imgListTool.Images.SetKeyName(1, "MF_Tool.png");
-            this.imgListTool.Images.SetKeyName(2, "MBA2_Tool.png");
-            this.imgListTool.Images.SetKeyName(3, "MBA3P_Tool.png");
-            this.imgListTool.Images.SetKeyName(4, "Line_Tool.png");
-            this.imgListTool.Images.SetKeyName(5, "Load_Tool.png");
-            this.imgListTool.Images.SetKeyName(6, "BUS.png");
-            this.imgListTool.Images.SetKeyName(7, "MF.png");
-            this.imgListTool.Images.SetKeyName(8, "mba 2 cuộn dây.png");
-            this.imgListTool.Images.SetKeyName(9, "MBA3P_Tool.png");
-            this.imgListTool.Images.SetKeyName(10, "Tranmisson line1.png");
-            this.imgListTool.Images.SetKeyName(11, "Load_Tool.png");
-            // 
-            // imgListEPower
-            // 
-            this.imgListEPower.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListEPower.ImageStream")));
-            this.imgListEPower.TransparentColor = System.Drawing.Color.Transparent;
-            this.imgListEPower.Images.SetKeyName(0, "imgNoType.png");
-            this.imgListEPower.Images.SetKeyName(1, "Bus_Spawn.png");
-            this.imgListEPower.Images.SetKeyName(2, "MF.png");
-            this.imgListEPower.Images.SetKeyName(3, "MBA2P_Spawn.png");
-            this.imgListEPower.Images.SetKeyName(4, "MBA 3 cuộn dây-export.png");
-            this.imgListEPower.Images.SetKeyName(5, "Line .png");
-            this.imgListEPower.Images.SetKeyName(6, "Load_EPower.png");
-            // 
-            // cxtMenuStripEPower
-            // 
-            this.cxtMenuStripEPower.ImageScalingSize = new System.Drawing.Size(30, 30);
-            this.cxtMenuStripEPower.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cxtMnuDCDominationDia,
-            this.cxtMnuDCDrawnCurve});
-            this.cxtMenuStripEPower.Name = "cxttMenuStripEPower";
-            this.cxtMenuStripEPower.Size = new System.Drawing.Size(266, 48);
-            // 
-            // cxtMnuDCDominationDia
-            // 
-            this.cxtMnuDCDominationDia.Name = "cxtMnuDCDominationDia";
-            this.cxtMnuDCDominationDia.Size = new System.Drawing.Size(265, 22);
-            this.cxtMnuDCDominationDia.Text = "Tính đẳng trị sơ đồ về thanh cái này ";
-            this.cxtMnuDCDominationDia.Click += new System.EventHandler(this.cxtMnuDCDominationDia_Click);
-            // 
-            // cxtMnuDCDrawnCurve
-            // 
-            this.cxtMnuDCDrawnCurve.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cxtMnuDCOperatingMode});
-            this.cxtMnuDCDrawnCurve.Name = "cxtMnuDCDrawnCurve";
-            this.cxtMnuDCDrawnCurve.Size = new System.Drawing.Size(265, 22);
-            this.cxtMnuDCDrawnCurve.Text = "Vẽ miền làm việc ổn định";
-            // 
-            // cxtMnuDCOperatingMode
-            // 
-            this.cxtMnuDCOperatingMode.Name = "cxtMnuDCOperatingMode";
-            this.cxtMnuDCOperatingMode.Size = new System.Drawing.Size(164, 22);
-            this.cxtMnuDCOperatingMode.Text = "Chế độ vận hành";
-            this.cxtMnuDCOperatingMode.Click += new System.EventHandler(this.cxtMnuDCOperatingMode_Click);
-            // 
-            // cxtRemoveLineDrawn
-            // 
-            this.cxtRemoveLineDrawn.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.xóaLineNàyToolStripMenuItem});
-            this.cxtRemoveLineDrawn.Name = "cxtRemoveLineDrawn";
-            this.cxtRemoveLineDrawn.Size = new System.Drawing.Size(145, 26);
-            // 
-            // xóaLineNàyToolStripMenuItem
-            // 
-            this.xóaLineNàyToolStripMenuItem.Name = "xóaLineNàyToolStripMenuItem";
-            this.xóaLineNàyToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.xóaLineNàyToolStripMenuItem.Text = "Xóa Line này ";
-            this.xóaLineNàyToolStripMenuItem.Click += new System.EventHandler(this.xóaLineNàyToolStripMenuItem_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.ImageIndex = 2;
-            this.btnSave.ImageList = this.imgListIconMnuStrip;
-            this.btnSave.Location = new System.Drawing.Point(95, 32);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(30, 30);
-            this.btnSave.TabIndex = 0;
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.mnuFileSave_Click);
-            // 
-            // btnOpen
-            // 
-            this.btnOpen.ImageIndex = 1;
-            this.btnOpen.ImageList = this.imgListIconMnuStrip;
-            this.btnOpen.Location = new System.Drawing.Point(52, 32);
-            this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(30, 30);
-            this.btnOpen.TabIndex = 0;
-            this.btnOpen.UseVisualStyleBackColor = true;
-            this.btnOpen.Click += new System.EventHandler(this.mnuFileOpen_Click);
-            // 
-            // btnNewFile
-            // 
-            this.btnNewFile.ImageIndex = 0;
-            this.btnNewFile.ImageList = this.imgListIconMnuStrip;
-            this.btnNewFile.Location = new System.Drawing.Point(9, 32);
-            this.btnNewFile.Name = "btnNewFile";
-            this.btnNewFile.Size = new System.Drawing.Size(30, 30);
-            this.btnNewFile.TabIndex = 0;
-            this.btnNewFile.UseVisualStyleBackColor = true;
-            this.btnNewFile.Click += new System.EventHandler(this.mnuFileNew_Click);
-            // 
-            // mnuStripHelpUseSW
-            // 
-            this.mnuStripHelpUseSW.Name = "mnuStripHelpUseSW";
-            this.mnuStripHelpUseSW.Size = new System.Drawing.Size(232, 22);
-            this.mnuStripHelpUseSW.Text = "Cách sử dụng Phần mềm";
-            this.mnuStripHelpUseSW.Click += new System.EventHandler(this.mnuStripHelpUseSW_Click);
-            // 
-            // pnlMain
-            // 
-            this.pnlMain.AllowDrop = true;
-            this.pnlMain.AutoScroll = true;
-            this.pnlMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.pnlMain.BackColor = System.Drawing.Color.White;
-            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMain.Location = new System.Drawing.Point(176, 71);
-            this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(786, 689);
-            this.pnlMain.TabIndex = 3;
-            this.pnlMain.TabStop = true;
-            this.pnlMain.ZoomFactor = 1D;
-            this.pnlMain.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragDrop);
-            this.pnlMain.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragEnter);
-            this.pnlMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlMain_MouseDown);
-            // 
             // btnBusPower_Hor
             // 
             this.btnBusPower_Hor.BackColor = System.Drawing.Color.Transparent;
@@ -414,6 +313,23 @@ namespace Experimential_Software
             this.btnBusPower_Hor.TabIndex = 0;
             this.btnBusPower_Hor.UseVisualStyleBackColor = false;
             this.btnBusPower_Hor.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnBusPower_MouseDown);
+            // 
+            // imgListTool
+            // 
+            this.imgListTool.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListTool.ImageStream")));
+            this.imgListTool.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgListTool.Images.SetKeyName(0, "BUS_Tool.png");
+            this.imgListTool.Images.SetKeyName(1, "MF_Tool.png");
+            this.imgListTool.Images.SetKeyName(2, "MBA2_Tool.png");
+            this.imgListTool.Images.SetKeyName(3, "MBA3P_Tool.png");
+            this.imgListTool.Images.SetKeyName(4, "Line_Tool.png");
+            this.imgListTool.Images.SetKeyName(5, "Load_Tool.png");
+            this.imgListTool.Images.SetKeyName(6, "BUS.png");
+            this.imgListTool.Images.SetKeyName(7, "MF.png");
+            this.imgListTool.Images.SetKeyName(8, "mba 2 cuộn dây.png");
+            this.imgListTool.Images.SetKeyName(9, "MBA3P_Tool.png");
+            this.imgListTool.Images.SetKeyName(10, "Tranmisson line1.png");
+            this.imgListTool.Images.SetKeyName(11, "Load_Tool.png");
             // 
             // btnBusPower_Ver
             // 
@@ -716,6 +632,80 @@ namespace Experimential_Software
             this.btnLoad_Ver.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.btnLoad_Ver.UseVisualStyleBackColor = false;
             this.btnLoad_Ver.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLoad_MouseDown);
+            // 
+            // imgListEPower
+            // 
+            this.imgListEPower.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imgListEPower.ImageStream")));
+            this.imgListEPower.TransparentColor = System.Drawing.Color.Transparent;
+            this.imgListEPower.Images.SetKeyName(0, "imgNoType.png");
+            this.imgListEPower.Images.SetKeyName(1, "Bus_Spawn.png");
+            this.imgListEPower.Images.SetKeyName(2, "MF.png");
+            this.imgListEPower.Images.SetKeyName(3, "MBA2P_Spawn.png");
+            this.imgListEPower.Images.SetKeyName(4, "MBA 3 cuộn dây-export.png");
+            this.imgListEPower.Images.SetKeyName(5, "Line .png");
+            this.imgListEPower.Images.SetKeyName(6, "Load_EPower.png");
+            // 
+            // cxtMenuStripEPower
+            // 
+            this.cxtMenuStripEPower.ImageScalingSize = new System.Drawing.Size(30, 30);
+            this.cxtMenuStripEPower.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cxtMnuDCDominationDia,
+            this.cxtMnuDCDrawnCurve});
+            this.cxtMenuStripEPower.Name = "cxttMenuStripEPower";
+            this.cxtMenuStripEPower.Size = new System.Drawing.Size(266, 48);
+            // 
+            // cxtMnuDCDominationDia
+            // 
+            this.cxtMnuDCDominationDia.Name = "cxtMnuDCDominationDia";
+            this.cxtMnuDCDominationDia.Size = new System.Drawing.Size(265, 22);
+            this.cxtMnuDCDominationDia.Text = "Tính đẳng trị sơ đồ về thanh cái này ";
+            this.cxtMnuDCDominationDia.Click += new System.EventHandler(this.cxtMnuDCDominationDia_Click);
+            // 
+            // cxtMnuDCDrawnCurve
+            // 
+            this.cxtMnuDCDrawnCurve.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cxtMnuDCOperatingMode});
+            this.cxtMnuDCDrawnCurve.Name = "cxtMnuDCDrawnCurve";
+            this.cxtMnuDCDrawnCurve.Size = new System.Drawing.Size(265, 22);
+            this.cxtMnuDCDrawnCurve.Text = "Vẽ miền làm việc ổn định";
+            // 
+            // cxtMnuDCOperatingMode
+            // 
+            this.cxtMnuDCOperatingMode.Name = "cxtMnuDCOperatingMode";
+            this.cxtMnuDCOperatingMode.Size = new System.Drawing.Size(164, 22);
+            this.cxtMnuDCOperatingMode.Text = "Chế độ vận hành";
+            this.cxtMnuDCOperatingMode.Click += new System.EventHandler(this.cxtMnuDCOperatingMode_Click);
+            // 
+            // cxtRemoveLineDrawn
+            // 
+            this.cxtRemoveLineDrawn.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.xóaLineNàyToolStripMenuItem});
+            this.cxtRemoveLineDrawn.Name = "cxtRemoveLineDrawn";
+            this.cxtRemoveLineDrawn.Size = new System.Drawing.Size(145, 26);
+            // 
+            // xóaLineNàyToolStripMenuItem
+            // 
+            this.xóaLineNàyToolStripMenuItem.Name = "xóaLineNàyToolStripMenuItem";
+            this.xóaLineNàyToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.xóaLineNàyToolStripMenuItem.Text = "Xóa Line này ";
+            this.xóaLineNàyToolStripMenuItem.Click += new System.EventHandler(this.xóaLineNàyToolStripMenuItem_Click);
+            // 
+            // pnlMain
+            // 
+            this.pnlMain.AllowDrop = true;
+            this.pnlMain.AutoScroll = true;
+            this.pnlMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.pnlMain.BackColor = System.Drawing.Color.White;
+            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMain.Location = new System.Drawing.Point(176, 71);
+            this.pnlMain.Name = "pnlMain";
+            this.pnlMain.Size = new System.Drawing.Size(786, 689);
+            this.pnlMain.TabIndex = 3;
+            this.pnlMain.TabStop = true;
+            this.pnlMain.ZoomFactor = 1D;
+            this.pnlMain.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragDrop);
+            this.pnlMain.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragEnter);
+            this.pnlMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlMain_MouseDown);
             // 
             // frmCapstone
             // 

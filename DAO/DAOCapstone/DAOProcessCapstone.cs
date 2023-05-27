@@ -36,7 +36,6 @@ namespace Experimential_Software.DAO.DAOCapstone
             return pointPreB;
         }
 
-
         protected virtual Point CalculatePosMouseWhenZoom(double zoomFactor, Point pointCurrentA, Point pointPreA)
         {
             int xM = (int)(((double)pointCurrentA.X - pointPreA.X * zoomFactor) / (1 - zoomFactor));
@@ -56,17 +55,46 @@ namespace Experimential_Software.DAO.DAOCapstone
         }
 
 
-        //Get Path
-        public virtual string GetPathChildFolder(string appDirectory, string childFolderName)
+        #region Tree_View
+        public virtual void GetNodeFolderChildInFolderOrigin(string folderPath, TreeNode parentNode)
         {
-            //Creat Parent Folder
-            string parentDirectory = appDirectory;
-            string subDirectory = childFolderName;
+            string[] directories = Directory.GetDirectories(folderPath); // lấy danh sách các thư mục con
+            if (directories.Length == 0)
+            {
+                this.AddNodeDatabaseOnTreeView(folderPath, parentNode);
+                return;
+            }
 
-            // Kết hợp đường dẫn của thư mục cha và tên thư mục con
-            string fullPath = Path.Combine(parentDirectory, subDirectory);
+            foreach (string directory in directories)
+            {
+                TreeNode node = new TreeNode(Path.GetFileName(directory)); // tạo một nút mới với tên là tên thư mục
+                parentNode.Nodes.Add(node); // thêm nút con vào nút cha
+                node.ImageIndex = 3;
+                node.SelectedImageIndex = 3;
 
-            return fullPath;
+                this.GetNodeFolderChildInFolderOrigin(directory, node); // load thư mục con của thư mục hiện tại
+            }
         }
+
+        protected void AddNodeDatabaseOnTreeView(string folderPath, TreeNode parentNode)
+        {
+            // Tạo đối tượng DirectoryInfo để truy cập vào thư mục
+            DirectoryInfo folder = new DirectoryInfo(folderPath);
+
+            // Lấy danh sách các tệp tin txt
+            FileInfo[] files = folder.GetFiles("*.txt");
+
+            // Duyệt danh sách tệp tin và thêm chúng vào TreeView
+            foreach (FileInfo file in files)
+            {
+                // Tạo một TreeNode mới với tên là tên tệp tin
+                TreeNode node = new TreeNode(file.Name);
+
+                parentNode.Nodes.Add(node); // thêm file Database con vào nút cha
+                node.ImageIndex = 4;
+                node.SelectedImageIndex = 4;
+            }
+        }
+        #endregion Tree_View
     }
 }

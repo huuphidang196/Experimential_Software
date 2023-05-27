@@ -21,7 +21,7 @@ namespace Experimential_Software.DAO.DAOProcessTreeView
 
         public virtual string GetPathOpenFileOnTreeView(string pathOri, TreeNode selectedNode)
         {
-            int posSeperate = pathOri.LastIndexOf('/');
+            int posSeperate = pathOri.LastIndexOf('\\');
             string nameNodeOri = pathOri.Substring(0, posSeperate + 1);
 
             string pathFile = Path.Combine(nameNodeOri, this.ProcessGetPathFileDatabase(selectedNode));

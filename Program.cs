@@ -23,7 +23,8 @@ namespace Experimential_Software
             //Application.Run(new frmDataGenerator());
             //Application.Run(new frmDataMBA2());
             //Application.Run(new frmSystemIsoval());
-           // Application.Run(new frmDataMBA3());
+            // Application.Run(new frmDataMBA3());
+            // Application.Run(new frmDrawnCurve());
         }
     }
 }

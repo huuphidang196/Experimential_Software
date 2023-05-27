@@ -22,6 +22,7 @@ using System.Numerics;
 using System.IO;
 using Experimential_Software.DAO.DAOCapstone;
 using System.Reflection;
+using Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath;
 
 namespace Experimential_Software
 {
@@ -99,7 +100,7 @@ namespace Experimential_Software
         protected virtual void LoadDataTreeView()
         {
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            this._folderSaved_Path = this.CreatFolderSave(appDirectory);
+            this._folderSaved_Path = DAOGeneratePathFolder.Instance.CreatFolderSave(appDirectory);
 
             this.tvDataSaved.Nodes.Clear();
             int posSeperate = this._folderSaved_Path.LastIndexOf('\\');
@@ -110,75 +111,14 @@ namespace Experimential_Software
             nodeParentOri.SelectedImageIndex = 3;
 
             //Add Child Nodes 
-            this.GetNodeFolderChildInFolderOrigin(this._folderSaved_Path, nodeParentOri);
+            DAOProcessCapstone.Instance.GetNodeFolderChildInFolderOrigin(this._folderSaved_Path, nodeParentOri);
             //Expand tree view
             // Tìm node gốc
             TreeNode rootNode = this.tvDataSaved.Nodes[0];
             if (rootNode != null) rootNode.ExpandAll();
 
         }
-
-        protected virtual string CreatFolderSave(string appDirectory)
-        {
-            //Creat Parent Folder
-            string subDirectory = "Curve_SoftWare";
-            // Kết hợp đường dẫn của thư mục cha và tên thư mục con
-            string fullPathSW = DAOProcessCapstone.Instance.GetPathChildFolder(appDirectory, subDirectory);
-
-            // Kiểm tra xem thư mục con đã tồn tại chưa
-            if (!Directory.Exists(fullPathSW)) Directory.CreateDirectory(fullPathSW);
-
-            string treeFolderName = "TreeDataSaved";
-            string fullPathTree = DAOProcessCapstone.Instance.GetPathChildFolder(fullPathSW, treeFolderName);
-
-            // Kiểm tra xem thư mục con đã tồn tại chưa
-            if (Directory.Exists(fullPathTree)) return fullPathTree;
-            // Tạo thư mục con
-            Directory.CreateDirectory(fullPathTree);
-            return fullPathTree;
-        }
-
-        protected virtual void GetNodeFolderChildInFolderOrigin(string folderPath, TreeNode parentNode)
-        {
-            string[] directories = Directory.GetDirectories(folderPath); // lấy danh sách các thư mục con
-            if (directories.Length == 0)
-            {
-                this.AddNodeDatabaseOnTreeView(folderPath, parentNode);
-                return;
-            }
-
-            foreach (string directory in directories)
-            {
-                TreeNode node = new TreeNode(Path.GetFileName(directory)); // tạo một nút mới với tên là tên thư mục
-                parentNode.Nodes.Add(node); // thêm nút con vào nút cha
-                node.ImageIndex = 3;
-                node.SelectedImageIndex = 3;
-
-                this.GetNodeFolderChildInFolderOrigin(directory, node); // load thư mục con của thư mục hiện tại
-            }
-        }
-
-        protected void AddNodeDatabaseOnTreeView(string folderPath, TreeNode parentNode)
-        {
-            // Tạo đối tượng DirectoryInfo để truy cập vào thư mục
-            DirectoryInfo folder = new DirectoryInfo(folderPath);
-
-            // Lấy danh sách các tệp tin txt
-            FileInfo[] files = folder.GetFiles("*.txt");
-
-            // Duyệt danh sách tệp tin và thêm chúng vào TreeView
-            foreach (FileInfo file in files)
-            {
-                // Tạo một TreeNode mới với tên là tên tệp tin
-                TreeNode node = new TreeNode(file.Name);
-
-                parentNode.Nodes.Add(node); // thêm file Database con vào nút cha
-                node.ImageIndex = 4;
-                node.SelectedImageIndex = 4;
-            }
-        }
-
-
+    
         private void tvDataSaved_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             TreeNode selectedNode = e.Node;
@@ -493,9 +433,6 @@ namespace Experimential_Software
             pnlMain.Controls.Add(ctrlInstance);
             ctrlInstance.BringToFront();
 
-            //Add Func Context MenuStrip
-            // ctrlInstance.MouseUp += CtrlInstance_ClickContextMenuStrip;
-
         }
         //ybus. Ystate
         private void cxtMnuDCDominationDia_Click(object sender, EventArgs e)
@@ -536,7 +473,6 @@ namespace Experimential_Software
         //openFile
         private void mnuFileOpen_Click(object sender, EventArgs e)
         {
-            // this._processMnuFile.FunctionMnuFileOpen_Click(sender, e);
             //not use treeview => null path
             this.OpenDatabaseFormSave("");
 
@@ -569,33 +505,6 @@ namespace Experimential_Software
         }
 
         #endregion MenuStrip
-
-        //Experimental CalculateYstate
-        private void lblLine_MouseDown(object sender, MouseEventArgs e)
-        {
-            Complex[,] Y_state = DAOGenerateYState.Instance.CalculateMatrixYState(this._ePowers);
-
-            Label lblYState = new Label();
-            lblYState.AutoSize = true;
-            pnlMain.Controls.Add(lblYState);
-            lblYState.Location = new Point(50, 50);
-            lblYState.Font = new Font("Sans-serif", 10, FontStyle.Regular);
-
-            string s = "";
-            for (int i = 0; i < Y_state.GetLength(0); i++)
-            {
-                s += "Bus " + (i + 1);
-                for (int j = 0; j < Y_state.GetLength(1); j++)
-                {
-                    s += Y_state[i, j] + new string(' ', 10);
-                }
-                s += "\n";
-            }
-            lblYState.Text = s;
-
-        }
-
-
     }
 }
 
