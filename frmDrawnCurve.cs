@@ -110,7 +110,7 @@ namespace Experimential_Software
 
         #endregion Form_Load
 
-        #region Picture_Box
+        #region Picture_Box_Wise
         private void pictureBox1_Paint(object sender, PaintEventArgs e)
         {
             Graphics g = e.Graphics;
@@ -167,7 +167,7 @@ namespace Experimential_Software
             g.FillPolygon(Brushes.Orange, squarePoints);
 
         }
-        #endregion Picture_Box
+        #endregion Picture_Box_Wise
 
         #region Button_Reset_Event
 
@@ -477,15 +477,16 @@ namespace Experimential_Software
             // Lưu ảnh snip vào đường dẫn chỉ định
             string savePath = DAOGeneratePathFolder.Instance.CreatFolderLibraryImageDrawnCurve();
 
-            int numberBus = this._busLoadExamined.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber - 100 * (int)ObjectType.Bus;
-            string fileName = "Bus_" + numberBus.ToString("D2") + "_Drawn" + int.Parse(this.txtCountCurve.Text) + "Curve.jpg"; // Tên tệp tin muốn lưu
-
+            //Open Form Name Image
+            frmNameImagePrint frmNameImage = new frmNameImagePrint();
+            frmNameImage.ShowDialog();
+            string fileName = (frmNameImage.DialogResult == DialogResult.OK) ? frmNameImage.NameImage + ".jpg" : "Image_Drawn" + int.Parse(this.txtCountCurve.Text) + "Curve.jpg";
             string filePath = Path.Combine(savePath, fileName); // Kết hợp đường dẫn thư mục và tên tệp tin
 
             snipBitmap.Save(filePath); // Lưu đối tượng Image vào đường dẫn đã xác định
 
             // Hiển thị thông báo khi hoàn tất snip ảnh
-            MessageBox.Show("Save Success!");
+            MessageBox.Show("Save Image " + fileName + " Success!");
             DialogResult = DialogResult.Yes;
         }
 

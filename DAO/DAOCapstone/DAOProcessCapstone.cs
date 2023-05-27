@@ -81,9 +81,20 @@ namespace Experimential_Software.DAO.DAOCapstone
             // Tạo đối tượng DirectoryInfo để truy cập vào thư mục
             DirectoryInfo folder = new DirectoryInfo(folderPath);
 
+            int indexImage = 4;
             // Lấy danh sách các tệp tin txt
             FileInfo[] files = folder.GetFiles("*.txt");
+            if (files.Length == 0)
+            {
+                files = folder.GetFiles("*.jpg");
+                indexImage = 5;
+            }
+            this.AddNodeByFileInFo(files, parentNode, indexImage);
+          
+        }
 
+        protected virtual void AddNodeByFileInFo(FileInfo[] files, TreeNode parentNode, int numberImage)
+        {
             // Duyệt danh sách tệp tin và thêm chúng vào TreeView
             foreach (FileInfo file in files)
             {
@@ -91,8 +102,8 @@ namespace Experimential_Software.DAO.DAOCapstone
                 TreeNode node = new TreeNode(file.Name);
 
                 parentNode.Nodes.Add(node); // thêm file Database con vào nút cha
-                node.ImageIndex = 4;
-                node.SelectedImageIndex = 4;
+                node.ImageIndex = numberImage;
+                node.SelectedImageIndex = numberImage;
             }
         }
         #endregion Tree_View

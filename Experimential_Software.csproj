@@ -230,6 +230,18 @@
     <Compile Include="frmHelpForm.Designer.cs">
       <DependentUpon>frmHelpForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmNameImagePrint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNameImagePrint.Designer.cs">
+      <DependentUpon>frmNameImagePrint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmOpenImageFromTreeView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOpenImageFromTreeView.Designer.cs">
+      <DependentUpon>frmOpenImageFromTreeView.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSystemIsoval.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -281,6 +293,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmHelpForm.resx">
       <DependentUpon>frmHelpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmNameImagePrint.resx">
+      <DependentUpon>frmNameImagePrint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOpenImageFromTreeView.resx">
+      <DependentUpon>frmOpenImageFromTreeView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmSystemIsoval.resx">
       <DependentUpon>frmSystemIsoval.cs</DependentUpon>

@@ -108,7 +108,7 @@ namespace Experimential_Software
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 19.6868F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 80.3132F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(275, 618);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1168, 618);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // pnlinfoLoad
@@ -276,7 +276,7 @@ namespace Experimential_Software
             this.pnlOverall.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlOverall.Location = new System.Drawing.Point(0, 0);
             this.pnlOverall.Name = "pnlOverall";
-            this.pnlOverall.Size = new System.Drawing.Size(184, 491);
+            this.pnlOverall.Size = new System.Drawing.Size(801, 491);
             this.pnlOverall.TabIndex = 0;
             // 
             // pnlTop

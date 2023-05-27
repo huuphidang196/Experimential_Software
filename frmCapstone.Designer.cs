@@ -32,6 +32,7 @@ namespace Experimential_Software
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCapstone));
             this.panel2 = new System.Windows.Forms.Panel();
+            this.lblZoomFactor = new System.Windows.Forms.Label();
             this.btnSave = new System.Windows.Forms.Button();
             this.imgListIconMnuStrip = new System.Windows.Forms.ImageList(this.components);
             this.btnOpen = new System.Windows.Forms.Button();
@@ -72,7 +73,6 @@ namespace Experimential_Software
             this.btnLinePower_Ver = new Experimential_Software.ConnectableE();
             this.btnLoad_Hor = new Experimential_Software.ConnectableE();
             this.btnLoad_Ver = new Experimential_Software.ConnectableE();
-            this.lblZoomFactor = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             this.mnuStripBar.SuspendLayout();
             this.pnlTreeView.SuspendLayout();
@@ -96,6 +96,16 @@ namespace Experimential_Software
             this.panel2.Size = new System.Drawing.Size(1085, 71);
             this.panel2.TabIndex = 1;
             // 
+            // lblZoomFactor
+            // 
+            this.lblZoomFactor.AutoSize = true;
+            this.lblZoomFactor.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblZoomFactor.Location = new System.Drawing.Point(959, 39);
+            this.lblZoomFactor.Name = "lblZoomFactor";
+            this.lblZoomFactor.Size = new System.Drawing.Size(48, 17);
+            this.lblZoomFactor.TabIndex = 4;
+            this.lblZoomFactor.Text = "Zoom";
+            // 
             // btnSave
             // 
             this.btnSave.ImageIndex = 2;
@@ -116,6 +126,7 @@ namespace Experimential_Software
             this.imgListIconMnuStrip.Images.SetKeyName(2, "icon_SaveFile.png");
             this.imgListIconMnuStrip.Images.SetKeyName(3, "FolderIcon.png");
             this.imgListIconMnuStrip.Images.SetKeyName(4, "Text_Icon.png");
+            this.imgListIconMnuStrip.Images.SetKeyName(5, "Image_Icon.png");
             // 
             // btnOpen
             // 
@@ -705,16 +716,6 @@ namespace Experimential_Software
             this.btnLoad_Ver.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             this.btnLoad_Ver.UseVisualStyleBackColor = false;
             this.btnLoad_Ver.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnLoad_MouseDown);
-            // 
-            // lblZoomFactor
-            // 
-            this.lblZoomFactor.AutoSize = true;
-            this.lblZoomFactor.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblZoomFactor.Location = new System.Drawing.Point(959, 39);
-            this.lblZoomFactor.Name = "lblZoomFactor";
-            this.lblZoomFactor.Size = new System.Drawing.Size(48, 17);
-            this.lblZoomFactor.TabIndex = 4;
-            this.lblZoomFactor.Text = "Zoom";
             // 
             // frmCapstone
             // 

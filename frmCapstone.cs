@@ -121,12 +121,22 @@ namespace Experimential_Software
         private void tvDataSaved_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             TreeNode selectedNode = e.Node;
-            if (!selectedNode.Text.Contains("txt")) return;
+            if (!selectedNode.Text.Contains("txt") && !selectedNode.Text.Contains("jpg")) return;
 
             string pathFile = DAOProcessTreeView.Instance.GetPathOpenFileOnTreeView(this._folderSaved_Path, selectedNode);
+            
+            if (selectedNode.Text.Contains("txt"))
+            {
+                //not use treeview => null path
+                this.OpenDatabaseFormSave(pathFile);
+                return;
+            }
 
-            //not use treeview => null path
-            this.OpenDatabaseFormSave(pathFile);
+            //Open Form Picture
+            frmOpenImageFromTreeView frmPicture = new frmOpenImageFromTreeView();
+            frmPicture.Text = selectedNode.Text;
+            frmPicture.ImgPrinted = Image.FromFile(pathFile);
+            frmPicture.Show();
 
         }
 
