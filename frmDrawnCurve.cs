@@ -486,6 +486,7 @@ namespace Experimential_Software
 
             // Hiển thị thông báo khi hoàn tất snip ảnh
             MessageBox.Show("Save Success!");
+            DialogResult = DialogResult.Yes;
         }
 
         #endregion Print_Click

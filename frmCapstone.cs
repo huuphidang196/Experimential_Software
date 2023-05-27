@@ -68,7 +68,7 @@ namespace Experimential_Software
             this.LoadDataTreeView();
 
             this.pnlMain.PanelMainMouse.FrmCapstone = this;
-            this.lblLine.Text = "Zoom = " + this.pnlMain.ZoomFactor;
+            this.lblZoomFactor.Text = "Zoom = " + this.pnlMain.ZoomFactor;
         }
 
         #region Load_Form
@@ -101,7 +101,6 @@ namespace Experimential_Software
         {
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
             this._folderSaved_Path = DAOGeneratePathFolder.Instance.CreatFolderSave(appDirectory);
-
             this.tvDataSaved.Nodes.Clear();
             int posSeperate = this._folderSaved_Path.LastIndexOf('\\');
             string nameNodeOri = this._folderSaved_Path.Substring(posSeperate + 1);
@@ -451,7 +450,9 @@ namespace Experimential_Software
             frmDrawnCurve.AllEPowers = this._ePowers;
             frmDrawnCurve.BusLoadExamnined = this._ePowers.Find(x => x.IsSelected);
             // MessageBox.Show("MVA = " + this._dtoPowerSystem.PowreBase_S_MVA + ", Frequency = " + this._dtoPowerSystem.Frequency_System_Hz);
-            frmDrawnCurve.Show();
+            frmDrawnCurve.ShowDialog();
+
+            if (frmDrawnCurve.DialogResult == DialogResult.Yes) this.LoadDataTreeView();
         }
 
 
@@ -467,7 +468,7 @@ namespace Experimential_Software
             this.OpenFormSetBaseMVA();
             this._zoomFactor = 1;
             this.pnlMain.ZoomFactor = 1;
-            this.lblLine.Text = "Zoom = " + this.pnlMain.ZoomFactor;
+            this.lblZoomFactor.Text = "Zoom = " + this.pnlMain.ZoomFactor;
         }
 
         //openFile
@@ -482,7 +483,7 @@ namespace Experimential_Software
         {
             DAOProcessMenuFileStrip.Instance.FunctionMnuFileOpen_Click(this, path);
             this._zoomFactor = pnlMain.ZoomFactor;
-            this.lblLine.Text = "Zoom = " + this.pnlMain.ZoomFactor;
+            this.lblZoomFactor.Text = "Zoom = " + this.pnlMain.ZoomFactor;
             //Drawn Line On Panel Main After Have Info Line
             this.DrawAllLineOnPanel();
         }

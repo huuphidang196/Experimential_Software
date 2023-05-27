@@ -25,7 +25,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath
             // Initialize SoundPlayer
             string pathLibrary = this.GetPathLibrary();
             // Kết hợp đường dẫn của thư mục cha và tên thư mục con
-            string SoundName = "LibrarySound/Sound_Completed.wav";
+            string SoundName = "Library Sound/Sound_Completed.wav";
             string fullPathSound = this.GetPathChildFolder(pathLibrary, SoundName);
 
             return fullPathSound;
@@ -36,7 +36,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath
         {
             // Initialize SoundPlayer
             string pathLibrary = this.GetPathLibrary();
-            string nameFolder_Image = "Image_Curve_Print";
+            string nameFolder_Image = "Image Curve Print";
             //Path of Folder Image
             string pathLibImageCur = this.GetPathChildFolder(pathLibrary, nameFolder_Image);
 
@@ -54,14 +54,14 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath
             // Kiểm tra xem thư mục con đã tồn tại chưa
             if (!Directory.Exists(pathLibrary)) Directory.CreateDirectory(pathLibrary);
 
-            string treeFolderName = "TreeDataSaved";
+            string treeFolderName = "Tree Data Saved";
             string fullPathTree = this.GetPathChildFolder(pathLibrary, treeFolderName);
 
             // Kiểm tra xem thư mục con đã tồn tại chưa
-            if (Directory.Exists(fullPathTree)) return fullPathTree;
+            if (Directory.Exists(fullPathTree)) return pathLibrary;
             // Tạo thư mục con
             Directory.CreateDirectory(fullPathTree);
-            return fullPathTree;
+            return pathLibrary;
         }
 
 

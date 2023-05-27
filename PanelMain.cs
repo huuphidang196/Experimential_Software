@@ -61,7 +61,7 @@ namespace Experimential_Software
             this._zoomFactor = Math.Max(this._zoomFactor, this._minZoom);
             this._zoomFactor = Math.Min(this._zoomFactor, this._maxZooom);
 
-            this._pnlMainMouse.FrmCapstone.lblLine.Text = "zoom = " + this._zoomFactor;
+            this._pnlMainMouse.FrmCapstone.lblZoomFactor.Text = "zoom = " + this._zoomFactor;
 
             if (this._zoomFactor == this._minZoom || this._zoomFactor == this._maxZooom) return;
 
