@@ -25,6 +25,7 @@ namespace Experimential_Software
             //Application.Run(new frmSystemIsoval());
             // Application.Run(new frmDataMBA3());
             // Application.Run(new frmDrawnCurve());
+            //Application.Run(new frmPrintDataBase());
         }
     }
 }

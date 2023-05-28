@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="dsIEEE9Bus" targetNamespace="http://tempuri.org/dsIEEE9Bus.xsd" xmlns:mstns="http://tempuri.org/dsIEEE9Bus.xsd" xmlns="http://tempuri.org/dsIEEE9Bus.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="dsIEEE9Bus" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="dsIEEE9Bus" msprop:Generator_UserDSName="dsIEEE9Bus">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="DataLoadMF" msprop:Generator_TableClassName="DataLoadMFDataTable" msprop:Generator_TableVarName="tableDataLoadMF" msprop:Generator_RowChangedName="DataLoadMFRowChanged" msprop:Generator_TablePropName="DataLoadMF" msprop:Generator_RowDeletingName="DataLoadMFRowDeleting" msprop:Generator_RowChangingName="DataLoadMFRowChanging" msprop:Generator_RowEvHandlerName="DataLoadMFRowChangeEventHandler" msprop:Generator_RowDeletedName="DataLoadMFRowDeleted" msprop:Generator_RowClassName="DataLoadMFRow" msprop:Generator_UserTableName="DataLoadMF" msprop:Generator_RowEvArgName="DataLoadMFRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Bus" msprop:Generator_ColumnVarNameInTable="columnBus" msprop:Generator_ColumnPropNameInRow="Bus" msprop:Generator_ColumnPropNameInTable="BusColumn" msprop:Generator_UserColumnName="Bus" type="xs:int" minOccurs="0" />
+              <xs:element name="Pf" msprop:Generator_ColumnVarNameInTable="columnPf" msprop:Generator_ColumnPropNameInRow="Pf" msprop:Generator_ColumnPropNameInTable="PfColumn" msprop:Generator_UserColumnName="Pf" type="xs:double" minOccurs="0" />
+              <xs:element name="Qfmin" msprop:Generator_ColumnVarNameInTable="columnQfmin" msprop:Generator_ColumnPropNameInRow="Qfmin" msprop:Generator_ColumnPropNameInTable="QfminColumn" msprop:Generator_UserColumnName="Qfmin" type="xs:double" minOccurs="0" />
+              <xs:element name="Qfmax" msprop:Generator_ColumnVarNameInTable="columnQfmax" msprop:Generator_ColumnPropNameInRow="Qfmax" msprop:Generator_ColumnPropNameInTable="QfmaxColumn" msprop:Generator_UserColumnName="Qfmax" type="xs:double" minOccurs="0" />
+              <xs:element name="PLoad" msprop:Generator_ColumnVarNameInTable="columnPLoad" msprop:Generator_ColumnPropNameInRow="PLoad" msprop:Generator_ColumnPropNameInTable="PLoadColumn" msprop:Generator_UserColumnName="PLoad" type="xs:double" minOccurs="0" />
+              <xs:element name="QLoad" msprop:Generator_ColumnVarNameInTable="columnQLoad" msprop:Generator_ColumnPropNameInRow="QLoad" msprop:Generator_ColumnPropNameInTable="QLoadColumn" msprop:Generator_UserColumnName="QLoad" type="xs:double" minOccurs="0" />
+              <xs:element name="U" msprop:Generator_ColumnVarNameInTable="columnU" msprop:Generator_ColumnPropNameInRow="U" msprop:Generator_ColumnPropNameInTable="UColumn" msprop:Generator_UserColumnName="U" type="xs:double" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="DataLineMBA2P" msprop:Generator_TableClassName="DataLineMBA2PDataTable" msprop:Generator_TableVarName="tableDataLineMBA2P" msprop:Generator_TablePropName="DataLineMBA2P" msprop:Generator_RowDeletingName="DataLineMBA2PRowDeleting" msprop:Generator_RowChangingName="DataLineMBA2PRowChanging" msprop:Generator_RowEvHandlerName="DataLineMBA2PRowChangeEventHandler" msprop:Generator_RowDeletedName="DataLineMBA2PRowDeleted" msprop:Generator_UserTableName="DataLineMBA2P" msprop:Generator_RowChangedName="DataLineMBA2PRowChanged" msprop:Generator_RowEvArgName="DataLineMBA2PRowChangeEvent" msprop:Generator_RowClassName="DataLineMBA2PRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="BusFrom" msprop:Generator_ColumnVarNameInTable="columnBusFrom" msprop:Generator_ColumnPropNameInRow="BusFrom" msprop:Generator_ColumnPropNameInTable="BusFromColumn" msprop:Generator_UserColumnName="BusFrom" type="xs:int" minOccurs="0" />
+              <xs:element name="BusTo" msprop:Generator_ColumnVarNameInTable="columnBusTo" msprop:Generator_ColumnPropNameInRow="BusTo" msprop:Generator_ColumnPropNameInTable="BusToColumn" msprop:Generator_UserColumnName="BusTo" type="xs:int" minOccurs="0" />
+              <xs:element name="SpecR" msprop:Generator_ColumnVarNameInTable="columnSpecR" msprop:Generator_ColumnPropNameInRow="SpecR" msprop:Generator_ColumnPropNameInTable="SpecRColumn" msprop:Generator_UserColumnName="SpecR" type="xs:double" minOccurs="0" />
+              <xs:element name="SpecX" msprop:Generator_ColumnVarNameInTable="columnSpecX" msprop:Generator_ColumnPropNameInRow="SpecX" msprop:Generator_ColumnPropNameInTable="SpecXColumn" msprop:Generator_UserColumnName="SpecX" type="xs:double" minOccurs="0" />
+              <xs:element name="MagG" msprop:Generator_ColumnVarNameInTable="columnMagG" msprop:Generator_ColumnPropNameInRow="MagG" msprop:Generator_ColumnPropNameInTable="MagGColumn" msprop:Generator_UserColumnName="MagG" type="xs:double" minOccurs="0" />
+              <xs:element name="MagB" msprop:Generator_ColumnVarNameInTable="columnMagB" msprop:Generator_ColumnPropNameInRow="MagB" msprop:Generator_ColumnPropNameInTable="MagBColumn" msprop:Generator_UserColumnName="MagB" type="xs:double" minOccurs="0" />
+              <xs:element name="StrObjType" msprop:Generator_ColumnVarNameInTable="columnStrObjType" msprop:Generator_ColumnPropNameInRow="StrObjType" msprop:Generator_ColumnPropNameInTable="StrObjTypeColumn" msprop:Generator_UserColumnName="StrObjType" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

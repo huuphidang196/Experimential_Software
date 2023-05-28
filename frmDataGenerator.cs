@@ -83,11 +83,11 @@ namespace Experimential_Software
             this.txtPmin_MW.Text = powerMachine.Pmin_MW.ToString("F4");
 
             //Set Qgen
-            this.txtQgen_Mvar.Text = powerMachine.Qgen_MW.ToString("F4");
+            this.txtQgen_Mvar.Text = powerMachine.Qgen_Mvar.ToString("F4");
             //SetQmax
-            this.txtQmax_Mvar.Text = powerMachine.Qmax_MW.ToString("F4");
+            this.txtQmax_Mvar.Text = powerMachine.Qmax_Mvar.ToString("F4");
             //Set Qmin
-            this.txtQmin_Mvar.Text = powerMachine.Qmin_MW.ToString("F4");
+            this.txtQmin_Mvar.Text = powerMachine.Qmin_Mvar.ToString("F4");
 
             //Set Mbase => Công Suất ĐM
             this.txtMbase_MVA.Text = powerMachine.MBase.ToString("F2");
@@ -179,11 +179,11 @@ namespace Experimential_Software
             this._dtoMFRecord.PowerMachineMF.Pmin_MW = double.Parse(this.txtPmin_MW.Text);
 
             //Qgen
-            this._dtoMFRecord.PowerMachineMF.Qgen_MW = double.Parse(this.txtQgen_Mvar.Text);
+            this._dtoMFRecord.PowerMachineMF.Qgen_Mvar = double.Parse(this.txtQgen_Mvar.Text);
             //Qmax
-            this._dtoMFRecord.PowerMachineMF.Qmax_MW = double.Parse(this.txtQmax_Mvar.Text);
+            this._dtoMFRecord.PowerMachineMF.Qmax_Mvar = double.Parse(this.txtQmax_Mvar.Text);
             //Qmin
-            this._dtoMFRecord.PowerMachineMF.Qmin_MW = double.Parse(this.txtQmin_Mvar.Text);
+            this._dtoMFRecord.PowerMachineMF.Qmin_Mvar = double.Parse(this.txtQmin_Mvar.Text);
 
             //Mbase
             this._dtoMFRecord.PowerMachineMF.MBase = double.Parse(this.txtMbase_MVA.Text);

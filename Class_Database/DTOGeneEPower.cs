@@ -45,25 +45,25 @@ namespace Experimential_Software.Class_Database
             set { _pmin_MW = Math.Round(value, 4); }
         }
         //Qgen
-        private double _qgen_MW;
-        public double Qgen_MW
+        private double _qgen_Mvar;
+        public double Qgen_Mvar
         {
-            get { return _qgen_MW; }
-            set { _qgen_MW = Math.Round(value, 4); }
+            get { return _qgen_Mvar; }
+            set { _qgen_Mvar = Math.Round(value, 4); }
         }
         //Qmax
-        private double _qmax_MW;
-        public double Qmax_MW
+        private double _qmax_Mvar;
+        public double Qmax_Mvar
         {
-            get { return _qmax_MW; }
-            set { _qmax_MW = Math.Round(value, 4); }
+            get { return _qmax_Mvar; }
+            set { _qmax_Mvar = Math.Round(value, 4); }
         }
         //Qmin
-        private double _qmin_MW;
-        public double Qmin_MW
+        private double _qmin_Mvar;
+        public double Qmin_Mvar
         {
-            get { return _qmin_MW; }
-            set { _qmin_MW = Math.Round(value, 4); }
+            get { return _qmin_Mvar; }
+            set { _qmin_Mvar = Math.Round(value, 4); }
         }
 
         //Mbase => Scb system
@@ -84,11 +84,11 @@ namespace Experimential_Software.Class_Database
             this.Pmin_MW = -9999;
 
             //Set Qgen
-            this.Qgen_MW = 0;
+            this.Qgen_Mvar = 0;
             //set Qmax 
-            this.Qmax_MW = 9999;
+            this.Qmax_Mvar = 9999;
             //set Qmin 
-            this.Qmin_MW = -9999;
+            this.Qmin_Mvar = -9999;
             //set Mbase => CHT
             this.MBase = 100;
         }

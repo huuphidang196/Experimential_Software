@@ -81,6 +81,24 @@
     <Reference Include="MathNet.Symbolics, Version=0.24.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\MathNet.Symbolics.0.24.0\lib\net461\MathNet.Symbolics.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1576.0\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1576.0\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1576.0\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1576.0\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.1576.0\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
     <Reference Include="MoreLinq, Version=3.4.2.0, Culture=neutral, PublicKeyToken=384d532d7e88985d, processorArchitecture=MSIL">
       <HintPath>packages\morelinq.3.4.2\lib\net462\MoreLinq.dll</HintPath>
     </Reference>
@@ -93,11 +111,14 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.IO.Log" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -157,10 +178,20 @@
     <Compile Include="DAO\DAO_MBA3Data\DAOGeneMBA3Record.cs" />
     <Compile Include="DAO\DAO_MBA3Data\DAOUpdateImpendanceMBA3WhenChangeTap.cs" />
     <Compile Include="DAO\DAO_MBA3Data\DAOUpdateMBA3AfterConnectEnds.cs" />
+    <Compile Include="DAO\DAO_PrintData\DAOGenerateListDataForPrint.cs" />
+    <Compile Include="DAO\DAO_PrintData\DAOProcessPrintSystem.cs" />
     <Compile Include="DAO\DAO_ProcessDelete\DAO_DeleteLineConnect\DAOProcessDeleteLineConnect.cs" />
     <Compile Include="DAO\DAO_SaveAndReadPowerSystem\DAOProcessMenuFileStrip.cs" />
     <Compile Include="DAO\DAO_SaveAndReadPowerSystem\DAOReadFilePowerSystem.cs" />
     <Compile Include="DAO\DAO_SaveAndReadPowerSystem\DAOSaveFilePowerSystem.cs" />
+    <Compile Include="dsIEEE9Bus.cs">
+      <DependentUpon>dsIEEE9Bus.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="dsIEEE9Bus.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dsIEEE9Bus.xsd</DependentUpon>
+    </Compile>
     <Compile Include="EPowerProcess\EPowerProcessKey.cs" />
     <Compile Include="Class_Database\FileFactory.cs" />
     <Compile Include="frmBuildNewCase.cs">
@@ -242,6 +273,12 @@
     <Compile Include="frmOpenImageFromTreeView.Designer.cs">
       <DependentUpon>frmOpenImageFromTreeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmPrintDataBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPrintDataBase.Designer.cs">
+      <DependentUpon>frmPrintDataBase.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmSystemIsoval.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -261,6 +298,7 @@
     <Compile Include="EPowerProcess\EPowerProcessMouse.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
     <EmbeddedResource Include="frmBuildNewCase.resx">
       <DependentUpon>frmBuildNewCase.cs</DependentUpon>
     </EmbeddedResource>
@@ -300,6 +338,9 @@
     <EmbeddedResource Include="frmOpenImageFromTreeView.resx">
       <DependentUpon>frmOpenImageFromTreeView.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmPrintDataBase.resx">
+      <DependentUpon>frmPrintDataBase.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmSystemIsoval.resx">
       <DependentUpon>frmSystemIsoval.cs</DependentUpon>
     </EmbeddedResource>
@@ -313,6 +354,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="ReportIEEESystem.rdlc" />
+    <None Include="dsIEEE9Bus.xsc">
+      <DependentUpon>dsIEEE9Bus.xsd</DependentUpon>
+    </None>
+    <None Include="dsIEEE9Bus.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dsIEEE9Bus.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="dsIEEE9Bus.xss">
+      <DependentUpon>dsIEEE9Bus.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -362,6 +415,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Clock100.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

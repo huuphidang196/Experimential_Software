@@ -508,6 +508,14 @@ namespace Experimential_Software
             this.LoadDataTreeView();
         }
 
+        //Rpint System
+        private void btnPrintSystem_Click(object sender, EventArgs e)
+        {
+            frmPrintDataBase frmPrint = new frmPrintDataBase();
+            frmPrint.AllEPowers = this._ePowers;
+            frmPrint.Show();
+        }
+
         //Help how to use softWare
         private void mnuStripHelpUseSW_Click(object sender, EventArgs e)
         {
@@ -516,6 +524,8 @@ namespace Experimential_Software
         }
 
         #endregion MenuStrip
+
+      
     }
 }
 

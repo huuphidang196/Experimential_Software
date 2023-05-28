@@ -78,7 +78,7 @@ namespace Experimential_Software.Class_Database
             //Sort by ObjNumber 
             List_DTO_MF.Sort(new DTOMFComparer());
 
-            return List_DTO_MF.Select(qGK => new ReactPowerQLimit(qGK.PowerMachineMF.Qmin_MW, qGK.PowerMachineMF.Qmax_MW)).ToList();
+            return List_DTO_MF.Select(qGK => new ReactPowerQLimit(qGK.PowerMachineMF.Qmin_Mvar, qGK.PowerMachineMF.Qmax_Mvar)).ToList();
         }
      
     }
