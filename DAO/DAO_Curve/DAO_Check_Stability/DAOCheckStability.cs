@@ -49,11 +49,10 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Check_Stability
         }
         public virtual PointF? FindIntersection(Series series_Curve, PointF p1, PointF p2)
         {
-
-            for (int i = 0; i < series_Curve.Points.Count - 1; i++)
+            for (int i = series_Curve.Points.Count - 1; i > 0; i--)
             {
                 PointF p3 = new PointF((float)series_Curve.Points[i].XValue, (float)series_Curve.Points[i].YValues[0]);
-                PointF p4 = new PointF((float)series_Curve.Points[i + 1].XValue, (float)series_Curve.Points[i + 1].YValues[0]);
+                PointF p4 = new PointF((float)series_Curve.Points[i - 1].XValue, (float)series_Curve.Points[i - 1].YValues[0]);
 
                 // Sử dụng phương trình đường thẳng để kiểm tra xem hai đường thẳng có giao nhau không
                 PointF? intersection = GetIntersection(p1, p2, p3, p4);
@@ -81,8 +80,10 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Check_Stability
 
             // Kiểm tra xem điểm giao nằm trong đoạn thẳng hay không, Dối với OM thì nếu ổn đinh giao sẽ nẳm ngoài OM <=> ua > 1. <1 tức ko ổn định vì 
             //giao điểm nằm trong OM hoặc dưỡi OM tức M > limit Value
-            if (ua > 1 && ub >= 0 && ub <= 1)
+            if ( ub >= 0 && ub <= 1)
             {
+                if (ua <= 0) return null;
+
                 float intersectionX = p1.X + ua * (p2.X - p1.X);
                 float intersectionY = p1.Y + ua * (p2.Y - p1.Y);
                 return new PointF(intersectionX, intersectionY);

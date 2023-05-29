@@ -248,20 +248,31 @@ namespace Experimential_Software
         protected virtual void CheckStabilitySystem()
         {
             PointF? pSectionLimit = DAOCheckStability.Instance.FindInterSectionPQLimtOnCurve(this.chartCurveLimted.Series["Data1"], this.chartCurveLimted.Series["PointLoad"]);
-            if (pSectionLimit == null)
-            {
-                this.lblStateSystem.Text = "Hệ thống không ổn định";
-                this.lblProbilityOfInstability.Text = "Xác suất mất ổn định : 100%";
-                return;
-            }
 
             PowerSystem pointLimitOnCurve = new PowerSystem(pSectionLimit.Value.Y, pSectionLimit.Value.X);
             this.AddPointCircleOnChart(pointLimitOnCurve, "PointLoad");
 
             DataPoint pLoad = this.chartCurveLimted.Series["PointLoad"].Points[1];
-            this.lblStateSystem.Text = (pSectionLimit.Value.X == pLoad.XValue && pSectionLimit.Value.Y == pLoad.YValues[0]) ? " Hệ thống đang làm việc trên biên giới ổn định " : "Hệ thống đang làm việc ổn định";
-            this.lblProbilityOfInstability.Text = (pSectionLimit.Value.X == pLoad.XValue && pSectionLimit.Value.Y == pLoad.YValues[0]) ? "Xác suất mất ổn định : 50%" : "Xác suất mất ổn định : 0%";
-
+            string str_Stability = "Hệ thống đang làm việc ổn định";
+            string str_Probility = "Xác suất mất ổn định : 0%";
+            double _offset = pSectionLimit.Value.Y - pLoad.YValues[0];//Compare P
+            if (_offset > 0)
+            {
+                str_Stability = "Hệ thông đang làm việc ổn định";
+                str_Probility = "Xác suất mất ổn định : 0%";
+            }
+            else if (_offset == 0)
+            {
+                str_Stability = "Hệ thống đang làm việc trong vùng nguy hiểm";
+                str_Probility = "Xác suất mất ổn định : 50%";
+            }
+            else
+            {
+                str_Stability = "Hệ thống đã mất ổn định";
+                str_Probility = "Xác suất mất ổn định : 100%";
+            }
+            this.lblStateSystem.Text = str_Stability;
+            this.lblProbilityOfInstability.Text = str_Probility;
 
         }
 
@@ -286,7 +297,8 @@ namespace Experimential_Software
             DataPoint dataM0 = this.chartCurveLimted.Series["PointLoad"].Points[1];
             PowerSystem pointM0 = new PowerSystem(dataM0.YValues[0], dataM0.XValue);
             this.AddPointCircleOnChart(pointM0, "PointPQLimit");
-            this.chartCurveLimted.Series["PointPQLimit"].Points[1].Label = $"M0";
+            int numberM0 = this.chartCurveLimted.Series["PointPQLimit"].Points.Count - 1;
+            this.chartCurveLimted.Series["PointPQLimit"].Points[numberM0].Label = $"M0";
 
             //Find Pgh
             PointF? pGH_SectionLimit = DAOCheckStability.Instance.FindInterSectionPGHLimtOnCurve(this.chartCurveLimted.Series["Data1"], this.chartCurveLimted.Series["PointLoad"]);
@@ -294,11 +306,13 @@ namespace Experimential_Software
             {
                 PowerSystem pointPGHLimit = new PowerSystem(pGH_SectionLimit.Value.Y, pGH_SectionLimit.Value.X);
                 this.AddPointCircleOnChart(pointPGHLimit, "PointPQLimit");
-                this.chartCurveLimted.Series["PointPQLimit"].Points[2].Label = $"(Pgh = {pGH_SectionLimit.Value.Y})";
-
-                //Set Percent Stability
-                this.SetClockWiseStaticReserveFactor();
+                int numberPgh = this.chartCurveLimted.Series["PointPQLimit"].Points.Count - 1;
+                this.chartCurveLimted.Series["PointPQLimit"].Points[numberPgh].Label = $"(Pgh = {pGH_SectionLimit.Value.Y})";
+      
             }
+
+            //Set Percent Stability
+            this.SetClockWiseStaticReserveFactor();
         }
 
 
@@ -315,16 +329,17 @@ namespace Experimential_Software
         //Set ClockWise
         protected virtual void SetClockWiseStaticReserveFactor()
         {
-            DataPoint pointPgh = this.chartCurveLimted.Series["PointPQLimit"].Points[2];
-
+            int numberPgh = this.chartCurveLimted.Series["PointPQLimit"].Points.Count - 1;
+            DataPoint pointPgh = this.chartCurveLimted.Series["PointPQLimit"].Points[numberPgh];
             double Pgh = pointPgh.YValues[0];
 
-            DataPoint pointM0 = this.chartCurveLimted.Series["PointPQLimit"].Points[1];
-
+            int numberM0 = this.chartCurveLimted.Series["PointPQLimit"].Points.Count - 2;
+            DataPoint pointM0 = this.chartCurveLimted.Series["PointPQLimit"].Points[numberM0];
             double P0 = pointM0.YValues[0];
 
             double Percent = 100 - (P0 / Pgh) * 100;
 
+            Percent = (Percent > 0) ? Percent : 10 * this._perRotTen + Math.Abs(Percent);
             this._alpha += (float)Percent;
             this.ptbClockWise.Invalidate();
         }
@@ -357,7 +372,7 @@ namespace Experimential_Software
             this.chartCurveLimted.ChartAreas[0].AxisX.Maximum = this._maxQpre + 300;
 
             //// Thiết lập giới hạn của trục Y từ -5 đến
-            this.chartCurveLimted.ChartAreas[0].AxisY.Maximum = this._maxPpre + 400;
+            this.chartCurveLimted.ChartAreas[0].AxisY.Maximum = this._maxPpre + 300;
 
         }
 

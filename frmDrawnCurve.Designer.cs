@@ -64,10 +64,10 @@ namespace Experimential_Software
             this.label2 = new System.Windows.Forms.Label();
             this.pnlBelow = new System.Windows.Forms.Panel();
             this.pnlCharChild = new System.Windows.Forms.Panel();
+            this.chartCurveLimted = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pnlProgress = new System.Windows.Forms.Panel();
             this.lblCmdReset = new System.Windows.Forms.Label();
             this.lblProgress = new System.Windows.Forms.Label();
-            this.chartCurveLimted = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pnlListBoxPoints = new System.Windows.Forms.Panel();
             this.lstBoxExperPoint = new System.Windows.Forms.ListBox();
             this.tableLayoutPanel1.SuspendLayout();
@@ -87,8 +87,8 @@ namespace Experimential_Software
             this.groupBox1.SuspendLayout();
             this.pnlBelow.SuspendLayout();
             this.pnlCharChild.SuspendLayout();
-            this.pnlProgress.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartCurveLimted)).BeginInit();
+            this.pnlProgress.SuspendLayout();
             this.pnlListBoxPoints.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -287,7 +287,7 @@ namespace Experimential_Software
             this.pnlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTop.Location = new System.Drawing.Point(0, 0);
             this.pnlTop.Name = "pnlTop";
-            this.pnlTop.Size = new System.Drawing.Size(801, 100);
+            this.pnlTop.Size = new System.Drawing.Size(801, 107);
             this.pnlTop.TabIndex = 4;
             // 
             // panel1
@@ -298,7 +298,7 @@ namespace Experimential_Software
             this.panel1.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(559, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(240, 98);
+            this.panel1.Size = new System.Drawing.Size(240, 105);
             this.panel1.TabIndex = 1;
             // 
             // grbModeDrawn
@@ -342,7 +342,7 @@ namespace Experimential_Software
             this.pnlRamdomLeft.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.pnlRamdomLeft.Location = new System.Drawing.Point(0, 0);
             this.pnlRamdomLeft.Name = "pnlRamdomLeft";
-            this.pnlRamdomLeft.Size = new System.Drawing.Size(516, 98);
+            this.pnlRamdomLeft.Size = new System.Drawing.Size(516, 105);
             this.pnlRamdomLeft.TabIndex = 0;
             // 
             // groupBox1
@@ -417,9 +417,11 @@ namespace Experimential_Software
             // 
             // pnlBelow
             // 
+            this.pnlBelow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlBelow.Controls.Add(this.pnlCharChild);
             this.pnlBelow.Controls.Add(this.pnlListBoxPoints);
-            this.pnlBelow.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.pnlBelow.Location = new System.Drawing.Point(0, 106);
             this.pnlBelow.Name = "pnlBelow";
             this.pnlBelow.Size = new System.Drawing.Size(801, 385);
@@ -435,6 +437,25 @@ namespace Experimential_Software
             this.pnlCharChild.Name = "pnlCharChild";
             this.pnlCharChild.Size = new System.Drawing.Size(646, 385);
             this.pnlCharChild.TabIndex = 3;
+            // 
+            // chartCurveLimted
+            // 
+            this.chartCurveLimted.BackColor = System.Drawing.Color.Gainsboro;
+            this.chartCurveLimted.BorderlineColor = System.Drawing.Color.WhiteSmoke;
+            chartArea1.Name = "ChartArea1";
+            this.chartCurveLimted.ChartAreas.Add(chartArea1);
+            this.chartCurveLimted.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend1.Name = "Legend1";
+            this.chartCurveLimted.Legends.Add(legend1);
+            this.chartCurveLimted.Location = new System.Drawing.Point(0, 0);
+            this.chartCurveLimted.Name = "chartCurveLimted";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartCurveLimted.Series.Add(series1);
+            this.chartCurveLimted.Size = new System.Drawing.Size(646, 385);
+            this.chartCurveLimted.TabIndex = 1;
+            this.chartCurveLimted.Text = "Miền làm việc ổn định trong mặt phẳng công suất P-Q";
             // 
             // pnlProgress
             // 
@@ -462,25 +483,6 @@ namespace Experimential_Software
             this.lblProgress.Size = new System.Drawing.Size(170, 18);
             this.lblProgress.TabIndex = 0;
             this.lblProgress.Text = "Program is Processing ...";
-            // 
-            // chartCurveLimted
-            // 
-            this.chartCurveLimted.BackColor = System.Drawing.Color.Gainsboro;
-            this.chartCurveLimted.BorderlineColor = System.Drawing.Color.WhiteSmoke;
-            chartArea1.Name = "ChartArea1";
-            this.chartCurveLimted.ChartAreas.Add(chartArea1);
-            this.chartCurveLimted.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chartCurveLimted.Legends.Add(legend1);
-            this.chartCurveLimted.Location = new System.Drawing.Point(0, 0);
-            this.chartCurveLimted.Name = "chartCurveLimted";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartCurveLimted.Series.Add(series1);
-            this.chartCurveLimted.Size = new System.Drawing.Size(646, 385);
-            this.chartCurveLimted.TabIndex = 1;
-            this.chartCurveLimted.Text = "Miền làm việc ổn định trong mặt phẳng công suất P-Q";
             // 
             // pnlListBoxPoints
             // 
@@ -535,9 +537,9 @@ namespace Experimential_Software
             this.groupBox1.PerformLayout();
             this.pnlBelow.ResumeLayout(false);
             this.pnlCharChild.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartCurveLimted)).EndInit();
             this.pnlProgress.ResumeLayout(false);
             this.pnlProgress.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chartCurveLimted)).EndInit();
             this.pnlListBoxPoints.ResumeLayout(false);
             this.ResumeLayout(false);
 

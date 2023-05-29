@@ -24,11 +24,13 @@ namespace Experimential_Software
 
         private void frmPrintDataBase_Load(object sender, EventArgs e)
         {
-            if (this._allEPowers.Count > 0)
+            if (this._allEPowers.Count == 0)
             {
-                this.ProcessGenerateReportViewerNode();
-                this.ProcessGenerateReportViewerBranch();
+                MessageBox.Show("Bạn chưa tạo sơ đồ và nhập dữ liệu");
+                return;
             }
+            this.ProcessGenerateReportViewerNode();
+            this.ProcessGenerateReportViewerBranch();
         }
 
         //Mode
