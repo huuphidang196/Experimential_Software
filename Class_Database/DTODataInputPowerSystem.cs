@@ -12,8 +12,19 @@ namespace Experimential_Software.Class_Database
     [Serializable]
     public class PowerSystem
     {
-        public double P_ActivePower { get; set; }
-        public double Q_ReactivePower { get; set; }
+        protected double p_ActivePower;
+        public double P_ActivePower
+        {
+            get { return p_ActivePower; }
+            set { p_ActivePower = Math.Round(value, 2); }
+        }
+
+        protected double q_ReactivePower;
+        public double Q_ReactivePower
+        {
+            get { return q_ReactivePower; }
+            set { q_ReactivePower = Math.Round(value, 2); }
+        }
 
         public PowerSystem(double P_ActivePower, double Q_ReactivePower)
         {
@@ -55,7 +66,7 @@ namespace Experimential_Software.Class_Database
         {
             List<DTOBusEPower> List_DTO_Bus = this.GetListDTOBusConnectWithMF(allMF);
             this._e_AllMF = List_DTO_Bus.Select(e => e.Voltage_pu).ToList();
-           
+
             this._rad_ThetaK_All = List_DTO_Bus.Select(rad => rad.Angle_rad).ToList();
             this._q_GK_Limits = this.GetListReactPowerLimit(allMF);
 
@@ -80,7 +91,7 @@ namespace Experimential_Software.Class_Database
 
             return List_DTO_MF.Select(qGK => new ReactPowerQLimit(qGK.PowerMachineMF.Qmin_Mvar, qGK.PowerMachineMF.Qmax_Mvar)).ToList();
         }
-     
+
     }
 
     public class ReactPowerQLimit

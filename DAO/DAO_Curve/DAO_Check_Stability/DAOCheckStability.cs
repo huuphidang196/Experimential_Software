@@ -42,9 +42,9 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Check_Stability
         public virtual PointF? FindInterSectionQGHLimtOnCurve(Series series_Curve, Series Series_PointM)
         {
             //Get Intersect M' On curve
-            PointF p1 = new PointF(0, (float)Series_PointM.Points[1].YValues[0]);//Po
-            PointF p2 = new PointF((float)Series_PointM.Points[1].XValue, (float)Series_PointM.Points[1].YValues[0]);//M(P0,Q0)
-
+          //  PointF p1 = new PointF(0, (float)Series_PointM.Points[1].YValues[0]);//Po
+            PointF p1 = new PointF((float)Series_PointM.Points[1].XValue, (float)Series_PointM.Points[1].YValues[0]);//M(P0,Q0)
+            PointF p2 = new PointF((float)Series_PointM.Points[1].XValue + 0.001f, (float)Series_PointM.Points[1].YValues[0]);//M(P0,Q0)
             return this.FindIntersection(series_Curve, p1, p2);
         }
         public virtual PointF? FindIntersection(Series series_Curve, PointF p1, PointF p2)
@@ -58,7 +58,11 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Check_Stability
                 PointF? intersection = GetIntersection(p1, p2, p3, p4);
                 if (intersection.HasValue)
                 {
-                    return intersection.Value;
+                    float roundedX = (float)Math.Round(intersection.Value.X, 2);
+                    float roundedY = (float)Math.Round(intersection.Value.Y, 2);
+                    PointF? roundedIntersection = new PointF(roundedX, roundedY);
+
+                    return roundedIntersection.Value;
                 }
             }
 

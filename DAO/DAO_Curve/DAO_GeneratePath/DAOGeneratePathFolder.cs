@@ -25,7 +25,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath
             // Initialize SoundPlayer
             string pathLibrary = this.GetPathLibrary();
             // Kết hợp đường dẫn của thư mục cha và tên thư mục con
-            string SoundName = "Library Sound/Sound_Completed.wav";
+            string SoundName = "Library Sound/Sound_Completed.wav"; 
             string fullPathSound = this.GetPathChildFolder(pathLibrary, SoundName);
 
             return fullPathSound;

@@ -255,7 +255,7 @@ namespace Experimential_Software
             DataPoint pLoad = this.chartCurveLimted.Series["PointLoad"].Points[1];
             string str_Stability = "Hệ thống đang làm việc ổn định";
             string str_Probility = "Xác suất mất ổn định : 0%";
-            double _offset = pSectionLimit.Value.Y - pLoad.YValues[0];//Compare P
+            double _offset =Math.Round( pSectionLimit.Value.Y - pLoad.YValues[0], 0);//Compare P
             if (_offset > 0)
             {
                 str_Stability = "Hệ thông đang làm việc ổn định";
@@ -329,6 +329,8 @@ namespace Experimential_Software
         //Set ClockWise
         protected virtual void SetClockWiseStaticReserveFactor()
         {
+            if (this.chartCurveLimted.Series["PointPQLimit"].Points.Count < 2) return;
+
             int numberPgh = this.chartCurveLimted.Series["PointPQLimit"].Points.Count - 1;
             DataPoint pointPgh = this.chartCurveLimted.Series["PointPQLimit"].Points[numberPgh];
             double Pgh = pointPgh.YValues[0];
@@ -527,7 +529,7 @@ namespace Experimential_Software
         protected virtual void ProcessCountDrawn()
         {
             this.isOneCurve = this.chkOneCurve.Checked;
-            this.txtCountCurve.Text = (this.isOneCurve) ? "1" : "8760";
+            this.txtCountCurve.Text = (this.isOneCurve) ? "1" : "100";
             this.txtMinPer.Text = (this.isOneCurve) ? "100" : "30";
         }
 
