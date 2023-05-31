@@ -51,12 +51,20 @@ namespace Experimential_Software.DAO.DAO_LineData
             if (dtoBus_From == null || dtoBus_To == null) return;
 
             //Check Again valid Location Bus Ends is Connnected with MBA2
-            if (dtoBus_From.ObjectNumber < dtoBus_To.ObjectNumber) return;
+            if (dtoBus_From.ObjectNumber < dtoBus_To.ObjectNumber)
+            {
+                //Set Line Name
+                lineEPower.DatabaseE.DataRecordE.DTOLineEPower.ObjectName = "Line " + dtoBus_From.ObjectName + " - " + dtoBus_To.ObjectName;
+                return;
+            }
 
             //Set Again DTO From and to. If number obj of any DTO min => set from, other set Bus to
             DTOBusEPower dtoBusTemp = dtoBus_From;
             lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_From = dtoBus_To;
             lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_To = dtoBusTemp;
+
+            //Set Line Name
+            lineEPower.DatabaseE.DataRecordE.DTOLineEPower.ObjectName = "Line " + dtoBus_To.ObjectName + " - " + dtoBusTemp.ObjectName;
         }
 
         protected virtual List<ConnectableE> GetEPowerConnectWithLineEPOwer(ConnectableE lineEPower)

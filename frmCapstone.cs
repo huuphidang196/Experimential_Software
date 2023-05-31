@@ -114,8 +114,14 @@ namespace Experimential_Software
             //Expand tree view
             // Tìm node gốc
             TreeNode rootNode = this.tvDataSaved.Nodes[0];
-            if (rootNode != null) rootNode.ExpandAll();
-
+            if (rootNode != null)
+            {
+                rootNode.Expand();
+                foreach (TreeNode node in rootNode.Nodes)
+                {
+                    if (node.Text == "Tree Data Saved") node.Expand();
+                }
+            }
         }
 
         private void tvDataSaved_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)

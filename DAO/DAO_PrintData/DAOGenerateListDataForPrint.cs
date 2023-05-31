@@ -18,6 +18,8 @@ namespace Experimential_Software.DAO.DAO_PrintData
         public double PLoad { get; set; }
         public double QLoad { get; set; }
         public double U { get; set; }
+        public double Upu { get; set; }
+
     }
 
     [Serializable]
@@ -92,6 +94,7 @@ namespace Experimential_Software.DAO.DAO_PrintData
                 double Qfmin = dtoMF.PowerMachineMF.Qmin_Mvar;
                 double Qfmax = dtoMF.PowerMachineMF.Qmax_Mvar;
                 double U_kv = dtoMF.DTOBusConnected.BasekV;
+                double U_pu = dtoMF.DTOBusConnected.Voltage_pu;
 
                 DataNodeSystem dtNode = new DataNodeSystem()
                 {
@@ -102,6 +105,7 @@ namespace Experimential_Software.DAO.DAO_PrintData
                     PLoad = 0,
                     QLoad = 0,
                     U = U_kv,
+                    Upu = U_pu
                 };
 
                 ListNodeMF.Add(dtNode);
@@ -120,6 +124,7 @@ namespace Experimential_Software.DAO.DAO_PrintData
                 double PLoad = dtoLoad.PLoad;
                 double QLoad = dtoLoad.QLoad;
                 double U_kv = dtoLoad.DTOBusConnected.BasekV;
+                double U_pu = dtoLoad.DTOBusConnected.Voltage_pu;
 
                 DataNodeSystem dtNode = new DataNodeSystem()
                 {
@@ -130,6 +135,7 @@ namespace Experimential_Software.DAO.DAO_PrintData
                     PLoad = PLoad,
                     QLoad = QLoad,
                     U = U_kv,
+                    Upu = U_pu
                 };
 
                 ListNodeLoad.Add(dtNode);
@@ -142,11 +148,12 @@ namespace Experimential_Software.DAO.DAO_PrintData
             //Get All Bus not Connect With Load Or MF
             List<ConnectableE> allBusNull = allBus.Where(x => this.CheckConnectLoadOrMF(x)).ToList();
             List<DataNodeSystem> ListNodeBusNull = new List<DataNodeSystem>();
-            foreach (ConnectableE load in allBusNull)
+            foreach (ConnectableE bus in allBusNull)
             {
-                DTOBusEPower dtoLoad = load.DatabaseE.DataRecordE.DTOBusEPower;
-                int numberMF = dtoLoad.ObjectNumber - 100 * (int)ObjectType.Bus;
-                double U_kv = dtoLoad.BasekV;
+                DTOBusEPower dtoBus = bus.DatabaseE.DataRecordE.DTOBusEPower;
+                int numberMF = dtoBus.ObjectNumber - 100 * (int)ObjectType.Bus;
+                double U_kv = dtoBus.BasekV;
+                double U_pu = dtoBus.Voltage_pu;
 
                 DataNodeSystem dtNode = new DataNodeSystem()
                 {
@@ -157,6 +164,7 @@ namespace Experimential_Software.DAO.DAO_PrintData
                     PLoad = 0,
                     QLoad = 0,
                     U = U_kv,
+                    Upu = U_pu
                 };
 
                 ListNodeBusNull.Add(dtNode);

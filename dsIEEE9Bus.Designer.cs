@@ -328,6 +328,8 @@ namespace Experimential_Software {
             
             private global::System.Data.DataColumn columnU;
             
+            private global::System.Data.DataColumn columnUpu;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DataLoadMFDataTable() {
@@ -419,6 +421,14 @@ namespace Experimential_Software {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn UpuColumn {
+                get {
+                    return this.columnUpu;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -454,7 +464,7 @@ namespace Experimential_Software {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DataLoadMFRow AddDataLoadMFRow(int Bus, double Pf, double Qfmin, double Qfmax, double PLoad, double QLoad, double U) {
+            public DataLoadMFRow AddDataLoadMFRow(int Bus, double Pf, double Qfmin, double Qfmax, double PLoad, double QLoad, double U, string Upu) {
                 DataLoadMFRow rowDataLoadMFRow = ((DataLoadMFRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Bus,
@@ -463,7 +473,8 @@ namespace Experimential_Software {
                         Qfmax,
                         PLoad,
                         QLoad,
-                        U};
+                        U,
+                        Upu};
                 rowDataLoadMFRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDataLoadMFRow);
                 return rowDataLoadMFRow;
@@ -493,6 +504,7 @@ namespace Experimential_Software {
                 this.columnPLoad = base.Columns["PLoad"];
                 this.columnQLoad = base.Columns["QLoad"];
                 this.columnU = base.Columns["U"];
+                this.columnUpu = base.Columns["Upu"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -512,6 +524,8 @@ namespace Experimential_Software {
                 base.Columns.Add(this.columnQLoad);
                 this.columnU = new global::System.Data.DataColumn("U", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnU);
+                this.columnUpu = new global::System.Data.DataColumn("Upu", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUpu);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1097,6 +1111,22 @@ namespace Experimential_Software {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Upu {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataLoadMF.UpuColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Upu\' in table \'DataLoadMF\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataLoadMF.UpuColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsBusNull() {
                 return this.IsNull(this.tableDataLoadMF.BusColumn);
             }
@@ -1177,6 +1207,18 @@ namespace Experimential_Software {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetUNull() {
                 this[this.tableDataLoadMF.UColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsUpuNull() {
+                return this.IsNull(this.tableDataLoadMF.UpuColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetUpuNull() {
+                this[this.tableDataLoadMF.UpuColumn] = global::System.Convert.DBNull;
             }
         }
         

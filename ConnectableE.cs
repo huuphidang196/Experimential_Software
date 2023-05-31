@@ -861,6 +861,7 @@ namespace Experimential_Software
                     {
                         //Update DataDTO bus After Connect 
                         DAOUpdateLineAfterConnectEnds.Instance.UpdateLineAfterConnectEnds(this, isRemovedLineCon);
+                        this.SetDataLabelInfo();
                     }
                     break;
                 case ObjectType.Load://6
