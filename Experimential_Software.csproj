@@ -163,6 +163,8 @@
     <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateYState.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Calculate_ManyCurve\DAOCalculateManyCurve.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_Check_Stability\DAOCheckStability.cs" />
+    <Compile Include="DAO\DAO_Curve\DAO_Check_Stability\DAODrawnChartCurveLimited.cs" />
+    <Compile Include="DAO\DAO_Curve\DAO_Check_Stability\DAOFindPLimitAndQLimitWhenStabilitySystem.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_GeneratePath\DAOGeneratePathFolder.cs" />
     <Compile Include="DAO\DAO_Curve\DAO_IsovalForm\DAOGetTextSysemIsoval.cs" />
     <Compile Include="DAO\DAO_GeneratorData\DAOGeneMFRecord.cs" />

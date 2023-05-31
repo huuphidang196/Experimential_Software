@@ -49,7 +49,7 @@ namespace Experimential_Software
         protected double _zoomFactor = 1;
 
         //TreeView Path FolderSaved
-        protected string _folderSaved_Path = "";//"E:/Code_Visual/Experimential_Software/TreeDataSaved";
+        protected string _folderSaved_Path = "";
 
         public frmCapstone()
         {
@@ -68,7 +68,7 @@ namespace Experimential_Software
             this.LoadDataTreeView();
 
             this.pnlMain.PanelMainMouse.FrmCapstone = this;
-            this.lblZoomFactor.Text = "Zoom = " + this.pnlMain.ZoomFactor;
+            this.lblZoomFactor.Text = "Zoom = " + Math.Round(100 * this.pnlMain.ZoomFactor, 0) + " %";
         }
 
         #region Load_Form
@@ -117,14 +117,14 @@ namespace Experimential_Software
             if (rootNode != null) rootNode.ExpandAll();
 
         }
-    
+
         private void tvDataSaved_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             TreeNode selectedNode = e.Node;
             if (!selectedNode.Text.Contains("txt") && !selectedNode.Text.Contains("jpg")) return;
 
             string pathFile = DAOProcessTreeView.Instance.GetPathOpenFileOnTreeView(this._folderSaved_Path, selectedNode);
-            
+
             if (selectedNode.Text.Contains("txt"))
             {
                 //not use treeview => null path
@@ -478,7 +478,7 @@ namespace Experimential_Software
             this.OpenFormSetBaseMVA();
             this._zoomFactor = 1;
             this.pnlMain.ZoomFactor = 1;
-            this.lblZoomFactor.Text = "Zoom = " + this.pnlMain.ZoomFactor;
+            this.lblZoomFactor.Text = "Zoom = " + Math.Round(100 * this.pnlMain.ZoomFactor, 0) + " %";
         }
 
         //openFile
@@ -493,7 +493,7 @@ namespace Experimential_Software
         {
             DAOProcessMenuFileStrip.Instance.FunctionMnuFileOpen_Click(this, path);
             this._zoomFactor = pnlMain.ZoomFactor;
-            this.lblZoomFactor.Text = "Zoom = " + this.pnlMain.ZoomFactor;
+            this.lblZoomFactor.Text = "Zoom = " + Math.Round(100 * this.pnlMain.ZoomFactor, 0) + " %";
             //Drawn Line On Panel Main After Have Info Line
             this.DrawAllLineOnPanel();
         }
@@ -525,7 +525,7 @@ namespace Experimential_Software
 
         #endregion MenuStrip
 
-      
+
     }
 }
 

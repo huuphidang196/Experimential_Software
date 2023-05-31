@@ -170,6 +170,14 @@ namespace Experimential_Software
         #endregion Picture_Box_Wise
 
         #region Button_Reset_Event
+        private void btnReset_MouseDown(object sender, MouseEventArgs e)
+        {
+            this.pnlProgress.Visible = true;
+            this.lblCmdReset.Visible = false;
+
+            this.lblProgress.Text = "Program is Processing ...";
+            this.lblProgress.Visible = true;
+        }
 
         private void btnReset_Click(object sender, EventArgs e)
         {
@@ -179,11 +187,13 @@ namespace Experimential_Software
                 this.Close();
                 return;
             }
+            //Set Variable
+            this.SetVariableWhenResetPressed();
+            //Add point Load Random if many curve mode
+            this.AddPointLoadRandomInManyCurveUnit();
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            this.chartCurveLimted.Series.Clear();
-            this._maxPpre = this._maxQpre = 100;
 
             int toltalCount = int.Parse(this.txtCountCurve.Text);
             double rateMin = double.Parse(this.txtMinPer.Text) / 100;
@@ -199,6 +209,9 @@ namespace Experimential_Software
                 //Process Chart and ListBox
                 this.ProcessDrawnChartCurveLimited(i + 1);
             }
+            //Set label Stability
+            if (!this.isOneCurve) this.SetLabelStablityAndProbility(null);
+
             //Processing completed event
             this.ProcessingCompletedEvent(Dic_PQ_Old);
 
@@ -209,14 +222,31 @@ namespace Experimential_Software
             MessageBox.Show("Time = " + string.Format("{0}:{1:D2}", duration.Minutes, duration.Seconds));
         }
 
-        private void btnReset_MouseDown(object sender, MouseEventArgs e)
+        protected virtual void SetVariableWhenResetPressed()
         {
-            this.pnlProgress.Visible = true;
-            this.lblCmdReset.Visible = false;
+            this._alpha = -145;
+            this.ptbClockWise.Invalidate();
+            this.lblKPghRatio.Text = "P0 / PGh = 0 %";
 
-            this.lblProgress.Text = "Program is Processing ...";
-            this.lblProgress.Visible = true;
+
+            this.chartCurveLimted.Series.Clear();
+            this._maxPpre = this._maxQpre = 100;
+
+            this.lstBoxExperPoint.Items.Clear();
         }
+
+        protected virtual void AddPointLoadRandomInManyCurveUnit()
+        {
+            if (this.isOneCurve) return;
+
+            PowerSystem psLoad = DAODrawnChartCurveLimited.Instance.GetPowerSystemFromRandomValueLoad(this._busLoadExamined);
+            double rateMLimit_Min = double.Parse(this.txtMinPointRandom.Text) / 100;
+            double rateMLimit_Max = double.Parse(this.txtMaxPointRandom.Text) / 100;
+
+            PowerSystem psM_Random = DAOCalculateManyCurve.Instance.GetValueRandomInTheRange(psLoad, rateMLimit_Min, rateMLimit_Max);
+            DAODrawnChartCurveLimited.Instance.AddPointLoadOnChart(this.chartCurveLimted, psM_Random, this.isOneCurve);
+        }
+
         #endregion Button_Reset_Event
 
 
@@ -232,98 +262,73 @@ namespace Experimential_Software
 
             //Drawn Curve
             this.DrawnChartCurveLimited(List_PS_Point, numberSeries);
+            //Find Point Limit On Curve
+            this.FindLimitPointOnCurveAndEvaluateStability(numberSeries);
 
             if (!this.isOneCurve) return;
 
             this.ProcessPowerLimitOnListBox(List_PS_Point);
-
-            //Find Point Limit On Curve
-            this.CheckStabilitySystem();
-
             //Find Pgh Qgh
             this.FindPLimitAndQLimitWhenStabilitySystem();
 
+            //Set Percent Stability
+            this.SetClockWiseStaticReserveFactor();
+
         }
 
-        protected virtual void CheckStabilitySystem()
+        protected virtual void FindLimitPointOnCurveAndEvaluateStability(int numberSeries)
         {
-            PointF? pSectionLimit = DAOCheckStability.Instance.FindInterSectionPQLimtOnCurve(this.chartCurveLimted.Series["Data1"], this.chartCurveLimted.Series["PointLoad"]);
+            string nameData = "Data" + numberSeries;
+            PointF? pSectionLimit = DAOCheckStability.Instance.FindInterSectionPQLimtOnCurve(this.chartCurveLimted.Series[nameData], this.chartCurveLimted.Series["PointLoad"], this.isOneCurve);
+
+            if (pSectionLimit == null) return;//Only many Mode 
 
             PowerSystem pointLimitOnCurve = new PowerSystem(pSectionLimit.Value.Y, pSectionLimit.Value.X);
-            this.AddPointCircleOnChart(pointLimitOnCurve, "PointLoad");
+            //set type seri
+            this.chartCurveLimted.Series["PointLoad"].ChartType = SeriesChartType.Line;
+            DAODrawnChartCurveLimited.Instance.AddPointCircleOnChart(this.chartCurveLimted, pointLimitOnCurve, "PointLoad", this.isOneCurve);
 
-            DataPoint pLoad = this.chartCurveLimted.Series["PointLoad"].Points[1];
-            string str_Stability = "Hệ thống đang làm việc ổn định";
-            string str_Probility = "Xác suất mất ổn định : 0%";
-            double _offset =Math.Round( pSectionLimit.Value.Y - pLoad.YValues[0], 0);//Compare P
-            if (_offset > 0)
+            if (!this.isOneCurve)
             {
-                str_Stability = "Hệ thông đang làm việc ổn định";
-                str_Probility = "Xác suất mất ổn định : 0%";
+                this.AddPerElementOnListBox(pointLimitOnCurve);
+                return;
             }
-            else if (_offset == 0)
-            {
-                str_Stability = "Hệ thống đang làm việc trong vùng nguy hiểm";
-                str_Probility = "Xác suất mất ổn định : 50%";
-            }
-            else
-            {
-                str_Stability = "Hệ thống đã mất ổn định";
-                str_Probility = "Xác suất mất ổn định : 100%";
-            }
+            //Set label Stability
+            this.SetLabelStablityAndProbility(pSectionLimit);
+
+
+        }
+
+        //Label Stability One Curve Mode
+        protected virtual void SetLabelStablityAndProbility(PointF? pSectionLimit)
+        {
+            string str_Stability = (this.isOneCurve) ? DAOCheckStability.Instance.GetStringStabilityByOffSetOneCurveMode(pSectionLimit, this.chartCurveLimted.Series["PointLoad"])
+                : DAOCheckStability.Instance.GetStringStabilityByCountSectionManyCurveMode(this.chartCurveLimted.Series["PointLoad"], double.Parse(this.txtCountCurve.Text));
+
+            string str_Probility = (this.isOneCurve) ? DAOCheckStability.Instance.GetStringProbilitySystemByOffSetOneCurveMode(pSectionLimit, this.chartCurveLimted.Series["PointLoad"])
+                : DAOCheckStability.Instance.GetStringProbilityByCountSectionManyCurveMode(this.chartCurveLimted.Series["PointLoad"], double.Parse(this.txtCountCurve.Text));
+
             this.lblStateSystem.Text = str_Stability;
-            this.lblProbilityOfInstability.Text = str_Probility;
-
+            this.txtPerProbility.Text = str_Probility;
         }
 
         protected virtual void FindPLimitAndQLimitWhenStabilitySystem()
         {
-            //Check if Count PointSeries < 3 <=> not stability Not Drawn
-            if (this.chartCurveLimted.Series["PointLoad"].Points.Count < 3) return;
-
-            string nameSeri = "PointPQLimit";
-            this.chartCurveLimted.Series.Add(nameSeri);
-            this.chartCurveLimted.Series[nameSeri].Color = Color.DarkOrange;
-
-            //Find Qgh
-            PointF? qGH_SectionLimit = DAOCheckStability.Instance.FindInterSectionQGHLimtOnCurve(this.chartCurveLimted.Series["Data1"], this.chartCurveLimted.Series["PointLoad"]);
-            if (qGH_SectionLimit != null)
-            {
-                PowerSystem pointQGHLimit = new PowerSystem(qGH_SectionLimit.Value.Y, qGH_SectionLimit.Value.X);
-                this.AddPointCircleOnChart(pointQGHLimit, "PointPQLimit");
-                this.chartCurveLimted.Series["PointPQLimit"].Points[0].Label = $"(Qgh = {qGH_SectionLimit.Value.X})";
-            }
-            //Add M(p0,Q0)
-            DataPoint dataM0 = this.chartCurveLimted.Series["PointLoad"].Points[1];
-            PowerSystem pointM0 = new PowerSystem(dataM0.YValues[0], dataM0.XValue);
-            this.AddPointCircleOnChart(pointM0, "PointPQLimit");
-            int numberM0 = this.chartCurveLimted.Series["PointPQLimit"].Points.Count - 1;
-            this.chartCurveLimted.Series["PointPQLimit"].Points[numberM0].Label = $"M0";
-
-            //Find Pgh
-            PointF? pGH_SectionLimit = DAOCheckStability.Instance.FindInterSectionPGHLimtOnCurve(this.chartCurveLimted.Series["Data1"], this.chartCurveLimted.Series["PointLoad"]);
-            if (pGH_SectionLimit != null)
-            {
-                PowerSystem pointPGHLimit = new PowerSystem(pGH_SectionLimit.Value.Y, pGH_SectionLimit.Value.X);
-                this.AddPointCircleOnChart(pointPGHLimit, "PointPQLimit");
-                int numberPgh = this.chartCurveLimted.Series["PointPQLimit"].Points.Count - 1;
-                this.chartCurveLimted.Series["PointPQLimit"].Points[numberPgh].Label = $"(Pgh = {pGH_SectionLimit.Value.Y})";
-      
-            }
-
-            //Set Percent Stability
-            this.SetClockWiseStaticReserveFactor();
+            DAOFindPLimitAndQLimitWhenStabilitySystem.Instance.FindPLimitAndQLimitWhenStabilitySystem(this.chartCurveLimted, this.isOneCurve);
         }
-
 
         //ListBox P, Q
         protected virtual void ProcessPowerLimitOnListBox(List<PowerSystem> List_PS_Point)
         {
-
             foreach (PowerSystem ps in List_PS_Point)
             {
-                this.lstBoxExperPoint.Items.Add("(P =  " + Math.Round(ps.P_ActivePower, 4) + ", Q = " + Math.Round(ps.Q_ReactivePower, 4));
+                this.AddPerElementOnListBox(ps);
             }
+        }
+
+        protected virtual void AddPerElementOnListBox(PowerSystem ps)
+        {
+            this.lstBoxExperPoint.Items.Add("(P =  " + Math.Round(ps.P_ActivePower, 4) + ", Q = " + Math.Round(ps.Q_ReactivePower, 4));
         }
 
         //Set ClockWise
@@ -339,10 +344,12 @@ namespace Experimential_Software
             DataPoint pointM0 = this.chartCurveLimted.Series["PointPQLimit"].Points[numberM0];
             double P0 = pointM0.YValues[0];
 
-            double Percent = 100 - (P0 / Pgh) * 100;
+            double Percent = 100 * (P0 / Pgh);
+            this.lblKPghRatio.Text = "P0 / PGh = " + Math.Round(Percent, 2) + " %";
 
-            Percent = (Percent > 0) ? Percent : 10 * this._perRotTen + Math.Abs(Percent);
-            this._alpha += (float)Percent;
+            Percent = Math.Min(Percent, 120);
+
+            this._alpha += (this._perRotTen * (float)Percent / 10);
             this.ptbClockWise.Invalidate();
         }
 
@@ -380,63 +387,7 @@ namespace Experimential_Software
 
         protected void AddListPointPowerSystemFoundOnChart(List<PowerSystem> list_PS_Point, int numberSeries)
         {
-            string nameData = "Data" + numberSeries;
-            this.chartCurveLimted.Series.Add(nameData); // Thêm một chuỗi dữ liệu mới với tên là "Data"
-
-            foreach (PowerSystem point in list_PS_Point)
-            {
-                this.chartCurveLimted.Series[nameData].Points.AddXY(point.Q_ReactivePower, point.P_ActivePower); // Thêm từng điểm vào chuỗi dữ liệu "Data"
-            }
-
-            this.chartCurveLimted.Series[nameData].ChartType = SeriesChartType.Line;
-            this.chartCurveLimted.Series[nameData].Color = Color.Blue;
-
-            //Add point P, Q at Load connect bus considered
-            if (this.isOneCurve) this.AddPointLoadOnChart();
-        }
-
-        //Add point P, Q at Load connect bus considered
-        protected virtual void AddPointLoadOnChart()
-        {
-            string nameSeri = "PointLoad";
-            this.chartCurveLimted.Series.Add(nameSeri);
-            this.chartCurveLimted.Series[nameSeri].Color = Color.Red;
-            PowerSystem power_Load = new PowerSystem(this.GetDTOLoadConectWithBusConsider().PLoad, this.GetDTOLoadConectWithBusConsider().QLoad);
-
-            //Add O Point
-            this.chartCurveLimted.Series[nameSeri].Points.Add(new DataPoint(0, 0));
-            //Ad Point Circle
-            this.AddPointCircleOnChart(power_Load, nameSeri);
-
-        }
-
-        protected virtual void AddPointCircleOnChart(PowerSystem power_Load, string nameSeri)
-        {
-            //Set Color Point and Radius point display
-            DataPoint point_Load = new DataPoint(power_Load.Q_ReactivePower, power_Load.P_ActivePower);
-            point_Load.MarkerColor = Color.Red;
-            point_Load.MarkerStyle = MarkerStyle.Circle;
-            point_Load.MarkerSize = 10;
-            this.chartCurveLimted.Series[nameSeri].Points.Add(point_Load);
-
-            // Ghi giá trị position vào bên cạnh điểm
-            // Đặt định dạng chữ in đậm cho nhãn
-            point_Load.Font = new Font(point_Load.Font, FontStyle.Bold);
-
-            // Các thiết lập khác cho nhãn
-            point_Load.LabelForeColor = Color.Black;
-            point_Load.LabelBackColor = Color.SandyBrown;
-            point_Load.LabelBorderColor = Color.Transparent;
-
-
-            // Lấy tọa độ X và Y của điểm
-            double x = Math.Round(point_Load.XValue, 3);
-            double y = Math.Round(point_Load.YValues[0], 3); // Giả sử chỉ có một giá trị Y
-            point_Load.Label = $"(P= {y},Q= {x})";
-            point_Load.IsValueShownAsLabel = true;
-
-            //set type seri
-            this.chartCurveLimted.Series[nameSeri].ChartType = SeriesChartType.Line;
+            DAODrawnChartCurveLimited.Instance.AddListPointPowerSystemFoundOnChart(this.chartCurveLimted, list_PS_Point, numberSeries, this.isOneCurve, this._busLoadExamined);
         }
 
         protected virtual void ProcessingCompletedEvent(Dictionary<string, PowerSystem> Dic_PQ_Old)
@@ -445,9 +396,6 @@ namespace Experimential_Software
 
             //Save Old Power Load
             this._allEPowers = DAOCalculateManyCurve.Instance.ReturnAllPowerSystemLoadOrigin(this._allEPowers, Dic_PQ_Old);
-            //Add point P, Q at Load connect bus considered
-            if (!this.isOneCurve) this.AddPointLoadOnChart();
-
 
             //Creat folder Library Sound
             string pathSound = DAOGeneratePathFolder.Instance.CreatFolderLibrarySound();
@@ -455,12 +403,6 @@ namespace Experimential_Software
 
             //Play Sound
             player.Play();
-        }
-
-        protected virtual DTOLoadEPower GetDTOLoadConectWithBusConsider()
-        {
-            ConnectableE ePower_load = DAOCalculateQLJStepOne.Instance.GetEPowerPLoadFromEPowerBusLoadConsider(this._busLoadExamined);
-            return ePower_load.DatabaseE.DataRecordE.DTOLoadEPower;
         }
 
         #endregion Drawn_Chart_Curve
@@ -543,14 +485,33 @@ namespace Experimential_Software
             bool isNumber = double.TryParse(txtDataChanged.Text, out double result);
             if (!isNumber || result == 0)
             {
-                MessageBox.Show("Bạn hãy xem xét lại số vừa nhập !", "Số Không Hợp Lệ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtDataChanged.BackColor = Color.Yellow;
+                this.CallMessageBox(txtDataChanged);
+                return;
+            }
+
+            if (txtDataChanged == this.txtMinPointRandom || txtDataChanged == this.txtMaxPointRandom)
+            {
+                double minRandom = double.Parse(this.txtMinPointRandom.Text);
+                double maxRandom = double.Parse(this.txtMaxPointRandom.Text);
+
+                if (minRandom > maxRandom)
+                {
+                    this.CallMessageBox(txtDataChanged);
+                    return;
+                }
             }
 
             txtDataChanged.BackColor = Color.WhiteSmoke;
 
         }
 
+        protected virtual void CallMessageBox(TextBox txtDataChanged)
+        {
+            MessageBox.Show("Bạn hãy xem xét lại số vừa nhập !", "Số Không Hợp Lệ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            txtDataChanged.BackColor = Color.Yellow;
+        }
         #endregion TextBoxLeave
+
+
     }
 }

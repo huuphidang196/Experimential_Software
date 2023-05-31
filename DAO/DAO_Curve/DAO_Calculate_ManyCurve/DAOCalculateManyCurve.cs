@@ -1,5 +1,6 @@
 ﻿using Experimential_Software.Class_Database;
 using Experimential_Software.CustomControl;
+using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,9 +51,9 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate_ManyCurve
         public virtual List<ConnectableE> RecifyAllPowerSystemLoad(List<ConnectableE> allEPowerOri, Dictionary<string, PowerSystem> Dic_PowerSysten_Old, double rateMin, double rateMax)
         {
             List<DTOLoadEPower> allDTOLoad = this.GetListDTOAllLoad(allEPowerOri);
-            Random rd = new Random();
             foreach (DTOLoadEPower load in allDTOLoad)
             {
+                Random rd = new Random();
                 int numberLoad = load.ObjectNumber;
                 string dicName = "Load" + numberLoad;
                 PowerSystem ps = Dic_PowerSysten_Old[dicName];
@@ -66,6 +67,16 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate_ManyCurve
             }
 
             return allEPowerOri;
+        }
+
+        public virtual PowerSystem GetValueRandomInTheRange(PowerSystem ps, double rateMin, double rateMax)
+        {
+            Random rd = new Random();
+            //Change Load value
+            double P_random = rd.NextDouble() * (ps.P_ActivePower * rateMax - ps.P_ActivePower * rateMin) + ps.P_ActivePower * rateMin;
+            double Q_random = rd.NextDouble() * (ps.Q_ReactivePower * rateMax - ps.Q_ReactivePower * rateMin) + ps.Q_ReactivePower * rateMin;
+            
+            return new PowerSystem(P_random, Q_random);
         }
 
         // Save Old Power Load
@@ -86,6 +97,14 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate_ManyCurve
             return allEPowerOri;
         }
 
+        public virtual PowerSystem GetPowerSystemOfLoadConnectBusConsidered(ConnectableE BusConsider,Dictionary<string, PowerSystem> Dic_PowerSysten_Old)
+        {
+            int numberLoad = BusConsider.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber - 100 * (int)ObjectType.Bus;
+            string dicName = "Load" + numberLoad;
+            PowerSystem ps = Dic_PowerSysten_Old[dicName];
+
+            return ps;
+        }
        
     }
 }

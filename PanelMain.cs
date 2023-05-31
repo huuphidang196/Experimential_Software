@@ -61,12 +61,12 @@ namespace Experimential_Software
             this._zoomFactor = Math.Max(this._zoomFactor, this._minZoom);
             this._zoomFactor = Math.Min(this._zoomFactor, this._maxZooom);
 
-            this._pnlMainMouse.FrmCapstone.lblZoomFactor.Text = "zoom = " + this._zoomFactor;
+            this._pnlMainMouse.FrmCapstone.lblZoomFactor.Text = "Zoom = " + Math.Round(100 * this._zoomFactor, 0) + " %";
 
             if (this._zoomFactor == this._minZoom || this._zoomFactor == this._maxZooom) return;
 
             this.ProcessAllEPowerWhenMouseWheel(mouseLocation);
-          
+
         }
 
         protected virtual void ProcessAllEPowerWhenMouseWheel(Point mouseLocation)
