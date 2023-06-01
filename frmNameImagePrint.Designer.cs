@@ -76,6 +76,7 @@ namespace Experimential_Software
             this.Name = "frmNameImagePrint";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmNameImagePrint";
+            this.Load += new System.EventHandler(this.frmNameImagePrint_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Experimential_Software.DAO.DAO_Curve.DAO_IsovalForm
 {
@@ -19,31 +20,29 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_IsovalForm
         private DAOGetTextSysemIsoval() { }
 
         #region Zone_YState
-        public virtual string GetTextYStateShowForm(Complex[,] Ystate)
+        public virtual void ShowYStateShowOnDataGridViewForm(Complex[,] YState, DataGridView dgvMatrixYState)
         {
-            int spaceEmpty = 10;
-            string txtYsate = new string(' ', 26);
+            dgvMatrixYState.RowCount = YState.GetLength(0) + 1;
+            dgvMatrixYState.ColumnCount = YState.GetLength(1) + 1;
 
-            for (int i = 0; i < Ystate.GetLength(0); i++)
+            for (int i = 0; i < dgvMatrixYState.RowCount; i++)
             {
-                string numBus = "Bus_" + (i + 1).ToString("D2") + new string(' ', 28);
-                txtYsate += numBus;
-            }
-            //Down row
-            txtYsate += "\n";
-
-            for (int i = 0; i < Ystate.GetLength(0); i++)
-            {
-                string numBus = "Bus_" + (i + 1).ToString("D2") + new string(' ', spaceEmpty);
-                for (int j = 0; j < Ystate.GetLength(1); j++)
+                for (int j = 0; j < dgvMatrixYState.ColumnCount; j++)
                 {
-                    numBus += "( " + Ystate[i, j].Real.ToString("F4") + " + j" + Ystate[i, j].Imaginary.ToString("F4")
-                        + ")" + new string(' ', spaceEmpty);
+                    if (i == 0 && j == 0) continue;
+
+                    if (i == 0 && j != 0) dgvMatrixYState[i, j].Value = "Bus_" + j.ToString("#0");
+                    else if (i != 0 && j == 0) dgvMatrixYState[i, j].Value = "Bus_" + i.ToString("#0");
+                    else dgvMatrixYState[i, j].Value = YState[i - 1, j - 1].Real.ToString("F4") + " + j" + YState[i - 1, j - 1].Imaginary.ToString("F4");
                 }
-                txtYsate += numBus + "\n";
             }
 
-            return txtYsate;
+            // Đặt SortMode cho từng cột thành NotSortable
+            foreach (DataGridViewColumn column in dgvMatrixYState.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
         }
         #endregion Zone_YState
 
@@ -60,36 +59,33 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_IsovalForm
             return strMF;
         }
 
-        public virtual string GetTextYBusShowFrom(ConnectableE _busExamined, Complex[,] YBus)
+        public virtual void ShowYBusShowOnDataGridViewForm(ConnectableE _busExamined, Complex[,] YBus, DataGridView dgvMatrixYBus)
         {
-            int spaceEmpty = 10;
-            string txtYbus = new string(' ', 26);
+            dgvMatrixYBus.RowCount = YBus.GetLength(0) + 1;
+            dgvMatrixYBus.ColumnCount = YBus.GetLength(1) + 1;
 
-            for (int i = 0; i < YBus.GetLength(0); i++)
+            for (int i = 0; i < dgvMatrixYBus.RowCount; i++)
             {
-                string numBus = "Bus_" + this.GetNumberBus(i, _busExamined, YBus).ToString("D2") + new string(' ', 28);
-                txtYbus += numBus;
-            }
-            //Down row
-            txtYbus += "\n";
-
-            for (int i = 0; i < YBus.GetLength(0); i++)
-            {
-                string numBus = "Bus_" + this.GetNumberBus(i, _busExamined, YBus).ToString("D2") + new string(' ', spaceEmpty);
-                for (int j = 0; j < YBus.GetLength(1); j++)
+                for (int j = 0; j < dgvMatrixYBus.ColumnCount; j++)
                 {
-                    numBus += "( " + YBus[i, j].Real.ToString("F4") + " + j" + YBus[i, j].Imaginary.ToString("F4")
-                        + ")" + new string(' ', spaceEmpty);
+                    if (i == 0 && j == 0) continue;
+
+                    if (i == 0 && j != 0) dgvMatrixYBus[i, j].Value = "Bus_" + this.GetNumberBus(j, _busExamined, YBus).ToString("#0");
+                    else if (i != 0 && j == 0) dgvMatrixYBus[i, j].Value = "Bus_" + this.GetNumberBus(i, _busExamined, YBus).ToString("#0");
+                    else dgvMatrixYBus[i, j].Value = YBus[i - 1, j - 1].Real.ToString("F4") + " + j" + YBus[i - 1, j - 1].Imaginary.ToString("F4");
                 }
-                txtYbus += numBus + "\n";
             }
 
-            return txtYbus;
+            // Đặt SortMode cho từng cột thành NotSortable
+            foreach (DataGridViewColumn column in dgvMatrixYBus.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
         }
 
         protected virtual int GetNumberBus(int i, ConnectableE _busExamined, Complex[,] YBus)
         {
-            int numberBus = (i != YBus.GetLength(0) - 1) ? (i + 1) : (_busExamined.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber - 100 * (int)ObjectType.Bus);
+            int numberBus = (i != YBus.GetLength(0)) ? i  : (_busExamined.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber - 100 * (int)ObjectType.Bus);
             return numberBus;
         }
         #endregion Y_Bus

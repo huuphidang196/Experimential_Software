@@ -35,6 +35,8 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
             if (pathTreeView != "")
             {
                 this.ProcessInternOpenFileUseOverallWithTreeView(frmCapstone, pathTreeView);
+                //Set Name Form
+                this.SetNameFormByPath(pathTreeView, frmCapstone);
                 return;
             }
 
@@ -48,9 +50,18 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
             if (openFileDialogMain.ShowDialog() != DialogResult.OK) return;
 
             string path = openFileDialogMain.FileName;
-            //   MessageBox.Show("path old = " + path);
+            //Set Name Form
+            this.SetNameFormByPath(path, frmCapstone);
+
             this.ProcessInternOpenFileUseOverallWithTreeView(frmCapstone, path);
 
+        }
+
+        protected virtual void SetNameFormByPath(string path, frmCapstone frmCapstone)
+        {
+            frmCapstone.Text = "Phần mềm tính trào lưu công suất";
+            string nameFileOpening = Path.GetFileNameWithoutExtension(path);
+            frmCapstone.Text += (" - " + nameFileOpening);
         }
 
         public virtual void ProcessInternOpenFileUseOverallWithTreeView(frmCapstone frmCapstone, string path)
@@ -132,12 +143,12 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
                 ePower.PreLocation = databaseE.OldLocation_Save;
                 frmCapstone.pnlMain.Controls.Add(ePower);
                 ePower.Location = databaseE.OldLocation_Save;
-                
+
                 ePower.BringToFront();
 
                 ePower.UpdatePositonLabelInfo(); //=> use show label. I don't know it not show on panel, need code row
                 frmCapstone.CountElement = frmCapstone.EPowers.Count;
-               
+
                 frmCapstone.pnlMain.SetInsideEPower(ePower);
 
                 frmCapstone.AddEPower(ePower);

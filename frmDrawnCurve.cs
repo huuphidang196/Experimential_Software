@@ -439,7 +439,9 @@ namespace Experimential_Software
             //Open Form Name Image
             frmNameImagePrint frmNameImage = new frmNameImagePrint();
             frmNameImage.ShowDialog();
-            string fileName = (frmNameImage.DialogResult == DialogResult.OK) ? frmNameImage.NameImage + ".jpg" : "Image_Drawn" + int.Parse(this.txtCountCurve.Text) + "Curve.jpg";
+            if (frmNameImage.DialogResult != DialogResult.OK) return;
+
+            string fileName = (frmNameImage.NameImage != "") ? frmNameImage.NameImage + ".jpg" : "Image_Drawn" + int.Parse(this.txtCountCurve.Text) + "Curve.jpg";
             string filePath = Path.Combine(savePath, fileName); // Kết hợp đường dẫn thư mục và tên tệp tin
 
             snipBitmap.Save(filePath); // Lưu đối tượng Image vào đường dẫn đã xác định

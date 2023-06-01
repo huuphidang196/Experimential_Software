@@ -73,7 +73,7 @@ namespace Experimential_Software
             this.lblTotalBus.Text = DAOGenerateListPoints.Instance.GetAllBus(this._allEPowers).Count + "";
 
             //Show Ystate on label
-            lblYStateBelow.Text = DAOGetTextSysemIsoval.Instance.GetTextYStateShowForm(this.YState);
+            DAOGetTextSysemIsoval.Instance.ShowYStateShowOnDataGridViewForm(this.YState, this.dgvMatrixYState);
         }
 
 
@@ -86,8 +86,7 @@ namespace Experimential_Software
             this.lblBusExamined.Text = this._busLoadExamined.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber.ToString();
 
             //label Y Bus Isoval
-            this.lblYBusBelow.Text = DAOGetTextSysemIsoval.Instance.GetTextYBusShowFrom(this._busLoadExamined, this.YBus);
+            DAOGetTextSysemIsoval.Instance.ShowYBusShowOnDataGridViewForm(this._busLoadExamined, this.YBus, this.dgvMatrixYSBus);
         }
-
     }
 }

@@ -485,6 +485,8 @@ namespace Experimential_Software
             this._zoomFactor = 1;
             this.pnlMain.ZoomFactor = 1;
             this.lblZoomFactor.Text = "Zoom = " + Math.Round(100 * this.pnlMain.ZoomFactor, 0) + " %";
+
+            this.Text = "Phần mềm tính trào lưu công suất";
         }
 
         //openFile

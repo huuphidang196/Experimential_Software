@@ -25,5 +25,10 @@ namespace Experimential_Software
             this._nameImage = this.txtNameImage.Text;
             DialogResult = DialogResult.OK;
         }
+
+        private void frmNameImagePrint_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -44,10 +44,12 @@ namespace Experimential_Software
             this.label5 = new System.Windows.Forms.Label();
             this.pnlShowYState = new System.Windows.Forms.Panel();
             this.pnlContainRTBYState = new System.Windows.Forms.Panel();
-            this.lblYStateBelow = new System.Windows.Forms.Label();
             this.pnlShowYBus = new System.Windows.Forms.Panel();
             this.pnlContainRTBYBus = new System.Windows.Forms.Panel();
-            this.lblYBusBelow = new System.Windows.Forms.Label();
+            this.dgvMatrixYState = new System.Windows.Forms.DataGridView();
+            this.grbMatrixYState = new System.Windows.Forms.GroupBox();
+            this.dgvMatrixYSBus = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.pnlTitleYState.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -55,6 +57,10 @@ namespace Experimential_Software
             this.pnlContainRTBYState.SuspendLayout();
             this.pnlShowYBus.SuspendLayout();
             this.pnlContainRTBYBus.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMatrixYState)).BeginInit();
+            this.grbMatrixYState.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMatrixYSBus)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -219,23 +225,15 @@ namespace Experimential_Software
             // pnlContainRTBYState
             // 
             this.pnlContainRTBYState.AutoScroll = true;
+            this.pnlContainRTBYState.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.pnlContainRTBYState.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlContainRTBYState.Controls.Add(this.lblYStateBelow);
+            this.pnlContainRTBYState.Controls.Add(this.grbMatrixYState);
             this.pnlContainRTBYState.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContainRTBYState.Location = new System.Drawing.Point(0, 0);
             this.pnlContainRTBYState.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pnlContainRTBYState.Name = "pnlContainRTBYState";
             this.pnlContainRTBYState.Size = new System.Drawing.Size(807, 328);
             this.pnlContainRTBYState.TabIndex = 1;
-            // 
-            // lblYStateBelow
-            // 
-            this.lblYStateBelow.AutoSize = true;
-            this.lblYStateBelow.Location = new System.Drawing.Point(8, 15);
-            this.lblYStateBelow.Name = "lblYStateBelow";
-            this.lblYStateBelow.Size = new System.Drawing.Size(84, 16);
-            this.lblYStateBelow.TabIndex = 1;
-            this.lblYStateBelow.Text = "Matrix YState";
             // 
             // pnlShowYBus
             // 
@@ -252,7 +250,7 @@ namespace Experimential_Software
             this.pnlContainRTBYBus.AutoScroll = true;
             this.pnlContainRTBYBus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pnlContainRTBYBus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlContainRTBYBus.Controls.Add(this.lblYBusBelow);
+            this.pnlContainRTBYBus.Controls.Add(this.groupBox1);
             this.pnlContainRTBYBus.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContainRTBYBus.Location = new System.Drawing.Point(0, 0);
             this.pnlContainRTBYBus.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
@@ -260,14 +258,59 @@ namespace Experimential_Software
             this.pnlContainRTBYBus.Size = new System.Drawing.Size(543, 328);
             this.pnlContainRTBYBus.TabIndex = 1;
             // 
-            // lblYBusBelow
+            // dgvMatrixYState
             // 
-            this.lblYBusBelow.AutoSize = true;
-            this.lblYBusBelow.Location = new System.Drawing.Point(16, 15);
-            this.lblYBusBelow.Name = "lblYBusBelow";
-            this.lblYBusBelow.Size = new System.Drawing.Size(82, 16);
-            this.lblYBusBelow.TabIndex = 1;
-            this.lblYBusBelow.Text = "Matrix YSBus";
+            this.dgvMatrixYState.AllowUserToAddRows = false;
+            this.dgvMatrixYState.AllowUserToDeleteRows = false;
+            this.dgvMatrixYState.AllowUserToResizeColumns = false;
+            this.dgvMatrixYState.AllowUserToResizeRows = false;
+            this.dgvMatrixYState.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvMatrixYState.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvMatrixYState.BackgroundColor = System.Drawing.Color.Gainsboro;
+            this.dgvMatrixYState.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMatrixYState.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvMatrixYState.Location = new System.Drawing.Point(3, 19);
+            this.dgvMatrixYState.Name = "dgvMatrixYState";
+            this.dgvMatrixYState.Size = new System.Drawing.Size(799, 304);
+            this.dgvMatrixYState.TabIndex = 2;
+            // 
+            // grbMatrixYState
+            // 
+            this.grbMatrixYState.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.grbMatrixYState.Controls.Add(this.dgvMatrixYState);
+            this.grbMatrixYState.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grbMatrixYState.Location = new System.Drawing.Point(0, 0);
+            this.grbMatrixYState.Name = "grbMatrixYState";
+            this.grbMatrixYState.Size = new System.Drawing.Size(805, 326);
+            this.grbMatrixYState.TabIndex = 3;
+            this.grbMatrixYState.TabStop = false;
+            this.grbMatrixYState.Text = "Matrix YState";
+            // 
+            // dgvMatrixYSBus
+            // 
+            this.dgvMatrixYSBus.AllowUserToAddRows = false;
+            this.dgvMatrixYSBus.AllowUserToDeleteRows = false;
+            this.dgvMatrixYSBus.AllowUserToResizeColumns = false;
+            this.dgvMatrixYSBus.AllowUserToResizeRows = false;
+            this.dgvMatrixYSBus.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvMatrixYSBus.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dgvMatrixYSBus.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvMatrixYSBus.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvMatrixYSBus.Location = new System.Drawing.Point(3, 19);
+            this.dgvMatrixYSBus.Name = "dgvMatrixYSBus";
+            this.dgvMatrixYSBus.Size = new System.Drawing.Size(535, 304);
+            this.dgvMatrixYSBus.TabIndex = 2;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.dgvMatrixYSBus);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(541, 326);
+            this.groupBox1.TabIndex = 3;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Matrix Y Bus ";
             // 
             // frmSystemIsoval
             // 
@@ -288,10 +331,12 @@ namespace Experimential_Software
             this.panel1.PerformLayout();
             this.pnlShowYState.ResumeLayout(false);
             this.pnlContainRTBYState.ResumeLayout(false);
-            this.pnlContainRTBYState.PerformLayout();
             this.pnlShowYBus.ResumeLayout(false);
             this.pnlContainRTBYBus.ResumeLayout(false);
-            this.pnlContainRTBYBus.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMatrixYState)).EndInit();
+            this.grbMatrixYState.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvMatrixYSBus)).EndInit();
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -315,7 +360,9 @@ namespace Experimential_Software
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblBusExamined;
         private System.Windows.Forms.Label lblAllNumMF;
-        private System.Windows.Forms.Label lblYStateBelow;
-        private System.Windows.Forms.Label lblYBusBelow;
+        private System.Windows.Forms.GroupBox grbMatrixYState;
+        private System.Windows.Forms.DataGridView dgvMatrixYState;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.DataGridView dgvMatrixYSBus;
     }
 }
