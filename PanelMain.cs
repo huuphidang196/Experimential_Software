@@ -14,7 +14,6 @@ namespace Experimential_Software
 {
     public partial class PanelMain : Panel
     {
-
         protected PanelMainMouse _pnlMainMouse;
         public PanelMainMouse PanelMainMouse => _pnlMainMouse;
 
@@ -30,7 +29,6 @@ namespace Experimential_Software
             InitializeComponent();
 
             this._pnlMainMouse = new PanelMainMouse(this);
-            this.AutoScroll = true;
             if (this._zoomFactor == 0) this._zoomFactor = 1;
 
         }
@@ -43,23 +41,14 @@ namespace Experimential_Software
             // Lấy vị trí con trỏ chuột trong control
             Point mouseLocation = e.Location;
 
-            if (Control.ModifierKeys != Keys.Control)
-            {
-                this.AutoScroll = true;
-
-                this.ProcessAllEPowerWhenMouseWheel(mouseLocation);
-                return;
-            }
-            this.AutoScroll = false;
-
+            if (Control.ModifierKeys != Keys.Control) return;
 
             // Tính toán độ zoom hiện tại
             double zoomPer = e.Delta > 0 ? 1.1 : (1 / 1.1);  // e.Delta là giá trị của bánh xe chuột
             this._zoomFactor *= zoomPer;
             this._zoomFactor = Math.Round(this._zoomFactor, 9);
 
-            this._zoomFactor = Math.Max(this._zoomFactor, this._minZoom);
-            this._zoomFactor = Math.Min(this._zoomFactor, this._maxZooom);
+            this._zoomFactor = (this._zoomFactor < 1) ? Math.Max(this._zoomFactor, this._minZoom) : Math.Min(this._zoomFactor, this._maxZooom);
 
             this._pnlMainMouse.FrmCapstone.lblZoomFactor.Text = "Zoom = " + Math.Round(100 * this._zoomFactor, 0) + " %";
 
@@ -69,15 +58,19 @@ namespace Experimential_Software
 
         }
 
-        protected virtual void ProcessAllEPowerWhenMouseWheel(Point mouseLocation)
+        public virtual void ProcessAllEPowerWhenMouseWheel(Point mouseLocation)
         {
             List<ConnectableE> EPowers = this.PanelMainMouse.FrmCapstone.EPowers;
+
+            if (EPowers.Count == 0) return;
+
             // Phóng to hoặc thu nhỏ các control trong panel
             foreach (ConnectableE ePower in EPowers)
             {
                 this.SetNewSizeAndNewPostion(mouseLocation, ePower);
                 ePower.EPowerProcessMouse.UpdateLineWhenMove();
             }
+            EPowers[0].FormCapstone.DrawAllLineOnPanel();
         }
 
         public virtual void SetNewSizeAndNewPostion(Point mouseLocation, ConnectableE ePower)

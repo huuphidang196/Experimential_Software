@@ -37,8 +37,6 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
             frmCapstone.IEPowers.Clear();
             //Clear List Line
             frmCapstone.LineConnectList.Clear();
-            //Set Count EPower = 0
-            frmCapstone.CountElement = 0;
             //Set ZoomFactor = 1
             frmCapstone.pnlMain.ZoomFactor = 1;
         }

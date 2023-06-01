@@ -144,15 +144,14 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
                 frmCapstone.pnlMain.Controls.Add(ePower);
                 ePower.Location = databaseE.OldLocation_Save;
 
-                ePower.BringToFront();
-
                 ePower.UpdatePositonLabelInfo(); //=> use show label. I don't know it not show on panel, need code row
-                frmCapstone.CountElement = frmCapstone.EPowers.Count;
 
                 frmCapstone.pnlMain.SetInsideEPower(ePower);
 
                 frmCapstone.AddEPower(ePower);
                 frmCapstone.AddIMouseOnEnds(ePower);
+
+                ePower.BringToFront();
             }
         }
 

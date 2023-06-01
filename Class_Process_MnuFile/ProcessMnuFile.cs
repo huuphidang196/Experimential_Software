@@ -43,8 +43,6 @@ namespace Experimential_Software.Class_Process_MnuFile
             this._frmCap.IEPowers.Clear();
             //Clear List Line
             this._frmCap.LineConnectList.Clear();
-            //Set Count EPower = 0
-            this._frmCap.CountElement = 0;
         }
 
         #endregion New_File
@@ -124,7 +122,6 @@ namespace Experimential_Software.Class_Process_MnuFile
                 this._frmCap.pnlMain.Controls.Add(ePower);
 
                 ePower.UpdatePositonLabelInfo(); //=> use show label. I don't know it not show on panel, need code row
-                this._frmCap.CountElement = this._frmCap.EPowers.Count;
 
                 // ==> not add to List because Panel have event in frm.cs pnlMain_DragDrop . When addmain => do event
             }

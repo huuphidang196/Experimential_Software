@@ -21,5 +21,10 @@ namespace Experimential_Software
         {
             this.Close();
         }
+
+        private void frmHelpForm_Load(object sender, EventArgs e)
+        {
+         
+        }
     }
 }

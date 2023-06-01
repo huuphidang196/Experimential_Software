@@ -31,10 +31,6 @@ namespace Experimential_Software
         protected DTODataPowerSystem _dtoPowerSystem;
         public DTODataPowerSystem DTOPowerSystem { get => _dtoPowerSystem; set => _dtoPowerSystem = value; }
 
-        protected int _countElement = 0;
-        public int CountElement { get => _countElement; set => _countElement = value; }
-        // protected PanelMain pnlMainDrawn;
-
         protected List<ConnectableE> _ePowers = new List<ConnectableE>();
         public List<ConnectableE> EPowers { get => _ePowers; set => _ePowers = value; }
 
@@ -50,6 +46,8 @@ namespace Experimential_Software
 
         //TreeView Path FolderSaved
         protected string _folderSaved_Path = "";
+
+        protected bool isAllowSetPosSys = false;
 
         public frmCapstone()
         {
@@ -69,6 +67,7 @@ namespace Experimential_Software
 
             this.pnlMain.PanelMainMouse.FrmCapstone = this;
             this.lblZoomFactor.Text = "Zoom = " + Math.Round(100 * this.pnlMain.ZoomFactor, 0) + " %";
+
         }
 
         #region Load_Form
@@ -333,7 +332,9 @@ namespace Experimential_Software
 
                 //Process set isSelected and Color for Line
                 this.pnlMain.PanelMainMouse.ProcessMain_MouseCDown(this.lineConnectList, e);
-
+                //find Line is Selected
+                LineConnect lineSeletedCur = this.pnlMain.PanelMainMouse.FindLineConnectIsSelected(this.lineConnectList);
+                if (lineSeletedCur == null && this.isAllowSetPosSys) this.pnlMain.ProcessAllEPowerWhenMouseWheel(MousePosition);
                 return;
             }
 
@@ -348,7 +349,7 @@ namespace Experimential_Software
             this.cxtRemoveLineDrawn.Show(this.pnlMain.PointToScreen(e.Location));
 
         }
-        private void xóaLineNàyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RemoveThisLineDrawnOnPanel(object sender, EventArgs e)
         {
             //Remove Line Drawn When press Remove On Context menu strip
             this.pnlMain.ProcessDeleteLine(this);
@@ -363,7 +364,6 @@ namespace Experimential_Software
             // Get drop location and move button instance to that location
             Point dropLocation = pnlMain.PointToClient(new Point(e.X, e.Y));
             Control control = (Control)e.Data.GetData(typeof(ConnectableE));
-
             if (pnlMain.ClientRectangle.Contains(dropLocation))
             {
                 control.Location = dropLocation;
@@ -377,7 +377,6 @@ namespace Experimential_Software
                 this._ePowers.Add(ePower);
                 this._iEPowers.Add(ePower);
                 ePower.IsOnTool = false;
-
 
                 pnlMain.SetInsideEPower(ePower);
 
@@ -440,9 +439,6 @@ namespace Experimential_Software
             // Create instance of button1 and start drag-and-drop operation
             ConnectableE ctrlInstance = new ConnectableE(this, pnlMain, databaseE, this.imgListEPower, generateMode);
 
-            //cOUNT aLLL Epowers
-            _countElement = this._ePowers.Count + 1;
-
             ctrlInstance.Location = btnTool.Location;
             ctrlInstance.DoDragDrop(ctrlInstance, DragDropEffects.Move);
             pnlMain.Controls.Add(ctrlInstance);
@@ -494,7 +490,6 @@ namespace Experimential_Software
         {
             //not use treeview => null path
             this.OpenDatabaseFormSave("");
-
         }
 
         protected virtual void OpenDatabaseFormSave(string path)
@@ -504,6 +499,7 @@ namespace Experimential_Software
             this.lblZoomFactor.Text = "Zoom = " + Math.Round(100 * this.pnlMain.ZoomFactor, 0) + " %";
             //Drawn Line On Panel Main After Have Info Line
             this.DrawAllLineOnPanel();
+
         }
 
         //save File
@@ -524,6 +520,12 @@ namespace Experimential_Software
             frmPrint.Show();
         }
 
+        //Set Pos System
+        private void btnSetPosSystem_Click(object sender, EventArgs e)
+        {
+            this.isAllowSetPosSys = !this.isAllowSetPosSys;
+            this.btnSetPosSystem.BackColor = (this.isAllowSetPosSys) ? Color.GreenYellow : Color.Transparent;
+        }
         //Help how to use softWare
         private void mnuStripHelpUseSW_Click(object sender, EventArgs e)
         {
@@ -531,320 +533,11 @@ namespace Experimential_Software
             frmHelpForm.ShowDialog();
         }
 
+
+
         #endregion MenuStrip
 
-
+       
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/// Panel Main 
-
-
-
-
-//private void pnlMain_DragEnter(object sender, DragEventArgs e)
-//{
-//    e.Effect = DragDropEffects.Move;
-//}
-
-//private void pnlMain_DragDrop(object sender, DragEventArgs e)
-//{
-//    // Get drop location and move button instance to that location
-//    Point dropLocation = pnlMain.PointToClient(new Point(e.X, e.Y));
-//    Control control = (Control)e.Data.GetData(typeof(ConnectableE));
-
-//    if (pnlMain.ClientRectangle.Contains(dropLocation))
-//    {
-//        control.Location = dropLocation;
-//        ConnectableE ePower = control as ConnectableE;
-//        this.ePowers.Add(ePower);
-//        this.iEPowers.Add(ePower);
-//        ePower.isOnTool = false;
-//    }
-//    else
-//    {
-//        pnlMain.Controls.Remove(control);
-//        control.Dispose();
-//    }
-//}
-///// Panel Main
-
-
-
-
-
-
-
-
-
-
-
-
-
-//#region ButtonInstance
-
-//protected virtual void ButtonInstance_MouseDown(object sender, MouseEventArgs e)
-//{
-//    this.isDragging = this._processPowerConn.IsDragging;
-//    this.previousMouseLocation = this._processPowerConn.PreviousMouseLocation;
-//    this._processPowerConn.ButtonInstance_MouseDown(sender, e, pnlMain);
-//    this.SetIsSelected(sender as ConnectableE);
-//    this._processPowerConn.SetFalseSelectedALLLine(this.LineConnectList);
-//}
-
-//protected virtual void ButtonInstance_MouseMove(object sender, MouseEventArgs e)
-//{
-//    this._processPowerConn.ButtonInstance_MouseMove(sender, e, pnlMain);
-
-//}
-
-//protected virtual void ButtonInstance_MouseUp(object sender, MouseEventArgs e)
-//{ 
-//    this._processPowerConn.ButtonInstance_MouseUp(sender, e, pnlMain);
-
-//    this.isDragging = _processPowerConn.IsDragging;
-//}
-
-
-//#endregion ButtonInstance
-
-
-
-
-
-//private void ButtonInstance_MouseDown(object sender, MouseEventArgs e)
-//{
-//    if (e.Button == MouseButtons.Left)
-//    {
-//        isDragging = true;
-//        previousMouseLocation = e.Location;
-//    }
-//}
-
-//private void ButtonInstance_MouseMove(object sender, MouseEventArgs e)
-//{
-//    if (!isDragging) return;
-
-//    //Control is moved
-//    Button button1Instance = sender as Button;
-
-//    Point pMouseTopnlMain = this.TransferPosMouseToControl(sender, e, pnlMain);
-
-//    bool isOnMain = pnlMain.ClientRectangle.Contains(pMouseTopnlMain);
-
-//    if (!isOnMain) return;
-
-//    button1Instance.Location = pMouseTopnlMain;
-//}
-
-//private void ButtonInstance_MouseUp(object sender, MouseEventArgs e)
-//{
-
-//    if (e.Button == MouseButtons.Right) return;
-
-//    Button button1Instance = sender as Button;
-//    isDragging = false;
-
-//    Point pMouseTopnlMain = this.TransferPosMouseToControl(sender, e, pnlMain);
-
-//    bool isOnMain = pnlMain.ClientRectangle.Contains(pMouseTopnlMain);
-
-//    if (!isOnMain)
-//    {
-//        button1Instance.Location = previousMouseLocation;
-//        return;
-//    }
-
-//    button1Instance.Location = pMouseTopnlMain;
-//}
-
-////Trả về vị vị điểm 
-//protected virtual Point TransferPosMouseToControl(object sender, MouseEventArgs e, object ControlDes)
-//{
-//    //Control is moved
-//    Button button1Instance = sender as Button;
-
-//    //Get pos center of button Instance in order to smoothly move
-//    Point posCenter = new Point(e.Location.X - button1Instance.Width / 2, e.Location.Y - button1Instance.Height / 2);
-//    //=> transfer Location to screen
-//    Point dropToScreen = button1Instance.PointToScreen(posCenter);
-
-//    Control ctrlDes = ControlDes as Control;
-//    //=> transfer posMouse to Control Destionation
-//    Point pMouseTopnlMain = ctrlDes.PointToClient(dropToScreen);
-
-//    return pMouseTopnlMain;
-//}
-
-
-
-
-
-
-//#region MenuStrip
-
-//private void mnuFileNew_Click(object sender, EventArgs e)
-//{
-//    this.ClearAllEPowerAndLineOnMain();
-//}
-
-//protected virtual void ClearAllEPowerAndLineOnMain()
-//{
-//    this.pnlMain.Controls.Clear();
-//    this.ePowers.Clear();
-//    this.IEPowers.Clear();
-//    this.lineConnectList.Clear();
-//    this.countElement = 0;
-//}
-
-////openFile
-//private void mnuFileOpen_Click(object sender, EventArgs e)
-//{
-//    //Question Before Open;
-//    bool saveBefore = this.QuestionSaveBeforeOpen();
-
-//    if (saveBefore) return;
-
-//    OpenFileDialog openFileDialogMaain = new OpenFileDialog();
-//    openFileDialogMaain.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-//    openFileDialogMaain.FilterIndex = 1;
-//    //FilterIndex cho biết định dạng mặc định khi mở hộp thoại
-//    openFileDialogMaain.RestoreDirectory = true;
-//    //RestoreDirectory cho phép hộp thoại khôi phục đường dẫn trước đó khi được mở lên.
-
-//    if (openFileDialogMaain.ShowDialog() != DialogResult.OK) return;
-
-//    string path = openFileDialogMaain.FileName;
-
-//    //Clear All 
-//    this.ClearAllEPowerAndLineOnMain();
-//    //Add EPower
-//    this.ProcessOpenFile(path);
-
-//    if (this.ePowers == null) return;
-
-//    //  MessageBox.Show("Open Successed , count = " + this.ePowers.Count);
-//}
-
-//protected virtual bool QuestionSaveBeforeOpen()
-//{
-//    if (pnlMain.Controls.Count < 0) return false;
-
-//    DialogResult result = MessageBox.Show("Do you want to Save this File", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-//    if (result == DialogResult.Yes)
-//    {
-//        this.mnuFileSave.PerformClick();
-//        return true;
-//    }
-
-//    this.mnuFileNew.PerformClick();
-//    return false;
-//}
-
-//protected virtual void ProcessOpenFile(string path)
-//{
-//    List<DatabaseEPower> databaseEPowers = FileFoctory.ReadDatabaseEPower(path);
-
-//    foreach (DatabaseEPower databaseE in databaseEPowers)
-//    {
-//        ConnectableE ePower = new ConnectableE(this, this.pnlMain, databaseE, this.imgListEPower);
-//        this.EPowers.Add(ePower);
-//        this.iEPowers.Add(ePower);
-//        ePower.isOnTool = false;
-
-//        pnlMain.Controls.Add(ePower);
-//        ePower.BringToFront();
-
-//        ePower.Location = this.GetPointOldInDatabaseEpower(databaseE);
-
-//    }
-//}
-
-//protected virtual Point GetPointOldInDatabaseEpower(DatabaseEPower databaseE)
-//{
-//    Point oldLocation = databaseE.OldLocation;
-//    return oldLocation;
-//}
-
-
-
-////save File
-//private void mnuFileSave_Click(object sender, EventArgs e)
-//{
-//    SaveFileDialog saveFileDialogMaain = new SaveFileDialog();
-//    saveFileDialogMaain.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-//    saveFileDialogMaain.FilterIndex = 1;
-//    saveFileDialogMaain.RestoreDirectory = true;
-
-//    if (saveFileDialogMaain.ShowDialog() != DialogResult.OK) return;
-
-//    string path = saveFileDialogMaain.FileName;
-//    this.ProcessSaveOldPostionEPower(this.ePowers);
-//    bool saveSuccess = FileFoctory.SaveDataBaseEPower(this.ePowers, path);
-
-//    if (!saveSuccess) return;
-//    MessageBox.Show("Save Successed");
-//}
-
-//protected virtual void ProcessSaveOldPostionEPower(List<ConnectableE> EPowersSave)
-//{
-//    foreach (ConnectableE ePower in EPowersSave)
-//    {
-//        DatabaseEPower databaseE = ePower.DatabaseE;
-//        databaseE.OldLocation = ePower.Location;
-//    }
-//}

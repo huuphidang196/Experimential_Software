@@ -73,8 +73,9 @@ namespace Experimential_Software
             this.cxtMnuDCDrawnCurve = new System.Windows.Forms.ToolStripMenuItem();
             this.cxtMnuDCOperatingMode = new System.Windows.Forms.ToolStripMenuItem();
             this.cxtRemoveLineDrawn = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.xóaLineNàyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ctMnuRemoveThisLineDrawn = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain = new Experimential_Software.PanelMain();
+            this.btnSetPosSystem = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.mnuStripBar.SuspendLayout();
             this.pnlTreeView.SuspendLayout();
@@ -88,6 +89,7 @@ namespace Experimential_Software
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.panel2.Controls.Add(this.lblZoomFactor);
+            this.panel2.Controls.Add(this.btnSetPosSystem);
             this.panel2.Controls.Add(this.btnPrintSystem);
             this.panel2.Controls.Add(this.btnSave);
             this.panel2.Controls.Add(this.btnOpen);
@@ -263,7 +265,8 @@ namespace Experimential_Software
             // mnuStripHelpUseSW
             // 
             this.mnuStripHelpUseSW.Name = "mnuStripHelpUseSW";
-            this.mnuStripHelpUseSW.Size = new System.Drawing.Size(232, 22);
+            this.mnuStripHelpUseSW.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
+            this.mnuStripHelpUseSW.Size = new System.Drawing.Size(280, 22);
             this.mnuStripHelpUseSW.Text = "Cách sử dụng Phần mềm";
             this.mnuStripHelpUseSW.Click += new System.EventHandler(this.mnuStripHelpUseSW_Click);
             // 
@@ -716,21 +719,20 @@ namespace Experimential_Software
             // cxtRemoveLineDrawn
             // 
             this.cxtRemoveLineDrawn.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.xóaLineNàyToolStripMenuItem});
+            this.ctMnuRemoveThisLineDrawn});
             this.cxtRemoveLineDrawn.Name = "cxtRemoveLineDrawn";
             this.cxtRemoveLineDrawn.Size = new System.Drawing.Size(145, 26);
             // 
-            // xóaLineNàyToolStripMenuItem
+            // ctMnuRemoveThisLineDrawn
             // 
-            this.xóaLineNàyToolStripMenuItem.Name = "xóaLineNàyToolStripMenuItem";
-            this.xóaLineNàyToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.xóaLineNàyToolStripMenuItem.Text = "Xóa Line này ";
-            this.xóaLineNàyToolStripMenuItem.Click += new System.EventHandler(this.xóaLineNàyToolStripMenuItem_Click);
+            this.ctMnuRemoveThisLineDrawn.Name = "ctMnuRemoveThisLineDrawn";
+            this.ctMnuRemoveThisLineDrawn.Size = new System.Drawing.Size(144, 22);
+            this.ctMnuRemoveThisLineDrawn.Text = "Xóa Line này ";
+            this.ctMnuRemoveThisLineDrawn.Click += new System.EventHandler(this.RemoveThisLineDrawnOnPanel);
             // 
             // pnlMain
             // 
             this.pnlMain.AllowDrop = true;
-            this.pnlMain.AutoScroll = true;
             this.pnlMain.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.pnlMain.BackColor = System.Drawing.Color.White;
             this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -743,6 +745,17 @@ namespace Experimential_Software
             this.pnlMain.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragDrop);
             this.pnlMain.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragEnter);
             this.pnlMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlMain_MouseDown);
+            // 
+            // btnSetPosSystem
+            // 
+            this.btnSetPosSystem.ImageIndex = 6;
+            this.btnSetPosSystem.Location = new System.Drawing.Point(188, 32);
+            this.btnSetPosSystem.Name = "btnSetPosSystem";
+            this.btnSetPosSystem.Size = new System.Drawing.Size(30, 30);
+            this.btnSetPosSystem.TabIndex = 0;
+            this.btnSetPosSystem.Text = "Set pos";
+            this.btnSetPosSystem.UseVisualStyleBackColor = true;
+            this.btnSetPosSystem.Click += new System.EventHandler(this.btnSetPosSystem_Click);
             // 
             // frmCapstone
             // 
@@ -806,7 +819,7 @@ namespace Experimential_Software
         public System.Windows.Forms.ContextMenuStrip cxtMenuStripEPower;
         private System.Windows.Forms.TreeView tvDataSaved;
         private System.Windows.Forms.ContextMenuStrip cxtRemoveLineDrawn;
-        private System.Windows.Forms.ToolStripMenuItem xóaLineNàyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ctMnuRemoveThisLineDrawn;
         public System.Windows.Forms.ImageList imgListTool;
         private System.Windows.Forms.ToolStripMenuItem vIewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem1;
@@ -820,6 +833,7 @@ namespace Experimential_Software
         public System.Windows.Forms.Label lblZoomFactor;
         private System.Windows.Forms.Button btnPrintSystem;
         private System.Windows.Forms.ToolStripMenuItem mnuToolPrintData;
+        private System.Windows.Forms.Button btnSetPosSystem;
     }
 }
 

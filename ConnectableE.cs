@@ -469,7 +469,7 @@ namespace Experimential_Software
             // it is on tool not flicker//nhấp nháy
             if (this.isOnTool) return;
 
-            //Drawn Read or remove color when press and not press => update 
+            //Drawn Red or remove color when press and not press => update 
             this.DrawRectangleAround(e);
 
             if (!this.mouseEnter || this.isMove) return;
@@ -592,7 +592,6 @@ namespace Experimential_Software
                 e.Graphics.DrawRectangle(pen, rect);
                 e.Graphics.FillRectangle(Brushes.Transparent, rect);
             }
-
         }
         #endregion Drawn
 
