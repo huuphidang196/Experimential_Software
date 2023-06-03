@@ -20,7 +20,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath
         private DAOGeneratePathFolder() { }
 
         //Path Sound
-        public virtual string CreatFolderLibrarySound()
+        public virtual string LoadPathSoundInsideLibrarySound()
         {
             // Initialize SoundPlayer
             string pathLibrary = this.GetPathLibrary();
@@ -30,6 +30,19 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath
 
             return fullPathSound;
         }
+
+        //Path loGo
+        public virtual string LoadLogoInsideLibraryLogo()
+        {
+            // Initialize SoundPlayer
+            string pathLibrary = this.GetPathLibrary();
+            // Kết hợp đường dẫn của thư mục cha và tên thư mục con
+            string LogoLoadingName = "Library Logo/LogoLoading.png";
+            string fullPathSound = this.GetPathChildFolder(pathLibrary, LogoLoadingName);
+
+            return fullPathSound;
+        }
+
 
         //Path  Lib Image
         public virtual string CreatFolderLibraryImageDrawnCurve()

@@ -46,7 +46,7 @@ namespace Experimential_Software
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 450);
+            this.panel1.Size = new System.Drawing.Size(841, 450);
             this.panel1.TabIndex = 0;
             // 
             // button1
@@ -65,7 +65,7 @@ namespace Experimential_Software
             this.panel2.Controls.Add(this.richTextBox1);
             this.panel2.Location = new System.Drawing.Point(12, 12);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(776, 369);
+            this.panel2.Size = new System.Drawing.Size(817, 369);
             this.panel2.TabIndex = 1;
             // 
             // richTextBox1
@@ -76,7 +76,7 @@ namespace Experimential_Software
             this.richTextBox1.Location = new System.Drawing.Point(0, 0);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(776, 369);
+            this.richTextBox1.Size = new System.Drawing.Size(817, 369);
             this.richTextBox1.TabIndex = 0;
             this.richTextBox1.Text = resources.GetString("richTextBox1.Text");
             // 
@@ -85,14 +85,14 @@ namespace Experimential_Software
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(841, 450);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmHelpForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmHelpForm";
+            this.Text = "Software User Guide";
             this.Load += new System.EventHandler(this.frmHelpForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);

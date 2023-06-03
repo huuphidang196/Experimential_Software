@@ -54,6 +54,7 @@ namespace Experimential_Software
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.txtFrequency);
             this.panel1.Controls.Add(this.txtBaseMVA);
             this.panel1.Controls.Add(this.label3);
@@ -140,7 +141,7 @@ namespace Experimential_Software
             this.MinimizeBox = false;
             this.Name = "frmBuildNewCase";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmBuildNewCase";
+            this.Text = "Build New Case";
             this.Load += new System.EventHandler(this.frmBuildNewCase_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

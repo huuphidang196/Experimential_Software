@@ -213,13 +213,7 @@ namespace Experimential_Software
             if (!this.isOneCurve) this.SetLabelStablityAndProbility(null);
 
             //Processing completed event
-            this.ProcessingCompletedEvent(Dic_PQ_Old);
-
-            // Thực hiện các tác vụ hoặc đoạn code khác trong Window Form
-
-            stopwatch.Stop();
-            TimeSpan duration = stopwatch.Elapsed;
-            MessageBox.Show("Time = " + string.Format("{0}:{1:D2}", duration.Minutes, duration.Seconds));
+            this.ProcessingCompletedEvent(Dic_PQ_Old , stopwatch);
         }
 
         protected virtual void SetVariableWhenResetPressed()
@@ -390,7 +384,7 @@ namespace Experimential_Software
             DAODrawnChartCurveLimited.Instance.AddListPointPowerSystemFoundOnChart(this.chartCurveLimted, list_PS_Point, numberSeries, this.isOneCurve, this._busLoadExamined);
         }
 
-        protected virtual void ProcessingCompletedEvent(Dictionary<string, PowerSystem> Dic_PQ_Old)
+        protected virtual void ProcessingCompletedEvent(Dictionary<string, PowerSystem> Dic_PQ_Old, Stopwatch stopwatch)
         {
             this.pnlProgress.Visible = false;
 
@@ -398,11 +392,17 @@ namespace Experimential_Software
             this._allEPowers = DAOCalculateManyCurve.Instance.ReturnAllPowerSystemLoadOrigin(this._allEPowers, Dic_PQ_Old);
 
             //Creat folder Library Sound
-            string pathSound = DAOGeneratePathFolder.Instance.CreatFolderLibrarySound();
+            string pathSound = DAOGeneratePathFolder.Instance.LoadPathSoundInsideLibrarySound();
             SoundPlayer player = new SoundPlayer(pathSound);
 
             //Play Sound
             player.Play();
+
+            // Thực hiện các tác vụ hoặc đoạn code khác trong Window Form
+
+            stopwatch.Stop();
+            TimeSpan duration = stopwatch.Elapsed;
+            MessageBox.Show("Time Span = " + string.Format("{0}:{1:D2}", duration.Minutes, duration.Seconds));
         }
 
         #endregion Drawn_Chart_Curve

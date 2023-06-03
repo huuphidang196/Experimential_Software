@@ -266,6 +266,12 @@
     <Compile Include="frmHelpForm.Designer.cs">
       <DependentUpon>frmHelpForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmLoadingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLoadingForm.Designer.cs">
+      <DependentUpon>frmLoadingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmNameImagePrint.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -336,6 +342,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmHelpForm.resx">
       <DependentUpon>frmHelpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLoadingForm.resx">
+      <DependentUpon>frmLoadingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmNameImagePrint.resx">
       <DependentUpon>frmNameImagePrint.cs</DependentUpon>

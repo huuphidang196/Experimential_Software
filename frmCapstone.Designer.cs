@@ -32,11 +32,10 @@ namespace Experimential_Software
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCapstone));
             this.panel2 = new System.Windows.Forms.Panel();
-            this.lblZoomFactor = new System.Windows.Forms.Label();
             this.btnZoomOutCenter = new System.Windows.Forms.Button();
             this.imgListIconMnuStrip = new System.Windows.Forms.ImageList(this.components);
+            this.lblZoomFactor = new System.Windows.Forms.Label();
             this.btnZoomInCenter = new System.Windows.Forms.Button();
-            this.btnSetPosSystem = new System.Windows.Forms.Button();
             this.btnPrintSystem = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnOpen = new System.Windows.Forms.Button();
@@ -54,6 +53,7 @@ namespace Experimential_Software
             this.onOffSetPositonSystemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuStripHelpUseSW = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSetPosSystem = new System.Windows.Forms.Button();
             this.pnlTreeView = new System.Windows.Forms.Panel();
             this.tvDataSaved = new System.Windows.Forms.TreeView();
             this.pnlTool = new System.Windows.Forms.Panel();
@@ -105,19 +105,6 @@ namespace Experimential_Software
             this.panel2.Size = new System.Drawing.Size(1085, 71);
             this.panel2.TabIndex = 1;
             // 
-            // lblZoomFactor
-            // 
-            this.lblZoomFactor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblZoomFactor.AutoSize = true;
-            this.lblZoomFactor.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblZoomFactor.Location = new System.Drawing.Point(912, 39);
-            this.lblZoomFactor.Name = "lblZoomFactor";
-            this.lblZoomFactor.Size = new System.Drawing.Size(48, 17);
-            this.lblZoomFactor.TabIndex = 4;
-            this.lblZoomFactor.Text = "Zoom";
-            // 
             // btnZoomOutCenter
             // 
             this.btnZoomOutCenter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
@@ -145,6 +132,19 @@ namespace Experimential_Software
             this.imgListIconMnuStrip.Images.SetKeyName(8, "zoom_in_Icon.png");
             this.imgListIconMnuStrip.Images.SetKeyName(9, "zoom_out_Icon.png");
             // 
+            // lblZoomFactor
+            // 
+            this.lblZoomFactor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblZoomFactor.AutoSize = true;
+            this.lblZoomFactor.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblZoomFactor.Location = new System.Drawing.Point(912, 39);
+            this.lblZoomFactor.Name = "lblZoomFactor";
+            this.lblZoomFactor.Size = new System.Drawing.Size(48, 17);
+            this.lblZoomFactor.TabIndex = 4;
+            this.lblZoomFactor.Text = "Zoom";
+            // 
             // btnZoomInCenter
             // 
             this.btnZoomInCenter.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
@@ -156,18 +156,6 @@ namespace Experimential_Software
             this.btnZoomInCenter.TabIndex = 0;
             this.btnZoomInCenter.UseVisualStyleBackColor = false;
             this.btnZoomInCenter.Click += new System.EventHandler(this.btnZoomInCenter_Click);
-            // 
-            // btnSetPosSystem
-            // 
-            this.btnSetPosSystem.BackColor = System.Drawing.Color.HotPink;
-            this.btnSetPosSystem.ImageIndex = 7;
-            this.btnSetPosSystem.ImageList = this.imgListIconMnuStrip;
-            this.btnSetPosSystem.Location = new System.Drawing.Point(267, 32);
-            this.btnSetPosSystem.Name = "btnSetPosSystem";
-            this.btnSetPosSystem.Size = new System.Drawing.Size(30, 30);
-            this.btnSetPosSystem.TabIndex = 0;
-            this.btnSetPosSystem.UseVisualStyleBackColor = false;
-            this.btnSetPosSystem.Click += new System.EventHandler(this.btnSetPosSystem_Click);
             // 
             // btnPrintSystem
             // 
@@ -297,6 +285,7 @@ namespace Experimential_Software
             // mnuToolPrintData
             // 
             this.mnuToolPrintData.Name = "mnuToolPrintData";
+            this.mnuToolPrintData.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.I)));
             this.mnuToolPrintData.Size = new System.Drawing.Size(289, 22);
             this.mnuToolPrintData.Text = "Print Data System";
             this.mnuToolPrintData.Click += new System.EventHandler(this.btnPrintSystem_Click);
@@ -321,9 +310,21 @@ namespace Experimential_Software
             // 
             this.mnuStripHelpUseSW.Name = "mnuStripHelpUseSW";
             this.mnuStripHelpUseSW.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
-            this.mnuStripHelpUseSW.Size = new System.Drawing.Size(280, 22);
-            this.mnuStripHelpUseSW.Text = "Cách sử dụng Phần mềm";
+            this.mnuStripHelpUseSW.Size = new System.Drawing.Size(247, 22);
+            this.mnuStripHelpUseSW.Text = "Software User Guide";
             this.mnuStripHelpUseSW.Click += new System.EventHandler(this.mnuStripHelpUseSW_Click);
+            // 
+            // btnSetPosSystem
+            // 
+            this.btnSetPosSystem.BackColor = System.Drawing.Color.HotPink;
+            this.btnSetPosSystem.ImageIndex = 7;
+            this.btnSetPosSystem.ImageList = this.imgListIconMnuStrip;
+            this.btnSetPosSystem.Location = new System.Drawing.Point(267, 32);
+            this.btnSetPosSystem.Name = "btnSetPosSystem";
+            this.btnSetPosSystem.Size = new System.Drawing.Size(30, 30);
+            this.btnSetPosSystem.TabIndex = 0;
+            this.btnSetPosSystem.UseVisualStyleBackColor = false;
+            this.btnSetPosSystem.Click += new System.EventHandler(this.btnSetPosSystem_Click);
             // 
             // pnlTreeView
             // 

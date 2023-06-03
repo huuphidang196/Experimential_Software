@@ -121,15 +121,37 @@
     <value>                                        ********* Hướng dẫn sử dụng *********
 
 
-  - Để phóng to thu nhỏ : Giữ Ctrl + lăn con chuột
-  - Xem Database thiết bị : Giữ Ctrl + click chuột trái
-  - Để xóa Line : Nhấn chuột trái chọn Line cần xóa , sau đó nhấn chuột phải chọn "Remove this LineDrawn"
-  - Để xóa phần tử hệ thống : Chuột trái phần tủ cần xóa  =&gt; Phần tử có viền màu đỏ =&gt; bấm Delete
-     Hỗ trợ các shortcut ctrl + S, ctrl +  N,ctrl + O 
-  - Để thêm phần tử điện vào sơ đồ : Nhấn giữ chuột trái kéo thả thiết bị từ Panel Tool vào Panel
-  - Để chạy tính Ybus, Ystate, chạy Curve. 
+  - Để phóng to thu nhỏ : Giữ Ctrl + Lăn chuột giữa
+
+  - Xem Database thiết bị : Giữ Ctrl trước + Click chuột trái
+
+  - Để di chuyển phần tử hệ thống : Click và giữ chuột trái vào chính giữa phần tử cần di chuyển =&gt; Di chuyển
+
+  - Để xóa phần tử hệ thống : Click chuột trái phần tử cần xóa  =&gt; Phần tử có viền màu đỏ =&gt; Bấm Delete
+
+  - Để xóa Line : Nhấn chuột trái chọn Line cần xóa , sau đó nhấn chuột phải chọn "Xóa Line này"
+
+  - Hỗ trợ các shortcut Ctrl +  N, Ctrl + S ,Ctrl + O để Tạo mới File, Lưu File , Mở File  
+
+  - Để thêm phần tử điện vào sơ đồ : Nhấn giữ chuột trái kéo thả thiết bị từ Panel Tool vào Panel Main
+
+  - Để chạy tính Ybus, Ystate, Vẽ đường làm việc giới hạn : 
+
     + Bấm chọn Bus nối với Load cần tính
     + Sau khi Bus được viền màu đỏ chứng tỏ Bus đã được chọn
-    + Đưa con trỏ vào Bus rồi nhấn chuột trái =&gt; Chọn Option.</value>
+    + Đưa con trỏ vào Bus rồi nhấn chuột trái =&gt; Chọn Option theo mong muốn.
+
+  - Để in bảng dữ liệu thống số các phần tử hệ thống :
+
+    + Click vào button Print trên Panel Command Button 
+    + Hoặc chọn Tools trên thanh menuStrip Bar =&gt; Chọn Print Data System
+    + Hỗ trợ nhanh bằng shortcut Alt + I
+
+  - Để neo vị trí bản vẽ hệ thống sau khi thu nhỏ hoặc di chuyển đến vị trí cần tìm sau khi phóng to:
+
+     + Bấm chọn Button SetPosition (hoặc tổ hợp Alt + S) trên Panel Command Button =&gt; Click chuột trái trên Panel Main tại vị trí mới
+     + Tắt chế độ Set Positon bằng cách lại thao tác như trước. Lúc này ta có thể thao tác bình thường với bản vẽ hệ thống
+     + Ngoài ra còn có thể thao tác tương tự chọn Tools trên thanh menuStrip Bar =&gt; Chọn bằng On/Off Set Position 
+     + Button Set Positon có màu đỏ =&gt; Chế độ SetPosition Off,  màu xanh =&gt; On</value>
   </data>
 </root>

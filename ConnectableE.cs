@@ -308,6 +308,9 @@ namespace Experimential_Software
             this.SetDataLabelInfo();
 
             this.pnlMain_Drawn.Controls.Add(lblInfo);
+            // Đặt index của label lớn hơn các line để label được vẽ sau
+            this.pnlMain_Drawn.Controls.SetChildIndex(this.lblInfo, this.pnlMain_Drawn.Controls.Count - 1);
+
 
             // Set Pos lbl
             this.UpdatePositonLabelInfo();

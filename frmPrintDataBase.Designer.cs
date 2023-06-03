@@ -52,7 +52,7 @@ namespace Experimential_Software
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmPrintDataBase";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "In Ấn Dữ Liệu";
+            this.Text = "Print Data System";
             this.Load += new System.EventHandler(this.frmPrintDataBase_Load);
             this.ResumeLayout(false);
 

@@ -451,7 +451,9 @@ namespace Experimential_Software
             frmSystemIsoval frmSystemIsoval = new frmSystemIsoval();
             frmSystemIsoval.AllEPowers = this._ePowers;
             frmSystemIsoval.BusLoadExamnined = this._ePowers.Find(x => x.IsSelected);
+            ConnectableE ELoad = DAOCalculateQLJStepOne.Instance.GetEPowerPLoadFromEPowerBusLoadConsider(frmSystemIsoval.BusLoadExamnined);
 
+            if (ELoad == null) return;
             frmSystemIsoval.Show();
         }
         //Isoval

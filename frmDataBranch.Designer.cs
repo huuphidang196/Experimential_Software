@@ -75,7 +75,7 @@ namespace Experimential_Software
             // btnOkBr
             // 
             this.btnOkBr.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOkBr.Location = new System.Drawing.Point(196, 540);
+            this.btnOkBr.Location = new System.Drawing.Point(196, 533);
             this.btnOkBr.Name = "btnOkBr";
             this.btnOkBr.Size = new System.Drawing.Size(87, 28);
             this.btnOkBr.TabIndex = 0;
@@ -86,7 +86,7 @@ namespace Experimential_Software
             // btnCancelbr
             // 
             this.btnCancelbr.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelbr.Location = new System.Drawing.Point(376, 540);
+            this.btnCancelbr.Location = new System.Drawing.Point(376, 533);
             this.btnCancelbr.Name = "btnCancelbr";
             this.btnCancelbr.Size = new System.Drawing.Size(87, 28);
             this.btnCancelbr.TabIndex = 1;
@@ -98,10 +98,11 @@ namespace Experimential_Software
             // 
             this.pnlMainBranchData.AutoScroll = true;
             this.pnlMainBranchData.Controls.Add(this.tabPowerFlowBr);
+            this.pnlMainBranchData.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlMainBranchData.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlMainBranchData.Location = new System.Drawing.Point(10, 12);
+            this.pnlMainBranchData.Location = new System.Drawing.Point(0, 0);
             this.pnlMainBranchData.Name = "pnlMainBranchData";
-            this.pnlMainBranchData.Size = new System.Drawing.Size(691, 507);
+            this.pnlMainBranchData.Size = new System.Drawing.Size(713, 507);
             this.pnlMainBranchData.TabIndex = 0;
             this.pnlMainBranchData.ZoomFactor = 1D;
             // 
@@ -112,7 +113,7 @@ namespace Experimential_Software
             this.tabPowerFlowBr.Location = new System.Drawing.Point(0, 0);
             this.tabPowerFlowBr.Name = "tabPowerFlowBr";
             this.tabPowerFlowBr.SelectedIndex = 0;
-            this.tabPowerFlowBr.Size = new System.Drawing.Size(691, 507);
+            this.tabPowerFlowBr.Size = new System.Drawing.Size(713, 507);
             this.tabPowerFlowBr.TabIndex = 0;
             // 
             // tabPage1
@@ -122,7 +123,7 @@ namespace Experimential_Software
             this.tabPage1.Location = new System.Drawing.Point(4, 27);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(683, 476);
+            this.tabPage1.Size = new System.Drawing.Size(705, 476);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Power Flow";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -149,7 +150,7 @@ namespace Experimential_Software
             this.grbBasicDataBr.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbBasicDataBr.Location = new System.Drawing.Point(16, 17);
             this.grbBasicDataBr.Name = "grbBasicDataBr";
-            this.grbBasicDataBr.Size = new System.Drawing.Size(651, 170);
+            this.grbBasicDataBr.Size = new System.Drawing.Size(673, 170);
             this.grbBasicDataBr.TabIndex = 0;
             this.grbBasicDataBr.TabStop = false;
             this.grbBasicDataBr.Text = "Basic Data";
@@ -308,7 +309,7 @@ namespace Experimential_Software
             this.grbBranchData.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grbBranchData.Location = new System.Drawing.Point(16, 197);
             this.grbBranchData.Name = "grbBranchData";
-            this.grbBranchData.Size = new System.Drawing.Size(651, 266);
+            this.grbBranchData.Size = new System.Drawing.Size(673, 266);
             this.grbBranchData.TabIndex = 0;
             this.grbBranchData.TabStop = false;
             this.grbBranchData.Text = "Branch Data";
