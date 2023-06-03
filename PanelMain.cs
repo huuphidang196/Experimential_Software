@@ -45,6 +45,11 @@ namespace Experimential_Software
 
             // Tính toán độ zoom hiện tại
             double zoomPer = e.Delta > 0 ? 1.1 : (1 / 1.1);  // e.Delta là giá trị của bánh xe chuột
+            this.SetZoomPanel(mouseLocation, zoomPer);
+        }
+
+        public virtual void SetZoomPanel(Point mouseLocation, double zoomPer)
+        {
             this._zoomFactor *= zoomPer;
             this._zoomFactor = Math.Round(this._zoomFactor, 9);
 
@@ -55,7 +60,6 @@ namespace Experimential_Software
             if (this._zoomFactor == this._minZoom || this._zoomFactor == this._maxZooom) return;
 
             this.ProcessAllEPowerWhenMouseWheel(mouseLocation);
-
         }
 
         public virtual void ProcessAllEPowerWhenMouseWheel(Point mouseLocation)

@@ -524,7 +524,7 @@ namespace Experimential_Software
         private void btnSetPosSystem_Click(object sender, EventArgs e)
         {
             this.isAllowSetPosSys = !this.isAllowSetPosSys;
-            this.btnSetPosSystem.BackColor = (this.isAllowSetPosSys) ? Color.GreenYellow : Color.Transparent;
+            this.btnSetPosSystem.BackColor = (this.isAllowSetPosSys) ? Color.SpringGreen : Color.HotPink;
         }
         //Help how to use softWare
         private void mnuStripHelpUseSW_Click(object sender, EventArgs e)
@@ -533,11 +533,35 @@ namespace Experimential_Software
             frmHelpForm.ShowDialog();
         }
 
+        //Zoom In at Center Panel pnlMain
+        private void btnZoomInCenter_Click(object sender, EventArgs e)
+        {
+            Point pointCenter = this.GetPointCenterPanelMain();
+            double zoomPer = 1.1;
+            this.pnlMain.SetZoomPanel(pointCenter, zoomPer);
+        }
 
+        //Zoom In at Center Panel pnlMain
+
+        private void btnZoomOutCenter_Click(object sender, EventArgs e)
+        {
+            Point pointCenter = this.GetPointCenterPanelMain();
+            double zoomPer = 1 / 1.1;
+            this.pnlMain.SetZoomPanel(pointCenter, zoomPer);
+        }
+
+        protected virtual Point GetPointCenterPanelMain()
+        {
+            int xCenter = this.pnlMain.Width / 2;
+            int yCenter = this.pnlMain.Height / 2;
+
+            Point pointCenter = new Point(xCenter, yCenter);
+            return pointCenter;
+        }
 
         #endregion MenuStrip
 
-       
+
     }
 }
 
