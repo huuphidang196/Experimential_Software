@@ -308,9 +308,6 @@ namespace Experimential_Software
             this.SetDataLabelInfo();
 
             this.pnlMain_Drawn.Controls.Add(lblInfo);
-            // Đặt index của label lớn hơn các line để label được vẽ sau
-            this.pnlMain_Drawn.Controls.SetChildIndex(this.lblInfo, this.pnlMain_Drawn.Controls.Count - 1);
-
 
             // Set Pos lbl
             this.UpdatePositonLabelInfo();
@@ -325,7 +322,8 @@ namespace Experimential_Software
 
         public virtual void UpdatePositonLabelInfo()
         {
-            this.lblInfo.Location = new Point(this.Location.X - 50, this.Location.Y - 30);
+            int pointX = (this._databaseE.ObjectOri == ObjectOrientation.Verical) ? this.Location.X + this.Width : this.Location.X - 10;
+            this.lblInfo.Location = new Point(pointX, this.Location.Y - 30);
         }
 
         public override string ToString()

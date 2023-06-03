@@ -29,9 +29,9 @@ namespace Experimential_Software
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlinfoLoad = new System.Windows.Forms.Panel();
             this.lblStateSystem = new System.Windows.Forms.Label();
@@ -42,6 +42,7 @@ namespace Experimential_Software
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
             this.pnlTChar = new System.Windows.Forms.Panel();
+            this.lblKPghRatio = new System.Windows.Forms.Label();
             this.pnlTCharImage = new System.Windows.Forms.Panel();
             this.ptbClockWise = new System.Windows.Forms.PictureBox();
             this.ptbClockPercent = new System.Windows.Forms.PictureBox();
@@ -76,7 +77,6 @@ namespace Experimential_Software
             this.chartCurveLimted = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pnlListBoxPoints = new System.Windows.Forms.Panel();
             this.lstBoxExperPoint = new System.Windows.Forms.ListBox();
-            this.lblKPghRatio = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.pnlinfoLoad.SuspendLayout();
             this.pnlButtonControl.SuspendLayout();
@@ -218,6 +218,19 @@ namespace Experimential_Software
             this.pnlTChar.Name = "pnlTChar";
             this.pnlTChar.Size = new System.Drawing.Size(345, 565);
             this.pnlTChar.TabIndex = 2;
+            // 
+            // lblKPghRatio
+            // 
+            this.lblKPghRatio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblKPghRatio.AutoSize = true;
+            this.lblKPghRatio.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblKPghRatio.Location = new System.Drawing.Point(111, 326);
+            this.lblKPghRatio.Name = "lblKPghRatio";
+            this.lblKPghRatio.Size = new System.Drawing.Size(97, 18);
+            this.lblKPghRatio.TabIndex = 2;
+            this.lblKPghRatio.Text = "P/PGh = 0 %";
             // 
             // pnlTCharImage
             // 
@@ -519,7 +532,7 @@ namespace Experimential_Software
             // 
             this.pnlProgress.Controls.Add(this.lblCmdReset);
             this.pnlProgress.Controls.Add(this.lblProgress);
-            this.pnlProgress.Location = new System.Drawing.Point(179, 141);
+            this.pnlProgress.Location = new System.Drawing.Point(142, 141);
             this.pnlProgress.Name = "pnlProgress";
             this.pnlProgress.Size = new System.Drawing.Size(282, 83);
             this.pnlProgress.TabIndex = 2;
@@ -546,17 +559,17 @@ namespace Experimential_Software
             // 
             this.chartCurveLimted.BackColor = System.Drawing.Color.Gainsboro;
             this.chartCurveLimted.BorderlineColor = System.Drawing.Color.WhiteSmoke;
-            chartArea7.Name = "ChartArea1";
-            this.chartCurveLimted.ChartAreas.Add(chartArea7);
+            chartArea1.Name = "ChartArea1";
+            this.chartCurveLimted.ChartAreas.Add(chartArea1);
             this.chartCurveLimted.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend7.Name = "Legend1";
-            this.chartCurveLimted.Legends.Add(legend7);
+            legend1.Name = "Legend1";
+            this.chartCurveLimted.Legends.Add(legend1);
             this.chartCurveLimted.Location = new System.Drawing.Point(0, 0);
             this.chartCurveLimted.Name = "chartCurveLimted";
-            series7.ChartArea = "ChartArea1";
-            series7.Legend = "Legend1";
-            series7.Name = "Series1";
-            this.chartCurveLimted.Series.Add(series7);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartCurveLimted.Series.Add(series1);
             this.chartCurveLimted.Size = new System.Drawing.Size(552, 380);
             this.chartCurveLimted.TabIndex = 1;
             this.chartCurveLimted.Text = "Miền làm việc ổn định trong mặt phẳng công suất P-Q";
@@ -580,19 +593,6 @@ namespace Experimential_Software
             this.lstBoxExperPoint.Name = "lstBoxExperPoint";
             this.lstBoxExperPoint.Size = new System.Drawing.Size(153, 378);
             this.lstBoxExperPoint.TabIndex = 0;
-            // 
-            // lblKPghRatio
-            // 
-            this.lblKPghRatio.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblKPghRatio.AutoSize = true;
-            this.lblKPghRatio.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblKPghRatio.Location = new System.Drawing.Point(111, 326);
-            this.lblKPghRatio.Name = "lblKPghRatio";
-            this.lblKPghRatio.Size = new System.Drawing.Size(97, 18);
-            this.lblKPghRatio.TabIndex = 2;
-            this.lblKPghRatio.Text = "P/PGh = 0 %";
             // 
             // frmDrawnCurve
             // 

@@ -484,7 +484,7 @@ namespace Experimential_Software
             this.pnlMain.ZoomFactor = 1;
             this.lblZoomFactor.Text = "Zoom = " + Math.Round(100 * this.pnlMain.ZoomFactor, 0) + " %";
 
-            this.Text = "Phần mềm tính trào lưu công suất";
+            this.Text = "Phần mềm đánh giá khả năng ổn định điện áp của hệ thống điện";
         }
 
         //openFile
@@ -514,12 +514,16 @@ namespace Experimential_Software
             this.LoadDataTreeView();
         }
 
-        //Rpint System
+        //Print Data
         private void btnPrintSystem_Click(object sender, EventArgs e)
         {
+            this.btnPrintSystem.BackColor = Color.GreenYellow;
+
             frmPrintDataBase frmPrint = new frmPrintDataBase();
             frmPrint.AllEPowers = this._ePowers;
-            frmPrint.Show();
+           DialogResult ret = frmPrint.ShowDialog();
+
+            if (ret == DialogResult.Cancel) this.btnPrintSystem.BackColor = Color.White;
         }
 
         //Set Pos System
@@ -561,9 +565,10 @@ namespace Experimential_Software
             return pointCenter;
         }
 
+
         #endregion MenuStrip
 
-
+     
     }
 }
 

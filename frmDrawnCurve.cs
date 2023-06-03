@@ -395,13 +395,12 @@ namespace Experimential_Software
             string pathSound = DAOGeneratePathFolder.Instance.LoadPathSoundInsideLibrarySound();
             SoundPlayer player = new SoundPlayer(pathSound);
 
+            stopwatch.Stop();
+            TimeSpan duration = stopwatch.Elapsed;
+
             //Play Sound
             player.Play();
 
-            // Thực hiện các tác vụ hoặc đoạn code khác trong Window Form
-
-            stopwatch.Stop();
-            TimeSpan duration = stopwatch.Elapsed;
             MessageBox.Show("Time Span = " + string.Format("{0}:{1:D2}", duration.Minutes, duration.Seconds));
         }
 

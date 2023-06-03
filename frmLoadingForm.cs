@@ -36,7 +36,7 @@ namespace Experimential_Software
             this.ControlBox = false;
 
             this.pgrBarLoading.Minimum = 0;
-            this.pgrBarLoading.Maximum = 300;
+            this.pgrBarLoading.Maximum = 200;
             this.pgrBarLoading.Value = 0;
 
             this.pgrBarLoading.Visible = true;

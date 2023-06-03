@@ -364,7 +364,7 @@ namespace Experimential_Software
             // 
             // pnlFlowTool
             // 
-            this.pnlFlowTool.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.pnlFlowTool.BackColor = System.Drawing.Color.Bisque;
             this.pnlFlowTool.Controls.Add(this.btnBusPower_Hor);
             this.pnlFlowTool.Controls.Add(this.btnBusPower_Ver);
             this.pnlFlowTool.Controls.Add(this.btnMFPower_Hor);

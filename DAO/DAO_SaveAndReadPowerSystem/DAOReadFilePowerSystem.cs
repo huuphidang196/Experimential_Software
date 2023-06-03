@@ -59,7 +59,7 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
 
         protected virtual void SetNameFormByPath(string path, frmCapstone frmCapstone)
         {
-            frmCapstone.Text = "Phần mềm tính trào lưu công suất";
+            frmCapstone.Text = "Phần mềm đánh giá khả năng ổn định điện áp của hệ thống điện";
             string nameFileOpening = Path.GetFileNameWithoutExtension(path);
             frmCapstone.Text += (" - " + nameFileOpening);
         }
