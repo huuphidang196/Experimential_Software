@@ -93,9 +93,7 @@ namespace Experimential_Software.CustomControl
                 if (pointToEPower == EPower.PIntern) return PointOfEnds.PointOfIntern;
             }
 
-            bool isPHead = true;
-            if (EPower.DatabaseE.ObjectType != ObjectType.Bus) isPHead = pointToEPower == EPower.PHead ? true : false;
-            else isPHead = Math.Abs(pointToEPower.X - EPower.PHead.X) < 2 ? true : false;
+            bool isPHead = pointToEPower == EPower.PHead ? true : false;
 
             if (isPHead) return PointOfEnds.PointOfHead;
 

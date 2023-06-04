@@ -20,6 +20,8 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             private set { }
         }
 
+        public object MesssageBox { get; private set; }
+
         private DAOGenerateYState() { }
 
         public virtual Complex[,] CalculateMatrixYState(List<ConnectableE> allBus)
@@ -97,10 +99,8 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                 else y_ij_otherEPower = this.GetSumYijOfEPowerAffectedByRXSpecifiedForMBA3P(ortherEPower, bus_Consider);
                 //Get Yi0 if other EPower is MBA, Line , maybe MF still is considered
                 Complex y_i0_otherEPower = this.GetYioOfEPowerAfftecdByGB(ortherEPower, bus_Consider);
-
                 Sigmoid += y_ij_otherEPower + y_i0_otherEPower;
             }
-
             return Sigmoid;
         }
 

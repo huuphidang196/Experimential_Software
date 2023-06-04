@@ -130,9 +130,6 @@ namespace Experimential_Software
             // 
             // grbBasicDataBr
             // 
-            this.grbBasicDataBr.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.grbBasicDataBr.BackColor = System.Drawing.Color.WhiteSmoke;
             this.grbBasicDataBr.Controls.Add(this.txtBranchName);
             this.grbBasicDataBr.Controls.Add(this.txtBranchID);
@@ -147,10 +144,11 @@ namespace Experimential_Software
             this.grbBasicDataBr.Controls.Add(this.label4);
             this.grbBasicDataBr.Controls.Add(this.lblBusFromNumber);
             this.grbBasicDataBr.Controls.Add(this.label1);
+            this.grbBasicDataBr.Dock = System.Windows.Forms.DockStyle.Top;
             this.grbBasicDataBr.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grbBasicDataBr.Location = new System.Drawing.Point(16, 17);
+            this.grbBasicDataBr.Location = new System.Drawing.Point(3, 3);
             this.grbBasicDataBr.Name = "grbBasicDataBr";
-            this.grbBasicDataBr.Size = new System.Drawing.Size(673, 170);
+            this.grbBasicDataBr.Size = new System.Drawing.Size(699, 170);
             this.grbBasicDataBr.TabIndex = 0;
             this.grbBasicDataBr.TabStop = false;
             this.grbBasicDataBr.Text = "Basic Data";
@@ -286,9 +284,6 @@ namespace Experimential_Software
             // 
             // grbBranchData
             // 
-            this.grbBranchData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.grbBranchData.BackColor = System.Drawing.Color.WhiteSmoke;
             this.grbBranchData.Controls.Add(this.label12);
             this.grbBranchData.Controls.Add(this.label17);
@@ -306,10 +301,11 @@ namespace Experimential_Software
             this.grbBranchData.Controls.Add(this.txtLineGFromPu);
             this.grbBranchData.Controls.Add(this.txtLineXPu);
             this.grbBranchData.Controls.Add(this.txtLineRPu);
+            this.grbBranchData.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.grbBranchData.Font = new System.Drawing.Font("Tahoma", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grbBranchData.Location = new System.Drawing.Point(16, 197);
+            this.grbBranchData.Location = new System.Drawing.Point(3, 191);
             this.grbBranchData.Name = "grbBranchData";
-            this.grbBranchData.Size = new System.Drawing.Size(673, 266);
+            this.grbBranchData.Size = new System.Drawing.Size(699, 282);
             this.grbBranchData.TabIndex = 0;
             this.grbBranchData.TabStop = false;
             this.grbBranchData.Text = "Branch Data";
@@ -483,6 +479,7 @@ namespace Experimential_Software
             this.Controls.Add(this.pnlMainBranchData);
             this.Controls.Add(this.btnCancelbr);
             this.Controls.Add(this.btnOkBr);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmDataBranch";

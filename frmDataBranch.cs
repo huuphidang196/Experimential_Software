@@ -168,6 +168,14 @@ namespace Experimential_Software
                 return;
             }
             txtDataChanged.BackColor = Color.White;
+
+            if (txtDataChanged == this.txtChargingBPu)
+            {
+                double chargingBpu = double.Parse(this.txtChargingBPu.Text);
+                if (chargingBpu == 0) return;
+                this.txtLineBFromPu.Text = chargingBpu / 2 + "";
+                this.txtLineBToPu.Text = chargingBpu / 2 + "";
+            }
         }
     }
 }

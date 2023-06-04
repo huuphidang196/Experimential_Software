@@ -6,28 +6,31 @@
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>0.7647in</Width>
+              <Width>0.58097in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.7647in</Width>
+              <Width>0.66267in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.7647in</Width>
+              <Width>0.66267in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.7647in</Width>
+              <Width>0.66267in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.7647in</Width>
+              <Width>0.66267in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.7647in</Width>
+              <Width>0.66267in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.7647in</Width>
+              <Width>0.66267in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.875in</Width>
+              <Width>0.77297in</Width>
+            </TablixColumn>
+            <TablixColumn>
+              <Width>0.89797in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -323,6 +326,38 @@
                     </Textbox>
                   </CellContents>
                 </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Textbox8">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>Angle (rad)</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Textbox8</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
               </TablixCells>
             </TablixRow>
             <TablixRow>
@@ -584,12 +619,45 @@
                     </Textbox>
                   </CellContents>
                 </TablixCell>
+                <TablixCell>
+                  <CellContents>
+                    <Textbox Name="Angle">
+                      <CanGrow>true</CanGrow>
+                      <KeepTogether>true</KeepTogether>
+                      <Paragraphs>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value>=Fields!Angle.Value</Value>
+                              <Style />
+                            </TextRun>
+                          </TextRuns>
+                          <Style>
+                            <TextAlign>Center</TextAlign>
+                          </Style>
+                        </Paragraph>
+                      </Paragraphs>
+                      <rd:DefaultName>Angle</rd:DefaultName>
+                      <Style>
+                        <Border>
+                          <Color>LightGrey</Color>
+                          <Style>Solid</Style>
+                        </Border>
+                        <PaddingLeft>2pt</PaddingLeft>
+                        <PaddingRight>2pt</PaddingRight>
+                        <PaddingTop>2pt</PaddingTop>
+                        <PaddingBottom>2pt</PaddingBottom>
+                      </Style>
+                    </Textbox>
+                  </CellContents>
+                </TablixCell>
               </TablixCells>
             </TablixRow>
           </TablixRows>
         </TablixBody>
         <TablixColumnHierarchy>
           <TablixMembers>
+            <TablixMember />
             <TablixMember />
             <TablixMember />
             <TablixMember />
@@ -614,7 +682,7 @@
         <Top>0.88069in</Top>
         <Left>0.11458in</Left>
         <Height>0.5in</Height>
-        <Width>6.22792in</Width>
+        <Width>6.2279in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1403,6 +1471,10 @@
         </Field>
         <Field Name="Upu">
           <DataField>Upu</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Angle">
+          <DataField>Angle</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>

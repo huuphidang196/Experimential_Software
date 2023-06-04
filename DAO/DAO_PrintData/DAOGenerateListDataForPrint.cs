@@ -19,7 +19,7 @@ namespace Experimential_Software.DAO.DAO_PrintData
         public double QLoad { get; set; }
         public double U { get; set; }
         public double Upu { get; set; }
-
+        public double Angle { get; set; }
     }
 
     [Serializable]
@@ -95,6 +95,7 @@ namespace Experimential_Software.DAO.DAO_PrintData
                 double Qfmax = dtoMF.PowerMachineMF.Qmax_Mvar;
                 double U_kv = dtoMF.DTOBusConnected.BasekV;
                 double U_pu = dtoMF.DTOBusConnected.Voltage_pu;
+                double Angle = dtoMF.DTOBusConnected.Angle_rad;
 
                 DataNodeSystem dtNode = new DataNodeSystem()
                 {
@@ -105,7 +106,8 @@ namespace Experimential_Software.DAO.DAO_PrintData
                     PLoad = 0,
                     QLoad = 0,
                     U = U_kv,
-                    Upu = U_pu
+                    Upu = U_pu,
+                    Angle = Angle
                 };
 
                 ListNodeMF.Add(dtNode);
@@ -125,6 +127,7 @@ namespace Experimential_Software.DAO.DAO_PrintData
                 double QLoad = dtoLoad.QLoad;
                 double U_kv = dtoLoad.DTOBusConnected.BasekV;
                 double U_pu = dtoLoad.DTOBusConnected.Voltage_pu;
+                double Angle = dtoLoad.DTOBusConnected.Angle_rad;
 
                 DataNodeSystem dtNode = new DataNodeSystem()
                 {
@@ -135,7 +138,8 @@ namespace Experimential_Software.DAO.DAO_PrintData
                     PLoad = PLoad,
                     QLoad = QLoad,
                     U = U_kv,
-                    Upu = U_pu
+                    Upu = U_pu,
+                    Angle = Angle
                 };
 
                 ListNodeLoad.Add(dtNode);
@@ -154,6 +158,7 @@ namespace Experimential_Software.DAO.DAO_PrintData
                 int numberMF = dtoBus.ObjectNumber - 100 * (int)ObjectType.Bus;
                 double U_kv = dtoBus.BasekV;
                 double U_pu = dtoBus.Voltage_pu;
+                double Angle = dtoBus.Angle_rad;
 
                 DataNodeSystem dtNode = new DataNodeSystem()
                 {
@@ -164,7 +169,8 @@ namespace Experimential_Software.DAO.DAO_PrintData
                     PLoad = 0,
                     QLoad = 0,
                     U = U_kv,
-                    Upu = U_pu
+                    Upu = U_pu,
+                    Angle = Angle
                 };
 
                 ListNodeBusNull.Add(dtNode);

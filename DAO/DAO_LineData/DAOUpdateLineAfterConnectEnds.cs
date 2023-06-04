@@ -22,7 +22,7 @@ namespace Experimential_Software.DAO.DAO_LineData
 
         private DAOUpdateLineAfterConnectEnds() { }
 
-        public virtual void UpdateLineAfterConnectEnds(ConnectableE lineEPower,  bool isRemoved)
+        public virtual void UpdateLineAfterConnectEnds(ConnectableE lineEPower, bool isRemoved)
         {
             //Line isnot Connected with Line
             List<ConnectableE> ListEPowerEnds = this.GetEPowerConnectWithLineEPOwer(lineEPower);
@@ -97,7 +97,7 @@ namespace Experimential_Software.DAO.DAO_LineData
 
             //false <=> Bus from is removed 
             if (!isDTOFrom) lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_From = null;
-            lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_To = null;
+            else lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_To = null;
         }
 
     }

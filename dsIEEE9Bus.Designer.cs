@@ -330,6 +330,8 @@ namespace Experimential_Software {
             
             private global::System.Data.DataColumn columnUpu;
             
+            private global::System.Data.DataColumn columnAngle;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public DataLoadMFDataTable() {
@@ -429,6 +431,14 @@ namespace Experimential_Software {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn AngleColumn {
+                get {
+                    return this.columnAngle;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -464,7 +474,7 @@ namespace Experimential_Software {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DataLoadMFRow AddDataLoadMFRow(int Bus, double Pf, double Qfmin, double Qfmax, double PLoad, double QLoad, double U, string Upu) {
+            public DataLoadMFRow AddDataLoadMFRow(int Bus, double Pf, double Qfmin, double Qfmax, double PLoad, double QLoad, double U, string Upu, string Angle) {
                 DataLoadMFRow rowDataLoadMFRow = ((DataLoadMFRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Bus,
@@ -474,7 +484,8 @@ namespace Experimential_Software {
                         PLoad,
                         QLoad,
                         U,
-                        Upu};
+                        Upu,
+                        Angle};
                 rowDataLoadMFRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDataLoadMFRow);
                 return rowDataLoadMFRow;
@@ -505,6 +516,7 @@ namespace Experimential_Software {
                 this.columnQLoad = base.Columns["QLoad"];
                 this.columnU = base.Columns["U"];
                 this.columnUpu = base.Columns["Upu"];
+                this.columnAngle = base.Columns["Angle"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -526,6 +538,8 @@ namespace Experimential_Software {
                 base.Columns.Add(this.columnU);
                 this.columnUpu = new global::System.Data.DataColumn("Upu", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnUpu);
+                this.columnAngle = new global::System.Data.DataColumn("Angle", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAngle);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1127,6 +1141,22 @@ namespace Experimential_Software {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Angle {
+                get {
+                    try {
+                        return ((string)(this[this.tableDataLoadMF.AngleColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Angle\' in table \'DataLoadMF\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDataLoadMF.AngleColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsBusNull() {
                 return this.IsNull(this.tableDataLoadMF.BusColumn);
             }
@@ -1219,6 +1249,18 @@ namespace Experimential_Software {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetUpuNull() {
                 this[this.tableDataLoadMF.UpuColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsAngleNull() {
+                return this.IsNull(this.tableDataLoadMF.AngleColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetAngleNull() {
+                this[this.tableDataLoadMF.AngleColumn] = global::System.Convert.DBNull;
             }
         }
         

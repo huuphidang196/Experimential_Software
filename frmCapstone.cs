@@ -202,6 +202,8 @@ namespace Experimential_Software
 
             foreach (ConnectableE ePower in this._ePowers)
             {
+                if (ePower.DatabaseE.ObjectType != ObjectType.Bus) continue;
+
                 bool isOnPower = ePower.Bounds.Contains(endLinePoint);
                 if (!isOnPower) continue;
 

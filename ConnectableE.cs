@@ -481,7 +481,8 @@ namespace Experimential_Software
 
         protected virtual void ProcessOnPaintDifferenceMBA3P(PaintEventArgs e)
         {
-            this.nearPhead = this.IsOnNearPHead();
+            Point pointMouse = this.pnlMain_Drawn.PointToClient(Cursor.Position);
+            this.nearPhead = this.IsOnNearPHead(pointMouse);
             Point pEnds = this.nearPhead ? this.pHead : this.pTail;
             bool contained = this.nearPhead ? this.isContainPhead : this.isContainPtail;
 
@@ -772,13 +773,13 @@ namespace Experimential_Software
             return false;
         }
 
-        public virtual bool IsOnNearPHead()
+        public virtual bool IsOnNearPHead(Point pointCompared)
         {
-            Point pointHeadtoScreen = this.PointToScreen(this.pHead);
-            Point pointTailtoScreen = this.PointToScreen(this.pTail);
+            Point pointHeadtoScreen = this._ePowerMouse.TransferPosFindOnInstance(this.pHead);
+            Point pointTailtoScreen = this._ePowerMouse.TransferPosFindOnInstance(this.pTail);
 
-            double distanceHead = this.Distance(pointHeadtoScreen);
-            double distanceTail = this.Distance(pointTailtoScreen);
+            double distanceHead = this.Distance(pointHeadtoScreen, pointCompared);
+            double distanceTail = this.Distance(pointTailtoScreen, pointCompared);
 
             // if (this.databaseE.objectType == ObjectType.MF) distanceTail = 10000;=> Generator
             if (distanceHead < distanceTail) return true;
@@ -786,13 +787,15 @@ namespace Experimential_Software
         }
         public virtual void SetIsOnNearAnyPEnds()
         {
-            Point pointHeadtoScreen = this.PointToScreen(this.pHead);
-            Point pointTailtoScreen = this.PointToScreen(this.pTail);
-            Point pointInterntoScreen = this.PointToScreen(this.pIntern);
+            Point pointHeadtoScreen = this._ePowerMouse.TransferPosFindOnInstance(this.pHead);
+            Point pointTailtoScreen = this._ePowerMouse.TransferPosFindOnInstance(this.pTail);
+            Point pointInterntoScreen = this._ePowerMouse.TransferPosFindOnInstance(this.pIntern);
 
-            double distanceHead = this.Distance(pointHeadtoScreen);
-            double distanceTail = this.Distance(pointTailtoScreen);
-            double distanceIntern = this.Distance(pointInterntoScreen);
+            Point pointMouse = this.pnlMain_Drawn.PointToClient(Cursor.Position);
+
+            double distanceHead = this.Distance(pointHeadtoScreen, pointMouse);
+            double distanceTail = this.Distance(pointTailtoScreen, pointMouse);
+            double distanceIntern = this.Distance(pointInterntoScreen, pointMouse);
 
             double minDis = Math.Min(Math.Min(distanceHead, distanceTail), distanceIntern);
 
@@ -814,9 +817,9 @@ namespace Experimential_Software
             }
         }
 
-        protected virtual double Distance(Point pointCal)
+        protected virtual double Distance(Point pointCal, Point pointCompared)
         {
-            double distance = Math.Sqrt(Math.Pow(Cursor.Position.X - pointCal.X, 2) + Math.Pow(Cursor.Position.Y - pointCal.Y, 2));
+            double distance = Math.Sqrt(Math.Pow(pointCompared.X - pointCal.X, 2) + Math.Pow(pointCompared.Y - pointCal.Y, 2));
             return distance;
         }
 

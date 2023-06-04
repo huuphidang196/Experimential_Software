@@ -130,10 +130,14 @@ namespace Experimential_Software.EPowerProcess
 
             if (!this.isMove)
             {
-                if (this.allowCreatLine)    //Drawn Line
+                if (!this.allowCreatLine)  //Drawn Line           
+                {
                     this._endPLinetemp = this._ePower.EPowerLineTemp.GenerateLine(e, this._startPLineTemp);
-
+                    // button move will remove line. So Drawn all circumstance
+                    this._ePower.FormCapstone.DrawAllLineOnPanel();
+                }
                 this._ePower.FormCapstone.ShowPointConnect();
+
                 return;
             }
 
@@ -144,7 +148,7 @@ namespace Experimential_Software.EPowerProcess
             this._ePower.Location = this.TransferPosMouseToControl(e);
 
             if (this._ePower.ListBranch_Drawn.Count == 0) return;
-            
+
             this.UpdateLineWhenMove();
             // button move will remove line. So Drawn all circumstance
             this._ePower.FormCapstone.DrawAllLineOnPanel();
@@ -202,21 +206,7 @@ namespace Experimential_Software.EPowerProcess
             if (EndEPower.DatabaseE.ObjectType != ObjectType.Bus) return;
 
             //Check endPoint is near Pheah or Ptail. not use isOnpHead or Patil beacause endLocation use mouse of other button
-            Point pointEndToBtn;
-            if (this._ePower.DatabaseE.ObjectType != ObjectType.MBA3P) pointEndToBtn = EndEPower.IsOnNearPHead() ? EndEPower.PHead : EndEPower.PTail;
-            else
-            {
-                EndEPower.SetIsOnNearAnyPEnds();
-                if (EndEPower.NearPIntern) pointEndToBtn = EndEPower.PIntern;
-                else if (EndEPower.NearPHead) pointEndToBtn = EndEPower.PHead;
-                else pointEndToBtn = EndEPower.PTail;
-            }
-            //get bool contain Phead or Ptail
-            bool isContainEnds = (pointEndToBtn == EndEPower.PHead) ? EndEPower.IsContainPhead : EndEPower.IsContainPtail;
-            if (pointEndToBtn == EndEPower.PIntern) isContainEnds = EndEPower.IsContainPIntern;
-
-            if (EndEPower.DatabaseE.ObjectType == ObjectType.Bus) isContainEnds = false;//=?Bus can add > 2
-            if (isContainEnds) return; //=> EndPoint has LineConnect 
+            Point pointEndToBtn = EndEPower.IsOnNearPHead(this._endPLinetemp) ? EndEPower.PHead : EndEPower.PTail;
 
             //Transfer EndMouse to Point of pnlMain system. EndMouse = pointEndToBtn = Phead or PTail of EndEPower not Instance
             this._endPLinetemp = this.TransferPosFindToControl(EndEPower, pointEndToBtn);
@@ -232,8 +222,6 @@ namespace Experimential_Software.EPowerProcess
             this._ePower.FormCapstone.DrawAllLineOnPanel();
 
             //Beacause End EPower certainly is Bus => Bus not Contain Ends
-            //  EndEPower.containPreEpower = (pointEndToBtn == EndEPower.PHead) ? ContainPreEpower.ContainPhead : ContainPreEpower.ContainPTail;
-
             //set 2 Contain Phead or Ptail  button Start , End is Bus not set Contain
             this.SetContainOnce(buttonInstance);
             buttonInstance.UpdateDataRecordEPowerWhenConnectOrRemove(false);
@@ -289,21 +277,33 @@ namespace Experimential_Software.EPowerProcess
                     {
                         frmDataMBA2 frmDataMBA2 = new frmDataMBA2();
                         frmDataMBA2.MBA2EPowerFixed = ePower;
-                        if (frmDataMBA2.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
+                        if (frmDataMBA2.ShowDialog() == DialogResult.OK)
+                        {
+                            this._ePower.SetDataLabelInfo();
+                            this._ePower.UpdateDataRecordEPowerWhenConnectOrRemove(false);
+                        }
                     }
                     break;
                 case ObjectType.MBA3P://Obj Type = 3
                     {
                         frmDataMBA3 frmDataMBA3 = new frmDataMBA3();
                         frmDataMBA3.MBA3EPowerFixed = ePower;
-                        if (frmDataMBA3.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
+                        if (frmDataMBA3.ShowDialog() == DialogResult.OK)
+                        {
+                            this._ePower.UpdateDataRecordEPowerWhenConnectOrRemove(false);
+                            this._ePower.SetDataLabelInfo();
+                        }
                     }
                     break;
                 case ObjectType.LineEPower://Obj Type = 5
                     {
                         frmDataBranch frmDataLineE = new frmDataBranch();
                         frmDataLineE.LineEPowerFixed = ePower;
-                        if (frmDataLineE.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
+                        if (frmDataLineE.ShowDialog() == DialogResult.OK)
+                        {
+                            this._ePower.UpdateDataRecordEPowerWhenConnectOrRemove(false);
+                            this._ePower.SetDataLabelInfo();
+                        }
                     }
                     break;
                 case ObjectType.Load://Obj Type = 6
@@ -338,7 +338,7 @@ namespace Experimential_Software.EPowerProcess
             return this.TransferPosFindOnInstance(posCenter);
         }
 
-        protected virtual Point TransferPosFindOnInstance(Point posFind)
+        public virtual Point TransferPosFindOnInstance(Point posFind)
         {
             //=> transfer Location to screen
             Point dropToScreen = this._ePower.PointToScreen(posFind);
