@@ -1,13 +1,15 @@
-﻿using Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath;
+
 
 namespace Experimential_Software
 {
@@ -21,6 +23,7 @@ namespace Experimential_Software
         private void frmLoadingForm_Load(object sender, EventArgs e)
         {
             this.SetImagePictureBoxLoading();
+            this.PlayMusic();
             this.SetDataStartOnBar();
 
         }
@@ -31,12 +34,22 @@ namespace Experimential_Software
             this.ptbImageLoading.Image =  Image.FromFile(pathLogo);
         }
 
+        protected virtual void PlayMusic()
+        {
+            //Creat folder Library Sound
+            string pathSound = DAOGeneratePathFolder.Instance.LoadPathSoundInsideLibrarySoundLoadForm();
+            SoundPlayer player = new SoundPlayer(pathSound);
+            //Play Sound
+            player.Play();
+
+        }
+
         protected virtual void SetDataStartOnBar()
         {
             this.ControlBox = false;
 
             this.pgrBarLoading.Minimum = 0;
-            this.pgrBarLoading.Maximum = 200;
+            this.pgrBarLoading.Maximum = 300;
             this.pgrBarLoading.Value = 0;
 
             this.pgrBarLoading.Visible = true;

@@ -31,6 +31,18 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath
             return fullPathSound;
         }
 
+        //Path Sound Load Form
+        public virtual string LoadPathSoundInsideLibrarySoundLoadForm()
+        {
+            // Initialize SoundPlayer
+            string pathLibrary = this.GetPathLibrary();
+            // Kết hợp đường dẫn của thư mục cha và tên thư mục con
+            string SoundName = "Library Sound/Sound_LoadForm.wav";
+            string fullPathSound = this.GetPathChildFolder(pathLibrary, SoundName);
+
+            return fullPathSound;
+        }
+
         //Path loGo
         public virtual string LoadLogoInsideLibraryLogo()
         {

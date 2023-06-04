@@ -29,9 +29,9 @@ namespace Experimential_Software
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlinfoLoad = new System.Windows.Forms.Panel();
             this.lblStateSystem = new System.Windows.Forms.Label();
@@ -77,6 +77,7 @@ namespace Experimential_Software
             this.chartCurveLimted = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pnlListBoxPoints = new System.Windows.Forms.Panel();
             this.lstBoxExperPoint = new System.Windows.Forms.ListBox();
+            this.chkGetListPoints = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.pnlinfoLoad.SuspendLayout();
             this.pnlButtonControl.SuspendLayout();
@@ -342,6 +343,7 @@ namespace Experimential_Software
             // 
             // grbModeDrawn
             // 
+            this.grbModeDrawn.Controls.Add(this.chkGetListPoints);
             this.grbModeDrawn.Controls.Add(this.chkManyCurve);
             this.grbModeDrawn.Controls.Add(this.chkOneCurve);
             this.grbModeDrawn.Dock = System.Windows.Forms.DockStyle.Top;
@@ -355,7 +357,7 @@ namespace Experimential_Software
             // chkManyCurve
             // 
             this.chkManyCurve.AutoSize = true;
-            this.chkManyCurve.Location = new System.Drawing.Point(33, 107);
+            this.chkManyCurve.Location = new System.Drawing.Point(27, 126);
             this.chkManyCurve.Name = "chkManyCurve";
             this.chkManyCurve.Size = new System.Drawing.Size(101, 21);
             this.chkManyCurve.TabIndex = 1;
@@ -366,7 +368,7 @@ namespace Experimential_Software
             // chkOneCurve
             // 
             this.chkOneCurve.AutoSize = true;
-            this.chkOneCurve.Location = new System.Drawing.Point(33, 56);
+            this.chkOneCurve.Location = new System.Drawing.Point(27, 85);
             this.chkOneCurve.Name = "chkOneCurve";
             this.chkOneCurve.Size = new System.Drawing.Size(93, 21);
             this.chkOneCurve.TabIndex = 0;
@@ -559,17 +561,17 @@ namespace Experimential_Software
             // 
             this.chartCurveLimted.BackColor = System.Drawing.Color.Gainsboro;
             this.chartCurveLimted.BorderlineColor = System.Drawing.Color.WhiteSmoke;
-            chartArea1.Name = "ChartArea1";
-            this.chartCurveLimted.ChartAreas.Add(chartArea1);
+            chartArea4.Name = "ChartArea1";
+            this.chartCurveLimted.ChartAreas.Add(chartArea4);
             this.chartCurveLimted.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chartCurveLimted.Legends.Add(legend1);
+            legend4.Name = "Legend1";
+            this.chartCurveLimted.Legends.Add(legend4);
             this.chartCurveLimted.Location = new System.Drawing.Point(0, 0);
             this.chartCurveLimted.Name = "chartCurveLimted";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartCurveLimted.Series.Add(series1);
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            this.chartCurveLimted.Series.Add(series4);
             this.chartCurveLimted.Size = new System.Drawing.Size(552, 380);
             this.chartCurveLimted.TabIndex = 1;
             this.chartCurveLimted.Text = "Miền làm việc ổn định trong mặt phẳng công suất P-Q";
@@ -593,6 +595,19 @@ namespace Experimential_Software
             this.lstBoxExperPoint.Name = "lstBoxExperPoint";
             this.lstBoxExperPoint.Size = new System.Drawing.Size(153, 378);
             this.lstBoxExperPoint.TabIndex = 0;
+            // 
+            // chkGetListPoints
+            // 
+            this.chkGetListPoints.AutoSize = true;
+            this.chkGetListPoints.Checked = true;
+            this.chkGetListPoints.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkGetListPoints.Location = new System.Drawing.Point(27, 44);
+            this.chkGetListPoints.Name = "chkGetListPoints";
+            this.chkGetListPoints.Size = new System.Drawing.Size(131, 21);
+            this.chkGetListPoints.TabIndex = 1;
+            this.chkGetListPoints.Text = "Get List Of Points";
+            this.chkGetListPoints.UseVisualStyleBackColor = true;
+            this.chkGetListPoints.CheckStateChanged += new System.EventHandler(this.chkManyCurve_CheckStateChanged);
             // 
             // frmDrawnCurve
             // 
@@ -685,5 +700,6 @@ namespace Experimential_Software
         private System.Windows.Forms.TextBox txtMinPointRandom;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lblKPghRatio;
+        private System.Windows.Forms.CheckBox chkGetListPoints;
     }
 }

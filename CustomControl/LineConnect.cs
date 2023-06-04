@@ -93,7 +93,9 @@ namespace Experimential_Software.CustomControl
                 if (pointToEPower == EPower.PIntern) return PointOfEnds.PointOfIntern;
             }
 
-            bool isPHead = pointToEPower == EPower.PHead ? true : false;
+            bool isPHead = true;
+            if (EPower.DatabaseE.ObjectType != ObjectType.Bus) isPHead = pointToEPower == EPower.PHead ? true : false;
+            else isPHead = Math.Abs(pointToEPower.X - EPower.PHead.X) < 2 ? true : false;
 
             if (isPHead) return PointOfEnds.PointOfHead;
 
@@ -125,7 +127,7 @@ namespace Experimential_Software.CustomControl
 
             //Don't care EPowerUpdated is Start or End, update by PointOfEnds
             // => transfer Point PHead or PTail of EPowerUpdated to coordinate pnlMain system
-            Point pointUpdated = GetPointOne == PointOfEnds.PointOfHead ? EPowerUpdated.PHead : EPowerUpdated.PTail;
+            Point pointUpdated = (GetPointOne == PointOfEnds.PointOfHead) ? EPowerUpdated.PHead : EPowerUpdated.PTail;
             if (GetPointOne == PointOfEnds.PointOfIntern) pointUpdated = EPowerUpdated.PIntern;
 
             Point pointToMain = this.TransferPointToMain(EPowerUpdated, pointUpdated);

@@ -37,8 +37,10 @@ namespace Experimential_Software
         protected float _perRotTen = 24;
 
         protected bool isOneCurve = true;
-        protected double _maxPpre = 100;
-        protected double _maxQpre = 100;
+
+        //Max P, Q
+        protected double _PMax_Global = 100;
+        protected double _QMax_Global = 100;
 
         public frmDrawnCurve()
         {
@@ -68,6 +70,9 @@ namespace Experimential_Software
             //Check Box 1 Curve
             this.chkOneCurve.Checked = true;
             this.isOneCurve = true;
+
+            //Check Get ListPoint
+            this.chkGetListPoints.Checked = true;
         }
 
         protected virtual void ShowDataOnForm()
@@ -91,11 +96,11 @@ namespace Experimential_Software
 
             this.chartCurveLimted.ChartAreas[0].AxisX.Minimum = 0;
             // Thiết lập giới hạn của trục X từ 0 đến max + 10
-            this.chartCurveLimted.ChartAreas[0].AxisX.Maximum = this._maxQpre + 50;
+            this.chartCurveLimted.ChartAreas[0].AxisX.Maximum = this._QMax_Global + 50;
 
             //// Thiết lập giới hạn của trục Y từ -5 đến
             this.chartCurveLimted.ChartAreas[0].AxisY.Minimum = 0;
-            this.chartCurveLimted.ChartAreas[0].AxisY.Maximum = this._maxPpre + 100;
+            this.chartCurveLimted.ChartAreas[0].AxisY.Maximum = this._PMax_Global + 100;
 
 
             // Thiết lập khoảng cách giữa các ô chia trên trục X là 1 đơn vị
@@ -224,7 +229,7 @@ namespace Experimential_Software
 
 
             this.chartCurveLimted.Series.Clear();
-            this._maxPpre = this._maxQpre = 100;
+            this._PMax_Global = this._QMax_Global = 100;
 
             this.lstBoxExperPoint.Items.Clear();
         }
@@ -284,6 +289,9 @@ namespace Experimential_Software
 
             if (!this.isOneCurve)
             {
+                //if Not Get List Point
+                if (!this.chkGetListPoints.Checked) return;
+
                 this.AddPerElementOnListBox(pointLimitOnCurve);
                 return;
             }
@@ -314,6 +322,9 @@ namespace Experimential_Software
         //ListBox P, Q
         protected virtual void ProcessPowerLimitOnListBox(List<PowerSystem> List_PS_Point)
         {
+            //if Not Get List Point
+            if (!this.chkGetListPoints.Checked) return;
+
             foreach (PowerSystem ps in List_PS_Point)
             {
                 this.AddPerElementOnListBox(ps);
@@ -363,20 +374,11 @@ namespace Experimential_Software
         //limte value and per unit value
         protected virtual void SetLimtValueChartAndPerUnit(List<PowerSystem> list_PS_Point, int numberSeries)
         {
-            if (numberSeries > 1) return;
-
             double Pmax = list_PS_Point.Max(S => S.P_ActivePower);
             double Qmax = list_PS_Point.Max(S => S.Q_ReactivePower);
 
-            this._maxPpre = Math.Max(Pmax, this._maxPpre);
-            this._maxQpre = Math.Max(Qmax, this._maxQpre);
-
-            // Thiết lập giới hạn của trục X từ 0 đến max + 10
-            this.chartCurveLimted.ChartAreas[0].AxisX.Maximum = this._maxQpre + 300;
-
-            //// Thiết lập giới hạn của trục Y từ -5 đến
-            this.chartCurveLimted.ChartAreas[0].AxisY.Maximum = this._maxPpre + 300;
-
+            if (this._PMax_Global < Pmax) this._PMax_Global = Pmax;
+            if (this._QMax_Global < Pmax) this._QMax_Global = Qmax;
         }
 
         protected void AddListPointPowerSystemFoundOnChart(List<PowerSystem> list_PS_Point, int numberSeries)
@@ -390,6 +392,13 @@ namespace Experimential_Software
 
             //Save Old Power Load
             this._allEPowers = DAOCalculateManyCurve.Instance.ReturnAllPowerSystemLoadOrigin(this._allEPowers, Dic_PQ_Old);
+
+            // Thiết lập giới hạn của trục X từ 0 đến max + 10
+            this.chartCurveLimted.ChartAreas[0].AxisX.Maximum = this._QMax_Global + 200;
+
+            //// Thiết lập giới hạn của trục Y từ -5 đến
+            this.chartCurveLimted.ChartAreas[0].AxisY.Maximum = this._PMax_Global + 300;
+
 
             //Creat folder Library Sound
             string pathSound = DAOGeneratePathFolder.Instance.LoadPathSoundInsideLibrarySound();
