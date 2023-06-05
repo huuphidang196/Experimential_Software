@@ -61,6 +61,7 @@ namespace Experimential_Software
     }
     public partial class ConnectableE : Button, IMouseOnEndsControl
     {
+        #region Variable_Global
         protected frmCapstone _formCap;
         public frmCapstone FormCapstone => _formCap;
 
@@ -176,6 +177,9 @@ namespace Experimential_Software
 
 
         protected bool mouseEnter = false;
+
+
+        #endregion Variable_Global
 
         #region Constructor_Class
 
@@ -481,8 +485,7 @@ namespace Experimential_Software
 
         protected virtual void ProcessOnPaintDifferenceMBA3P(PaintEventArgs e)
         {
-            Point pointMouse = this.pnlMain_Drawn.PointToClient(Cursor.Position);
-            this.nearPhead = this.IsOnNearPHead(pointMouse);
+            this.nearPhead = this.IsOnNearPHead();
             Point pEnds = this.nearPhead ? this.pHead : this.pTail;
             bool contained = this.nearPhead ? this.isContainPhead : this.isContainPtail;
 
@@ -773,13 +776,13 @@ namespace Experimential_Software
             return false;
         }
 
-        public virtual bool IsOnNearPHead(Point pointCompared)
+        public virtual bool IsOnNearPHead()
         {
             Point pointHeadtoScreen = this._ePowerMouse.TransferPosFindOnInstance(this.pHead);
             Point pointTailtoScreen = this._ePowerMouse.TransferPosFindOnInstance(this.pTail);
 
-            double distanceHead = this.Distance(pointHeadtoScreen, pointCompared);
-            double distanceTail = this.Distance(pointTailtoScreen, pointCompared);
+            double distanceHead = this.Distance(pointHeadtoScreen);
+            double distanceTail = this.Distance(pointTailtoScreen);
 
             // if (this.databaseE.objectType == ObjectType.MF) distanceTail = 10000;=> Generator
             if (distanceHead < distanceTail) return true;
@@ -791,11 +794,9 @@ namespace Experimential_Software
             Point pointTailtoScreen = this._ePowerMouse.TransferPosFindOnInstance(this.pTail);
             Point pointInterntoScreen = this._ePowerMouse.TransferPosFindOnInstance(this.pIntern);
 
-            Point pointMouse = this.pnlMain_Drawn.PointToClient(Cursor.Position);
-
-            double distanceHead = this.Distance(pointHeadtoScreen, pointMouse);
-            double distanceTail = this.Distance(pointTailtoScreen, pointMouse);
-            double distanceIntern = this.Distance(pointInterntoScreen, pointMouse);
+            double distanceHead = this.Distance(pointHeadtoScreen);
+            double distanceTail = this.Distance(pointTailtoScreen);
+            double distanceIntern = this.Distance(pointInterntoScreen);
 
             double minDis = Math.Min(Math.Min(distanceHead, distanceTail), distanceIntern);
 
@@ -817,16 +818,17 @@ namespace Experimential_Software
             }
         }
 
-        protected virtual double Distance(Point pointCal, Point pointCompared)
+        protected virtual double Distance(Point pointCal)
         {
-            double distance = Math.Sqrt(Math.Pow(pointCompared.X - pointCal.X, 2) + Math.Pow(pointCompared.Y - pointCal.Y, 2));
+            Point pointMouse = this.pnlMain_Drawn.PointToClient(Cursor.Position);
+            double distance = Math.Sqrt(Math.Pow(pointMouse.X - pointCal.X, 2) + Math.Pow(pointMouse.Y - pointCal.Y, 2));
             return distance;
         }
 
 
         public virtual void MouseMoveEnds()
         {
-            Point mouseLocal = this.Parent.PointToClient(Cursor.Position);
+            Point mouseLocal = this.pnlMain_Drawn.PointToClient(Cursor.Position);
             if (!this.Bounds.Contains(mouseLocal)) return;
 
             this.mouseEnter = true;

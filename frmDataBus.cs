@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Experimential_Software.Class_Database;
-
+using Experimential_Software.DAO.DAO_BusData;
 
 namespace Experimential_Software
 {
@@ -76,7 +76,8 @@ namespace Experimential_Software
             //set Object name
             bool isValid = this.SetObjectRecordInDataBase();
             if (!isValid) return;
-
+            
+            DAOGeneBusRecord.Instance.ProcessUpdateNameBusForLineConnected(this._busEFixedData);
             this.DialogResult = DialogResult.OK;
         }
 

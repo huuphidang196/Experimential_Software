@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Experimential_Software.Class_Database;
 using Experimential_Software.CustomControl;
+using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
 using Experimential_Software.EPowerProcess;
 
 namespace Experimential_Software.DAO.DAO_MBA2Data
@@ -28,44 +29,33 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
 
             if (ListEPowerEnds == null)
             {
-                //Ends null <=> 2 Bus From and to null <=> DTO bus From and To null
-                mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_From = null;
-                mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_To = null;
+                this.SetNullEndsLineEPower(mba2EPower);
                 return;
             }
+
+            //Sort by Obejct Number
+            if (ListEPowerEnds.Count > 1) ListEPowerEnds.Sort(new BusEPowerComparer());
+
+            this.SetNullEndsLineEPower(mba2EPower);
 
             for (int i = 0; i < ListEPowerEnds.Count; i++)
             {
                 DTOBusEPower dtoBusEPower = ListEPowerEnds[i].DatabaseE.DataRecordE.DTOBusEPower;
-                if (isRemoved) this.ProcessRemovedDTOBusRemoved(mba2EPower, dtoBusEPower);
-                //set From and End
-                if (mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_From == null) mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_From = dtoBusEPower;
-                else mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_To = dtoBusEPower;
+                if (i == 0) mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_From = dtoBusEPower;
+                else if (i == 1) mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_To = dtoBusEPower;
+               
+                if (isRemoved) this.ProcessRemovedDTOBusRemoved(mba2EPower, dtoBusEPower);             
             }
-
-            //Only use compare not set because set will error
-            DTOBusEPower dtoBus_From = mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_From;
-            DTOBusEPower dtoBus_To = mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_To;
-
-            if (dtoBus_From == null || dtoBus_To == null) return;
-
-            //Check Again valid Location Bus Ends is Connnected with MBA2
-            if (dtoBus_From.ObjectNumber < dtoBus_To.ObjectNumber) return;
-
-            //Set Again DTO From and to. If number obj of any DTO min => set from, other set Bus to
-            DTOBusEPower dtoBusTemp = dtoBus_From;
-            mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_From = dtoBus_To;
-            mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_To = dtoBusTemp;
-
         }
 
+        protected virtual void SetNullEndsLineEPower(ConnectableE mba2EPower)
+        {
+            //Ends null <=> 2 Bus From and to null <=> DTO bus From and To null
+            mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_From = null;
+            mba2EPower.DatabaseE.DataRecordE.DTOTransTwoEPower.DTOBus_To = null;
+        }
         protected virtual List<ConnectableE> GetEPowerConnectWithMBA2EPOwer(ConnectableE mba2EPower)
         {
-            //Get Class ProcessEPowerMove => Get Function get Line
-            //   ProcessEPowerMove processEPowerMove = mba2EPower.EPowerProcessMouse.ProcessEPowerMove;
-            //get Line Connect Bus with MBA. BUs only connect with Bus 
-            // List<LineConnect> lineConnecteds = processEPowerMove.GetLineStageEPower(mba2EPower);
-
             List<LineConnect> lineConnecteds = mba2EPower.ListBranch_Drawn;
 
             if (lineConnecteds.Count == 0) return null;
