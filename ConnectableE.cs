@@ -409,7 +409,7 @@ namespace Experimential_Software
 
                         if (this._databaseE.ObjectOri == ObjectOrientation.Horizontal)
                         {
-                            this.pHead = new Point(Width, Height / 2);
+                            this.pHead = new Point(Width - this._radiusPoint, Height / 2);
                             return;
                         }
 
@@ -455,7 +455,7 @@ namespace Experimential_Software
 
                         if (this._databaseE.ObjectOri == ObjectOrientation.Horizontal)
                         {
-                            this.pHead = new Point(Width, Height / 2);//->
+                            this.pHead = new Point(Width - this._radiusPoint, Height / 2);//->
                             return;
                         }
                         this.pHead = new Point(Width / 2, 0);//-.-

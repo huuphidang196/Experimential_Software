@@ -146,12 +146,12 @@ namespace Experimential_Software.EPowerProcess
             if (!isOnMain) return;
 
             this._ePower.Location = this.TransferPosMouseToControl(e);
-
-            if (this._ePower.ListBranch_Drawn.Count == 0) return;
-
-            this.UpdateLineWhenMove();
             // button move will remove line. So Drawn all circumstance
             this._ePower.FormCapstone.DrawAllLineOnPanel();
+
+            if (this._ePower.ListBranch_Drawn.Count == 0) return;
+            this.UpdateLineWhenMove();
+
             this._ePower.LblInfoE.Refresh();
         }
 
@@ -189,7 +189,7 @@ namespace Experimential_Software.EPowerProcess
             //After move update again postion of Epower. When move difference Zoom
             double zoomFactor = this._ePower.PanelMain.ZoomFactor;
             this._ePower.PreLocation = DAOProcessCapstone.Instance.CalculatePreLocationWhenInstance(zoomFactor, this._ePower.Location, this._ePower.FormCapstone.EPowers, this._ePower.PanelMain);
-
+            this._ePower.FormCapstone.DrawAllLineOnPanel();
         }
 
         protected virtual void CheckAndAddLineConnet(ConnectableE buttonInstance)
