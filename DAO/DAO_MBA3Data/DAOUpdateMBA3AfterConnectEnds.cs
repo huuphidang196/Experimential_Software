@@ -29,7 +29,7 @@ namespace Experimential_Software.DAO.DAO_MBA3Data
 
         private DAOUpdateMBA3AfterConnectEnds() { }
 
-        public virtual void UpdateMBA3AfterConnectEnds(ConnectableE mba3EPower, bool isRemovedLineCon)
+        public virtual void UpdateMBA3AfterConnectEnds(ConnectableE mba3EPower)
         {
             //Get 2 Bus connected with MBA2P
             List<ConnectableE> ListEPowerEnds = this.GetEPowerConnectWithMBA3EPOwer(mba3EPower);
@@ -43,18 +43,7 @@ namespace Experimential_Software.DAO.DAO_MBA3Data
 
             //Get List EPower that ListLine Draw of EPower
             List<DTOBusEPower> ListDTOBusExist = ListEPowerEnds.Select(x => x.DatabaseE.DataRecordE.DTOBusEPower).ToList();
-
-            if (isRemovedLineCon)
-            {
-                //Generate List DTO of MBA3P
-                List<DTOBusEPower> ListDTOBusDataBase = this.GenerateListDTOBusFromDataBase(mba3EPower);
-                //get ListDTo Bus is removed, it have max = 2 element
-                List<DTOBusEPower> ListDTOBusIsRemoved = ListDTOBusDataBase.Except(ListDTOBusExist).ToList();
-
-                this.ProcessNullBusOfMBA3IsRemoved(ListDTOBusDataBase, ListDTOBusIsRemoved);
-                
-            }
-
+      
             //Sort By Object Number
             ListDTOBusExist.Sort(new DTOBusComparer());
             //Set null All in order to set again. not affect beacause List ListDTOBusExist contain address
@@ -84,21 +73,6 @@ namespace Experimential_Software.DAO.DAO_MBA3Data
             mba3EPower.DatabaseE.DataRecordE.DTOTransThreeEPower.DTOBus_From = null;
             mba3EPower.DatabaseE.DataRecordE.DTOTransThreeEPower.DTOBus_Ter = null;
             mba3EPower.DatabaseE.DataRecordE.DTOTransThreeEPower.DTOBus_To = null;
-        }
-
-        protected virtual List<DTOBusEPower> GenerateListDTOBusFromDataBase(ConnectableE mba3EPower)
-        {
-            List<DTOBusEPower> ListDTOBusDataBase = new List<DTOBusEPower>();
-
-            DTOBusEPower dtoBusFrom = mba3EPower.DatabaseE.DataRecordE.DTOTransThreeEPower.DTOBus_From;
-            DTOBusEPower dtoBusTer = mba3EPower.DatabaseE.DataRecordE.DTOTransThreeEPower.DTOBus_Ter;
-            DTOBusEPower dtoBusTo = mba3EPower.DatabaseE.DataRecordE.DTOTransThreeEPower.DTOBus_To;
-
-            if (dtoBusFrom != null) ListDTOBusDataBase.Add(dtoBusFrom);
-            if (dtoBusTer != null) ListDTOBusDataBase.Add(dtoBusTer);
-            if (dtoBusTo != null) ListDTOBusDataBase.Add(dtoBusTo);
-           
-            return ListDTOBusDataBase;
         }
 
 

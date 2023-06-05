@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Experimential_Software.Class_Database;
 using System.Windows.Forms;
+using Experimential_Software.CustomControl;
 
 namespace Experimential_Software.DAO.DAO_BusData
 {
@@ -46,5 +47,33 @@ namespace Experimential_Software.DAO.DAO_BusData
             return dtoBusE;
         }
 
+        public virtual void ProcessUpdateNameBusForLineConnected(ConnectableE busConsidered)
+        {
+            List<LineConnect> listLineDrawn = busConsidered.ListBranch_Drawn;
+
+            if (listLineDrawn.Count == 0) return;
+
+            this.AddEPowerOnList(ObjectType.LineEPower, listLineDrawn);
+            this.AddEPowerOnList(ObjectType.MBA2P, listLineDrawn);
+            this.AddEPowerOnList(ObjectType.MBA3P, listLineDrawn);
+
+        }
+
+        protected virtual void AddEPowerOnList(ObjectType objectType, List<LineConnect> listLineDrawn)
+        {
+            List<ConnectableE> listEPowersConn = new List<ConnectableE>();
+            foreach (LineConnect lineBranch in listLineDrawn)
+            {
+                if (lineBranch.StartEPower.DatabaseE.ObjectType == objectType) listEPowersConn.Add(lineBranch.StartEPower);
+                else if (lineBranch.EndEPower.DatabaseE.ObjectType == objectType) listEPowersConn.Add(lineBranch.StartEPower);
+            }
+
+            if (listEPowersConn.Count == 0) return;
+
+            foreach (ConnectableE item in listEPowersConn)
+            {
+                item.UpdateDataRecordEPowerWhenConnectOrRemove(false);
+            }
+        }
     }
 }

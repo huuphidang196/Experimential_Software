@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Experimential_Software.Class_Database;
 using System.Windows.Forms;
+using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
 
 namespace Experimential_Software.DAO.DAO_LineData
 {
@@ -22,58 +23,51 @@ namespace Experimential_Software.DAO.DAO_LineData
 
         private DAOUpdateLineAfterConnectEnds() { }
 
-        public virtual void UpdateLineAfterConnectEnds(ConnectableE lineEPower, bool isRemoved)
+        public virtual void UpdateLineAfterConnectEnds(ConnectableE lineEPower)
         {
             //Line isnot Connected with Line
             List<ConnectableE> ListEPowerEnds = this.GetEPowerConnectWithLineEPOwer(lineEPower);
 
             if (ListEPowerEnds == null)
             {
-                //Ends null <=> 2 Bus From and to null <=> DTO bus From and To null
-                lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_From = null;
-                lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_To = null;
+                this.SetNullEndsLineEPower(lineEPower);
                 return;
             }
+
+            //Sort by Obejct Number
+            if (ListEPowerEnds.Count > 1) ListEPowerEnds.Sort(new BusEPowerComparer());
+            this.SetNullEndsLineEPower(lineEPower);
 
             for (int i = 0; i < ListEPowerEnds.Count; i++)
             {
                 DTOBusEPower dtoBusEPower = ListEPowerEnds[i].DatabaseE.DataRecordE.DTOBusEPower;
-                if (isRemoved) this.ProcessRemovedDTOBusRemoved(lineEPower, dtoBusEPower);
                 //set From and End
-                if (lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_From == null) lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_From = dtoBusEPower;
-                else lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_To = dtoBusEPower;
+                if (i == 0) lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_From = dtoBusEPower;
+                else if (i == 1) lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_To = dtoBusEPower;
+
             }
 
             //not use set value beacause error 
             DTOBusEPower dtoBus_From = lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_From;
             DTOBusEPower dtoBus_To = lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_To;
 
-            if (dtoBus_From == null || dtoBus_To == null) return;
-
-            //Check Again valid Location Bus Ends is Connnected with MBA2
-            if (dtoBus_From.ObjectNumber < dtoBus_To.ObjectNumber)
-            {
-                //Set Line Name
-                lineEPower.DatabaseE.DataRecordE.DTOLineEPower.ObjectName = "Line " + dtoBus_From.ObjectName + " - " + dtoBus_To.ObjectName;
-                return;
-            }
-
-            //Set Again DTO From and to. If number obj of any DTO min => set from, other set Bus to
-            DTOBusEPower dtoBusTemp = dtoBus_From;
-            lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_From = dtoBus_To;
-            lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_To = dtoBusTemp;
+            string str_From = (dtoBus_From != null) ? dtoBus_From.ObjectName : "NULL";
+            string str_To = (dtoBus_To != null) ? dtoBus_To.ObjectName : "NULL";
 
             //Set Line Name
-            lineEPower.DatabaseE.DataRecordE.DTOLineEPower.ObjectName = "Line " + dtoBus_To.ObjectName + " - " + dtoBusTemp.ObjectName;
+            lineEPower.DatabaseE.DataRecordE.DTOLineEPower.ObjectName = "Line " + str_From + " - " + str_To;
+
+        }
+
+        protected virtual void SetNullEndsLineEPower(ConnectableE lineEPower)
+        {
+            //Ends null <=> 2 Bus From and to null <=> DTO bus From and To null
+            lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_From = null;
+            lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_To = null;
         }
 
         protected virtual List<ConnectableE> GetEPowerConnectWithLineEPOwer(ConnectableE lineEPower)
         {
-            //Get Class ProcessEPowerMove => Get Function get Line
-            //  ProcessEPowerMove processEPowerMove = lineEPower.EPowerProcessMouse.ProcessEPowerMove;
-            //get Line Connect Bus with Load. Line only connect with Bus => similar Load
-            // List<LineConnect> lineConnecteds = processEPowerMove.GetLineStageEPower(lineEPower);
-
             List<LineConnect> lineConnecteds = lineEPower.ListBranch_Drawn;
 
             if (lineConnecteds.Count == 0) return null;
@@ -87,17 +81,6 @@ namespace Experimential_Software.DAO.DAO_LineData
             }
 
             return ListBusEPowerEnds;
-        }
-
-
-        protected virtual void ProcessRemovedDTOBusRemoved(ConnectableE lineEPower, DTOBusEPower dtoBusEPower)
-        {
-            //if LineConnected with LineEPower not removed then remove other dto
-            bool isDTOFrom = (dtoBusEPower.ObjectNumber == lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_From.ObjectNumber);
-
-            //false <=> Bus from is removed 
-            if (!isDTOFrom) lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_From = null;
-            else lineEPower.DatabaseE.DataRecordE.DTOLineEPower.DTOBus_To = null;
         }
 
     }

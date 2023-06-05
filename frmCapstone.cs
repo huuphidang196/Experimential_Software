@@ -225,9 +225,6 @@ namespace Experimential_Software
 
         }
 
-
-
-
         public virtual void DrawAllLineOnPanel()
         {
             //not Clear All => Clear then will have one line because all not added in list line 

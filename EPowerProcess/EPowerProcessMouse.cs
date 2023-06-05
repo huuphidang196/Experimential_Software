@@ -130,7 +130,7 @@ namespace Experimential_Software.EPowerProcess
 
             if (!this.isMove)
             {
-                if (!this.allowCreatLine)  //Drawn Line           
+                if (this.allowCreatLine)  //Drawn Line           
                 {
                     this._endPLinetemp = this._ePower.EPowerLineTemp.GenerateLine(e, this._startPLineTemp);
                     // button move will remove line. So Drawn all circumstance
@@ -203,10 +203,10 @@ namespace Experimential_Software.EPowerProcess
             if (EndEPower == null) return;
 
             //MF is allowed only connect with Bus, similiar with Load only connect with Bus. All EPower must connect with bus
-            if (EndEPower.DatabaseE.ObjectType != ObjectType.Bus) return;
+         // if (EndEPower.DatabaseE.ObjectType != ObjectType.Bus) return; //=> Check is Removed ePower isn't Bus
 
             //Check endPoint is near Pheah or Ptail. not use isOnpHead or Patil beacause endLocation use mouse of other button
-            Point pointEndToBtn = EndEPower.IsOnNearPHead(this._endPLinetemp) ? EndEPower.PHead : EndEPower.PTail;
+            Point pointEndToBtn = EndEPower.IsOnNearPHead() ? EndEPower.PHead : EndEPower.PTail;
 
             //Transfer EndMouse to Point of pnlMain system. EndMouse = pointEndToBtn = Phead or PTail of EndEPower not Instance
             this._endPLinetemp = this.TransferPosFindToControl(EndEPower, pointEndToBtn);
@@ -224,7 +224,7 @@ namespace Experimential_Software.EPowerProcess
             //Beacause End EPower certainly is Bus => Bus not Contain Ends
             //set 2 Contain Phead or Ptail  button Start , End is Bus not set Contain
             this.SetContainOnce(buttonInstance);
-            buttonInstance.UpdateDataRecordEPowerWhenConnectOrRemove(false);
+            buttonInstance.UpdateDataRecordEPowerWhenConnectOrRemove();
         }
 
         protected virtual void SetContainOnce(ConnectableE btnSet)
@@ -277,33 +277,24 @@ namespace Experimential_Software.EPowerProcess
                     {
                         frmDataMBA2 frmDataMBA2 = new frmDataMBA2();
                         frmDataMBA2.MBA2EPowerFixed = ePower;
-                        if (frmDataMBA2.ShowDialog() == DialogResult.OK)
-                        {
-                            this._ePower.SetDataLabelInfo();
-                            this._ePower.UpdateDataRecordEPowerWhenConnectOrRemove(false);
-                        }
+                        if (frmDataMBA2.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
+                       
                     }
                     break;
                 case ObjectType.MBA3P://Obj Type = 3
                     {
                         frmDataMBA3 frmDataMBA3 = new frmDataMBA3();
                         frmDataMBA3.MBA3EPowerFixed = ePower;
-                        if (frmDataMBA3.ShowDialog() == DialogResult.OK)
-                        {
-                            this._ePower.UpdateDataRecordEPowerWhenConnectOrRemove(false);
-                            this._ePower.SetDataLabelInfo();
-                        }
+                        if (frmDataMBA3.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
+                      
                     }
                     break;
                 case ObjectType.LineEPower://Obj Type = 5
                     {
                         frmDataBranch frmDataLineE = new frmDataBranch();
                         frmDataLineE.LineEPowerFixed = ePower;
-                        if (frmDataLineE.ShowDialog() == DialogResult.OK)
-                        {
-                            this._ePower.UpdateDataRecordEPowerWhenConnectOrRemove(false);
-                            this._ePower.SetDataLabelInfo();
-                        }
+                        if (frmDataLineE.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
+                       
                     }
                     break;
                 case ObjectType.Load://Obj Type = 6

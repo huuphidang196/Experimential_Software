@@ -79,11 +79,11 @@ namespace Experimential_Software.DAO.DAO_ProcessDelete.DAO_DeleteLineConnect
             //Remove before update
             startEPower.RemoveLineConnectedToList(lineRemoved);
             lineRemoved.StartEPower = null;
-            startEPower.UpdateDataRecordEPowerWhenConnectOrRemove(true);
+            startEPower.UpdateDataRecordEPowerWhenConnectOrRemove();
 
             endEPower.RemoveLineConnectedToList(lineRemoved);
             lineRemoved.EndEPower = null;
-            endEPower.UpdateDataRecordEPowerWhenConnectOrRemove(true);
+            endEPower.UpdateDataRecordEPowerWhenConnectOrRemove();
         }
 
 
