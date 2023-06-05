@@ -172,6 +172,7 @@ namespace Experimential_Software
             this.txtBusNumber.Name = "txtBusNumber";
             this.txtBusNumber.Size = new System.Drawing.Size(115, 23);
             this.txtBusNumber.TabIndex = 0;
+            this.txtBusNumber.Leave += new System.EventHandler(this.EventInputTextDataIsNotNumber);
             // 
             // txtBasekV
             // 

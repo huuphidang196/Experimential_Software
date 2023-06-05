@@ -142,16 +142,15 @@ namespace Experimential_Software.EPowerProcess
             }
 
             bool isOnMain = this.IsOnPanelMain(e);
-
             if (!isOnMain) return;
 
             this._ePower.Location = this.TransferPosMouseToControl(e);
+
+            if (this._ePower.ListBranch_Drawn.Count != 0) this.UpdateLineWhenMove();
+
             // button move will remove line. So Drawn all circumstance
             this._ePower.FormCapstone.DrawAllLineOnPanel();
-
-            if (this._ePower.ListBranch_Drawn.Count == 0) return;
-            this.UpdateLineWhenMove();
-
+            if (this._ePower.ListBranch_Drawn.Count == 0) this._ePower.Refresh();
             this._ePower.LblInfoE.Refresh();
         }
 
@@ -203,7 +202,7 @@ namespace Experimential_Software.EPowerProcess
             if (EndEPower == null) return;
 
             //MF is allowed only connect with Bus, similiar with Load only connect with Bus. All EPower must connect with bus
-          //  if (EndEPower.DatabaseE.ObjectType != ObjectType.Bus) return;
+            //  if (EndEPower.DatabaseE.ObjectType != ObjectType.Bus) return;
 
             //Check endPoint is near Pheah or Ptail. not use isOnpHead or Patil beacause endLocation use mouse of other button
             Point pointEndToBtn = EndEPower.IsOnNearPHead() ? EndEPower.PHead : EndEPower.PTail;
@@ -278,7 +277,7 @@ namespace Experimential_Software.EPowerProcess
                         frmDataMBA2 frmDataMBA2 = new frmDataMBA2();
                         frmDataMBA2.MBA2EPowerFixed = ePower;
                         if (frmDataMBA2.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
-                       
+
                     }
                     break;
                 case ObjectType.MBA3P://Obj Type = 3
@@ -286,7 +285,7 @@ namespace Experimential_Software.EPowerProcess
                         frmDataMBA3 frmDataMBA3 = new frmDataMBA3();
                         frmDataMBA3.MBA3EPowerFixed = ePower;
                         if (frmDataMBA3.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
-                        
+
                     }
                     break;
                 case ObjectType.LineEPower://Obj Type = 5
@@ -294,7 +293,7 @@ namespace Experimential_Software.EPowerProcess
                         frmDataBranch frmDataLineE = new frmDataBranch();
                         frmDataLineE.LineEPowerFixed = ePower;
                         if (frmDataLineE.ShowDialog() == DialogResult.OK) this._ePower.SetDataLabelInfo();
-                        
+
                     }
                     break;
                 case ObjectType.Load://Obj Type = 6

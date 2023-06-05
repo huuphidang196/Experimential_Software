@@ -409,11 +409,11 @@ namespace Experimential_Software
 
                         if (this._databaseE.ObjectOri == ObjectOrientation.Horizontal)
                         {
-                            this.pHead = new Point(Width - this._radiusPoint, Height / 2);
+                            this.pHead = new Point(Width - this._radiusPoint / 2, Height / 2);
                             return;
                         }
 
-                        this.pHead = new Point(Width / 2, Height - 4);
+                        this.pHead = new Point(Width / 2, Height - this._radiusPoint / 2);
                     }
                     break;
                 case ObjectType.MBA2P:
@@ -455,10 +455,10 @@ namespace Experimential_Software
 
                         if (this._databaseE.ObjectOri == ObjectOrientation.Horizontal)
                         {
-                            this.pHead = new Point(Width - this._radiusPoint, Height / 2);//->
+                            this.pHead = new Point(Width - this._radiusPoint / 2, Height / 2);//->
                             return;
                         }
-                        this.pHead = new Point(Width / 2, 0);//-.-
+                        this.pHead = new Point(Width / 2, this._radiusPoint / 2);//-.-
                     }
                     break;
             }
