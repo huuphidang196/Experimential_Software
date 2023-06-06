@@ -96,7 +96,7 @@ namespace Experimential_Software
         }
 
         #region _Load_Tree_View_Data_Saved
-        protected virtual void LoadDataTreeView()
+        public virtual void LoadDataTreeView()
         {
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
             this._folderSaved_Path = DAOGeneratePathFolder.Instance.CreatFolderSave(appDirectory);
@@ -224,9 +224,6 @@ namespace Experimential_Software
             }
 
         }
-
-
-
 
         public virtual void DrawAllLineOnPanel()
         {
@@ -463,6 +460,7 @@ namespace Experimential_Software
         {
             //Drawn Curve in Operating Mode
             frmDrawnCurve frmDrawnCurve = new frmDrawnCurve();
+            frmDrawnCurve.frmCapstone = this;
             frmDrawnCurve.AllEPowers = this._ePowers;
             frmDrawnCurve.BusLoadExamnined = this._ePowers.Find(x => x.IsSelected);
             // MessageBox.Show("MVA = " + this._dtoPowerSystem.PowreBase_S_MVA + ", Frequency = " + this._dtoPowerSystem.Frequency_System_Hz);

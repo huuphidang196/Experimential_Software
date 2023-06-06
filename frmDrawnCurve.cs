@@ -24,6 +24,9 @@ namespace Experimential_Software
 {
     public partial class frmDrawnCurve : Form
     {
+        protected frmCapstone _frmCapstone;
+        public frmCapstone frmCapstone { set => _frmCapstone = value; }
+
         protected List<ConnectableE> _allEPowers;
         public List<ConnectableE> AllEPowers { get => _allEPowers; set => _allEPowers = value; }
 
@@ -218,7 +221,7 @@ namespace Experimential_Software
             if (!this.isOneCurve) this.SetLabelStablityAndProbility(null);
 
             //Processing completed event
-            this.ProcessingCompletedEvent(Dic_PQ_Old , stopwatch);
+            this.ProcessingCompletedEvent(Dic_PQ_Old, stopwatch);
         }
 
         protected virtual void SetVariableWhenResetPressed()
@@ -444,19 +447,38 @@ namespace Experimential_Software
             // Lưu ảnh snip vào đường dẫn chỉ định
             string savePath = DAOGeneratePathFolder.Instance.CreatFolderLibraryImageDrawnCurve();
 
-            //Open Form Name Image
-            frmNameImagePrint frmNameImage = new frmNameImagePrint();
-            frmNameImage.ShowDialog();
-            if (frmNameImage.DialogResult != DialogResult.OK) return;
+            // Khởi tạo SaveFileDialog
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
 
-            string fileName = (frmNameImage.NameImage != "") ? frmNameImage.NameImage + ".jpg" : "Image_Drawn" + int.Parse(this.txtCountCurve.Text) + "Curve.jpg";
-            string filePath = Path.Combine(savePath, fileName); // Kết hợp đường dẫn thư mục và tên tệp tin
+            // Đặt đường dẫn ban đầu cho SaveFileDialog
+            saveFileDialog.InitialDirectory = savePath; // Thay đổi đường dẫn thành thư mục cha đã có path của bạn
 
-            snipBitmap.Save(filePath); // Lưu đối tượng Image vào đường dẫn đã xác định
+            // Đặt các tùy chọn khác cho SaveFileDialog nếu cần
 
-            // Hiển thị thông báo khi hoàn tất snip ảnh
+            // Mở SaveFileDialog và xử lí kết quả
+            saveFileDialog.Filter = "JPEG Image|*.jpg";
+            saveFileDialog.FilterIndex = 1;
+            saveFileDialog.RestoreDirectory = true;
+
+            if (saveFileDialog.ShowDialog() != DialogResult.OK) return;
+
+            // Người dùng đã chọn vị trí để lưu tập tin, bạn có thể xử lí vị trí và lưu tập tin tại đây
+            string selectedFilePath = saveFileDialog.FileName;
+            // Thêm phần mở rộng ".jpg" vào tên file nếu nó chưa có
+            if (!selectedFilePath.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase))
+            {
+                selectedFilePath += ".jpg";
+            }
+
+            // Tiếp tục xử lí và lưu tập tin...
+            snipBitmap.Save(selectedFilePath);
+
+            // Lấy tên file từ đường dẫn đầy đủ
+            string fileName = Path.GetFileName(selectedFilePath);
             MessageBox.Show("Save Image " + fileName + " Success!");
-            DialogResult = DialogResult.Yes;
+
+            //Refresh TreeView
+            this._frmCapstone.LoadDataTreeView();
         }
 
         #endregion Print_Click
