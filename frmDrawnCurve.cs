@@ -229,6 +229,7 @@ namespace Experimential_Software
             this._alpha = -145;
             this.ptbClockWise.Invalidate();
             this.lblKPghRatio.Text = "P0 / PGh = 0 %";
+            this.lblStableReserve.Text = "Độ dự trữ ổng định : 0%";
 
 
             this.chartCurveLimted.Series.Clear();
@@ -354,6 +355,8 @@ namespace Experimential_Software
 
             double Percent = 100 * (P0 / Pgh);
             this.lblKPghRatio.Text = "P0 / PGh = " + Math.Round(Percent, 2) + " %";
+            this.lblStableReserve.Text = "Độ dự trữ ổng định : " + (Percent <= 100 ? Math.Round(100 - Percent, 2) : 0) + " %";
+
 
             Percent = Math.Min(Percent, 120);
 

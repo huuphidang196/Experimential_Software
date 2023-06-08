@@ -389,7 +389,11 @@ namespace Experimential_Software
                 control.Dispose();
             }
         }
-
+        private void pnlMain_MouseLeave(object sender, EventArgs e)
+        {
+            if (this.LineConnectList.Count > 0) this.DrawAllLineOnPanel();
+            
+        }
         /// <summary>
 
         #endregion Control_On_Form
@@ -566,9 +570,10 @@ namespace Experimential_Software
         }
 
 
+
         #endregion MenuStrip
 
-     
+       
     }
 }
 

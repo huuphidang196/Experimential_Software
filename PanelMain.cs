@@ -33,6 +33,7 @@ namespace Experimential_Software
 
         }
 
+
         #region Zoom_Factor
         protected override void OnMouseWheel(MouseEventArgs e)
         {

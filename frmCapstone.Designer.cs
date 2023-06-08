@@ -473,6 +473,7 @@ namespace Experimential_Software
             this.pnlMain.DragDrop += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragDrop);
             this.pnlMain.DragEnter += new System.Windows.Forms.DragEventHandler(this.pnlMain_DragEnter);
             this.pnlMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlMain_MouseDown);
+            this.pnlMain.MouseLeave += new System.EventHandler(this.pnlMain_MouseLeave);
             // 
             // btnBusPower_Hor
             // 
