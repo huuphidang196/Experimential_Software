@@ -29,9 +29,9 @@ namespace Experimential_Software
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlinfoLoad = new System.Windows.Forms.Panel();
             this.lblStateSystem = new System.Windows.Forms.Label();
@@ -264,12 +264,11 @@ namespace Experimential_Software
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.ptbClockWise.BackColor = System.Drawing.Color.Transparent;
-            this.ptbClockWise.Location = new System.Drawing.Point(101, 105);
+            this.ptbClockWise.Location = new System.Drawing.Point(95, 103);
             this.ptbClockWise.Name = "ptbClockWise";
             this.ptbClockWise.Size = new System.Drawing.Size(120, 120);
             this.ptbClockWise.TabIndex = 1;
             this.ptbClockWise.TabStop = false;
-            this.ptbClockWise.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             // 
             // ptbClockPercent
             // 
@@ -590,17 +589,17 @@ namespace Experimential_Software
             // 
             this.chartCurveLimted.BackColor = System.Drawing.Color.Gainsboro;
             this.chartCurveLimted.BorderlineColor = System.Drawing.Color.WhiteSmoke;
-            chartArea1.Name = "ChartArea1";
-            this.chartCurveLimted.ChartAreas.Add(chartArea1);
+            chartArea8.Name = "ChartArea1";
+            this.chartCurveLimted.ChartAreas.Add(chartArea8);
             this.chartCurveLimted.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chartCurveLimted.Legends.Add(legend1);
+            legend8.Name = "Legend1";
+            this.chartCurveLimted.Legends.Add(legend8);
             this.chartCurveLimted.Location = new System.Drawing.Point(0, 0);
             this.chartCurveLimted.Name = "chartCurveLimted";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartCurveLimted.Series.Add(series1);
+            series8.ChartArea = "ChartArea1";
+            series8.Legend = "Legend1";
+            series8.Name = "Series1";
+            this.chartCurveLimted.Series.Add(series8);
             this.chartCurveLimted.Size = new System.Drawing.Size(552, 380);
             this.chartCurveLimted.TabIndex = 1;
             this.chartCurveLimted.Text = "Miền làm việc ổn định trong mặt phẳng công suất P-Q";

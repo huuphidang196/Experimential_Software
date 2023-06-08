@@ -36,7 +36,7 @@ namespace Experimential_Software
         public object FindIntersection { get; private set; }
 
         // Góc alpha (đơn vị: độ)
-        protected float _alpha = -145; // Góc xoay 45 độ (ví dụ)
+        protected float _alpha = 0; // Góc xoay 45 độ (ví dụ)
         protected float _perRotTen = 24;
 
         protected bool isOneCurve = true;
@@ -58,6 +58,9 @@ namespace Experimential_Software
                 this.SetDefaultPanelRandom();
                 this.ShowDataOnForm();
                 this.SetValueStartForChart();
+
+                //Set Rotate Picturebox ClockWise
+                this.RotateImage(this._alpha);
             }
         }
 
@@ -119,62 +122,28 @@ namespace Experimential_Software
         #endregion Form_Load
 
         #region Picture_Box_Wise
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+
+        private void RotateImage(float angle)
         {
-            Graphics g = e.Graphics;
+            string pathImage = DAOGeneratePathFolder.Instance.LoadImageClockWiseInsideLibraryLogo();
+            Image imgWise = Image.FromFile(pathImage);
+            Bitmap rotatedImage = new Bitmap(imgWise.Width, imgWise.Height);
 
-            // Tâm của tam giác
-            float centerX = 60;
-            float centerY = 60;
-
-            // Kích thước cạnh tam giác
-            float sideLength = 35;
-            float sideLengthScaled = (float)(sideLength * Math.Sqrt(2));
-
-            // Tạo ma trận biến đổi để xoay tam giác và hình vuông
-            Matrix transformationMatrix = new Matrix();
-            transformationMatrix.RotateAt(_alpha, new PointF(centerX, centerY));
-
-            // Đỉnh tam giác
-            PointF[] trianglePoints = new PointF[]
+            using (Graphics g = Graphics.FromImage(rotatedImage))
             {
-        new PointF(centerX, centerY - sideLengthScaled / 2),
-        new PointF(centerX + sideLengthScaled / 2, centerY ),
-        new PointF(centerX - sideLengthScaled / 2, centerY)
-            };
+                // Xoay hình ảnh
+                g.TranslateTransform((float)imgWise.Width / 2, (float)imgWise.Height / 2);
+                g.RotateTransform(angle);
+                g.TranslateTransform(-(float)imgWise.Width / 2, -(float)imgWise.Height / 2);
+                g.DrawImage(imgWise, Point.Empty);
+            }
 
-            // Áp dụng biến đổi vào đỉnh tam giác
-            transformationMatrix.TransformPoints(trianglePoints);
-
-            // Vẽ tam giác
-            g.FillPolygon(Brushes.Brown, trianglePoints);
-
-            // Tạo hình vuông dính vào cạnh đáy của tam giác
-            PointF bottomLeft = trianglePoints[2];
-
-            // Kích thước cạnh hình vuông
-            float squareSize = sideLengthScaled;
-
-            // Tạo ma trận biến đổi cho hình vuông
-            Matrix squareTransformationMatrix = new Matrix();
-            squareTransformationMatrix.RotateAt(_alpha, bottomLeft);
-
-            // Đỉnh hình vuông
-            PointF[] squarePoints = new PointF[]
-            {
-        bottomLeft,
-        new PointF(bottomLeft.X + squareSize, bottomLeft.Y),
-        new PointF(bottomLeft.X + squareSize, bottomLeft.Y + squareSize),
-        new PointF(bottomLeft.X, bottomLeft.Y + squareSize)
-            };
-
-            // Áp dụng biến đổi vào đỉnh hình vuông
-            squareTransformationMatrix.TransformPoints(squarePoints);
-
-            // Vẽ hình vuông
-            g.FillPolygon(Brushes.Orange, squarePoints);
+            // Hiển thị hình ảnh xoay trên PictureBox
+            ptbClockWise.Image = rotatedImage;
+            ptbClockWise.SizeMode = PictureBoxSizeMode.Zoom;
 
         }
+
         #endregion Picture_Box_Wise
 
         #region Button_Reset_Event
@@ -226,8 +195,9 @@ namespace Experimential_Software
 
         protected virtual void SetVariableWhenResetPressed()
         {
-            this._alpha = -145;
-            this.ptbClockWise.Invalidate();
+            this._alpha = 0;
+            this.RotateImage(this._alpha);
+
             this.lblKPghRatio.Text = "P0 / PGh = 0 %";
             this.lblStableReserve.Text = "Độ dự trữ ổng định : 0%";
 
@@ -361,7 +331,7 @@ namespace Experimential_Software
             Percent = Math.Min(Percent, 120);
 
             this._alpha += (this._perRotTen * (float)Percent / 10);
-            this.ptbClockWise.Invalidate();
+            this.RotateImage(this._alpha);
         }
 
         #endregion Process_Chart_Curve

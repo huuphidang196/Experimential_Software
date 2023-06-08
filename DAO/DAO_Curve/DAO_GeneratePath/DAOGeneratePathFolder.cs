@@ -43,7 +43,8 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath
             return fullPathSound;
         }
 
-        //Path loGo
+
+        //Path loGo LoadForm
         public virtual string LoadLogoInsideLibraryLogo()
         {
             // Initialize SoundPlayer
@@ -55,6 +56,17 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath
             return fullPathSound;
         }
 
+        //Path Image ClockWise
+        public virtual string LoadImageClockWiseInsideLibraryLogo()
+        {
+            // Initialize SoundPlayer
+            string pathLibrary = this.GetPathLibrary();
+            // Kết hợp đường dẫn của thư mục cha và tên thư mục con
+            string clokWiseName = "Library Logo/ClockWise.png";
+            string fullPathSound = this.GetPathChildFolder(pathLibrary, clokWiseName);
+
+            return fullPathSound;
+        }
 
         //Path  Lib Image
         public virtual string CreatFolderLibraryImageDrawnCurve()
