@@ -9,7 +9,7 @@ using System.Windows.Forms;
 namespace Experimential_Software.Class_Database
 {
     [Serializable]
-    public class ImpendanceMBA2
+    public class ImpedanceMBA2
     {
         //R
         protected double _specR_pu;
@@ -62,7 +62,7 @@ namespace Experimential_Software.Class_Database
         {
             get { return new Complex(this._magG_pu, this._magB_pu); }
         }
-        public ImpendanceMBA2()
+        public ImpedanceMBA2()
         {
             this._specR_pu = 0;
             this._specX_pu = 0.0001;
@@ -70,7 +70,7 @@ namespace Experimential_Software.Class_Database
             this._magB_pu = 0;
         }
 
-        public ImpendanceMBA2(double SpecR, double SpecX, double MagG, double MagB)
+        public ImpedanceMBA2(double SpecR, double SpecX, double MagG, double MagB)
         {
             this._specR_pu = SpecR;
             this._specX_pu = SpecX;
@@ -234,7 +234,7 @@ public class DTOTransTwoEPower : DataRecordEPower
 
     //Transfomer Impendance Data
 
-    public ImpendanceMBA2 Impendance_MBA2 { get; set; }
+    public ImpedanceMBA2 Impendance_MBA2 { get; set; }
 
 
 }

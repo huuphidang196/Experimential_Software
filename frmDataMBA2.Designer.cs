@@ -539,7 +539,7 @@ namespace Experimential_Software
             this.grbImpendanceMBA2.Size = new System.Drawing.Size(593, 177);
             this.grbImpendanceMBA2.TabIndex = 1;
             this.grbImpendanceMBA2.TabStop = false;
-            this.grbImpendanceMBA2.Text = "Transformer Inpendance Data";
+            this.grbImpendanceMBA2.Text = "Transformer Inpedance Data";
             // 
             // label10
             // 

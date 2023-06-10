@@ -66,7 +66,7 @@ namespace Experimential_Software
 
         protected virtual void ShowDataImpendanceLineE()
         {
-            ImpendanceLineEPower impendanceLineE = this._dtoLineEPowerRecord.ImpendanceLineE;
+            ImpedanceLineEPower impendanceLineE = this._dtoLineEPowerRecord.ImpedanceLineE;
             //line R pu
             this.txtLineRPu.Text = (impendanceLineE.LineR_Pu == 0) ? "0.000000" : impendanceLineE.LineR_Pu + "";
             //line X pu
@@ -126,24 +126,24 @@ namespace Experimential_Software
 
             //*************Branch Data*************
             //txtLine R (pu)
-            this._dtoLineEPowerRecord.ImpendanceLineE.LineR_Pu = double.Parse(LineR_pu);
+            this._dtoLineEPowerRecord.ImpedanceLineE.LineR_Pu = double.Parse(LineR_pu);
             // txt Line X (pu)
-            this._dtoLineEPowerRecord.ImpendanceLineE.LineX_Pu = double.Parse(LineX_pu);
+            this._dtoLineEPowerRecord.ImpedanceLineE.LineX_Pu = double.Parse(LineX_pu);
 
             //ChargingB_pu
-            this._dtoLineEPowerRecord.ImpendanceLineE.ChargingB_Pu = double.Parse(ChargingB_pu);
+            this._dtoLineEPowerRecord.ImpedanceLineE.ChargingB_Pu = double.Parse(ChargingB_pu);
             //Line G From
-            this._dtoLineEPowerRecord.ImpendanceLineE.LineGFrom_Pu = double.Parse(LineGFrom_pu);
+            this._dtoLineEPowerRecord.ImpedanceLineE.LineGFrom_Pu = double.Parse(LineGFrom_pu);
             //Line B From
-            this._dtoLineEPowerRecord.ImpendanceLineE.LineBFrom_Pu = double.Parse(LineBFrom_pu);
+            this._dtoLineEPowerRecord.ImpedanceLineE.LineBFrom_Pu = double.Parse(LineBFrom_pu);
 
             //Line G To
-            this._dtoLineEPowerRecord.ImpendanceLineE.LineGTo_Pu = double.Parse(LineGTo_pu);
+            this._dtoLineEPowerRecord.ImpedanceLineE.LineGTo_Pu = double.Parse(LineGTo_pu);
             //Line B To
-            this._dtoLineEPowerRecord.ImpendanceLineE.LineBTo_Pu = double.Parse(LineBTo_pu);
+            this._dtoLineEPowerRecord.ImpedanceLineE.LineBTo_Pu = double.Parse(LineBTo_pu);
 
             //txt length_Km
-            this._dtoLineEPowerRecord.ImpendanceLineE.LengthBr_KM = double.Parse(Length_KM);
+            this._dtoLineEPowerRecord.ImpedanceLineE.LengthBr_KM = double.Parse(Length_KM);
 
            
         }

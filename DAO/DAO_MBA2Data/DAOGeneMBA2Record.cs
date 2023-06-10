@@ -36,7 +36,7 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
             dtoMBA2.PowerRated_MVA = 100;
 
             //Transformer Impendance Data
-            dtoMBA2.Impendance_MBA2 = new ImpendanceMBA2();
+            dtoMBA2.Impendance_MBA2 = new ImpedanceMBA2();
 
             //Set VoltageRating
             dtoMBA2.VoltageEnds_kV_Rated = this.GenerateVoltageEnds(0, 0);

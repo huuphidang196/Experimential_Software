@@ -116,7 +116,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
                 case ObjectType.MBA2P:
                     return otherEPower.DatabaseE.DataRecordE.DTOTransTwoEPower.Impendance_MBA2.Yb_Con_MBA2_pu;
                 case ObjectType.LineEPower:
-                    return otherEPower.DatabaseE.DataRecordE.DTOLineEPower.ImpendanceLineE.Yij_Con_LineE_pu;
+                    return otherEPower.DatabaseE.DataRecordE.DTOLineEPower.ImpedanceLineE.Yij_Con_LineE_pu;
 
                 case ObjectType.Load:
                     return otherEPower.DatabaseE.DataRecordE.DTOLoadEPower.YLConductanceLoadPU;
@@ -130,9 +130,9 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             DTOBusEPower dtoBusConsider = bus_Consider.DatabaseE.DataRecordE.DTOBusEPower;
             DTOTransThreeEPower dtoMBA3P = otherEPower.DatabaseE.DataRecordE.DTOTransThreeEPower;
             //Check BusConsider is Where ?
-            if (dtoMBA3P.DTOBus_From.ObjectNumber == dtoBusConsider.ObjectNumber) return dtoMBA3P.Impendance_MBA3.Yb_Sum_Con_Relative_Prim;//Sum prim
-            else if (dtoMBA3P.DTOBus_Ter.ObjectNumber == dtoBusConsider.ObjectNumber) return dtoMBA3P.Impendance_MBA3.Yb_Sum_Con_Relative_Ter;//Sum Ter
-            return dtoMBA3P.Impendance_MBA3.Yb_Sum_Con_Relative_Sec;//Sum Sec
+            if (dtoMBA3P.DTOBus_From.ObjectNumber == dtoBusConsider.ObjectNumber) return dtoMBA3P.Impedance_MBA3.Yb_Sum_Con_Relative_Prim;//Sum prim
+            else if (dtoMBA3P.DTOBus_Ter.ObjectNumber == dtoBusConsider.ObjectNumber) return dtoMBA3P.Impedance_MBA3.Yb_Sum_Con_Relative_Ter;//Sum Ter
+            return dtoMBA3P.Impedance_MBA3.Yb_Sum_Con_Relative_Sec;//Sum Sec
         }
 
         //bus Consider not orther bus beacause Examine where is BusConsider of overallEPower
@@ -143,9 +143,9 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
 
             DTOTransThreeEPower dtoMBA3P = overallEPower.DatabaseE.DataRecordE.DTOTransThreeEPower;
 
-            Complex Yij_Prim_Ter = dtoMBA3P.Impendance_MBA3.Yij_Con_Relative_Prim_Ter;
-            Complex Yij_Prim_Sec = dtoMBA3P.Impendance_MBA3.Yij_Con_Relative_Prim_Sec;
-            Complex Yij_Ter_Sec = dtoMBA3P.Impendance_MBA3.Yij_Con_Relative_Ter_Sec;
+            Complex Yij_Prim_Ter = dtoMBA3P.Impedance_MBA3.Yij_Con_Relative_Prim_Ter;
+            Complex Yij_Prim_Sec = dtoMBA3P.Impedance_MBA3.Yij_Con_Relative_Prim_Sec;
+            Complex Yij_Ter_Sec = dtoMBA3P.Impedance_MBA3.Yij_Con_Relative_Ter_Sec;
 
             //Bus Consider is bus From
             if (dtoBusConsider.ObjectNumber == dtoMBA3P.DTOBus_From.ObjectNumber)
@@ -187,9 +187,9 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             {
                 //if Prim then bus have Y0b of MBA 
                 bool isFrom_Line = this.CheckBusCosiderIsFromBus(otherEPower, bus_Consider);
-                if (isFrom_Line) return otherEPower.DatabaseE.DataRecordE.DTOLineEPower.ImpendanceLineE.YblineFrom_Con_LineE_pu;// CA <=> bus from => Ybline = from
+                if (isFrom_Line) return otherEPower.DatabaseE.DataRecordE.DTOLineEPower.ImpedanceLineE.YblineFrom_Con_LineE_pu;// CA <=> bus from => Ybline = from
 
-                return otherEPower.DatabaseE.DataRecordE.DTOLineEPower.ImpendanceLineE.YblineTo_Con_LineE_pu;// Bus to=> YbiLineTo
+                return otherEPower.DatabaseE.DataRecordE.DTOLineEPower.ImpedanceLineE.YblineTo_Con_LineE_pu;// Bus to=> YbiLineTo
             }
 
             return new Complex(0, 0);

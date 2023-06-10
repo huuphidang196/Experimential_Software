@@ -127,7 +127,7 @@ namespace Experimential_Software.Class_Database
     }
 
     [Serializable]
-    public class ImpendanceMBAConnected
+    public class ImpedanceMBAConnected
     {
         //*******Transformer Data => Can have or maybe not **********
         //RTran
@@ -157,7 +157,7 @@ namespace Experimential_Software.Class_Database
        
 
         //Constuctor
-        public ImpendanceMBAConnected()
+        public ImpedanceMBAConnected()
         {
             this._rTran_pu = 0;
             this._xTran_pu = 0;
@@ -183,7 +183,7 @@ namespace Experimential_Software.Class_Database
 
         //*******Transformer Data => Can have or maybe not **********
 
-        public ImpendanceMBAConnected ImpendanceMF { get; set; }
+        public ImpedanceMBAConnected ImpedanceMF { get; set; }
         //------------------------------------------------------------------------
 
         //**********Wind Data  => Can have or maybe not***************

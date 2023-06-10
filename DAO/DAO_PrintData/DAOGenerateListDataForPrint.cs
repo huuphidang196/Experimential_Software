@@ -249,10 +249,10 @@ namespace Experimential_Software.DAO.DAO_PrintData
                 DTOLineEPower dtoLineE = lineE.DatabaseE.DataRecordE.DTOLineEPower;
                 int Bus_From = dtoLineE.DTOBus_From.ObjectNumber - 100 * (int)ObjectType.Bus;
                 int Bus_To = dtoLineE.DTOBus_To.ObjectNumber - 100 * (int)ObjectType.Bus;
-                double Spec_R = dtoLineE.ImpendanceLineE.LineR_Pu;
-                double Spec_X = dtoLineE.ImpendanceLineE.LineX_Pu;
-                double Mag_B = dtoLineE.ImpendanceLineE.LineBFrom_Pu + dtoLineE.ImpendanceLineE.LineBTo_Pu;
-                double Mag_G = dtoLineE.ImpendanceLineE.LineGFrom_Pu + dtoLineE.ImpendanceLineE.LineGTo_Pu;
+                double Spec_R = dtoLineE.ImpedanceLineE.LineR_Pu;
+                double Spec_X = dtoLineE.ImpedanceLineE.LineX_Pu;
+                double Mag_B = dtoLineE.ImpedanceLineE.LineBFrom_Pu + dtoLineE.ImpedanceLineE.LineBTo_Pu;
+                double Mag_G = dtoLineE.ImpedanceLineE.LineGFrom_Pu + dtoLineE.ImpedanceLineE.LineGTo_Pu;
                 string str_ObjType = "ĐZ";
 
                 DataBranchSystem dtBranch = new DataBranchSystem()

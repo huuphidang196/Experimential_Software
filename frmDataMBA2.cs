@@ -38,7 +38,7 @@ namespace Experimential_Software
         protected double _numberTapFixed_Sec = 0;
 
         //ImpendanceTemp use recify temp zone impendance value 
-        protected ImpendanceMBA2 _impendanceTemp;
+        protected ImpedanceMBA2 _impendanceTemp;
         public frmDataMBA2()
         {
             InitializeComponent();
@@ -114,7 +114,7 @@ namespace Experimential_Software
         }
 
         //Power Rating and Impendance Data
-        protected virtual void ShowTransformerImpendanceData(ImpendanceMBA2 impenMBA2)
+        protected virtual void ShowTransformerImpendanceData(ImpedanceMBA2 impenMBA2)
         {
             //Power Rating
             this.txtPowerRated.Text = this._dtoMBA2EPowerRecord.PowerRated_MVA + "";
@@ -464,7 +464,7 @@ namespace Experimential_Software
         protected virtual void ProcessUpdateImpendanceByTransformerRatio()
         {
             //Clone ImpendancemBA temp 
-            ImpendanceMBA2 impendanceMBA2Tem = DAOUpdateImpendanceWhenChangeTap.Instance.ProcessUpdateImpendanceByTransformerRatio(this._dtoMBA2EPowerRecord, this._impendanceTemp);
+            ImpedanceMBA2 impendanceMBA2Tem = DAOUpdateImpendanceWhenChangeTap.Instance.ProcessUpdateImpendanceByTransformerRatio(this._dtoMBA2EPowerRecord, this._impendanceTemp);
 
             //Show textbox again. if ok => change.if Not not change
             this.ShowTransformerImpendanceData(impendanceMBA2Tem);

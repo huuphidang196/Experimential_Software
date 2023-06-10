@@ -281,7 +281,7 @@ namespace Experimential_Software.Class_Database
 
         //Transfomer Impendance Data
 
-        public ImpedanceMBA3 Impendance_MBA3 { get; set; }
+        public ImpedanceMBA3 Impedance_MBA3 { get; set; }
 
         public string Description { get; set; }
     }

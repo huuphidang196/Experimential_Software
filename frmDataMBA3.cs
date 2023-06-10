@@ -99,23 +99,23 @@ namespace Experimential_Software
         protected virtual void ShowTransformerImpedanceData()
         {
             //Prim RX
-            SpecImpedanceMBA3RX SpecRX_Prim = this._dtoMBA3P.Impendance_MBA3.SpecRX_Prim;
+            SpecImpedanceMBA3RX SpecRX_Prim = this._dtoMBA3P.Impedance_MBA3.SpecRX_Prim;
             this.txtSpecR_Prim.Text = SpecRX_Prim.SpecR_pu.ToString("F6");
             this.txtSpecX_Prim.Text = SpecRX_Prim.SpecX_pu.ToString("F6");
 
             //Tertiary RX
-            SpecImpedanceMBA3RX SpecRX_Ter = this._dtoMBA3P.Impendance_MBA3.SpecRX_Ter;
+            SpecImpedanceMBA3RX SpecRX_Ter = this._dtoMBA3P.Impedance_MBA3.SpecRX_Ter;
             this.txtSpecR_Ter.Text = SpecRX_Ter.SpecR_pu.ToString("F6");
             this.txtSpecX_Ter.Text = SpecRX_Ter.SpecX_pu.ToString("F6");
 
             //Sec RX
-            SpecImpedanceMBA3RX SpecRX_Sec = this._dtoMBA3P.Impendance_MBA3.SpecRX_Sec;
+            SpecImpedanceMBA3RX SpecRX_Sec = this._dtoMBA3P.Impedance_MBA3.SpecRX_Sec;
             this.txtSpecR_Sec.Text = SpecRX_Sec.SpecR_pu.ToString("F6");
             this.txtSpecX_Sec.Text = SpecRX_Sec.SpecX_pu.ToString("F6");
 
             //Go, Bo
-            this.txtMagG.Text = this._dtoMBA3P.Impendance_MBA3.MagG_pu.ToString("F6");
-            this.txtMagB.Text = this._dtoMBA3P.Impendance_MBA3.MagB_pu.ToString("F6");
+            this.txtMagG.Text = this._dtoMBA3P.Impedance_MBA3.MagG_pu.ToString("F6");
+            this.txtMagB.Text = this._dtoMBA3P.Impedance_MBA3.MagB_pu.ToString("F6");
         }
 
         //Transformer Data
@@ -288,25 +288,25 @@ namespace Experimential_Software
             double SpecR_Prim = double.Parse(this.txtSpecR_Prim.Text);
             double SpecX_Prim = double.Parse(this.txtSpecX_Prim.Text);
             SpecImpedanceMBA3RX SpecPrim = DAOGeneMBA3Record.Instance.GenerateSpecRX(SpecR_Prim, SpecX_Prim);
-            this._dtoMBA3P.Impendance_MBA3.SpecRX_Prim = SpecPrim;
+            this._dtoMBA3P.Impedance_MBA3.SpecRX_Prim = SpecPrim;
 
             //SpecRX Tertiary
             double SpecR_Ter = double.Parse(this.txtSpecR_Ter.Text);
             double SpecX_Ter = double.Parse(this.txtSpecX_Ter.Text);
             SpecImpedanceMBA3RX SpecTer = DAOGeneMBA3Record.Instance.GenerateSpecRX(SpecR_Ter, SpecX_Ter);
-            this._dtoMBA3P.Impendance_MBA3.SpecRX_Ter = SpecTer;
+            this._dtoMBA3P.Impedance_MBA3.SpecRX_Ter = SpecTer;
 
             //SpecRX Sec
             double SpecR_Sec = double.Parse(this.txtSpecR_Sec.Text);
             double SpecX_Sec = double.Parse(this.txtSpecX_Sec.Text);
             SpecImpedanceMBA3RX SpecSec = DAOGeneMBA3Record.Instance.GenerateSpecRX(SpecR_Sec, SpecX_Sec);
-            this._dtoMBA3P.Impendance_MBA3.SpecRX_Sec = SpecSec;
+            this._dtoMBA3P.Impedance_MBA3.SpecRX_Sec = SpecSec;
 
             //Mag G,B
             double MagG = double.Parse(this.txtMagG.Text);
             double MagB = double.Parse(this.txtMagB.Text);
-            this._dtoMBA3P.Impendance_MBA3.MagG_pu = MagG;
-            this._dtoMBA3P.Impendance_MBA3.MagB_pu = MagB;
+            this._dtoMBA3P.Impedance_MBA3.MagG_pu = MagG;
+            this._dtoMBA3P.Impedance_MBA3.MagB_pu = MagB;
 
         }
 

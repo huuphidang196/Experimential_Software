@@ -9,7 +9,7 @@ using MathNet.Numerics;
 namespace Experimential_Software.Class_Database
 {
     [Serializable]
-    public class ImpendanceLineEPower
+    public class ImpedanceLineEPower
     {
         //Branch Data
         //R
@@ -94,7 +94,7 @@ namespace Experimential_Software.Class_Database
             get { return new Complex(this._lineGTo_pu, this._lineBTo_pu); }
         }
         ///-----------------------------------------------------------------------------
-        public ImpendanceLineEPower()
+        public ImpedanceLineEPower()
         {
             this._lineR_pu = 0;
             this._lineX_pu = 0.0001;
@@ -118,6 +118,6 @@ namespace Experimential_Software.Class_Database
         public bool IsInService { get; set; }
 
         //Branch Data
-       public ImpendanceLineEPower ImpendanceLineE { get; set; }
+       public ImpedanceLineEPower ImpedanceLineE { get; set; }
     }
 }

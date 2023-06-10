@@ -34,7 +34,7 @@ namespace Experimential_Software.DAO.DAO_LineData
             dtoLineEPower.IsInService = true;
 
             //Branch Data
-            dtoLineEPower.ImpendanceLineE = new ImpendanceLineEPower();
+            dtoLineEPower.ImpedanceLineE = new ImpedanceLineEPower();
 
             return dtoLineEPower;
         }

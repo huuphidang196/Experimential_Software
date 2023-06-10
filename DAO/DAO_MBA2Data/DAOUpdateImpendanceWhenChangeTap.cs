@@ -19,7 +19,7 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
 
         private DAOUpdateImpendanceWhenChangeTap() {; }
 
-        public virtual ImpendanceMBA2 ProcessUpdateImpendanceByTransformerRatio(DTOTransTwoEPower dtoTrans, ImpendanceMBA2 _impendanceTemp)
+        public virtual ImpedanceMBA2 ProcessUpdateImpendanceByTransformerRatio(DTOTransTwoEPower dtoTrans, ImpedanceMBA2 _impendanceTemp)
         {
             double ratioFixed_Ks = dtoTrans.VoltageEnds_kV_Fixed.K_Ratio_Vol_Prim_Sec;
             double ratioRated_K = dtoTrans.VoltageEnds_kV_Rated.K_Ratio_Vol_Prim_Sec;
@@ -39,13 +39,13 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
             double MagB_pu = _impendanceTemp.MagB_pu;
 
             //Clone ImpendancemBA temp 
-            ImpendanceMBA2 impendanceMBA2Tem = new ImpendanceMBA2(SpecR_pu, SpecX_pu, MagG_pu, MagB_pu);
+            ImpedanceMBA2 impendanceMBA2Tem = new ImpedanceMBA2(SpecR_pu, SpecX_pu, MagG_pu, MagB_pu);
 
             return impendanceMBA2Tem;
         }
 
         //When Start
-        public virtual ImpendanceMBA2 ProcessUpdateImpendanceTempWhenStart(DTOTransTwoEPower dtoTrans)
+        public virtual ImpedanceMBA2 ProcessUpdateImpendanceTempWhenStart(DTOTransTwoEPower dtoTrans)
         {
             double ratioFixed_Ks = dtoTrans.VoltageEnds_kV_Fixed.K_Ratio_Vol_Prim_Sec;
             double ratioRated_K = dtoTrans.VoltageEnds_kV_Rated.K_Ratio_Vol_Prim_Sec;
@@ -53,7 +53,7 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
             double mul_K_Transfer = Math.Round(Math.Pow(ratioFixed_Ks / ratioRated_K, 2), 6);
 
         //    MessageBox.Show("ratioFixed_Ks =" + ratioFixed_Ks + ", ratioRated_K = " + ratioRated_K);
-            ImpendanceMBA2 impendanceOld = dtoTrans.Impendance_MBA2;
+            ImpedanceMBA2 impendanceOld = dtoTrans.Impendance_MBA2;
 
             //SpecR_pu
             double SpecR_pu = impendanceOld.SpecR_pu / mul_K_Transfer;
@@ -66,7 +66,7 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
             double MagB_pu = impendanceOld.MagB_pu;
 
             //Clone ImpendancemBA temp 
-            ImpendanceMBA2 impendanceMBA2Tem = new ImpendanceMBA2(SpecR_pu, SpecX_pu, MagG_pu, MagB_pu);
+            ImpedanceMBA2 impendanceMBA2Tem = new ImpedanceMBA2(SpecR_pu, SpecX_pu, MagG_pu, MagB_pu);
 
             return impendanceMBA2Tem;
         }

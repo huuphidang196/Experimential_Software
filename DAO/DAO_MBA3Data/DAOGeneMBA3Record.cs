@@ -37,7 +37,7 @@ namespace Experimential_Software.DAO.DAO_MBA3Data
             dtoMBA3.PowerRated_MVA = 100;
 
             //Transformer Impendance Data
-            dtoMBA3.Impendance_MBA3 = new ImpedanceMBA3();
+            dtoMBA3.Impedance_MBA3 = new ImpedanceMBA3();
 
             //Set BaseMVA
             dtoMBA3.Trans3Winding_MVABase = new Transformer3PBaseMVA(100, 100, 100);

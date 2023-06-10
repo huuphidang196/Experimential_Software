@@ -100,7 +100,7 @@ namespace Experimential_Software
 
         protected virtual void ShowValueShowOnGroupTransformerData()
         {
-            ImpendanceMBAConnected impendanceMF = this._dtoMFRecord.ImpendanceMF;
+            ImpedanceMBAConnected impendanceMF = this._dtoMFRecord.ImpedanceMF;
             //Set R Trans
             this.txtRTran_pu.Text = impendanceMF.RTran_pu.ToString("F5");
             //Set X Trans
@@ -202,11 +202,11 @@ namespace Experimential_Software
         protected virtual void UpdateTranDataForDatabaseMF()
         {
             //RTran
-            this._dtoMFRecord.ImpendanceMF.RTran_pu = double.Parse(this.txtRTran_pu.Text);
+            this._dtoMFRecord.ImpedanceMF.RTran_pu = double.Parse(this.txtRTran_pu.Text);
             //XTran
-            this._dtoMFRecord.ImpendanceMF.XTran_pu = double.Parse(this.txtXTran_pu.Text);
+            this._dtoMFRecord.ImpedanceMF.XTran_pu = double.Parse(this.txtXTran_pu.Text);
             //genTap
-            this._dtoMFRecord.ImpendanceMF.Gentap = double.Parse(this.txtGentapMF.Text);
+            this._dtoMFRecord.ImpedanceMF.Gentap = double.Parse(this.txtGentapMF.Text);
         }
 
 

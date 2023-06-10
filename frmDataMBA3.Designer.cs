@@ -393,7 +393,7 @@ namespace Experimential_Software
             this.grbImpedanceMBA3P.Size = new System.Drawing.Size(307, 316);
             this.grbImpedanceMBA3P.TabIndex = 1;
             this.grbImpedanceMBA3P.TabStop = false;
-            this.grbImpedanceMBA3P.Text = "Transformer Impendance Data";
+            this.grbImpedanceMBA3P.Text = "Transformer Impedance Data";
             // 
             // txtMagB
             // 
