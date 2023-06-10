@@ -39,7 +39,7 @@ namespace Experimential_Software.DAO.DAO_GeneratorData
             dtoMF.PowerMachineMF = new PowerMachineDataMF();
 
             //*******Transformer Data => Can have or maybe not **********
-            dtoMF.ImpendanceMF = new ImpendanceMF();
+            dtoMF.ImpendanceMF = new ImpendanceMBAConnected();
 
             //**********Wind Data  => Can have or maybe not***************
             //Control Mode

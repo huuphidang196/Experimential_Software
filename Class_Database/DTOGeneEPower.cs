@@ -74,6 +74,35 @@ namespace Experimential_Software.Class_Database
             set { _mBase = Math.Round(value, 2); }
         }
 
+
+        //RSource
+        private double _rSource_pu;
+        public double RSource_pu
+        {
+            get { return _rSource_pu; }
+            set { _rSource_pu = Math.Round(value, 5); }
+        }
+
+        //X Source
+        private double _xSource_pu;
+        public double XSource_pu
+        {
+            get { return _xSource_pu; }
+            set { _xSource_pu = Math.Round(value, 5); }
+        }
+
+        //Z_MF
+        public Complex Z_Res_MF_pu
+        {
+            get { return new Complex(this._rSource_pu, this._xSource_pu); }
+        }
+
+        //YF = 1 /Z_MF
+        public Complex YF_Con_MF_pu
+        {
+            get { if (this.Z_Res_MF_pu != 0) return 1 / this.Z_Res_MF_pu; return 0; }
+        }
+
         public PowerMachineDataMF()
         {
             //Set Pgen
@@ -91,11 +120,14 @@ namespace Experimential_Software.Class_Database
             this.Qmin_Mvar = -9999;
             //set Mbase => CHT
             this.MBase = 100;
+
+            this._rSource_pu = 0;
+            this._xSource_pu = 1;
         }
     }
 
     [Serializable]
-    public class ImpendanceMF
+    public class ImpendanceMBAConnected
     {
         //*******Transformer Data => Can have or maybe not **********
         //RTran
@@ -113,6 +145,7 @@ namespace Experimential_Software.Class_Database
             get { return _xTran_pu; }
             set { _xTran_pu = Math.Round(value, 5); }
         }
+
         //GenTap
         private double _genTap_pu;
         public double Gentap
@@ -121,20 +154,10 @@ namespace Experimential_Software.Class_Database
             set { _genTap_pu = Math.Round(value, 5); }
         }
 
-        //Z_MF
-        public Complex Z_Res_MF_pu
-        {
-            get { return new Complex(this._rTran_pu, this._xTran_pu); }
-        }
-
-        //YF = 1 /Z_MF
-        public Complex YF_Con_MF_pu
-        {
-            get { if (this.Z_Res_MF_pu != 0) return 1 / this.Z_Res_MF_pu; return 0; }
-        }
+       
 
         //Constuctor
-        public ImpendanceMF()
+        public ImpendanceMBAConnected()
         {
             this._rTran_pu = 0;
             this._xTran_pu = 0;
@@ -160,7 +183,7 @@ namespace Experimential_Software.Class_Database
 
         //*******Transformer Data => Can have or maybe not **********
 
-        public ImpendanceMF ImpendanceMF { get; set; }
+        public ImpendanceMBAConnected ImpendanceMF { get; set; }
         //------------------------------------------------------------------------
 
         //**********Wind Data  => Can have or maybe not***************

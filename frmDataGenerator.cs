@@ -91,11 +91,16 @@ namespace Experimential_Software
 
             //Set Mbase => Công Suất ĐM
             this.txtMbase_MVA.Text = powerMachine.MBase.ToString("F2");
+
+            //RSource
+            this.txtRSource_pu.Text = powerMachine.RSource_pu.ToString("F5");
+            //XSource
+            this.txtXSource_pu.Text = powerMachine.XSource_pu.ToString("F5");
         }
 
         protected virtual void ShowValueShowOnGroupTransformerData()
         {
-            ImpendanceMF impendanceMF = this._dtoMFRecord.ImpendanceMF;
+            ImpendanceMBAConnected impendanceMF = this._dtoMFRecord.ImpendanceMF;
             //Set R Trans
             this.txtRTran_pu.Text = impendanceMF.RTran_pu.ToString("F5");
             //Set X Trans
@@ -187,6 +192,11 @@ namespace Experimential_Software
 
             //Mbase
             this._dtoMFRecord.PowerMachineMF.MBase = double.Parse(this.txtMbase_MVA.Text);
+
+            // RSource
+            this._dtoMFRecord.PowerMachineMF.RSource_pu = double.Parse(this.txtRSource_pu.Text);
+            //X Source
+            this._dtoMFRecord.PowerMachineMF.XSource_pu = double.Parse(this.txtXSource_pu.Text);
         }
 
         protected virtual void UpdateTranDataForDatabaseMF()

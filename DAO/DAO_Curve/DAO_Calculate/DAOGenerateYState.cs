@@ -111,7 +111,7 @@ namespace Experimential_Software.DAO.DAO_Curve.DAO_Calculate
             switch (objType)
             {
                 case ObjectType.MF:
-                    return otherEPower.DatabaseE.DataRecordE.DTOGeneEPower.ImpendanceMF.YF_Con_MF_pu;
+                    return otherEPower.DatabaseE.DataRecordE.DTOGeneEPower.PowerMachineMF.YF_Con_MF_pu;
 
                 case ObjectType.MBA2P:
                     return otherEPower.DatabaseE.DataRecordE.DTOTransTwoEPower.Impendance_MBA2.Yb_Con_MBA2_pu;
