@@ -199,7 +199,7 @@ namespace Experimential_Software
             this.RotateImage(this._alpha);
 
             this.lblKPghRatio.Text = "P0 / PGh = 0 %";
-            this.lblStableReserve.Text = "Độ dự trữ ổng định : 0%";
+            this.lblStableReserve.Text = "Độ dự trữ ổn định : 0%";
 
 
             this.chartCurveLimted.Series.Clear();
