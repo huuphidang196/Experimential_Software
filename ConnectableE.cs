@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Experimential_Software.Class_Database;
+using Experimential_Software.DTO;
 using Experimential_Software.EPowerProcess;
 using Experimential_Software.CustomControl;
 using Experimential_Software.DAO.DAO_GeneratorData;
@@ -69,8 +69,8 @@ namespace Experimential_Software
         public PanelMain PanelMain => pnlMain_Drawn;
 
 
-        protected DatabaseEPower _databaseE;
-        public DatabaseEPower DatabaseE => _databaseE;
+        protected DTODatabaseEPower _databaseE;
+        public DTODatabaseEPower DatabaseE => _databaseE;
 
         protected EPowerProcessMouse _ePowerMouse;
         public EPowerProcessMouse EPowerProcessMouse => _ePowerMouse;
@@ -195,7 +195,7 @@ namespace Experimential_Software
             this.isOnTool = true;
         }
 
-        public ConnectableE(frmCapstone form, PanelMain pnlMain, DatabaseEPower databaseEPower, ImageList imgList, GenerateMode generateMode)
+        public ConnectableE(frmCapstone form, PanelMain pnlMain, DTODatabaseEPower databaseEPower, ImageList imgList, GenerateMode generateMode)
         {
             this._formCap = form;
             this.pnlMain_Drawn = pnlMain;
@@ -212,7 +212,7 @@ namespace Experimential_Software
 
         }
 
-        protected virtual void SetVariableOnEPower(DatabaseEPower databaseEPower, ImageList imgList)
+        protected virtual void SetVariableOnEPower(DTODatabaseEPower databaseEPower, ImageList imgList)
         {
             this._databaseE = databaseEPower;
 
@@ -259,7 +259,7 @@ namespace Experimential_Software
             this.ContainPreEpower = this._databaseE.ContainPreEpower;
         }
 
-        protected virtual void SetSizeImageForEPower(DatabaseEPower databaseEPower, ImageList imgList)
+        protected virtual void SetSizeImageForEPower(DTODatabaseEPower databaseEPower, ImageList imgList)
         {
             int numberImage = _databaseE.NumberImage;
             Image originalImage = imgList.Images[numberImage];

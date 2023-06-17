@@ -14,11 +14,11 @@ using System.Drawing.Drawing2D;
 using System.Diagnostics;
 using System.IO;
 
-using Experimential_Software.Class_Database;
-using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
-using Experimential_Software.DAO.DAO_Curve.DAO_Check_Stability;
-using Experimential_Software.DAO.DAO_Curve.DAO_Calculate_ManyCurve;
-using Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath;
+using Experimential_Software.DTO;
+using Experimential_Software.BLL.BLL_Curve.BLL_Calculate;
+using Experimential_Software.BLL.BLL_Curve.BLL_Calculate_ManyCurve;
+using Experimential_Software.BLL.BLL_Curve.BLL_Check_Stability;
+using Experimential_Software.BLL.BLL_Curve.BLL_GeneratePath;
 
 namespace Experimential_Software
 {
@@ -125,7 +125,7 @@ namespace Experimential_Software
 
         private void RotateImage(float angle)
         {
-            string pathImage = DAOGeneratePathFolder.Instance.LoadImageClockWiseInsideLibraryLogo();
+            string pathImage = BLLGeneratePathFolder.Instance.LoadImageClockWiseInsideLibraryLogo();
             Image imgWise = Image.FromFile(pathImage);
             Bitmap rotatedImage = new Bitmap(imgWise.Width, imgWise.Height);
 
@@ -177,12 +177,12 @@ namespace Experimential_Software
             double rateMax = double.Parse(this.txtMaxPer.Text) / 100;
 
             //Generate Old Dictionary Power Load Old
-            Dictionary<string, PowerSystem> Dic_PQ_Old = DAOCalculateManyCurve.Instance.GetDictionaryPowerSystemOld(this._allEPowers);
+            Dictionary<string, PowerSystem> Dic_PQ_Old = BLLCalculateManyCurve.Instance.GetDictionaryPowerSystemOld(this._allEPowers);
 
             for (int i = 0; i < toltalCount; i++)
             {
                 //Reccify PLoad, QLoad All Load
-                this._allEPowers = DAOCalculateManyCurve.Instance.RecifyAllPowerSystemLoad(this._allEPowers, Dic_PQ_Old, rateMin, rateMax);
+                this._allEPowers = BLLCalculateManyCurve.Instance.RecifyAllPowerSystemLoad(this._allEPowers, Dic_PQ_Old, rateMin, rateMax);
                 //Process Chart and ListBox
                 this.ProcessDrawnChartCurveLimited(i + 1);
             }
@@ -212,12 +212,12 @@ namespace Experimential_Software
         {
             if (this.isOneCurve) return;
 
-            PowerSystem psLoad = DAODrawnChartCurveLimited.Instance.GetPowerSystemFromRandomValueLoad(this._busLoadExamined);
+            PowerSystem psLoad = BLLDrawnChartCurveLimited.Instance.GetPowerSystemFromRandomValueLoad(this._busLoadExamined);
             double rateMLimit_Min = double.Parse(this.txtMinPointRandom.Text) / 100;
             double rateMLimit_Max = double.Parse(this.txtMaxPointRandom.Text) / 100;
 
-            PowerSystem psM_Random = DAOCalculateManyCurve.Instance.GetValueRandomInTheRange(psLoad, rateMLimit_Min, rateMLimit_Max);
-            DAODrawnChartCurveLimited.Instance.AddPointLoadOnChart(this.chartCurveLimted, psM_Random, this.isOneCurve);
+            PowerSystem psM_Random = BLLCalculateManyCurve.Instance.GetValueRandomInTheRange(psLoad, rateMLimit_Min, rateMLimit_Max);
+            BLLDrawnChartCurveLimited.Instance.AddPointLoadOnChart(this.chartCurveLimted, psM_Random, this.isOneCurve);
         }
 
         #endregion Button_Reset_Event
@@ -226,7 +226,7 @@ namespace Experimential_Software
         #region Process_Chart_Curve
         protected virtual void ProcessDrawnChartCurveLimited(int numberSeries)
         {
-            List<PowerSystem> List_PS_Point = DAOGenerateListPoints.Instance.GenerateListPointStabilityLimitCurve(this._allEPowers, this._busLoadExamined);
+            List<PowerSystem> List_PS_Point = BLLGenerateListPoints.Instance.GenerateListPointStabilityLimitCurve(this._allEPowers, this._busLoadExamined);
             if (List_PS_Point.Count == 0)
             {
                 if (this.isOneCurve) MessageBox.Show("Please consider this Database !", "Remider notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -252,14 +252,14 @@ namespace Experimential_Software
         protected virtual void FindLimitPointOnCurveAndEvaluateStability(int numberSeries)
         {
             string nameData = "Data" + numberSeries;
-            PointF? pSectionLimit = DAOCheckStability.Instance.FindInterSectionPQLimtOnCurve(this.chartCurveLimted.Series[nameData], this.chartCurveLimted.Series["PointLoad"], this.isOneCurve);
+            PointF? pSectionLimit = BLLCheckStability.Instance.FindInterSectionPQLimtOnCurve(this.chartCurveLimted.Series[nameData], this.chartCurveLimted.Series["PointLoad"], this.isOneCurve);
 
             if (pSectionLimit == null) return;//Only many Mode 
 
             PowerSystem pointLimitOnCurve = new PowerSystem(pSectionLimit.Value.Y, pSectionLimit.Value.X);
             //set type seri
             this.chartCurveLimted.Series["PointLoad"].ChartType = SeriesChartType.Line;
-            DAODrawnChartCurveLimited.Instance.AddPointCircleOnChart(this.chartCurveLimted, pointLimitOnCurve, "PointLoad", this.isOneCurve);
+            BLLDrawnChartCurveLimited.Instance.AddPointCircleOnChart(this.chartCurveLimted, pointLimitOnCurve, "PointLoad", this.isOneCurve);
 
             if (!this.isOneCurve)
             {
@@ -278,11 +278,11 @@ namespace Experimential_Software
         //Label Stability One Curve Mode
         protected virtual void SetLabelStablityAndProbility(PointF? pSectionLimit)
         {
-            string str_Stability = (this.isOneCurve) ? DAOCheckStability.Instance.GetStringStabilityByOffSetOneCurveMode(pSectionLimit, this.chartCurveLimted.Series["PointLoad"])
-                : DAOCheckStability.Instance.GetStringStabilityByCountSectionManyCurveMode(this.chartCurveLimted.Series["PointLoad"], double.Parse(this.txtCountCurve.Text));
+            string str_Stability = (this.isOneCurve) ? BLLCheckStability.Instance.GetStringStabilityByOffSetOneCurveMode(pSectionLimit, this.chartCurveLimted.Series["PointLoad"])
+                : BLLCheckStability.Instance.GetStringStabilityByCountSectionManyCurveMode(this.chartCurveLimted.Series["PointLoad"], double.Parse(this.txtCountCurve.Text));
 
-            string str_Probility = (this.isOneCurve) ? DAOCheckStability.Instance.GetStringProbilitySystemByOffSetOneCurveMode(pSectionLimit, this.chartCurveLimted.Series["PointLoad"])
-                : DAOCheckStability.Instance.GetStringProbilityByCountSectionManyCurveMode(this.chartCurveLimted.Series["PointLoad"], double.Parse(this.txtCountCurve.Text));
+            string str_Probility = (this.isOneCurve) ? BLLCheckStability.Instance.GetStringProbilitySystemByOffSetOneCurveMode(pSectionLimit, this.chartCurveLimted.Series["PointLoad"])
+                : BLLCheckStability.Instance.GetStringProbilityByCountSectionManyCurveMode(this.chartCurveLimted.Series["PointLoad"], double.Parse(this.txtCountCurve.Text));
 
             this.lblStateSystem.Text = str_Stability;
             this.txtPerProbility.Text = str_Probility;
@@ -290,7 +290,7 @@ namespace Experimential_Software
 
         protected virtual void FindPLimitAndQLimitWhenStabilitySystem()
         {
-            DAOFindPLimitAndQLimitWhenStabilitySystem.Instance.FindPLimitAndQLimitWhenStabilitySystem(this.chartCurveLimted, this.isOneCurve);
+            BLLFindPLimitAndQLimitWhenStabilitySystem.Instance.FindPLimitAndQLimitWhenStabilitySystem(this.chartCurveLimted, this.isOneCurve);
         }
 
         //ListBox P, Q
@@ -359,7 +359,7 @@ namespace Experimential_Software
 
         protected void AddListPointPowerSystemFoundOnChart(List<PowerSystem> list_PS_Point, int numberSeries)
         {
-            DAODrawnChartCurveLimited.Instance.AddListPointPowerSystemFoundOnChart(this.chartCurveLimted, list_PS_Point, numberSeries, this.isOneCurve, this._busLoadExamined);
+            BLLDrawnChartCurveLimited.Instance.AddListPointPowerSystemFoundOnChart(this.chartCurveLimted, list_PS_Point, numberSeries, this.isOneCurve, this._busLoadExamined);
         }
 
         protected virtual void ProcessingCompletedEvent(Dictionary<string, PowerSystem> Dic_PQ_Old, Stopwatch stopwatch)
@@ -367,7 +367,7 @@ namespace Experimential_Software
             this.pnlProgress.Visible = false;
 
             //Save Old Power Load
-            this._allEPowers = DAOCalculateManyCurve.Instance.ReturnAllPowerSystemLoadOrigin(this._allEPowers, Dic_PQ_Old);
+            this._allEPowers = BLLCalculateManyCurve.Instance.ReturnAllPowerSystemLoadOrigin(this._allEPowers, Dic_PQ_Old);
 
             // Thiết lập giới hạn của trục X từ 0 đến max + 10
             this.chartCurveLimted.ChartAreas[0].AxisX.Maximum = this._QMax_Global + 200;
@@ -377,7 +377,7 @@ namespace Experimential_Software
 
 
             //Creat folder Library Sound
-            string pathSound = DAOGeneratePathFolder.Instance.LoadPathSoundInsideLibrarySound();
+            string pathSound = BLLGeneratePathFolder.Instance.LoadPathSoundInsideLibrarySound();
             SoundPlayer player = new SoundPlayer(pathSound);
 
             stopwatch.Stop();
@@ -418,7 +418,7 @@ namespace Experimential_Software
             }
 
             // Lưu ảnh snip vào đường dẫn chỉ định
-            string savePath = DAOGeneratePathFolder.Instance.CreatFolderLibraryImageDrawnCurve();
+            string savePath = BLLGeneratePathFolder.Instance.CreatFolderLibraryImageDrawnCurve();
 
             // Khởi tạo SaveFileDialog
             SaveFileDialog saveFileDialog = new SaveFileDialog();

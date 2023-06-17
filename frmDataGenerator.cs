@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Experimential_Software.Class_Database;
+using Experimential_Software.BLL.BLL_ProcessGenerator;
+using Experimential_Software.DTO;
 
 namespace Experimential_Software
 {
@@ -33,7 +34,7 @@ namespace Experimential_Software
             }
         }
 
-        #region Set_Data_To_Show
+        #region Show_Data_To_Show
         protected virtual void ShowDataOnFormMFEPowerOrigin()
         {
             //Get DataDTO from EPOwer
@@ -131,98 +132,22 @@ namespace Experimential_Software
             this.txtRemoteBus.Text = this._dtoMFRecord.Remote_Bus.ToString();
         }
 
-        #endregion Set_Data_To_Show
+        #endregion Show_Data_To_Show
+
         #region Event_TextBox_Leave
         private void CheckNumberValidTextBoxEventLeave(object sender, EventArgs e)
         {
-            //Get text box is Changging
-            TextBox txtDataChanged = sender as TextBox;
-
-            // bool isAllValid = txtDataChanged.Text.Replace(".", "").Replace("-", "").All(c => char.IsDigit(c));
-            bool isAllValid = double.TryParse(txtDataChanged.Text, out double result);
-            if (!isAllValid)
-            {
-                MessageBox.Show(txtDataChanged.Text + " Invalid decimal number detected!!", "Request To Re-Enter Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtDataChanged.BackColor = Color.Yellow;
-                txtDataChanged.Focus();
-                return;
-            }
-            txtDataChanged.BackColor = Color.White;
+            BLLProcessGeneratorForm.Instance.CheckNumberValidTextBoxEventLeave(sender);
         }
         #endregion Event_TextBox_Leave
 
         #region Ok_Set_Data
         private void btnOKGene_Click(object sender, EventArgs e)
         {
-            //***********Basic Data And Machine***********
-            //Bus Connected is set when lineconnected Success
-            this.UpdateBasicAndMachineDataForDatabaseMF();
-
-            //***********Transformer Data************
-            this.UpdateTranDataForDatabaseMF();
-
-            //***********Wind Data And PlantData***********
-            this.UpdateWindAndPlantDataForDatabaseMF();
+            BLLProcessGeneratorForm.Instance.OK_Event_Click(this, _dtoMFRecord);
             this.DialogResult = DialogResult.OK;
         }
 
-        private void UpdateBasicAndMachineDataForDatabaseMF()
-        {
-            //Set Machine ID => Object name. DataBusConnect Set when Connect success in order to generate Line =? Peocess Mouse
-            this._dtoMFRecord.ObjectNumber = int.Parse(this.txtMachineID.Text);
-
-            //Set Object Name
-            this._dtoMFRecord.ObjectName = this.txtMachineName.Text;
-
-            // Machine Data
-
-            //Pgen
-            this._dtoMFRecord.PowerMachineMF.Pgen_MW = double.Parse(this.txtPgen_MW.Text);
-            //Pmax
-            this._dtoMFRecord.PowerMachineMF.Pmax_MW = double.Parse(this.txtPmax_MW.Text);
-            //Pmin
-            this._dtoMFRecord.PowerMachineMF.Pmin_MW = double.Parse(this.txtPmin_MW.Text);
-
-            //Qgen
-            this._dtoMFRecord.PowerMachineMF.Qgen_Mvar = double.Parse(this.txtQgen_Mvar.Text);
-            //Qmax
-            this._dtoMFRecord.PowerMachineMF.Qmax_Mvar = double.Parse(this.txtQmax_Mvar.Text);
-            //Qmin
-            this._dtoMFRecord.PowerMachineMF.Qmin_Mvar = double.Parse(this.txtQmin_Mvar.Text);
-
-            //Mbase
-            this._dtoMFRecord.PowerMachineMF.MBase = double.Parse(this.txtMbase_MVA.Text);
-
-            // RSource
-            this._dtoMFRecord.PowerMachineMF.RSource_pu = double.Parse(this.txtRSource_pu.Text);
-            //X Source
-            this._dtoMFRecord.PowerMachineMF.XSource_pu = double.Parse(this.txtXSource_pu.Text);
-        }
-
-        protected virtual void UpdateTranDataForDatabaseMF()
-        {
-            //RTran
-            this._dtoMFRecord.ImpedanceMF.RTran_pu = double.Parse(this.txtRTran_pu.Text);
-            //XTran
-            this._dtoMFRecord.ImpedanceMF.XTran_pu = double.Parse(this.txtXTran_pu.Text);
-            //genTap
-            this._dtoMFRecord.ImpedanceMF.Gentap = double.Parse(this.txtGentapMF.Text);
-        }
-
-
-        protected virtual void UpdateWindAndPlantDataForDatabaseMF()
-        {
-            //ControlMode
-            int indexCtrlMode = this.cboControlMode.SelectedIndex;
-            foreach (WindMFControlMode item in Enum.GetValues(typeof(WindMFControlMode)))
-            {
-                if ((int)item == indexCtrlMode) this._dtoMFRecord.WindCtrlMode = item;
-            }
-            //Set Sched Voltage
-            this._dtoMFRecord.SchedVoltage = double.Parse(this.txtSchedVoltage.Text);
-            //Remote Bus
-            this._dtoMFRecord.Remote_Bus = int.Parse(this.txtRemoteBus.Text);
-        }
         #endregion Ok_Set_Data
 
         private void btnCancelGene_Click(object sender, EventArgs e)

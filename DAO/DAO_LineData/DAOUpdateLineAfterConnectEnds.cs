@@ -1,13 +1,13 @@
-﻿using Experimential_Software.CustomControl;
-using Experimential_Software.EPowerProcess;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Experimential_Software.Class_Database;
 using System.Windows.Forms;
-using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
+
+using Experimential_Software.DTO;
+using Experimential_Software.CustomControl;
+using Experimential_Software.BLL.BLL_Curve.BLL_Calculate;
 
 namespace Experimential_Software.DAO.DAO_LineData
 {

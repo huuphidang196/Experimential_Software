@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Experimential_Software.Class_Database;
+using Experimential_Software.DTO;
 using Experimential_Software.DAO.DAO_LineData;
+using Experimential_Software.BLL.BLL_ProcessBranch;
 
 namespace Experimential_Software
 {
@@ -37,6 +38,7 @@ namespace Experimential_Software
             }
         }
 
+        #region ShowData
         protected virtual void ShowDataOnFormLineEPowerOrigin()
         {
             //get dto in Epower
@@ -89,65 +91,15 @@ namespace Experimential_Software
             this.txtLengthBr.Text = (impendanceLineE.LengthBr_KM == 0) ? "0.000" : impendanceLineE.LengthBr_KM + "";
         }
 
+        #endregion ShowData
+
         private void btnOkBr_Click(object sender, EventArgs e)
         {
             //set Data name
-            this.SetBranchRecordInDataBase();
+            BLLProcessBranchForm.Instance.ProcessOkEvent(this, this._dtoLineEPowerRecord);
 
             this.DialogResult = DialogResult.OK;
         }
-
-        protected virtual void SetBranchRecordInDataBase()
-        {
-            string Branch_ID = this.txtBranchID.Text;
-            string Branch_Name = this.txtBranchName.Text;
-
-            string LineR_pu = this.txtLineRPu.Text;
-            string LineX_pu = this.txtLineXPu.Text;
-
-            //charging B pu
-            string ChargingB_pu = this.txtChargingBPu.Text;
-            //G,B From
-            string LineGFrom_pu = this.txtLineGFromPu.Text;
-            string LineBFrom_pu = this.txtLineBFromPu.Text;
-
-            //G,B To
-            string LineGTo_pu = this.txtLineGToPu.Text;
-            string LineBTo_pu = this.txtLineBToPu.Text;
-
-            string Length_KM = this.txtLengthBr.Text;
-
-            //set Branch ID         
-            this._dtoLineEPowerRecord.ObjectNumber = int.Parse(Branch_ID);
-            //Set Branch Name
-            this._dtoLineEPowerRecord.ObjectName = Branch_Name;
-            //InService
-            this._dtoLineEPowerRecord.IsInService = this.chkInServiceBr.Checked;
-
-            //*************Branch Data*************
-            //txtLine R (pu)
-            this._dtoLineEPowerRecord.ImpedanceLineE.LineR_Pu = double.Parse(LineR_pu);
-            // txt Line X (pu)
-            this._dtoLineEPowerRecord.ImpedanceLineE.LineX_Pu = double.Parse(LineX_pu);
-
-            //ChargingB_pu
-            this._dtoLineEPowerRecord.ImpedanceLineE.ChargingB_Pu = double.Parse(ChargingB_pu);
-            //Line G From
-            this._dtoLineEPowerRecord.ImpedanceLineE.LineGFrom_Pu = double.Parse(LineGFrom_pu);
-            //Line B From
-            this._dtoLineEPowerRecord.ImpedanceLineE.LineBFrom_Pu = double.Parse(LineBFrom_pu);
-
-            //Line G To
-            this._dtoLineEPowerRecord.ImpedanceLineE.LineGTo_Pu = double.Parse(LineGTo_pu);
-            //Line B To
-            this._dtoLineEPowerRecord.ImpedanceLineE.LineBTo_Pu = double.Parse(LineBTo_pu);
-
-            //txt length_Km
-            this._dtoLineEPowerRecord.ImpedanceLineE.LengthBr_KM = double.Parse(Length_KM);
-
-           
-        }
-
 
         private void btnCancelbr_Click(object sender, EventArgs e)
         {
@@ -156,26 +108,7 @@ namespace Experimential_Software
 
         private void EventDataIputIsNotNumber(object sender, EventArgs e)
         {
-            //Get text box is Changging
-            TextBox txtDataChanged = sender as TextBox;
-
-            bool isAllValid = double.TryParse(txtDataChanged.Text, out double result);
-            if (!isAllValid)
-            {
-                MessageBox.Show(txtDataChanged.Text + "Invalid decimal number detected!", "Request To Re-Enter Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtDataChanged.BackColor = Color.Yellow;
-                txtDataChanged.Focus();
-                return;
-            }
-            txtDataChanged.BackColor = Color.White;
-
-            if (txtDataChanged == this.txtChargingBPu)
-            {
-                double chargingBpu = double.Parse(this.txtChargingBPu.Text);
-                if (chargingBpu == 0) return;
-                this.txtLineBFromPu.Text = chargingBpu / 2 + "";
-                this.txtLineBToPu.Text = chargingBpu / 2 + "";
-            }
+            BLLProcessBranchForm.Instance.EventDataIputIsNotNumber(sender, this);
         }
     }
 }

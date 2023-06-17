@@ -511,9 +511,6 @@ namespace Experimential_Software
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblBusFromName;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox txtBranchName;
-        private System.Windows.Forms.TextBox txtBranchID;
-        private System.Windows.Forms.CheckBox chkInServiceBr;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.GroupBox grbBranchData;
@@ -525,15 +522,18 @@ namespace Experimential_Software
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txtChargingBPu;
-        private System.Windows.Forms.TextBox txtLengthBr;
-        private System.Windows.Forms.TextBox txtLineBToPu;
-        private System.Windows.Forms.TextBox txtLineGToPu;
-        private System.Windows.Forms.TextBox txtLineBFromPu;
-        private System.Windows.Forms.TextBox txtLineGFromPu;
-        private System.Windows.Forms.TextBox txtLineXPu;
-        private System.Windows.Forms.TextBox txtLineRPu;
         private System.Windows.Forms.Button btnOkBr;
         private System.Windows.Forms.Button btnCancelbr;
+        public System.Windows.Forms.TextBox txtBranchName;
+        public System.Windows.Forms.TextBox txtBranchID;
+        public System.Windows.Forms.TextBox txtChargingBPu;
+        public System.Windows.Forms.TextBox txtLengthBr;
+        public System.Windows.Forms.TextBox txtLineBToPu;
+        public System.Windows.Forms.TextBox txtLineGToPu;
+        public System.Windows.Forms.TextBox txtLineBFromPu;
+        public System.Windows.Forms.TextBox txtLineGFromPu;
+        public System.Windows.Forms.TextBox txtLineXPu;
+        public System.Windows.Forms.TextBox txtLineRPu;
+        public System.Windows.Forms.CheckBox chkInServiceBr;
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Experimential_Software.Class_Database;
+using Experimential_Software.DTO;
 using System.Windows.Forms;
 using Experimential_Software.CustomControl;
 
@@ -47,16 +47,8 @@ namespace Experimential_Software.DAO.DAO_BusData
             return dtoBusE;
         }
 
-        public virtual void ProcessUpdateNameBusForLineConnected(ConnectableE busConsidered)
-        {
-            List<LineConnect> listLineDrawn = busConsidered.ListBranch_Drawn;
 
-            if (listLineDrawn.Count == 0) return;
-
-            this.AddEPowerOnList(ObjectType.LineEPower, listLineDrawn);
-        }
-
-        protected virtual void AddEPowerOnList(ObjectType objectType, List<LineConnect> listLineDrawn)
+        public virtual void AddEPowerOnList(ObjectType objectType, List<LineConnect> listLineDrawn)
         {
             List<ConnectableE> listEPowersConn = new List<ConnectableE>();
             foreach (LineConnect lineBranch in listLineDrawn)
@@ -72,5 +64,52 @@ namespace Experimential_Software.DAO.DAO_BusData
                 item.UpdateDataRecordEPowerWhenConnectOrRemove(false);
             }
         }
+
+        #region SetData_OKCLick
+        public virtual void SetObjectRecordInDataBase(frmDataBus frmDataBus, DTOBusEPower _dtoBusRecord)
+        {
+            //Update database into DTO
+
+            //------------------------------------------------------------------------------------------
+            //**BasicData Zone**
+            //------------------------------------------------------------------------------------------
+
+            _dtoBusRecord.ObjectNumber = int.Parse(frmDataBus.txtBusNumber.Text);
+
+            //txt BusName => Busname
+            _dtoBusRecord.ObjectName = frmDataBus.txtBusName.Text;
+
+            //cbo TypeCodeBus -> typeCodebus DTO
+            string enumTypeBus = frmDataBus.cboTypeBus.SelectedItem.ToString().Split('-')[1];
+
+            _dtoBusRecord.TypeCodeBus = (TypeCodeBus)Enum.Parse(typeof(TypeCodeBus), enumTypeBus);
+
+            //txtBaseKV => 
+            _dtoBusRecord.BasekV = double.Parse(frmDataBus.txtBasekV.Text);
+
+            //txtVoltage
+            _dtoBusRecord.Voltage_pu = double.Parse(frmDataBus.txtVoltageBus.Text);
+
+            //txtAngle
+            _dtoBusRecord.Angle_rad = double.Parse(frmDataBus.txtAngleBus.Text);
+
+            ////////////////////////////////////////////////////////////////////////////////////////
+
+            //------------------------------------------------------------------------------------------
+            //**LimitDta Zone**
+            //------------------------------------------------------------------------------------------
+
+            _dtoBusRecord.Normal_Vmax_pu = double.Parse(frmDataBus.txtNorVmax.Text);
+            _dtoBusRecord.Emer_Vmax_pu = double.Parse(frmDataBus.txtEmerVmax.Text);
+
+            _dtoBusRecord.Normal_Vmin_pu = double.Parse(frmDataBus.txtNorVmin.Text);
+            _dtoBusRecord.Emer_Vmin_pu = double.Parse(frmDataBus.txtEmerVmin.Text);
+
+            //Set Datarecord Bus 
+            //   frmDataBus._busEFixedData.DatabaseE.DataRecordE.DTOBusEPower = this._dtoBusRecord;
+
+
+        }
+        #endregion  SetData_OKCLick
     }
 }

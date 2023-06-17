@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Experimential_Software.Class_Database;
+using Experimential_Software.DTO;
 using Experimential_Software.CustomControl;
 using Experimential_Software.DAO.DAO_BusData;
 using Experimential_Software.DAO.DAO_GeneratorData;
@@ -16,13 +16,12 @@ using Experimential_Software.DAO.DAO_LoadData;
 using Experimential_Software.DAO.DAO_MBA2Data;
 using Experimential_Software.DAO.DAO_MBA3Data;
 using Experimential_Software.DAO.DAO_SaveAndReadPowerSystem;
-using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
 using Experimential_Software.DAO.DAOProcessTreeView;
-using System.Numerics;
-using System.IO;
+using Experimential_Software.DAO.DAO_Curve;
+
 using Experimential_Software.DAO.DAOCapstone;
-using System.Reflection;
-using Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath;
+using Experimential_Software.BLL.BLL_Curve.BLL_GeneratePath;
+using Experimential_Software.BLL.BLL_SaveAndReadPowerSystem;
 
 namespace Experimential_Software
 {
@@ -99,7 +98,7 @@ namespace Experimential_Software
         public virtual void LoadDataTreeView()
         {
             string appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            this._folderSaved_Path = DAOGeneratePathFolder.Instance.CreatFolderSave(appDirectory);
+            this._folderSaved_Path = BLLGeneratePathFolder.Instance.CreatFolderSave(appDirectory);
             this.tvDataSaved.Nodes.Clear();
             int posSeperate = this._folderSaved_Path.LastIndexOf('\\');
             string nameNodeOri = this._folderSaved_Path.Substring(posSeperate + 1);
@@ -263,7 +262,7 @@ namespace Experimential_Software
         {
             ConnectableE btnSelected = sender as ConnectableE;
             ObjectOrientation objOri = btnSelected == btnBusPower_Hor ? ObjectOrientation.Horizontal : ObjectOrientation.Verical;
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Bus, ObjectOri = objOri };
+            DTODatabaseEPower databaseE = new DTODatabaseEPower() { ObjectType = ObjectType.Bus, ObjectOri = objOri };
             this.ButtonMouseDown(sender, e, btnSelected, databaseE, GenerateMode.Instance);
         }
 
@@ -272,7 +271,7 @@ namespace Experimential_Software
         {
             ConnectableE btnSelected = sender as ConnectableE;
             ObjectOrientation objOri = btnSelected == btnLinePower_Hor ? ObjectOrientation.Horizontal : ObjectOrientation.Verical;
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.LineEPower, ObjectOri = objOri };
+            DTODatabaseEPower databaseE = new DTODatabaseEPower() { ObjectType = ObjectType.LineEPower, ObjectOri = objOri };
             this.ButtonMouseDown(sender, e, btnSelected, databaseE, GenerateMode.Instance);
         }
 
@@ -281,7 +280,7 @@ namespace Experimential_Software
         {
             ConnectableE btnSelected = sender as ConnectableE;
             ObjectOrientation objOri = btnSelected == btnMFPower_Hor ? ObjectOrientation.Horizontal : ObjectOrientation.Verical;
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MF, ObjectOri = objOri };
+            DTODatabaseEPower databaseE = new DTODatabaseEPower() { ObjectType = ObjectType.MF, ObjectOri = objOri };
             this.ButtonMouseDown(sender, e, btnSelected, databaseE, GenerateMode.Instance);
         }
 
@@ -291,7 +290,7 @@ namespace Experimential_Software
             ConnectableE btnSelected = sender as ConnectableE;
             ObjectOrientation objOri = btnSelected == btnTransformer2P_Hor ? ObjectOrientation.Horizontal : ObjectOrientation.Verical;
 
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MBA2P, ObjectOri = objOri };
+            DTODatabaseEPower databaseE = new DTODatabaseEPower() { ObjectType = ObjectType.MBA2P, ObjectOri = objOri };
             this.ButtonMouseDown(sender, e, btnSelected, databaseE, GenerateMode.Instance);
         }
 
@@ -300,7 +299,7 @@ namespace Experimential_Software
         {
             ConnectableE btnSelected = sender as ConnectableE;
             ObjectOrientation objOri = btnSelected == btnTransformer3P_Hor ? ObjectOrientation.Horizontal : ObjectOrientation.Verical;
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.MBA3P, ObjectOri = objOri };
+            DTODatabaseEPower databaseE = new DTODatabaseEPower() { ObjectType = ObjectType.MBA3P, ObjectOri = objOri };
             this.ButtonMouseDown(sender, e, btnSelected, databaseE, GenerateMode.Instance);
         }
 
@@ -309,7 +308,7 @@ namespace Experimential_Software
         {
             ConnectableE btnSelected = sender as ConnectableE;
             ObjectOrientation objOri = btnSelected == btnLoad_Hor ? ObjectOrientation.Horizontal : ObjectOrientation.Verical;
-            DatabaseEPower databaseE = new DatabaseEPower() { ObjectType = ObjectType.Load, ObjectOri = objOri };
+            DTODatabaseEPower databaseE = new DTODatabaseEPower() { ObjectType = ObjectType.Load, ObjectOri = objOri };
             this.ButtonMouseDown(sender, e, btnSelected, databaseE, GenerateMode.Instance);
         }
 
@@ -400,7 +399,7 @@ namespace Experimential_Software
 
         #region Button_Instance
 
-        protected virtual void ButtonMouseDown(object sender, MouseEventArgs e, ConnectableE btnTool, DatabaseEPower databaseE, GenerateMode generateMode)
+        protected virtual void ButtonMouseDown(object sender, MouseEventArgs e, ConnectableE btnTool, DTODatabaseEPower databaseE, GenerateMode generateMode)
         {
             if (e.Button == MouseButtons.Right) return;
             //count objectype
@@ -454,7 +453,7 @@ namespace Experimential_Software
             frmSystemIsoval frmSystemIsoval = new frmSystemIsoval();
             frmSystemIsoval.AllEPowers = this._ePowers;
             frmSystemIsoval.BusLoadExamnined = this._ePowers.Find(x => x.IsSelected);
-            ConnectableE ELoad = DAOCalculateQLJStepOne.Instance.GetEPowerPLoadFromEPowerBusLoadConsider(frmSystemIsoval.BusLoadExamnined);
+            ConnectableE ELoad = DAOGetDataOfEPower.Instance.GetEPowerPLoadFromEPowerBusLoadConsider(frmSystemIsoval.BusLoadExamnined);
 
             if (ELoad == null) return;
             frmSystemIsoval.Show();
@@ -481,7 +480,7 @@ namespace Experimential_Software
         private void mnuFileNew_Click(object sender, EventArgs e)
         {
             // this._processMnuFile.FunctionMnuFileNew_Click(sender, e);
-            DAOProcessMenuFileStrip.Instance.FunctionMnuFileNew_Click(this);
+            BLLProcessMenuFileStrip.Instance.FunctionMnuFileNew_Click(this);
             //Set Again Base MVA
             this.OpenFormSetBaseMVA();
             this._zoomFactor = 1;
@@ -500,7 +499,7 @@ namespace Experimential_Software
 
         protected virtual void OpenDatabaseFormSave(string path)
         {
-            DAOProcessMenuFileStrip.Instance.FunctionMnuFileOpen_Click(this, path);
+            BLLReadFilePowerSystem.Instance.FunctionMnuFileOpen_Click(this, path);
             this._zoomFactor = pnlMain.ZoomFactor;
             this.lblZoomFactor.Text = "Zoom = " + Math.Round(100 * this.pnlMain.ZoomFactor, 0) + " %";
             //Drawn Line On Panel Main After Have Info Line
@@ -512,7 +511,7 @@ namespace Experimential_Software
         private void mnuFileSave_Click(object sender, EventArgs e)
         {
             // this._processMnuFile.FunctionMnuFileSave_Click(sender, e);
-            DAOProcessMenuFileStrip.Instance.FunctionMnuFileSave_Click(this);
+            BLLProcessMenuFileStrip.Instance.FunctionMnuFileSave_Click(this);
 
             //Update TreeView
             this.LoadDataTreeView();

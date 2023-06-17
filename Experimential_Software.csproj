@@ -137,19 +137,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class_Database\DTODataInputPowerSystem.cs" />
-    <Compile Include="Class_Database\DataRecordEPower.cs" />
-    <Compile Include="Class_Database\DataRecordEPowerCtrl.cs" />
-    <Compile Include="Class_Database\DTOBusEPower.cs" />
-    <Compile Include="Class_Database\DTODataPowerSystem.cs" />
-    <Compile Include="Class_Database\DTOGeneEPower.cs" />
-    <Compile Include="Class_Database\DTOLineEPower.cs" />
-    <Compile Include="Class_Database\DTOLoadEPower.cs" />
-    <Compile Include="Class_Database\DTOTransThreeEPower.cs" />
-    <Compile Include="Class_Database\DTOTransTwoEPower.cs" />
-    <Compile Include="Class_Process_MnuFile\ProcessMnuFile.cs" />
-    <Compile Include="Class_Database\DatabaseLineConnect.cs" />
-    <Compile Include="Class_Database\DatabaseEPower.cs" />
+    <Compile Include="BLL\BLL_ProcessBranch\BLLProcessBranchForm.cs" />
+    <Compile Include="BLL\BLL_ProcessBus\BLLProcessBusForm.cs" />
+    <Compile Include="BLL\BLL_ProcessGenerator\BLLProcessGeneratorForm.cs" />
+    <Compile Include="BLL\BLL_SaveAndReadPowerSystem\BLLProcessMenuFileStrip.cs" />
+    <Compile Include="BLL\BLL_SaveAndReadPowerSystem\BLLReadFilePowerSystem.cs" />
+    <Compile Include="BLL\BLL_SaveAndReadPowerSystem\BLLSaveFilePowerSystem.cs" />
+    <Compile Include="DAO\DAO_Curve\DAOGetDataOfEPower.cs" />
+    <Compile Include="DTO\DTODataInputPowerSystem.cs" />
+    <Compile Include="DTO\DataRecordEPower.cs" />
+    <Compile Include="DTO\DataRecordEPowerCtrl.cs" />
+    <Compile Include="DTO\DTOBusEPower.cs" />
+    <Compile Include="DTO\DTODataPowerSystem.cs" />
+    <Compile Include="DTO\DTOGeneEPower.cs" />
+    <Compile Include="DTO\DTOLineEPower.cs" />
+    <Compile Include="DTO\DTOLoadEPower.cs" />
+    <Compile Include="DTO\DTOTransThreeEPower.cs" />
+    <Compile Include="DTO\DTOTransTwoEPower.cs" />
+    <Compile Include="DTO\DatabaseLineConnect.cs" />
+    <Compile Include="DTO\DTODatabaseEPower.cs" />
     <Compile Include="ConnectableE.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -159,17 +165,17 @@
     <Compile Include="DAO\DAOCapstone\DAOProcessCapstone.cs" />
     <Compile Include="DAO\DAOProcessTreeView\DAOProcessTreeView.cs" />
     <Compile Include="DAO\DAO_BusData\DAOGeneBusRecord.cs" />
-    <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOCalculateQLJStepOne.cs" />
-    <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOCalculateQLJStepSecond.cs" />
-    <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateListPoints.cs" />
-    <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateYBus.cs" />
-    <Compile Include="DAO\DAO_Curve\DAO_Calculate\DAOGenerateYState.cs" />
-    <Compile Include="DAO\DAO_Curve\DAO_Calculate_ManyCurve\DAOCalculateManyCurve.cs" />
-    <Compile Include="DAO\DAO_Curve\DAO_Check_Stability\DAOCheckStability.cs" />
-    <Compile Include="DAO\DAO_Curve\DAO_Check_Stability\DAODrawnChartCurveLimited.cs" />
-    <Compile Include="DAO\DAO_Curve\DAO_Check_Stability\DAOFindPLimitAndQLimitWhenStabilitySystem.cs" />
-    <Compile Include="DAO\DAO_Curve\DAO_GeneratePath\DAOGeneratePathFolder.cs" />
-    <Compile Include="DAO\DAO_Curve\DAO_IsovalForm\DAOGetTextSysemIsoval.cs" />
+    <Compile Include="BLL\BLL_Curve\BLL_Calculate\BLLCalculateQLJStepOne.cs" />
+    <Compile Include="BLL\BLL_Curve\BLL_Calculate\BLLCalculateQLJStepSecond.cs" />
+    <Compile Include="BLL\BLL_Curve\BLL_Calculate\BLLGenerateListPoints.cs" />
+    <Compile Include="BLL\BLL_Curve\BLL_Calculate\BLLGenerateYBus.cs" />
+    <Compile Include="BLL\BLL_Curve\BLL_Calculate\BLLGenerateYState.cs" />
+    <Compile Include="BLL\BLL_Curve\BLL_Calculate_ManyCurve\BLLCalculateManyCurve.cs" />
+    <Compile Include="BLL\BLL_Curve\BLL_Check_Stability\BLLCheckStability.cs" />
+    <Compile Include="BLL\BLL_Curve\BLL_Check_Stability\BLLDrawnChartCurveLimited.cs" />
+    <Compile Include="BLL\BLL_Curve\BLL_Check_Stability\BLLFindPLimitAndQLimitWhenStabilitySystem.cs" />
+    <Compile Include="BLL\BLL_Curve\BLL_GeneratePath\BLLGeneratePathFolder.cs" />
+    <Compile Include="BLL\BLL_Curve\BLL_IsovalForm\BLLGetTextSysemIsoval.cs" />
     <Compile Include="DAO\DAO_GeneratorData\DAOGeneMFRecord.cs" />
     <Compile Include="DAO\DAO_GeneratorData\DAOUpdateMFAfterConnectBus.cs" />
     <Compile Include="DAO\DAO_LineData\DAOGeneLineRecord.cs" />
@@ -186,7 +192,7 @@
     <Compile Include="DAO\DAO_PrintData\DAOGenerateListDataForPrint.cs" />
     <Compile Include="DAO\DAO_PrintData\DAOProcessPrintSystem.cs" />
     <Compile Include="DAO\DAO_ProcessDelete\DAO_DeleteLineConnect\DAOProcessDeleteLineConnect.cs" />
-    <Compile Include="DAO\DAO_SaveAndReadPowerSystem\DAOProcessMenuFileStrip.cs" />
+    <Compile Include="DAO\DAO_SaveAndReadPowerSystem\DAONewFilePowerSystem.cs" />
     <Compile Include="DAO\DAO_SaveAndReadPowerSystem\DAOReadFilePowerSystem.cs" />
     <Compile Include="DAO\DAO_SaveAndReadPowerSystem\DAOSaveFilePowerSystem.cs" />
     <Compile Include="dsIEEE9Bus.cs">
@@ -198,7 +204,7 @@
       <DependentUpon>dsIEEE9Bus.xsd</DependentUpon>
     </Compile>
     <Compile Include="EPowerProcess\EPowerProcessKey.cs" />
-    <Compile Include="Class_Database\FileFactory.cs" />
+    <Compile Include="DTO\FileFactory.cs" />
     <Compile Include="frmBuildNewCase.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -437,5 +443,6 @@
     </Content>
     <Content Include="Wolf_ico.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

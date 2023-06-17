@@ -1,5 +1,4 @@
-﻿using Experimential_Software.DAO.DAO_Curve.DAO_Calculate;
-using Experimential_Software.DAO.DAO_Curve.DAO_IsovalForm;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +9,8 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Experimential_Software.BLL.BLL_Curve.BLL_Calculate;
+using Experimential_Software.BLL.BLL_Curve.BLL_IsovalForm;
 
 namespace Experimential_Software
 {
@@ -46,13 +47,13 @@ namespace Experimential_Software
         protected virtual void CalculateData()
         {
             //get All MF
-            this._allMF = DAOGenerateListPoints.Instance.GetAllMF(this._allEPowers);
+            this._allMF = BLLGenerateListPoints.Instance.GetAllMF(this._allEPowers);
 
             //Send Data for Instance of Cal Step one
-            DAOGenerateListPoints.Instance.SendDataBeforeCalculate(this._allEPowers, this._busLoadExamined);
+            BLLGenerateListPoints.Instance.SendDataBeforeCalculate(this._allEPowers, this._busLoadExamined);
             //Get Ystae from StepOne
-            this.YState = DAOCalculateQLJStepOne.Instance.YState;
-            this.YBus = DAOCalculateQLJStepOne.Instance.YBusIsoval;
+            this.YState = BLLCalculateQLJStepOne.Instance.YState;
+            this.YBus = BLLCalculateQLJStepOne.Instance.YBusIsoval;
             //this.YBus = DAOCalculateQLJStepOne.Instance.ZBusIsoval;
         }
 
@@ -70,23 +71,23 @@ namespace Experimential_Software
             //Total MF
             this.lblTotalMF.Text = this._allMF.Count + "";
             //Toltal Bus
-            this.lblTotalBus.Text = DAOGenerateListPoints.Instance.GetAllBus(this._allEPowers).Count + "";
+            this.lblTotalBus.Text = BLLGenerateListPoints.Instance.GetAllBus(this._allEPowers).Count + "";
 
             //Show Ystate on label
-            DAOGetTextSysemIsoval.Instance.ShowYStateShowOnDataGridViewForm(this.YState, this.dgvMatrixYState);
+            BLLGetTextSysemIsoval.Instance.ShowYStateShowOnDataGridViewForm(this.YState, this.dgvMatrixYState);
         }
 
 
         protected virtual void ShowZoneYBus()
         {
             //Object all mF
-            this.lblAllNumMF.Text = DAOGetTextSysemIsoval.Instance.GetObjectNumberAllMF(this._allMF);
+            this.lblAllNumMF.Text = BLLGetTextSysemIsoval.Instance.GetObjectNumberAllMF(this._allMF);
 
             //Bus Load Consider
             this.lblBusExamined.Text = this._busLoadExamined.DatabaseE.DataRecordE.DTOBusEPower.ObjectNumber.ToString();
 
             //label Y Bus Isoval
-            DAOGetTextSysemIsoval.Instance.ShowYBusShowOnDataGridViewForm(this._busLoadExamined, this.YBus, this.dgvMatrixYSBus);
+            BLLGetTextSysemIsoval.Instance.ShowYBusShowOnDataGridViewForm(this._busLoadExamined, this.YBus, this.dgvMatrixYSBus);
         }
     }
 }

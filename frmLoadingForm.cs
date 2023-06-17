@@ -8,7 +8,7 @@ using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Experimential_Software.DAO.DAO_Curve.DAO_GeneratePath;
+using Experimential_Software.BLL.BLL_Curve.BLL_GeneratePath;
 
 
 namespace Experimential_Software
@@ -30,14 +30,14 @@ namespace Experimential_Software
 
         private void SetImagePictureBoxLoading()
         {
-            string pathLogo = DAOGeneratePathFolder.Instance.LoadLogoInsideLibraryLogo();
+            string pathLogo = BLLGeneratePathFolder.Instance.LoadLogoInsideLibraryLogo();
             this.ptbImageLoading.Image =  Image.FromFile(pathLogo);
         }
 
         protected virtual void PlayMusic()
         {
             //Creat folder Library Sound
-            string pathSound = DAOGeneratePathFolder.Instance.LoadPathSoundInsideLibrarySoundLoadForm();
+            string pathSound = BLLGeneratePathFolder.Instance.LoadPathSoundInsideLibrarySoundLoadForm();
             SoundPlayer player = new SoundPlayer(pathSound);
             //Play Sound
             player.Play();

@@ -1,4 +1,4 @@
-﻿using Experimential_Software.Class_Database;
+﻿using Experimential_Software.DTO;
 using Experimential_Software.CustomControl;
 using System;
 using System.Collections.Generic;
@@ -23,71 +23,14 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
 
         private DAOReadFilePowerSystem() {; }
 
-        //openFile
-        public void FunctionMnuFileOpen_Click(frmCapstone frmCapstone, string pathTreeView)
-        {
-            //Question Before Open;
-            bool saveBefore = this.QuestionSaveBeforeOpen(frmCapstone);
-
-            if (saveBefore) return;
-
-            //use TreeView
-            if (pathTreeView != "")
-            {
-                this.ProcessInternOpenFileUseOverallWithTreeView(frmCapstone, pathTreeView);
-                //Set Name Form
-                this.SetNameFormByPath(pathTreeView, frmCapstone);
-                return;
-            }
-
-            OpenFileDialog openFileDialogMain = new OpenFileDialog();
-            openFileDialogMain.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-            openFileDialogMain.FilterIndex = 1;
-            //FilterIndex cho biết định dạng mặc định khi mở hộp thoại
-            openFileDialogMain.RestoreDirectory = true;
-            //RestoreDirectory cho phép hộp thoại khôi phục đường dẫn trước đó khi được mở lên.
-
-            if (openFileDialogMain.ShowDialog() != DialogResult.OK) return;
-
-            string path = openFileDialogMain.FileName;
-            //Set Name Form
-            this.SetNameFormByPath(path, frmCapstone);
-
-            this.ProcessInternOpenFileUseOverallWithTreeView(frmCapstone, path);
-
-        }
-
-        protected virtual void SetNameFormByPath(string path, frmCapstone frmCapstone)
-        {
-            frmCapstone.Text = "Phần mềm đánh giá khả năng ổn định điện áp của hệ thống điện";
-            string nameFileOpening = Path.GetFileNameWithoutExtension(path);
-            frmCapstone.Text += (" - " + nameFileOpening);
-        }
-
         public virtual void ProcessInternOpenFileUseOverallWithTreeView(frmCapstone frmCapstone, string path)
         {
             //Clear All 
-            DAOProcessMenuFileStrip.Instance.ClearAllEPowerAndLineOnMain(frmCapstone);
+            DAONewFilePowerSystem.Instance.ClearAllEPowerAndLineOnMain(frmCapstone);
 
             //Add EPower adn Add LineConnect
             this.ProcessOpenFile(frmCapstone, path);
         }
-
-        protected virtual bool QuestionSaveBeforeOpen(frmCapstone frmCapstone)
-        {
-            if (frmCapstone.pnlMain.Controls.Count == 0) return false;
-
-            DialogResult result = MessageBox.Show("Do you want to Save this File", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
-                frmCapstone.mnuFileSave.PerformClick();
-                return true;
-            }
-
-            // frmCapstone.mnuFileNew.PerformClick();
-            return false;
-        }
-
 
 
         protected virtual void ProcessOpenFile(frmCapstone frmCapstone, string path)
@@ -129,10 +72,10 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
         // Process_Get_EPower
         protected virtual void ProcessOpenGetEPower(frmCapstone frmCapstone, DTODataPowerSystem dtoPowerSystem)
         {
-            List<DatabaseEPower> databaseEPowers = dtoPowerSystem.Database_EPowersSave;
+            List<DTODatabaseEPower> databaseEPowers = dtoPowerSystem.Database_EPowersSave;
             for (int i = 0; i < databaseEPowers.Count; i++)
             {
-                DatabaseEPower databaseE = databaseEPowers[i];
+                DTODatabaseEPower databaseE = databaseEPowers[i];
 
                 if (i == 0) frmCapstone.pnlMain.ZoomFactor = databaseE.ZoomFactor;
 

@@ -1,4 +1,4 @@
-﻿using Experimential_Software.Class_Database;
+﻿using Experimential_Software.DTO;
 using Experimential_Software.CustomControl;
 using System;
 using System.Collections.Generic;
@@ -22,38 +22,18 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
 
         private DAOSaveFilePowerSystem() {; }
 
-        //save File
-        public void FunctionMnuFileSave_Click(frmCapstone frmCapstone)
-        {
-            if (frmCapstone.pnlMain.Controls.Count == 0) MessageBox.Show("Panel has no Controls, you should not save this file!");
-
-            SaveFileDialog saveFileDialogMain = new SaveFileDialog();
-            saveFileDialogMain.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-            saveFileDialogMain.FilterIndex = 1;
-            saveFileDialogMain.RestoreDirectory = true;
-
-            if (saveFileDialogMain.ShowDialog() != DialogResult.OK) return;
-            string path = saveFileDialogMain.FileName;
-
-            //Save All DatabaseEPower of EPower
-            this.ProcessSaveOldPostionEPower(frmCapstone.EPowers);
-
-            //Process Save
-            this.ProcessSavePowerSystem(frmCapstone, path);
-
-        }
-
-        protected virtual void ProcessSaveOldPostionEPower(List<ConnectableE> EPowersSave)
+   
+        public virtual void ProcessSaveOldPostionEPower(List<ConnectableE> EPowersSave)
         {
             foreach (ConnectableE ePower in EPowersSave)
             {
-                DatabaseEPower databaseE = ePower.DatabaseE;
+                DTODatabaseEPower databaseE = ePower.DatabaseE;
                 databaseE.OldLocation_Save = ePower.Location;
                 databaseE.ZoomFactor = ePower.PanelMain.ZoomFactor;
             }
         }
 
-        protected virtual void ProcessSavePowerSystem(frmCapstone frmCapstone, string path)
+        public virtual void ProcessSavePowerSystem(frmCapstone frmCapstone, string path)
         {
             //Save AllDatabase of EPower
             frmCapstone.DTOPowerSystem.Database_EPowersSave = this.GetDatabaseInEPower(frmCapstone.EPowers);
@@ -63,12 +43,12 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
         }
 
         //Database EPower
-        protected virtual List<DatabaseEPower> GetDatabaseInEPower(List<ConnectableE> EPowers)
+        protected virtual List<DTODatabaseEPower> GetDatabaseInEPower(List<ConnectableE> EPowers)
         {
-            List<DatabaseEPower> dataBaseEPowers = new List<DatabaseEPower>();
+            List<DTODatabaseEPower> dataBaseEPowers = new List<DTODatabaseEPower>();
             foreach (ConnectableE ePower in EPowers)
             {
-                DatabaseEPower databaseE = ePower.DatabaseE;
+                DTODatabaseEPower databaseE = ePower.DatabaseE;
                 dataBaseEPowers.Add(databaseE);
             }
             return dataBaseEPowers;

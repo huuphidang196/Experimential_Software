@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Experimential_Software.Class_Database;
+using Experimential_Software.DTO;
 
 namespace Experimential_Software.DAO.DAO_GeneratorData
 {
@@ -39,11 +39,7 @@ namespace Experimential_Software.DAO.DAO_GeneratorData
 
         protected virtual ConnectableE GetEPowerConnectWithMFEPOwer(ConnectableE MFEPower)
         {
-            //Get Class ProcessEPowerMove => Get Function get Line
-            // ProcessEPowerMove processEPowerMove = MFEPower.EPowerProcessMouse.ProcessEPowerMove;
-            //get ConnectedBus with MF. MF only connect with Bus => similar Load
-            //  List<LineConnect> ListlineConnected = processEPowerMove.GetLineStageEPower(MFEPower);
-
+            
             List<LineConnect> ListlineConnected = MFEPower.ListBranch_Drawn;
 
             if (ListlineConnected.Count == 0) return null;

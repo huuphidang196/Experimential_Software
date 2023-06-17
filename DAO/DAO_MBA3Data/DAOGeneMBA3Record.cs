@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Experimential_Software.Class_Database;
+using Experimential_Software.DTO;
 
 namespace Experimential_Software.DAO.DAO_MBA3Data
 {

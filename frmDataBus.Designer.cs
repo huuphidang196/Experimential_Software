@@ -388,28 +388,28 @@ namespace Experimential_Software
         private System.Windows.Forms.TabControl BusRecTab;
         private System.Windows.Forms.TabPage PowerFlow;
         private System.Windows.Forms.GroupBox grbBasicData;
-        private System.Windows.Forms.TextBox txtBusName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnOKBus;
-        private System.Windows.Forms.ComboBox cboTypeBus;
-        private System.Windows.Forms.TextBox txtBusNumber;
-        private System.Windows.Forms.TextBox txtBasekV;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtVoltageBus;
-        private System.Windows.Forms.TextBox txtAngleBus;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.GroupBox grbLimitData;
         private System.Windows.Forms.Button htnCancelBus;
-        private System.Windows.Forms.TextBox txtEmerVmin;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txtNorVmin;
-        private System.Windows.Forms.TextBox txtEmerVmax;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtNorVmax;
         private System.Windows.Forms.Label label7;
+        public System.Windows.Forms.TextBox txtBusName;
+        public System.Windows.Forms.ComboBox cboTypeBus;
+        public System.Windows.Forms.TextBox txtBusNumber;
+        public System.Windows.Forms.TextBox txtBasekV;
+        public System.Windows.Forms.TextBox txtVoltageBus;
+        public System.Windows.Forms.TextBox txtAngleBus;
+        public System.Windows.Forms.TextBox txtEmerVmin;
+        public System.Windows.Forms.TextBox txtNorVmin;
+        public System.Windows.Forms.TextBox txtEmerVmax;
+        public System.Windows.Forms.TextBox txtNorVmax;
     }
 }
