@@ -140,10 +140,13 @@
     <Compile Include="BLL\BLL_ProcessBranch\BLLProcessBranchForm.cs" />
     <Compile Include="BLL\BLL_ProcessBus\BLLProcessBusForm.cs" />
     <Compile Include="BLL\BLL_ProcessGenerator\BLLProcessGeneratorForm.cs" />
+    <Compile Include="BLL\BLL_ProcessLoad\BLLProcessLoadForm.cs" />
+    <Compile Include="BLL\BLL_ProcessMBA2P\BLLProcessMBA2PForm.cs" />
     <Compile Include="BLL\BLL_SaveAndReadPowerSystem\BLLProcessMenuFileStrip.cs" />
     <Compile Include="BLL\BLL_SaveAndReadPowerSystem\BLLReadFilePowerSystem.cs" />
     <Compile Include="BLL\BLL_SaveAndReadPowerSystem\BLLSaveFilePowerSystem.cs" />
     <Compile Include="DAO\DAO_Curve\DAOGetDataOfEPower.cs" />
+    <Compile Include="DAO\DAO_MBA2Data\DAOProcessMBA2Form.cs" />
     <Compile Include="DTO\DTODataInputPowerSystem.cs" />
     <Compile Include="DTO\DataRecordEPower.cs" />
     <Compile Include="DTO\DataRecordEPowerCtrl.cs" />
@@ -182,7 +185,7 @@
     <Compile Include="DAO\DAO_LineData\DAOUpdateLineAfterConnectEnds.cs" />
     <Compile Include="DAO\DAO_LoadData\DAOGeneLoadRecord.cs" />
     <Compile Include="DAO\DAO_LoadData\DAOUpdateLoadAfterConnectBus.cs" />
-    <Compile Include="DAO\DAO_MBA2Data\DAOCalculateVoltageFixed.cs" />
+    <Compile Include="BLL\BLL_ProcessMBA2P\BLLCalculateVoltageFixed.cs" />
     <Compile Include="DAO\DAO_MBA2Data\DAOGeneMBA2Record.cs" />
     <Compile Include="DAO\DAO_MBA2Data\DAOUpdateImpendanceWhenChangeTap.cs" />
     <Compile Include="DAO\DAO_MBA2Data\DAOUpdateMBA2AfterConnectEnds.cs" />

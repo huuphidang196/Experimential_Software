@@ -430,25 +430,25 @@ namespace Experimential_Software
         private System.Windows.Forms.Button btnOKLoad;
         private System.Windows.Forms.Button btnCancelLoad;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtYQLoad;
-        private System.Windows.Forms.TextBox txtIQLoad;
-        private System.Windows.Forms.TextBox txtQLoad;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txtYLoad;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtIPLoad;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox txtPLoad;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.CheckBox chkInterruptible;
-        private System.Windows.Forms.CheckBox chkScalable;
-        private System.Windows.Forms.CheckBox chkInService;
-        private System.Windows.Forms.TextBox txtLoadID;
         private System.Windows.Forms.Label lblBusNameConn;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblBusNumberConn;
+        public System.Windows.Forms.TextBox txtYQLoad;
+        public System.Windows.Forms.TextBox txtIQLoad;
+        public System.Windows.Forms.TextBox txtQLoad;
+        public System.Windows.Forms.TextBox txtYLoad;
+        public System.Windows.Forms.TextBox txtIPLoad;
+        public System.Windows.Forms.TextBox txtPLoad;
+        public System.Windows.Forms.CheckBox chkInterruptible;
+        public System.Windows.Forms.CheckBox chkScalable;
+        public System.Windows.Forms.CheckBox chkInService;
+        public System.Windows.Forms.TextBox txtLoadID;
     }
 }

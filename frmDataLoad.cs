@@ -8,6 +8,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Experimential_Software.BLL.BLL_ProcessLoad;
 using Experimential_Software.DTO;
 
 namespace Experimential_Software
@@ -62,24 +63,7 @@ namespace Experimential_Software
 
         private void btnOKLoad_Click(object sender, EventArgs e)
         {
-            string LoadID = this.txtLoadID.Text;
-            //load ID
-            this._dtoLoadRecord.ObjectName = LoadID;
-
-            var Digits = LoadID.Where(c => Char.IsDigit(c));
-            string result = string.Concat(Digits);
-
-            //Set Object ID by nuumber Load ID
-            int objNumber = 100 * ((int)ObjectType.Load) + int.Parse(result);
-            this._dtoLoadRecord.ObjectNumber = objNumber;
-
-            //In Service
-            this._dtoLoadRecord.IsInService = this.chkInService.Checked;
-
-            //PLoad
-            this._dtoLoadRecord.PLoad = double.Parse(this.txtPLoad.Text);
-            //QLoad 
-            this._dtoLoadRecord.QLoad = double.Parse(this.txtQLoad.Text);
+            BLLProcessLoadForm.Instance.EventOKLoad_Click(this, this._dtoLoadRecord);
 
             this.DialogResult = DialogResult.OK;
         }
@@ -91,19 +75,7 @@ namespace Experimential_Software
         //textBox data is number
         private void EventTextDataInputIsNotNumber(object sender, EventArgs e)
         {
-            //Get text box is Changging
-            TextBox txtDataChanged = sender as TextBox;
-
-            // bool isAllValid = txtDataChanged.Text.Replace(".", "").Replace("-", "").All(c => char.IsDigit(c));
-            bool isAllValid = double.TryParse(txtDataChanged.Text, out double result);
-            if (!isAllValid)
-            {
-                MessageBox.Show(txtDataChanged.Text + " Invalid decimal number detected!", "Request To Re-Enter Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtDataChanged.BackColor = Color.Yellow;
-                txtDataChanged.Focus();
-                return;
-            }
-            txtDataChanged.BackColor = Color.White;
+            BLLProcessLoadForm.Instance.EventTextDataInputIsNotNumber(sender, e);
         }
     }
 }

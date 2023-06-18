@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Experimential_Software.DTO;
 using Experimential_Software.DAO.DAO_MBA2Data;
+using Experimential_Software.BLL.BLL_ProcessMBA2P;
 
 namespace Experimential_Software
 {
@@ -30,12 +31,19 @@ namespace Experimential_Software
 
         //temp
         protected UnitTapMode _unitModeMain = UnitTapMode.Percent;
+        public UnitTapMode UnitModeMain => _unitModeMain;
 
         protected DTOTransTwoTapRanger _dtoRanger_Prim_Temp;
+        public DTOTransTwoTapRanger DTORangerPrim_Temp => _dtoRanger_Prim_Temp;
+
         protected DTOTransTwoTapRanger _dtoRanger_Sec_Temp;
+        public DTOTransTwoTapRanger DTORangerSec_Temp => _dtoRanger_Sec_Temp;
 
         protected double _numberTapFixed_Prim = 0;
+        public double NumberTapFixed_Prim => _numberTapFixed_Prim;
+
         protected double _numberTapFixed_Sec = 0;
+        public double NumberTapFixed_Sec => _numberTapFixed_Sec;
 
         //ImpendanceTemp use recify temp zone impendance value 
         protected ImpedanceMBA2 _impendanceTemp;
@@ -155,7 +163,7 @@ namespace Experimential_Software
         }
 
         //FixedTap Zone
-        protected virtual void ShowFixedTapDataOnFixedZone()
+        public virtual void ShowFixedTapDataOnFixedZone()
         {
             //Set text button Change Unit
             bool isPecentUnit = this._unitModeMain == UnitTapMode.Percent;
@@ -232,97 +240,10 @@ namespace Experimential_Software
         #region Function_OK_Event
         private void btnOkMBA2_Click(object sender, EventArgs e)
         {
-            //Set Object Name
-            this._dtoMBA2EPowerRecord.ObjectName = this.txtTransName.Text;
-            //Set Objet Number 
-            this._dtoMBA2EPowerRecord.ObjectNumber = int.Parse(this.txtTransID.Text);
-            //Set isInservice
-            this._dtoMBA2EPowerRecord.IsInService = this.chkinService.Checked;
-
-
-            //********Voltage Rating*****
-            this.SetValueVoltageRating();
-
-            //********Fixed Tap*****
-            this.SetValueFixedTapAfterOKEvent();
-
-            //********Power Rating And Impendance Zone***** Below rating and fixed use for set impendance by k, k'
-            this.SetValuePowerRatingAndImpendance();
-
+            BLLProcessMBA2PForm.Instance.EventOkMBA2_Click(this._dtoMBA2EPowerRecord, this);
             //this.ChangeVoltageValueOnBusConnectWithMBA2();
 
             DialogResult = DialogResult.OK;
-        }
-
-
-        //********Power Rating And Impendance Zone*****
-        protected virtual void SetValuePowerRatingAndImpendance()
-        {
-            //Set Power Rated
-            this._dtoMBA2EPowerRecord.PowerRated_MVA = double.Parse(this.txtPowerRated.Text);
-
-            //Impendance
-            //SpecR_pu
-            double SpecR_pu = double.Parse(this.txtSpecRpu.Text);
-            //SpecX_pu
-            double SpecX_pu = double.Parse(this.txtSpecXpu.Text);
-
-            //MagG_pu
-            double MagG_pu = double.Parse(this.txtMagGpu.Text);
-            //MagB_pu
-            double MagB_pu = double.Parse(this.txtMagBpu.Text);
-
-            this._dtoMBA2EPowerRecord.Impendance_MBA2.SpecR_pu = SpecR_pu;
-            this._dtoMBA2EPowerRecord.Impendance_MBA2.SpecX_pu = SpecX_pu;
-            this._dtoMBA2EPowerRecord.Impendance_MBA2.MagB_pu = MagB_pu;
-            this._dtoMBA2EPowerRecord.Impendance_MBA2.MagG_pu = MagG_pu;
-
-
-        }
-
-        //********Voltage Rating*****
-        protected virtual void SetValueVoltageRating()
-        {
-            //Rated Voltage Prim
-            double VolRated_Prim = double.Parse(this.txtRatedPrimkV.Text);
-            //Rated Voltage Sec
-            double VoltRated_Sec = double.Parse(this.txtRatedSeckV.Text);
-
-            VoltageEnds2P vol_Rated = new VoltageEnds2P() { VolPrim_kV = VolRated_Prim, VolSec_kV = VoltRated_Sec };
-
-            //Set Voltage Ends
-            this._dtoMBA2EPowerRecord.VoltageEnds_kV_Rated = vol_Rated;
-        }
-
-        //********Fixed Tap*****
-        protected virtual void SetValueFixedTapAfterOKEvent()
-        {
-            //Voltage Rated => recify directly so not set. simaliar with percent prim and second
-            //Set Unit Mode
-            this._dtoMBA2EPowerRecord.UnitTap_Main = this._unitModeMain;
-            //Set DToRange
-            this._dtoMBA2EPowerRecord.Prim_RangerTap = this._dtoRanger_Prim_Temp;
-            this._dtoMBA2EPowerRecord.Sec_RangerTap = this._dtoRanger_Sec_Temp;
-
-            //Save Number FixedTap prim and Sec
-            this._dtoMBA2EPowerRecord.NumberTapFixed_Prim = this._numberTapFixed_Prim;
-            this._dtoMBA2EPowerRecord.NumberTapFixed_Sec = this._numberTapFixed_Sec;
-
-            //Set Percent if user not change Tap by Button
-            double perFixed_Prim = DAOCalculateVoltageFixed.Instance.GetPercentVoltageFixedByVoltageRated(this.txtRatedPrimkV.Text, this.txtFixedPrimkV.Text, this._unitModeMain);
-            double perFixed_Sec = DAOCalculateVoltageFixed.Instance.GetPercentVoltageFixedByVoltageRated(this.txtRatedSeckV.Text, this.txtFixedSeckV.Text, this._unitModeMain);
-            this._dtoMBA2EPowerRecord.Percent_PrimFixed = perFixed_Prim;
-            this._dtoMBA2EPowerRecord.Percent_SecFixed = perFixed_Sec;
-        }
-
-        //Change Voltage When change Tap
-        protected virtual void ChangeVoltageValueOnBusConnectWithMBA2()
-        {
-            // U bus Sec         
-            if (this._dtoMBA2EPowerRecord.DTOBus_To == null) return;
-            double percentPrimFixed = this._dtoMBA2EPowerRecord.Percent_PrimFixed;
-            if (percentPrimFixed != 0) this._dtoMBA2EPowerRecord.DTOBus_To.KChangerTap = (1 / percentPrimFixed);
-            // MessageBox.Show("Bus To = " + this._dtoMBA2EPowerRecord.DTOBus_To.KChangerTap);
         }
 
         #endregion Function_OK_Event
@@ -331,15 +252,10 @@ namespace Experimential_Software
         #region Cancel_Event
         private void btnCancelMBA2_Click(object sender, EventArgs e)
         {
-            // Return value Voltage Rated because it is set when edit in order to tap ranger use 
-            this._dtoMBA2EPowerRecord.VoltageEnds_kV_Rated = this._vol_Rated_Old;
-            //Set Old Percent
-            this._dtoMBA2EPowerRecord.Percent_PrimFixed = this._perFixed_Prim_Old;
-            this._dtoMBA2EPowerRecord.Percent_SecFixed = this._perFixed_Sec_Old;
+            BLLProcessMBA2PForm.Instance.EventCancelMBA2_Click(this._dtoMBA2EPowerRecord, this._vol_Rated_Old, this._perFixed_Prim_Old, this._perFixed_Sec_Old);
 
             this.Close();
         }
-
 
         #endregion Cancel_Event
 
@@ -474,53 +390,9 @@ namespace Experimential_Software
         #region Event_Text_Changed_Leave
         private void CheckTextBoxValidEventTextBoxLeave(object sender, EventArgs e)
         {
-            TextBox txtDataChanged = sender as TextBox;
-
-            // bool isAllValid = txtDataChanged.Text.Replace(".", "").Replace("-", "").All(c => char.IsDigit(c));
-            bool isAllValid = double.TryParse(txtDataChanged.Text, out double result);
-            if (!isAllValid)
-            {
-                MessageBox.Show(txtDataChanged.Text + " Invalid decimal number detected!", "Request To Re-Enter Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtDataChanged.BackColor = Color.Yellow;
-                txtDataChanged.Focus();
-                return;
-            }
-            txtDataChanged.BackColor = Color.White;
-            //Set value impendance temp 
-            if ((GroupBox)txtDataChanged.Parent == this.grbImpendanceMBA2) this.SetValueForImpendanceTemp();
-
-            //If Zone Power Rated => Set value immediately
-            if (!txtDataChanged.Parent.Text.Contains("Voltage Rating")) return;
-
-            //********Voltage Rating => set in order to Fixed tap Zone use*****
-            this.SetValueVoltageRating();
-            // MessageBox.Show(txtDataChanged.Text);
-
-            //When set rated => Fixed Zone is affeected by Rated. 
-            this.ShowFixedTapDataOnFixedZone();
-
+            BLLProcessMBA2PForm.Instance.CheckTextBoxValidEventTextBoxLeave(sender, this, this._impendanceTemp, this._dtoMBA2EPowerRecord);
 
         }
-
-        //ImpendanceTemp
-        protected virtual void SetValueForImpendanceTemp()
-        {
-            //SpecR_pu
-            double SpecR_pu = double.Parse(this.txtSpecRpu.Text);
-            //SpecX_pu
-            double SpecX_pu = double.Parse(this.txtSpecXpu.Text);
-
-            //MagG_pu
-            double MagG_pu = double.Parse(this.txtMagGpu.Text);
-            //MagB_pu
-            double MagB_pu = double.Parse(this.txtMagBpu.Text);
-
-            this._impendanceTemp.SpecR_pu = SpecR_pu;
-            this._impendanceTemp.SpecX_pu = SpecX_pu;
-            this._impendanceTemp.MagG_pu = MagG_pu;
-            this._impendanceTemp.MagB_pu = MagB_pu;
-        }
-
         #endregion Event_Text_Changed_Leave
     }
 

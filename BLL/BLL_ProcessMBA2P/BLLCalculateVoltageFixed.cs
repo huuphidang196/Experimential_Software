@@ -5,18 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Experimential_Software.DTO;
 
-namespace Experimential_Software.DAO.DAO_MBA2Data
+namespace Experimential_Software.BLL.BLL_ProcessMBA2P
 {
-    public class DAOCalculateVoltageFixed
+    public class BLLCalculateVoltageFixed
     {
-        private static DAOCalculateVoltageFixed _instance;
-        public static DAOCalculateVoltageFixed Instance
+        private static BLLCalculateVoltageFixed _instance;
+        public static BLLCalculateVoltageFixed Instance
         {
-            get { if (DAOCalculateVoltageFixed._instance == null) DAOCalculateVoltageFixed._instance = new DAOCalculateVoltageFixed(); return _instance; }
+            get { if (BLLCalculateVoltageFixed._instance == null) BLLCalculateVoltageFixed._instance = new BLLCalculateVoltageFixed(); return _instance; }
             private set {; }
         }
 
-        private DAOCalculateVoltageFixed() {; }
+        private BLLCalculateVoltageFixed() {; }
 
         public virtual double GetPercentVoltageFixedByVoltageRated(string strVolRated, string strVolFixed, UnitTapMode unitMode)
         {

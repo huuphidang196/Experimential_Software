@@ -34,5 +34,21 @@ namespace Experimential_Software.DAO.DAO_LoadData
 
             return dtoLoadEPower;
         }
+        public virtual void EventOKLoad_Click( DTOLoadEPower _dtoLoadRecord, string LoadID, int objNumber, bool isChecked, double PLoad, double QLoad)
+        {
+            //load ID
+            _dtoLoadRecord.ObjectName = LoadID;
+
+            _dtoLoadRecord.ObjectNumber = objNumber;
+
+            //In Service
+            _dtoLoadRecord.IsInService = isChecked;
+
+            //PLoad
+            _dtoLoadRecord.PLoad = PLoad;
+            //QLoad 
+            _dtoLoadRecord.QLoad = QLoad;
+
+        }
     }
 }
