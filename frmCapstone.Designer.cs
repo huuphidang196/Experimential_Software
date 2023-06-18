@@ -408,8 +408,8 @@ namespace Experimential_Software
             this.imgListEPower.Images.SetKeyName(0, "imgNoType.png");
             this.imgListEPower.Images.SetKeyName(1, "Bus_Spawn.png");
             this.imgListEPower.Images.SetKeyName(2, "MF.png");
-            this.imgListEPower.Images.SetKeyName(3, "MBA2P_Spawn.png");
-            this.imgListEPower.Images.SetKeyName(4, "MBA 3 cuộn dây-export.png");
+            this.imgListEPower.Images.SetKeyName(3, "MBA2P_b_Spawn.png");
+            this.imgListEPower.Images.SetKeyName(4, "MBA3P_b_Spawn.png");
             this.imgListEPower.Images.SetKeyName(5, "Line .png");
             this.imgListEPower.Images.SetKeyName(6, "Load_EPower.png");
             // 

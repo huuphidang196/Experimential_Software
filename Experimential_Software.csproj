@@ -139,9 +139,11 @@
   <ItemGroup>
     <Compile Include="BLL\BLL_ProcessBranch\BLLProcessBranchForm.cs" />
     <Compile Include="BLL\BLL_ProcessBus\BLLProcessBusForm.cs" />
+    <Compile Include="BLL\BLL_ProcessFixedTapChanger\BLLProcessFixedTapChangerForm.cs" />
     <Compile Include="BLL\BLL_ProcessGenerator\BLLProcessGeneratorForm.cs" />
     <Compile Include="BLL\BLL_ProcessLoad\BLLProcessLoadForm.cs" />
     <Compile Include="BLL\BLL_ProcessMBA2P\BLLProcessMBA2PForm.cs" />
+    <Compile Include="BLL\BLL_ProcessMBA3P\BLLProcessMBA3PForm.cs" />
     <Compile Include="BLL\BLL_SaveAndReadPowerSystem\BLLProcessMenuFileStrip.cs" />
     <Compile Include="BLL\BLL_SaveAndReadPowerSystem\BLLReadFilePowerSystem.cs" />
     <Compile Include="BLL\BLL_SaveAndReadPowerSystem\BLLSaveFilePowerSystem.cs" />

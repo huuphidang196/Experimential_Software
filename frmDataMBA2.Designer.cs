@@ -268,7 +268,7 @@ namespace Experimential_Software
             this.txtFixedSeckV.Location = new System.Drawing.Point(158, 153);
             this.txtFixedSeckV.Name = "txtFixedSeckV";
             this.txtFixedSeckV.Size = new System.Drawing.Size(66, 24);
-            this.txtFixedSeckV.TabIndex = 3;
+            this.txtFixedSeckV.TabIndex = 2;
             this.txtFixedSeckV.Text = "110";
             this.txtFixedSeckV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtFixedSeckV.Leave += new System.EventHandler(this.CheckTextBoxValidEventTextBoxLeave);
@@ -312,7 +312,7 @@ namespace Experimential_Software
             this.btnTCPrim.Location = new System.Drawing.Point(42, 74);
             this.btnTCPrim.Name = "btnTCPrim";
             this.btnTCPrim.Size = new System.Drawing.Size(81, 28);
-            this.btnTCPrim.TabIndex = 2;
+            this.btnTCPrim.TabIndex = 3;
             this.btnTCPrim.Text = "Prim...";
             this.btnTCPrim.UseVisualStyleBackColor = true;
             this.btnTCPrim.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTapChangerPrimAndSecZoneFixed_MouseDown);
@@ -424,7 +424,7 @@ namespace Experimential_Software
             this.label12.Location = new System.Drawing.Point(134, 33);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(23, 17);
-            this.label12.TabIndex = 0;
+            this.label12.TabIndex = 2;
             this.label12.Text = "kV";
             // 
             // label11

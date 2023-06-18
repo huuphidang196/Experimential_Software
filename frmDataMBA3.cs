@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Experimential_Software.DTO;
 using Experimential_Software.DAO.DAO_MBA3Data;
+using Experimential_Software.BLL.BLL_ProcessMBA3P;
 
 namespace Experimential_Software
 {
@@ -18,14 +19,22 @@ namespace Experimential_Software
         public ConnectableE MBA3EPowerFixed { get => _mba3PEPower; set => _mba3PEPower = value; }
 
         protected DTOTransThreeEPower _dtoMBA3P;
+        public virtual DTOTransThreeEPower DTOMBA3P => _dtoMBA3P;
 
         //temp
         protected UnitTapMode _unitModeMain = UnitTapMode.Percent;
+        public UnitTapMode UnitModeMain { get => _unitModeMain; set => _unitModeMain = value; }
+
 
         //percent Fixed temp
         protected double _perFixedPrimTemp_100 = 0;
+        public double PerFixedPrimTemp_100 { get => _perFixedPrimTemp_100; set => _perFixedPrimTemp_100 = value; }
+
         protected double _perFixedTerTemp_100 = 0;
+        public double PerFixedTerTemp_100 { get => _perFixedTerTemp_100; set => _perFixedTerTemp_100 = value; }
+
         protected double _perFixedSecTemp_100 = 0;
+        public double PerFixedSecTemp_100 { get => _perFixedSecTemp_100; set => _perFixedSecTemp_100 = value; }
 
         //Impendance Tap Zero 
         protected ImpedanceMBA3 _impedanceMBA3_TapZero;
@@ -57,7 +66,7 @@ namespace Experimential_Software
                 //Fixed Tap
                 this.ShowFixedTapWheOpenForm();
 
-                this._impedanceMBA3_TapZero = DAOUpdateImpendanceMBA3WhenChangeTap.Instance.GetImpedanceMBA3PTapZeroWhenStart(this._dtoMBA3P);
+                this._impedanceMBA3_TapZero = DAOGeneMBA3Record.Instance.GetImpedanceMBA3PTapZeroWhenStart(this._dtoMBA3P);
             }
         }
 
@@ -150,7 +159,7 @@ namespace Experimential_Software
             this.rtbDescription.Text = this._dtoMBA3P.Description;
         }
 
-        protected virtual void ShowFixedVolatgeKVBySpecVoltage(VoltageEnds3P voltageFixed3P)
+        public virtual void ShowFixedVolatgeKVBySpecVoltage(VoltageEnds3P voltageFixed3P)
         {
             //btnTransTap
             this.btnTransUnit.Text = (this._unitModeMain == UnitTapMode.Percent) ? "% Tap" : "kV Tap";
@@ -190,65 +199,18 @@ namespace Experimential_Software
         //OVerall for Impedance, objectMBA3P, Volatage
         private void TextBoxLeaveValidNumber(object sender, EventArgs e)
         {
-            TextBox txtDataChanged = sender as TextBox;
-
-            // bool isAllValid = txtDataChanged.Text.Replace(".", "").Replace("-", "").All(c => char.IsDigit(c));
-            bool isAllValid = double.TryParse(txtDataChanged.Text, out double result);
-            if (!isAllValid)
-            {
-                MessageBox.Show(txtDataChanged.Text + " Invalid decimal number detected!", "Request To Re-Enter Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtDataChanged.BackColor = Color.Yellow;
-                txtDataChanged.Focus();
-                return;
-            }
-            txtDataChanged.BackColor = Color.White;
+            BLLProcessMBA3PForm.Instance.TextBoxLeaveValidNumber(sender);
         }
         //Voltage Rated
         private void TextBoxRatedLeave(object sender, EventArgs e)
         {
-            //Check Valid number
-            this.TextBoxLeaveValidNumber(sender, e);
-
-            //Show Again Fixed Zone when voltage rated changed
-            this.ProcessEventVoltageFixedChange();
+            BLLProcessMBA3PForm.Instance.TextBoxRatedLeave(sender, this);
         }
 
         //Apply for VoltageFixed
         private void TextBoxVolFixed_Leave(object sender, EventArgs e)
         {
-            //Check Valid number
-            this.TextBoxLeaveValidNumber(sender, e);
-
-            // Valid => Show Again Voltage Fixed
-            this.ProcessEventVoltageFixedChange();
-
-        }
-
-        protected virtual void ProcessEventVoltageFixedChange()
-        {
-            this.SetPercentTemp();
-
-            this.SetVoltageFixed();
-
-            //   MessageBox.Show("Fixed Prim = " + voltageFixed3P.VolPrim_kV + ", Ter = " + voltageFixed3P.VolTer_kV + ", Sec = " + voltageFixed3P.VolSec_kV);s          
-        }
-
-
-        protected virtual void SetVoltageFixed()
-        {
-            //Show Again Fixed Zone when voltage rated changed
-            VoltageEnds3P voltageRated3P = DAOGeneMBA3Record.Instance.GenerateVoltageEndsByText(txtRatedkV_Prim.Text, txtRatedkV_Ter.Text, txtRatedkV_Sec.Text);
-            VoltageEnds3P voltageFixed3P = DAOGeneMBA3Record.Instance.GenerateVoltageEndsFixedByUnitMode(this._perFixedPrimTemp_100, this._perFixedTerTemp_100, this._perFixedSecTemp_100, voltageRated3P);
-            this.ShowFixedVolatgeKVBySpecVoltage(voltageFixed3P);
-
-        }
-
-        protected virtual void SetPercentTemp()
-        {
-            //Set Per temp in order to Show VoltageFixed Use
-            this._perFixedPrimTemp_100 = DAOGeneMBA3Record.Instance.GetPercentVoltageFixedDisplayOneHundredPercent(this.txtVolFixedPrim.Text, this.txtRatedkV_Prim.Text, this._unitModeMain);
-            this._perFixedTerTemp_100 = DAOGeneMBA3Record.Instance.GetPercentVoltageFixedDisplayOneHundredPercent(this.txtVolFixedTer.Text, this.txtRatedkV_Ter.Text, this._unitModeMain);
-            this._perFixedSecTemp_100 = DAOGeneMBA3Record.Instance.GetPercentVoltageFixedDisplayOneHundredPercent(this.txtVolFixedSec.Text, this.txtRatedkV_Sec.Text, this._unitModeMain);
+            BLLProcessMBA3PForm.Instance.TextBoxVolFixed_Leave(sender, this);
         }
 
         #endregion Leave_TextBox
@@ -256,105 +218,17 @@ namespace Experimential_Software
         #region OK_Event_Set_Data
         private void btnOK_Click(object sender, EventArgs e)
         {
-            //Set Zone Basic Data
-            this.SetZoneBasicData();
-            //Transformer Impedance Data
-            this.SetZoneImpedanceData();
-            //Set Zone Transformer Data
-            this.SetZoneTransformerData();
-            //SetZone Fixed Tap
-            this.SetZoneFixedTap();
-            //Descreiption
-            this._dtoMBA3P.Description = this.rtbDescription.Text;
+            BLLProcessMBA3PForm.Instance.EventOK_Click(this);
 
             DialogResult = DialogResult.OK;
         }
-
-
-        protected virtual void SetZoneBasicData()
-        {
-            //this MBA3P
-            //Object Number
-            this._dtoMBA3P.ObjectNumber = int.Parse(this.txtTrans3PNumber.Text);
-            //Object Name
-            this._dtoMBA3P.ObjectName = this.txtTrans3PName.Text;
-            //Set index  InService
-            this._dtoMBA3P.Index_InService = this.cboInService.SelectedIndex;
-        }
-
-        protected virtual void SetZoneImpedanceData()
-        {
-            //SpecRX Prim
-            double SpecR_Prim = double.Parse(this.txtSpecR_Prim.Text);
-            double SpecX_Prim = double.Parse(this.txtSpecX_Prim.Text);
-            SpecImpedanceMBA3RX SpecPrim = DAOGeneMBA3Record.Instance.GenerateSpecRX(SpecR_Prim, SpecX_Prim);
-            this._dtoMBA3P.Impedance_MBA3.SpecRX_Prim = SpecPrim;
-
-            //SpecRX Tertiary
-            double SpecR_Ter = double.Parse(this.txtSpecR_Ter.Text);
-            double SpecX_Ter = double.Parse(this.txtSpecX_Ter.Text);
-            SpecImpedanceMBA3RX SpecTer = DAOGeneMBA3Record.Instance.GenerateSpecRX(SpecR_Ter, SpecX_Ter);
-            this._dtoMBA3P.Impedance_MBA3.SpecRX_Ter = SpecTer;
-
-            //SpecRX Sec
-            double SpecR_Sec = double.Parse(this.txtSpecR_Sec.Text);
-            double SpecX_Sec = double.Parse(this.txtSpecX_Sec.Text);
-            SpecImpedanceMBA3RX SpecSec = DAOGeneMBA3Record.Instance.GenerateSpecRX(SpecR_Sec, SpecX_Sec);
-            this._dtoMBA3P.Impedance_MBA3.SpecRX_Sec = SpecSec;
-
-            //Mag G,B
-            double MagG = double.Parse(this.txtMagG.Text);
-            double MagB = double.Parse(this.txtMagB.Text);
-            this._dtoMBA3P.Impedance_MBA3.MagG_pu = MagG;
-            this._dtoMBA3P.Impedance_MBA3.MagB_pu = MagB;
-
-        }
-
-        protected virtual void SetZoneTransformerData()
-        {
-            //MVA base Prim
-            this._dtoMBA3P.Trans3Winding_MVABase.BaseMVA_Prim = double.Parse(this.txtBaseMVA_Prim.Text);
-            //MVA base Ter
-            this._dtoMBA3P.Trans3Winding_MVABase.BaseMVA_Ter = double.Parse(this.txtBaseMVA_Ter.Text);
-            //MVA base Sec 
-            this._dtoMBA3P.Trans3Winding_MVABase.BaseMVA_Sec = double.Parse(this.txtBaseMVA_Sec.Text);
-
-            //Volatage Rated
-            double vol_ratedPrim = double.Parse(this.txtRatedkV_Prim.Text);
-            double vol_ratedTer = double.Parse(this.txtRatedkV_Ter.Text);
-            double vol_ratedSec = double.Parse(this.txtRatedkV_Sec.Text);
-            this._dtoMBA3P.VoltageEnds_kV_Rated = DAOGeneMBA3Record.Instance.GenerateVoltageEndsByNumber(vol_ratedPrim, vol_ratedTer, vol_ratedSec);
-
-        }
-
-        protected virtual void SetZoneFixedTap()
-        {
-            this._dtoMBA3P.UnitTap_Main = this._unitModeMain;
-            //Only Save Per for Fixed Tap
-            if (this._unitModeMain == UnitTapMode.Percent)
-            {
-                this._dtoMBA3P.Percent_PrimFixed = 1 + double.Parse(this.txtVolFixedPrim.Text) / 100;
-                this._dtoMBA3P.Percent_TerFixed = 1 + double.Parse(this.txtVolFixedTer.Text) / 100;
-                this._dtoMBA3P.Percent_SecFixed = 1 + double.Parse(this.txtVolFixedSec.Text) / 100;
-
-                return;
-            }
-
-            //kV Mode
-            this._dtoMBA3P.Percent_PrimFixed = 1 + this._perFixedPrimTemp_100 / 100;
-            this._dtoMBA3P.Percent_TerFixed = 1 + this._perFixedTerTemp_100 / 100;
-            this._dtoMBA3P.Percent_SecFixed = 1 + this._perFixedSecTemp_100 / 100;
-        }
-
 
         #endregion OK_Event_Set_Data
 
         //Change Unit Tap Main
         private void btnTransUnit_Click(object sender, EventArgs e)
         {
-            this._unitModeMain = (this._unitModeMain == UnitTapMode.Percent) ? UnitTapMode.KV_Number : UnitTapMode.Percent;
-
-            this.SetVoltageFixed();
+            BLLProcessMBA3PForm.Instance.EventTransUnit_Click(this);
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

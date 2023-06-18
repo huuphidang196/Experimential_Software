@@ -272,20 +272,20 @@ namespace Experimential_Software
 
         private System.Windows.Forms.Panel grbTapSetting;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label lblStepTC;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnTCUnitRanger;
-        private System.Windows.Forms.TextBox txtMaxEnds;
-        private System.Windows.Forms.TextBox txtMinEnds;
-        private System.Windows.Forms.Label lblTransUnitRanger;
-        private System.Windows.Forms.Label lblTapTransMin;
-        private System.Windows.Forms.Label lblTapTransMax;
-        private System.Windows.Forms.Label lblTapTransStep;
-        private System.Windows.Forms.TextBox txtCountTap;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnOkTapRanger;
         private System.Windows.Forms.Button btnCanceltapRanger;
+        public System.Windows.Forms.Label lblStepTC;
+        public System.Windows.Forms.Button btnTCUnitRanger;
+        public System.Windows.Forms.TextBox txtMaxEnds;
+        public System.Windows.Forms.TextBox txtMinEnds;
+        public System.Windows.Forms.Label lblTransUnitRanger;
+        public System.Windows.Forms.Label lblTapTransMin;
+        public System.Windows.Forms.Label lblTapTransMax;
+        public System.Windows.Forms.Label lblTapTransStep;
+        public System.Windows.Forms.TextBox txtCountTap;
     }
 }

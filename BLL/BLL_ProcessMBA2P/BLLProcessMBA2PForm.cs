@@ -86,7 +86,7 @@ namespace Experimential_Software.BLL.BLL_ProcessMBA2P
         public virtual void EventOkMBA2_Click(DTOTransTwoEPower _dtoMBA2EPowerRecord, frmDataMBA2 frmDataMBA2)
         {
             ///****Basic Data***************
-            this.ProcessBasicDataForm( _dtoMBA2EPowerRecord,  frmDataMBA2);
+            this.ProcessBasicDataForm(_dtoMBA2EPowerRecord, frmDataMBA2);
 
             //********Voltage Rating*****
             this.SetValueVoltageRating(_dtoMBA2EPowerRecord, frmDataMBA2);
@@ -106,9 +106,11 @@ namespace Experimential_Software.BLL.BLL_ProcessMBA2P
             int ObjNumber = int.Parse(frmDataMBA2.txtTransID.Text);
             //Set isInservice
             bool isChecked = frmDataMBA2.chkinService.Checked;
-            DAOProcessMBA2Form.Instance.SetBasicDataMBA2P(dtoMBA2EPowerRecord, ObjName, ObjNumber, isChecked);
+            //Power Rated
+            double powerRated = double.Parse(frmDataMBA2.txtPowerRated.Text);
+            DAOProcessMBA2Form.Instance.SetBasicDataMBA2P(dtoMBA2EPowerRecord, ObjName, ObjNumber, isChecked, powerRated);
         }
-       
+
         //********Voltage Rating*****
         public virtual void SetValueVoltageRating(DTOTransTwoEPower _dtoMBA2EPowerRecord, frmDataMBA2 frmDataMBA2)
         {
@@ -145,7 +147,7 @@ namespace Experimential_Software.BLL.BLL_ProcessMBA2P
         protected virtual void SetValuePowerRatingAndImpendance(DTOTransTwoEPower _dtoMBA2EPowerRecord, frmDataMBA2 frmDataMBA2)
         {
             //Set Power Rated
-           double PowerRated_MVA = double.Parse(frmDataMBA2.txtPowerRated.Text);
+            double PowerRated_MVA = double.Parse(frmDataMBA2.txtPowerRated.Text);
 
             //Impendance
             //SpecR_pu
@@ -163,5 +165,144 @@ namespace Experimential_Software.BLL.BLL_ProcessMBA2P
         }
 
         #endregion Function_OK_Event
+
+        #region Func_Evnet_Down_FixedTap_Zone
+
+        //Add Event For button Prim and Sec
+        public virtual void btnTapChangerPrimAndSecZoneFixed_MouseDown(object sender, frmDataMBA2 frmDataMBA2, DTOTransTwoEPower _dtoMBA2EPowerRecord, DTOTransTwoTapRanger _dtoRanger_Prim_Temp, DTOTransTwoTapRanger _dtoRanger_Sec_Temp)
+        {
+            Button btnEnds = sender as Button;
+            //Get DTOTapRanger in DTOTrans => Reference form Ranger => Set
+            //Open Form TapRanger
+            frmFixedTapChanger frmTapRanger = new frmFixedTapChanger();
+
+            //set Volatage Rated if Rated Change
+            DAOProcessMBA2Form.Instance.btnTapChangerPrimAndSecZoneFixed_MouseDown(_dtoMBA2EPowerRecord, _dtoRanger_Prim_Temp, _dtoRanger_Sec_Temp);
+
+            //Reference In Form Value Temp
+            frmTapRanger.DTOTapRanger = (btnEnds == frmDataMBA2.btnTCPrim) ? _dtoRanger_Prim_Temp : _dtoRanger_Sec_Temp;
+            //Set name Form Tap Changer 
+            frmTapRanger.Text = (btnEnds == frmDataMBA2.btnTCPrim) ? "Primary Fixed Tap Range" : "Secondary Fixed Tap Range";
+
+            //if Set Data Ranger then show Again Fixed Zone
+            if (frmTapRanger.ShowDialog() != DialogResult.OK) return;
+
+
+            frmDataMBA2.ShowFixedTapDataOnFixedZone();
+        }
+
+        #endregion Func_Evnet_Down_FixedTap_Zone
+
+        #region Event_Button_Up_Down
+        //Button Up
+        public virtual void EventButtonUpFixedTapZone(object sender, frmDataMBA2 frmDataMBA2, DTOTransTwoEPower _dtoMBA2EPowerRecord)
+        {
+            Button btnEndsUp = sender as Button;
+            bool isPrim = (btnEndsUp == frmDataMBA2.btnPrimUp);
+
+            //get Inter Fixed per Prim => Per Prim if not per Sec
+            double Inter_Fixed_Per = isPrim ? _dtoMBA2EPowerRecord.Percent_PrimFixed : _dtoMBA2EPowerRecord.Percent_SecFixed;
+            //get number Tap 
+            double Inter_numberTap = isPrim ? frmDataMBA2.NumberTapFixed_Prim : frmDataMBA2.NumberTapFixed_Sec;
+            //Get Intern Max Limit => Up only work with max value => Work with Temp because it is edited , main is not set
+            double Inter_maxPer = isPrim ? frmDataMBA2.DTORangerPrim_Temp.MaxRanger_Per : frmDataMBA2.DTORangerSec_Temp.MaxRanger_Per;
+            //Get Intern Step
+            double Inter_Step_Per = isPrim ? frmDataMBA2.DTORangerPrim_Temp.Step_Per : frmDataMBA2.DTORangerSec_Temp.Step_Per;
+
+
+            //Check Is Step have Change
+            double K_remainder = Inter_Fixed_Per - 1 - Inter_numberTap * Inter_Step_Per;
+
+            if (Math.Abs(K_remainder) > 0.001)
+            {
+                this.SetPercentEndsAndNumberTapWhenChangeStep(isPrim, frmDataMBA2, _dtoMBA2EPowerRecord);
+                return;
+            }
+            //If Current >= MaxLimit (equal) set equal max
+            if (Inter_Fixed_Per >= Inter_maxPer) return;
+
+            //add 1 intpo number tap, if not greater limit => +1
+            Inter_numberTap += 1;
+
+            //add Percent
+            Inter_Fixed_Per = 1 + Inter_numberTap * Inter_Step_Per;
+            //If Current >= MaxLimit (equal) set equal max
+            if (Inter_Fixed_Per >= Inter_maxPer) Inter_Fixed_Per = Inter_maxPer;
+
+
+            //Apply value for Per In DTO Trans . Directly
+            this.SetPercentEndsAndNumberTap(isPrim, Inter_Fixed_Per, Inter_numberTap, frmDataMBA2, _dtoMBA2EPowerRecord);
+
+            //Show Impendance because Impendance depend (k'/k)^2
+            this.ProcessUpdateImpendanceByTransformerRatio(frmDataMBA2, _dtoMBA2EPowerRecord);
+        }
+
+        //Button Down
+        public virtual void EventButtonDownFixedTapZone(object sender, frmDataMBA2 frmDataMBA2, DTOTransTwoEPower _dtoMBA2EPowerRecord)
+        {
+            Button btnEndsDown = sender as Button;
+            bool isPrim = (btnEndsDown == frmDataMBA2.btnPrimDown);
+
+            //get Inter Fixed per Prim => Per Prim if not per Sec
+            double Inter_Fixed_Per = isPrim ? _dtoMBA2EPowerRecord.Percent_PrimFixed : _dtoMBA2EPowerRecord.Percent_SecFixed;
+            //get number Tap 
+            double Inter_numberTap = isPrim ? frmDataMBA2.NumberTapFixed_Prim : frmDataMBA2.NumberTapFixed_Sec;
+            //Get Intern min Limit => Up only work with min value => Work with Temp because it is edited , main is not set
+            double Inter_minPer = isPrim ? frmDataMBA2.DTORangerPrim_Temp.MinRanger_Per : frmDataMBA2.DTORangerSec_Temp.MinRanger_Per;
+            //Get Intern Step
+            double Inter_Step_Per = isPrim ? frmDataMBA2.DTORangerPrim_Temp.Step_Per : frmDataMBA2.DTORangerSec_Temp.Step_Per;
+
+
+            //Check Is Step have Change
+            double K_remainder = Inter_Fixed_Per - 1 - Inter_numberTap * Inter_Step_Per; //Intern = Old + step * tap//2 case same +
+
+            if (Math.Abs(K_remainder) > 0.001)
+            {
+                //Apply value for Per In DTO Trans . Directly
+                this.SetPercentEndsAndNumberTapWhenChangeStep(isPrim, frmDataMBA2, _dtoMBA2EPowerRecord);
+                return;
+            }
+            //If Current <= MinLimit (equal) set equal min
+            if (Inter_Fixed_Per <= Inter_minPer) return;
+
+            //add 1 intpo number tap, if not greater limit => -1
+            Inter_numberTap -= 1;
+
+            //add Percent
+            Inter_Fixed_Per = 1 + Inter_numberTap * Inter_Step_Per;//Intern = Old + step * tap//2 case same +. if - <=> tap < 0 => + negative
+            //If Current >= MaxLimit (equal) set equal max
+            if (Inter_Fixed_Per <= Inter_minPer + 0.0001) Inter_Fixed_Per = Inter_minPer;
+
+            //Apply value for Per In DTO Trans . Directly
+            this.SetPercentEndsAndNumberTap(isPrim, Inter_Fixed_Per, Inter_numberTap, frmDataMBA2, _dtoMBA2EPowerRecord);
+
+            //Show Impendance because Impendance depend (k'/k)^2
+            this.ProcessUpdateImpendanceByTransformerRatio(frmDataMBA2, _dtoMBA2EPowerRecord);
+        }
+
+        protected virtual void SetPercentEndsAndNumberTap(bool isPrim, double percentEnds, double numberTap, frmDataMBA2 frmDataMBA2, DTOTransTwoEPower _dtoMBA2EPowerRecord)
+        {
+            DAOProcessMBA2Form.Instance.SetPercentEndsAndNumberTap(isPrim, percentEnds, numberTap, frmDataMBA2, _dtoMBA2EPowerRecord);
+            //Show Again Fixed Zone
+            frmDataMBA2.ShowFixedTapDataOnFixedZone();
+        }
+        protected virtual void SetPercentEndsAndNumberTapWhenChangeStep(bool isPrim, frmDataMBA2 frmDataMBA2, DTOTransTwoEPower _dtoMBA2EPowerRecord)
+        {
+            double percentEnds = 1;
+            double numberTap = 0;
+            DAOProcessMBA2Form.Instance.SetPercentEndsAndNumberTap(isPrim, percentEnds, numberTap, frmDataMBA2, _dtoMBA2EPowerRecord);
+            //Show Again Fixed Zone
+            frmDataMBA2.ShowFixedTapDataOnFixedZone();
+        }
+
+        protected virtual void ProcessUpdateImpendanceByTransformerRatio(frmDataMBA2 frmDataMBA2, DTOTransTwoEPower _dtoMBA2EPowerRecord)
+        {
+            //Clone ImpendancemBA temp 
+            ImpedanceMBA2 impendanceMBA2Tem = DAOUpdateImpendanceWhenChangeTap.Instance.ProcessUpdateImpendanceByTransformerRatio(_dtoMBA2EPowerRecord, frmDataMBA2.ImpedanceMBA2Temp);
+
+            //Show textbox again. if ok => change.if Not not change
+            frmDataMBA2.ShowTransformerImpendanceData(impendanceMBA2Tem);
+        }
+        #endregion Event_Button_Up_Down
     }
 }

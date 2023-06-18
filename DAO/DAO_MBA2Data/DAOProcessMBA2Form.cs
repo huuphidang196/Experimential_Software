@@ -32,7 +32,7 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
         #endregion Event_Cancel
 
         #region OK_Event
-        public virtual void SetBasicDataMBA2P(DTOTransTwoEPower _dtoMBA2EPowerRecord, string ObjName, int ObjNumber, bool isChecked)
+        public virtual void SetBasicDataMBA2P(DTOTransTwoEPower _dtoMBA2EPowerRecord, string ObjName, int ObjNumber, bool isChecked, double PowerRated)
         {
             //Set Object Name
             _dtoMBA2EPowerRecord.ObjectName = ObjName;
@@ -40,6 +40,9 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
             _dtoMBA2EPowerRecord.ObjectNumber = ObjNumber;
             //Set isInservice
             _dtoMBA2EPowerRecord.IsInService = isChecked;
+
+            //Power Rated
+            _dtoMBA2EPowerRecord.PowerRated_MVA = PowerRated; 
         }
         public virtual void SetValueVoltageRating(DTOTransTwoEPower _dtoMBA2EPowerRecord, double VolRated_Prim, double VoltRated_Sec)
         {
@@ -83,5 +86,35 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
         }
 
         #endregion OK_Event
+
+        #region Func_Evnet_Down_FixedTap_Zone
+
+        //Add Event For button Prim and Sec
+        public virtual void btnTapChangerPrimAndSecZoneFixed_MouseDown(DTOTransTwoEPower _dtoMBA2EPowerRecord, DTOTransTwoTapRanger _dtoRanger_Prim_Temp, DTOTransTwoTapRanger _dtoRanger_Sec_Temp)
+        {
+            //set Volatage Rated if Rated Change
+            _dtoRanger_Prim_Temp.Voltage_TapZero_ByRated = _dtoMBA2EPowerRecord.Prim_RangerTap.Voltage_TapZero_ByRated;
+            _dtoRanger_Sec_Temp.Voltage_TapZero_ByRated = _dtoMBA2EPowerRecord.Sec_RangerTap.Voltage_TapZero_ByRated;
+
+        }
+
+        #endregion Func_Evnet_Down_FixedTap_Zone
+
+        #region Event_Button_Up_Down
+        public virtual void SetPercentEndsAndNumberTap(bool isPrim, double percentEnds, double numberTap, frmDataMBA2 frmDataMBA2, DTOTransTwoEPower _dtoMBA2EPowerRecord)
+        {
+            if (isPrim)
+            {
+                _dtoMBA2EPowerRecord.Percent_PrimFixed = percentEnds;
+                frmDataMBA2.NumberTapFixed_Prim = numberTap;
+            }
+            else
+            {
+                _dtoMBA2EPowerRecord.Percent_SecFixed = percentEnds;
+                frmDataMBA2.NumberTapFixed_Sec = numberTap;
+            }
+
+        }
+        #endregion Event_Button_Up_Down
     }
 }

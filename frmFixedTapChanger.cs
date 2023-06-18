@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Experimential_Software.BLL.BLL_ProcessFixedTapChanger;
 using Experimential_Software.DTO;
 
 namespace Experimential_Software
@@ -19,9 +20,17 @@ namespace Experimential_Software
 
         //Generate specified variable => changed immidiatly when user complete data text
         protected UnitTapMode _unitModeRange = UnitTapMode.Percent;
+        public UnitTapMode UnitModeRange => _unitModeRange;
+
         protected double _minRanger_Per = 0;
+        public double MinRanger_Per { get => _minRanger_Per; set => _minRanger_Per = value; }
+
         protected double _maxRanger_Per = 0;
+        public double MaxRanger_Per { get => _maxRanger_Per; set => _maxRanger_Per = value; }
+
         protected int _countTC = 0;
+        public int CountTC { get => _countTC; set => _countTC = value; }
+
         public frmFixedTapChanger()
         {
             InitializeComponent();
@@ -46,7 +55,7 @@ namespace Experimential_Software
                 this.ShowDataTapRangerEndsOnForm();
             }
         }
-        protected virtual void ShowDataTapRangerEndsOnForm()
+        public virtual void ShowDataTapRangerEndsOnForm()
         {
             double vol_TapZero_ByRated = this._dtoTapRanger.Voltage_TapZero_ByRated;
 
@@ -79,8 +88,7 @@ namespace Experimential_Software
         #region Event_Button_On_Form
         private void btnTCUnitRanger_MouseDown(object sender, MouseEventArgs e)
         {
-            if (this._unitModeRange == UnitTapMode.Percent) this._unitModeRange = UnitTapMode.KV_Number;
-            else this._unitModeRange = UnitTapMode.Percent;
+            this._unitModeRange = (this._unitModeRange == UnitTapMode.Percent) ? UnitTapMode.KV_Number : UnitTapMode.Percent;
 
             //Show Again 
             this.ShowDataTapRangerEndsOnForm();
@@ -111,70 +119,12 @@ namespace Experimential_Software
         #region Check_TextBox_Controls
         private void CheckKeyPressIsNumber(object sender, KeyPressEventArgs e)
         {
-            TextBox txtDataChanged = sender as TextBox;
-            if (txtDataChanged == this.txtCountTap)
-            {
-                //txt Count is not negative and is not double type
-                if (e.KeyChar == '.' || e.KeyChar == '-') e.Handled = true;
-
-                if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b') e.Handled = true;
-                return;
-            }
-
-            // Kiểm tra xem ký tự vừa nhập vào có phải là số hoặc dấu chấm hay không
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != '\b' && e.KeyChar != '-')
-            {
-                e.Handled = true; // Không cho phép nhập ký tự này
-            }
-
-            // Chỉ cho phép nhập một dấu chấm
-            if (e.KeyChar == '.' && txtDataChanged.Text.IndexOf('.') > -1 || e.KeyChar == '-' && txtDataChanged.Text.IndexOf('-') > -1)
-            {
-                e.Handled = true; // Không cho phép nhập ký tự này
-            }
+            BLLProcessFixedTapChangerForm.Instance.CheckKeyPressIsNumber(sender, e, this);
         }
 
         private void TextLeaveEvent(object sender, EventArgs e)
         {
-            TextBox txtDataChanger = sender as TextBox;
-            //Count number Tap Changer
-            this._countTC = int.Parse(this.txtCountTap.Text);
-            if (txtDataChanger.Text == "" || txtDataChanger.Text == "-")
-            {
-                MessageBox.Show("Field cannot be empty!", "Warning Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtDataChanger.BackColor = Color.Yellow;
-                txtDataChanger.Focus();
-                return;
-            }
-
-            if (this._unitModeRange == UnitTapMode.Percent)
-            {
-                //Min Volatage . if Percent => directly set
-                this._minRanger_Per = 1 + (double.Parse(this.txtMinEnds.Text) / 100);
-                //max Voltage
-                this._maxRanger_Per = 1 + (double.Parse(this.txtMaxEnds.Text) / 100);
-
-                //Show Again
-                this.ShowDataTapRangerEndsOnForm();
-                return;
-            }
-
-            //=> kV Mode
-            //Min Volatage . Both Round 3 digit beacause kv => 3 digit
-            double Vol_Min_kV = Math.Round(double.Parse(this.txtMinEnds.Text), 3);
-            //Round 3 digit text kv unit
-            this.txtMinEnds.Text = Vol_Min_kV + "";
-            this._minRanger_Per = Vol_Min_kV / this._dtoTapRanger.Voltage_TapZero_ByRated;
-
-            //max Voltage
-            double Vol_Max_kV = double.Parse(this.txtMaxEnds.Text);
-            //Round 3 digit text kv unit
-            this.txtMaxEnds.Text = Vol_Max_kV + "";
-            this._maxRanger_Per = Vol_Max_kV / this._dtoTapRanger.Voltage_TapZero_ByRated;
-
-            txtDataChanger.BackColor = Color.WhiteSmoke;
-            //Show Again
-            this.ShowDataTapRangerEndsOnForm();
+            BLLProcessFixedTapChangerForm.Instance.TextLeaveEvent(sender, e, this);
         }
         #endregion Check_TextBox_Controls
     }

@@ -229,7 +229,7 @@ namespace Experimential_Software
             this.txtVolFixedSec.Location = new System.Drawing.Point(91, 175);
             this.txtVolFixedSec.Name = "txtVolFixedSec";
             this.txtVolFixedSec.Size = new System.Drawing.Size(89, 24);
-            this.txtVolFixedSec.TabIndex = 2;
+            this.txtVolFixedSec.TabIndex = 3;
             this.txtVolFixedSec.Leave += new System.EventHandler(this.TextBoxVolFixed_Leave);
             // 
             // label30
@@ -267,7 +267,7 @@ namespace Experimential_Software
             this.txtVolFixedPrim.Location = new System.Drawing.Point(91, 74);
             this.txtVolFixedPrim.Name = "txtVolFixedPrim";
             this.txtVolFixedPrim.Size = new System.Drawing.Size(89, 24);
-            this.txtVolFixedPrim.TabIndex = 2;
+            this.txtVolFixedPrim.TabIndex = 1;
             this.txtVolFixedPrim.Leave += new System.EventHandler(this.TextBoxVolFixed_Leave);
             // 
             // label34
@@ -401,7 +401,7 @@ namespace Experimential_Software
             this.txtMagB.Location = new System.Drawing.Point(176, 273);
             this.txtMagB.Name = "txtMagB";
             this.txtMagB.Size = new System.Drawing.Size(106, 24);
-            this.txtMagB.TabIndex = 2;
+            this.txtMagB.TabIndex = 7;
             this.txtMagB.Text = "0.0000000";
             this.txtMagB.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
@@ -411,7 +411,7 @@ namespace Experimential_Software
             this.txtSpecX_Sec.Location = new System.Drawing.Point(176, 196);
             this.txtSpecX_Sec.Name = "txtSpecX_Sec";
             this.txtSpecX_Sec.Size = new System.Drawing.Size(106, 24);
-            this.txtSpecX_Sec.TabIndex = 2;
+            this.txtSpecX_Sec.TabIndex = 5;
             this.txtSpecX_Sec.Text = "101";
             this.txtSpecX_Sec.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
@@ -441,7 +441,7 @@ namespace Experimential_Software
             this.txtSpecX_Ter.Location = new System.Drawing.Point(176, 121);
             this.txtSpecX_Ter.Name = "txtSpecX_Ter";
             this.txtSpecX_Ter.Size = new System.Drawing.Size(106, 24);
-            this.txtSpecX_Ter.TabIndex = 2;
+            this.txtSpecX_Ter.TabIndex = 3;
             this.txtSpecX_Ter.Text = "101";
             this.txtSpecX_Ter.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
@@ -461,7 +461,7 @@ namespace Experimential_Software
             this.txtMagG.Location = new System.Drawing.Point(19, 273);
             this.txtMagG.Name = "txtMagG";
             this.txtMagG.Size = new System.Drawing.Size(106, 24);
-            this.txtMagG.TabIndex = 2;
+            this.txtMagG.TabIndex = 6;
             this.txtMagG.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // txtSpecR_Sec
@@ -470,7 +470,7 @@ namespace Experimential_Software
             this.txtSpecR_Sec.Location = new System.Drawing.Point(19, 196);
             this.txtSpecR_Sec.Name = "txtSpecR_Sec";
             this.txtSpecR_Sec.Size = new System.Drawing.Size(106, 24);
-            this.txtSpecR_Sec.TabIndex = 2;
+            this.txtSpecR_Sec.TabIndex = 4;
             this.txtSpecR_Sec.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // txtSpecX_Prim
@@ -479,7 +479,7 @@ namespace Experimential_Software
             this.txtSpecX_Prim.Location = new System.Drawing.Point(176, 55);
             this.txtSpecX_Prim.Name = "txtSpecX_Prim";
             this.txtSpecX_Prim.Size = new System.Drawing.Size(106, 24);
-            this.txtSpecX_Prim.TabIndex = 2;
+            this.txtSpecX_Prim.TabIndex = 1;
             this.txtSpecX_Prim.Text = "101";
             this.txtSpecX_Prim.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
@@ -528,7 +528,7 @@ namespace Experimential_Software
             this.txtSpecR_Prim.Location = new System.Drawing.Point(19, 55);
             this.txtSpecR_Prim.Name = "txtSpecR_Prim";
             this.txtSpecR_Prim.Size = new System.Drawing.Size(106, 24);
-            this.txtSpecR_Prim.TabIndex = 2;
+            this.txtSpecR_Prim.TabIndex = 0;
             this.txtSpecR_Prim.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // label12
@@ -586,7 +586,7 @@ namespace Experimential_Software
             this.txtRatedkV_Sec.Location = new System.Drawing.Point(150, 256);
             this.txtRatedkV_Sec.Name = "txtRatedkV_Sec";
             this.txtRatedkV_Sec.Size = new System.Drawing.Size(135, 24);
-            this.txtRatedkV_Sec.TabIndex = 2;
+            this.txtRatedkV_Sec.TabIndex = 5;
             this.txtRatedkV_Sec.Leave += new System.EventHandler(this.TextBoxRatedLeave);
             // 
             // txtRatedkV_Ter
@@ -595,7 +595,7 @@ namespace Experimential_Software
             this.txtRatedkV_Ter.Location = new System.Drawing.Point(149, 162);
             this.txtRatedkV_Ter.Name = "txtRatedkV_Ter";
             this.txtRatedkV_Ter.Size = new System.Drawing.Size(135, 24);
-            this.txtRatedkV_Ter.TabIndex = 2;
+            this.txtRatedkV_Ter.TabIndex = 3;
             this.txtRatedkV_Ter.Leave += new System.EventHandler(this.TextBoxRatedLeave);
             // 
             // txtBaseMVA_Sec
@@ -604,7 +604,7 @@ namespace Experimential_Software
             this.txtBaseMVA_Sec.Location = new System.Drawing.Point(19, 256);
             this.txtBaseMVA_Sec.Name = "txtBaseMVA_Sec";
             this.txtBaseMVA_Sec.Size = new System.Drawing.Size(106, 24);
-            this.txtBaseMVA_Sec.TabIndex = 2;
+            this.txtBaseMVA_Sec.TabIndex = 4;
             this.txtBaseMVA_Sec.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // txtRatedkV_Prim
@@ -613,7 +613,7 @@ namespace Experimential_Software
             this.txtRatedkV_Prim.Location = new System.Drawing.Point(149, 74);
             this.txtRatedkV_Prim.Name = "txtRatedkV_Prim";
             this.txtRatedkV_Prim.Size = new System.Drawing.Size(135, 24);
-            this.txtRatedkV_Prim.TabIndex = 2;
+            this.txtRatedkV_Prim.TabIndex = 1;
             this.txtRatedkV_Prim.Text = "101";
             this.txtRatedkV_Prim.Leave += new System.EventHandler(this.TextBoxRatedLeave);
             // 
@@ -652,7 +652,7 @@ namespace Experimential_Software
             this.txtBaseMVA_Prim.Location = new System.Drawing.Point(18, 74);
             this.txtBaseMVA_Prim.Name = "txtBaseMVA_Prim";
             this.txtBaseMVA_Prim.Size = new System.Drawing.Size(106, 24);
-            this.txtBaseMVA_Prim.TabIndex = 2;
+            this.txtBaseMVA_Prim.TabIndex = 0;
             this.txtBaseMVA_Prim.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // label26
@@ -817,7 +817,7 @@ namespace Experimential_Software
             this.cboInService.Location = new System.Drawing.Point(564, 180);
             this.cboInService.Name = "cboInService";
             this.cboInService.Size = new System.Drawing.Size(197, 26);
-            this.cboInService.TabIndex = 3;
+            this.cboInService.TabIndex = 4;
             // 
             // txtTrans3PName
             // 
@@ -825,7 +825,7 @@ namespace Experimential_Software
             this.txtTrans3PName.Location = new System.Drawing.Point(564, 119);
             this.txtTrans3PName.Name = "txtTrans3PName";
             this.txtTrans3PName.Size = new System.Drawing.Size(197, 24);
-            this.txtTrans3PName.TabIndex = 2;
+            this.txtTrans3PName.TabIndex = 3;
             // 
             // txtTrans3PNumber
             // 
@@ -862,7 +862,7 @@ namespace Experimential_Software
             this.lblBusNumberW3.Location = new System.Drawing.Point(47, 180);
             this.lblBusNumberW3.Name = "lblBusNumberW3";
             this.lblBusNumberW3.Size = new System.Drawing.Size(136, 24);
-            this.lblBusNumberW3.TabIndex = 1;
+            this.lblBusNumberW3.TabIndex = 0;
             this.lblBusNumberW3.Text = "101";
             this.lblBusNumberW3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -1056,9 +1056,6 @@ namespace Experimential_Software
         private System.Windows.Forms.Label lblBusNumberW1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cboInService;
-        private System.Windows.Forms.TextBox txtTrans3PName;
-        private System.Windows.Forms.TextBox txtTrans3PNumber;
         private System.Windows.Forms.Label lblBusNameW3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label2;
@@ -1070,32 +1067,18 @@ namespace Experimential_Software
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.GroupBox grbImpedanceMBA3P;
-        private System.Windows.Forms.TextBox txtSpecX_Sec;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.TextBox txtSpecX_Ter;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox txtSpecR_Sec;
-        private System.Windows.Forms.TextBox txtSpecX_Prim;
-        private System.Windows.Forms.TextBox txtSpecR_Ter;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label lblNormalkV_Prim;
-        private System.Windows.Forms.TextBox txtSpecR_Prim;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.GroupBox grbDataMBA3;
-        private System.Windows.Forms.TextBox txtMagB;
         private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.TextBox txtMagG;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox txtBaseMVA_Prim;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.TextBox txtRatedkV_Prim;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.TextBox txtRatedkV_Sec;
-        private System.Windows.Forms.TextBox txtRatedkV_Ter;
-        private System.Windows.Forms.TextBox txtBaseMVA_Sec;
-        private System.Windows.Forms.TextBox txtBaseMVA_Ter;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
@@ -1108,24 +1091,41 @@ namespace Experimential_Software
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.GroupBox grbFixedTap;
-        private System.Windows.Forms.Button btnTransUnit;
-        private System.Windows.Forms.TextBox txtVolFixedSec;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.TextBox txtVolFixedTer;
         private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.TextBox txtVolFixedPrim;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label lblTransUnit;
         private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.Label lblPerUnitSec;
-        private System.Windows.Forms.Label lblPerUnitTer;
-        private System.Windows.Forms.Label lblTransSec;
-        private System.Windows.Forms.Label lblPerUnitPrim;
-        private System.Windows.Forms.Label lblTransTer;
-        private System.Windows.Forms.Label lblTransPrim;
         private System.Windows.Forms.GroupBox grbDescription;
-        private System.Windows.Forms.RichTextBox rtbDescription;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
+        public System.Windows.Forms.ComboBox cboInService;
+        public System.Windows.Forms.TextBox txtTrans3PName;
+        public System.Windows.Forms.TextBox txtTrans3PNumber;
+        public System.Windows.Forms.TextBox txtSpecX_Sec;
+        public System.Windows.Forms.TextBox txtSpecX_Ter;
+        public System.Windows.Forms.TextBox txtSpecR_Sec;
+        public System.Windows.Forms.TextBox txtSpecX_Prim;
+        public System.Windows.Forms.TextBox txtSpecR_Ter;
+        public System.Windows.Forms.TextBox txtSpecR_Prim;
+        public System.Windows.Forms.TextBox txtMagB;
+        public System.Windows.Forms.TextBox txtMagG;
+        public System.Windows.Forms.TextBox txtBaseMVA_Prim;
+        public System.Windows.Forms.TextBox txtRatedkV_Prim;
+        public System.Windows.Forms.TextBox txtRatedkV_Sec;
+        public System.Windows.Forms.TextBox txtRatedkV_Ter;
+        public System.Windows.Forms.TextBox txtBaseMVA_Sec;
+        public System.Windows.Forms.TextBox txtBaseMVA_Ter;
+        public System.Windows.Forms.Button btnTransUnit;
+        public System.Windows.Forms.TextBox txtVolFixedSec;
+        public System.Windows.Forms.TextBox txtVolFixedTer;
+        public System.Windows.Forms.TextBox txtVolFixedPrim;
+        public System.Windows.Forms.Label lblPerUnitSec;
+        public System.Windows.Forms.Label lblPerUnitTer;
+        public System.Windows.Forms.Label lblTransSec;
+        public System.Windows.Forms.Label lblPerUnitPrim;
+        public System.Windows.Forms.Label lblTransTer;
+        public System.Windows.Forms.Label lblTransPrim;
+        public System.Windows.Forms.RichTextBox rtbDescription;
     }
 }
