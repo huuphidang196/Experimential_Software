@@ -1,23 +1,25 @@
-﻿using Microsoft.Reporting.WinForms;
+﻿
+using Microsoft.Reporting.WinForms;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Experimential_Software.DAO.DAO_PrintData;
 
-namespace Experimential_Software.DAO.DAO_PrintData
+namespace Experimential_Software.BLL.BLL_PrintData
 {
-    public class DAOProcessPrintSystem
+    public class BLLProcessPrintSystem
     {
-        private static DAOProcessPrintSystem _instance;
-        public static DAOProcessPrintSystem Instance
+        private static BLLProcessPrintSystem _instance;
+        public static BLLProcessPrintSystem Instance
         {
-            get { if (_instance == null) _instance = new DAOProcessPrintSystem(); return _instance; }
+            get { if (_instance == null) _instance = new BLLProcessPrintSystem(); return _instance; }
             private set {; }
         }
 
-        private DAOProcessPrintSystem() {; }
+        private BLLProcessPrintSystem() {; }
 
         public virtual ReportDataSource GetReportDataSourceNode(List<ConnectableE> allEPowers)
         {

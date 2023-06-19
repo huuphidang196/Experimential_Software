@@ -218,7 +218,7 @@ namespace Experimential_Software
             this.btnTransUnit.Location = new System.Drawing.Point(91, 32);
             this.btnTransUnit.Name = "btnTransUnit";
             this.btnTransUnit.Size = new System.Drawing.Size(89, 25);
-            this.btnTransUnit.TabIndex = 0;
+            this.btnTransUnit.TabIndex = 3;
             this.btnTransUnit.Text = "% Tap";
             this.btnTransUnit.UseVisualStyleBackColor = true;
             this.btnTransUnit.Click += new System.EventHandler(this.btnTransUnit_Click);
@@ -229,7 +229,7 @@ namespace Experimential_Software
             this.txtVolFixedSec.Location = new System.Drawing.Point(91, 175);
             this.txtVolFixedSec.Name = "txtVolFixedSec";
             this.txtVolFixedSec.Size = new System.Drawing.Size(89, 24);
-            this.txtVolFixedSec.TabIndex = 3;
+            this.txtVolFixedSec.TabIndex = 2;
             this.txtVolFixedSec.Leave += new System.EventHandler(this.TextBoxVolFixed_Leave);
             // 
             // label30
@@ -248,7 +248,7 @@ namespace Experimential_Software
             this.txtVolFixedTer.Location = new System.Drawing.Point(91, 124);
             this.txtVolFixedTer.Name = "txtVolFixedTer";
             this.txtVolFixedTer.Size = new System.Drawing.Size(89, 24);
-            this.txtVolFixedTer.TabIndex = 2;
+            this.txtVolFixedTer.TabIndex = 1;
             this.txtVolFixedTer.Leave += new System.EventHandler(this.TextBoxVolFixed_Leave);
             // 
             // label29
@@ -267,7 +267,7 @@ namespace Experimential_Software
             this.txtVolFixedPrim.Location = new System.Drawing.Point(91, 74);
             this.txtVolFixedPrim.Name = "txtVolFixedPrim";
             this.txtVolFixedPrim.Size = new System.Drawing.Size(89, 24);
-            this.txtVolFixedPrim.TabIndex = 1;
+            this.txtVolFixedPrim.TabIndex = 0;
             this.txtVolFixedPrim.Leave += new System.EventHandler(this.TextBoxVolFixed_Leave);
             // 
             // label34
@@ -817,7 +817,7 @@ namespace Experimential_Software
             this.cboInService.Location = new System.Drawing.Point(564, 180);
             this.cboInService.Name = "cboInService";
             this.cboInService.Size = new System.Drawing.Size(197, 26);
-            this.cboInService.TabIndex = 4;
+            this.cboInService.TabIndex = 2;
             // 
             // txtTrans3PName
             // 
@@ -825,7 +825,7 @@ namespace Experimential_Software
             this.txtTrans3PName.Location = new System.Drawing.Point(564, 119);
             this.txtTrans3PName.Name = "txtTrans3PName";
             this.txtTrans3PName.Size = new System.Drawing.Size(197, 24);
-            this.txtTrans3PName.TabIndex = 3;
+            this.txtTrans3PName.TabIndex = 1;
             // 
             // txtTrans3PNumber
             // 
@@ -833,7 +833,7 @@ namespace Experimential_Software
             this.txtTrans3PNumber.Location = new System.Drawing.Point(564, 56);
             this.txtTrans3PNumber.Name = "txtTrans3PNumber";
             this.txtTrans3PNumber.Size = new System.Drawing.Size(106, 24);
-            this.txtTrans3PNumber.TabIndex = 2;
+            this.txtTrans3PNumber.TabIndex = 0;
             this.txtTrans3PNumber.Leave += new System.EventHandler(this.TextBoxLeaveValidNumber);
             // 
             // lblBusNameW3
@@ -991,7 +991,7 @@ namespace Experimential_Software
             this.btnOK.Location = new System.Drawing.Point(312, 885);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 27);
-            this.btnOK.TabIndex = 1;
+            this.btnOK.TabIndex = 0;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
             this.btnOK.Click += new System.EventHandler(this.btnOK_Click);

@@ -127,7 +127,7 @@ namespace Experimential_Software
             this.txtYQLoad.Location = new System.Drawing.Point(230, 228);
             this.txtYQLoad.Name = "txtYQLoad";
             this.txtYQLoad.Size = new System.Drawing.Size(158, 23);
-            this.txtYQLoad.TabIndex = 5;
+            this.txtYQLoad.TabIndex = 6;
             this.txtYQLoad.Text = "0.0000";
             this.txtYQLoad.Leave += new System.EventHandler(this.EventTextDataInputIsNotNumber);
             // 
@@ -137,7 +137,7 @@ namespace Experimential_Software
             this.txtIQLoad.Location = new System.Drawing.Point(231, 151);
             this.txtIQLoad.Name = "txtIQLoad";
             this.txtIQLoad.Size = new System.Drawing.Size(158, 23);
-            this.txtIQLoad.TabIndex = 3;
+            this.txtIQLoad.TabIndex = 4;
             this.txtIQLoad.Text = "0.0000";
             this.txtIQLoad.Leave += new System.EventHandler(this.EventTextDataInputIsNotNumber);
             // 
@@ -187,7 +187,7 @@ namespace Experimential_Software
             this.txtYLoad.Location = new System.Drawing.Point(15, 228);
             this.txtYLoad.Name = "txtYLoad";
             this.txtYLoad.Size = new System.Drawing.Size(158, 23);
-            this.txtYLoad.TabIndex = 4;
+            this.txtYLoad.TabIndex = 5;
             this.txtYLoad.Text = "0.0000";
             this.txtYLoad.Leave += new System.EventHandler(this.EventTextDataInputIsNotNumber);
             // 
@@ -207,7 +207,7 @@ namespace Experimential_Software
             this.txtIPLoad.Location = new System.Drawing.Point(16, 151);
             this.txtIPLoad.Name = "txtIPLoad";
             this.txtIPLoad.Size = new System.Drawing.Size(158, 23);
-            this.txtIPLoad.TabIndex = 2;
+            this.txtIPLoad.TabIndex = 3;
             this.txtIPLoad.Text = "0.0000";
             this.txtIPLoad.Leave += new System.EventHandler(this.EventTextDataInputIsNotNumber);
             // 
@@ -305,7 +305,7 @@ namespace Experimential_Software
             this.txtLoadID.Location = new System.Drawing.Point(16, 121);
             this.txtLoadID.Name = "txtLoadID";
             this.txtLoadID.Size = new System.Drawing.Size(80, 23);
-            this.txtLoadID.TabIndex = 2;
+            this.txtLoadID.TabIndex = 0;
             this.txtLoadID.Text = "L1";
             // 
             // lblBusNameConn

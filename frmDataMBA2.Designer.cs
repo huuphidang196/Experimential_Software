@@ -279,7 +279,7 @@ namespace Experimential_Software
             this.txtFixedPrimkV.Location = new System.Drawing.Point(158, 74);
             this.txtFixedPrimkV.Name = "txtFixedPrimkV";
             this.txtFixedPrimkV.Size = new System.Drawing.Size(66, 24);
-            this.txtFixedPrimkV.TabIndex = 1;
+            this.txtFixedPrimkV.TabIndex = 0;
             this.txtFixedPrimkV.Text = "110";
             this.txtFixedPrimkV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtFixedPrimkV.Leave += new System.EventHandler(this.CheckTextBoxValidEventTextBoxLeave);
@@ -290,7 +290,7 @@ namespace Experimential_Software
             this.btnTCSec.Location = new System.Drawing.Point(42, 150);
             this.btnTCSec.Name = "btnTCSec";
             this.btnTCSec.Size = new System.Drawing.Size(81, 28);
-            this.btnTCSec.TabIndex = 4;
+            this.btnTCSec.TabIndex = 3;
             this.btnTCSec.Text = "Sec...";
             this.btnTCSec.UseVisualStyleBackColor = true;
             this.btnTCSec.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTapChangerPrimAndSecZoneFixed_MouseDown);
@@ -312,7 +312,7 @@ namespace Experimential_Software
             this.btnTCPrim.Location = new System.Drawing.Point(42, 74);
             this.btnTCPrim.Name = "btnTCPrim";
             this.btnTCPrim.Size = new System.Drawing.Size(81, 28);
-            this.btnTCPrim.TabIndex = 3;
+            this.btnTCPrim.TabIndex = 1;
             this.btnTCPrim.Text = "Prim...";
             this.btnTCPrim.UseVisualStyleBackColor = true;
             this.btnTCPrim.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTapChangerPrimAndSecZoneFixed_MouseDown);
@@ -323,7 +323,7 @@ namespace Experimential_Software
             this.btnTCUnitMain.Location = new System.Drawing.Point(147, 25);
             this.btnTCUnitMain.Name = "btnTCUnitMain";
             this.btnTCUnitMain.Size = new System.Drawing.Size(89, 25);
-            this.btnTCUnitMain.TabIndex = 0;
+            this.btnTCUnitMain.TabIndex = 4;
             this.btnTCUnitMain.Text = "% Tap";
             this.btnTCUnitMain.UseVisualStyleBackColor = true;
             this.btnTCUnitMain.MouseDown += new System.Windows.Forms.MouseEventHandler(this.btnTCUnitMain_MouseDown);

@@ -187,7 +187,7 @@ namespace Experimential_Software
             this.txtSchedVoltage.Location = new System.Drawing.Point(144, 45);
             this.txtSchedVoltage.Name = "txtSchedVoltage";
             this.txtSchedVoltage.Size = new System.Drawing.Size(122, 24);
-            this.txtSchedVoltage.TabIndex = 1;
+            this.txtSchedVoltage.TabIndex = 0;
             this.txtSchedVoltage.Text = "1.0000";
             this.txtSchedVoltage.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
@@ -304,7 +304,7 @@ namespace Experimential_Software
             this.txtGentapMF.Location = new System.Drawing.Point(19, 197);
             this.txtGentapMF.Name = "txtGentapMF";
             this.txtGentapMF.Size = new System.Drawing.Size(122, 24);
-            this.txtGentapMF.TabIndex = 1;
+            this.txtGentapMF.TabIndex = 2;
             this.txtGentapMF.Text = "1.00000";
             this.txtGentapMF.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
@@ -324,7 +324,7 @@ namespace Experimential_Software
             this.txtRTran_pu.Location = new System.Drawing.Point(19, 57);
             this.txtRTran_pu.Name = "txtRTran_pu";
             this.txtRTran_pu.Size = new System.Drawing.Size(122, 24);
-            this.txtRTran_pu.TabIndex = 1;
+            this.txtRTran_pu.TabIndex = 0;
             this.txtRTran_pu.Text = "0.00000";
             this.txtRTran_pu.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
@@ -362,7 +362,7 @@ namespace Experimential_Software
             this.txtXSource_pu.Location = new System.Drawing.Point(345, 197);
             this.txtXSource_pu.Name = "txtXSource_pu";
             this.txtXSource_pu.Size = new System.Drawing.Size(122, 24);
-            this.txtXSource_pu.TabIndex = 1;
+            this.txtXSource_pu.TabIndex = 10;
             this.txtXSource_pu.Text = "1.000000";
             this.txtXSource_pu.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
@@ -372,7 +372,7 @@ namespace Experimential_Software
             this.txtQmin_Mvar.Location = new System.Drawing.Point(345, 126);
             this.txtQmin_Mvar.Name = "txtQmin_Mvar";
             this.txtQmin_Mvar.Size = new System.Drawing.Size(122, 24);
-            this.txtQmin_Mvar.TabIndex = 1;
+            this.txtQmin_Mvar.TabIndex = 8;
             this.txtQmin_Mvar.Text = "-9999.0000";
             this.txtQmin_Mvar.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
@@ -392,7 +392,7 @@ namespace Experimential_Software
             this.txtPmin_MW.Location = new System.Drawing.Point(345, 57);
             this.txtPmin_MW.Name = "txtPmin_MW";
             this.txtPmin_MW.Size = new System.Drawing.Size(122, 24);
-            this.txtPmin_MW.TabIndex = 1;
+            this.txtPmin_MW.TabIndex = 6;
             this.txtPmin_MW.Text = "-9999.0000";
             this.txtPmin_MW.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
@@ -412,7 +412,7 @@ namespace Experimential_Software
             this.txtRSource_pu.Location = new System.Drawing.Point(177, 197);
             this.txtRSource_pu.Name = "txtRSource_pu";
             this.txtRSource_pu.Size = new System.Drawing.Size(122, 24);
-            this.txtRSource_pu.TabIndex = 1;
+            this.txtRSource_pu.TabIndex = 9;
             this.txtRSource_pu.Text = "0.000000";
             this.txtRSource_pu.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
@@ -432,7 +432,7 @@ namespace Experimential_Software
             this.txtQmax_Mvar.Location = new System.Drawing.Point(177, 126);
             this.txtQmax_Mvar.Name = "txtQmax_Mvar";
             this.txtQmax_Mvar.Size = new System.Drawing.Size(122, 24);
-            this.txtQmax_Mvar.TabIndex = 1;
+            this.txtQmax_Mvar.TabIndex = 7;
             this.txtQmax_Mvar.Text = "9999.0000";
             this.txtQmax_Mvar.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
@@ -452,7 +452,7 @@ namespace Experimential_Software
             this.txtPmax_MW.Location = new System.Drawing.Point(177, 57);
             this.txtPmax_MW.Name = "txtPmax_MW";
             this.txtPmax_MW.Size = new System.Drawing.Size(122, 24);
-            this.txtPmax_MW.TabIndex = 1;
+            this.txtPmax_MW.TabIndex = 5;
             this.txtPmax_MW.Text = "9999.0000";
             this.txtPmax_MW.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
@@ -472,7 +472,7 @@ namespace Experimential_Software
             this.txtMbase_MVA.Location = new System.Drawing.Point(17, 197);
             this.txtMbase_MVA.Name = "txtMbase_MVA";
             this.txtMbase_MVA.Size = new System.Drawing.Size(122, 24);
-            this.txtMbase_MVA.TabIndex = 1;
+            this.txtMbase_MVA.TabIndex = 4;
             this.txtMbase_MVA.Text = "100.00";
             this.txtMbase_MVA.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
@@ -522,7 +522,7 @@ namespace Experimential_Software
             this.txtPgen_MW.Location = new System.Drawing.Point(17, 57);
             this.txtPgen_MW.Name = "txtPgen_MW";
             this.txtPgen_MW.Size = new System.Drawing.Size(122, 24);
-            this.txtPgen_MW.TabIndex = 1;
+            this.txtPgen_MW.TabIndex = 0;
             this.txtPgen_MW.Text = "0.0000";
             this.txtPgen_MW.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
@@ -575,7 +575,7 @@ namespace Experimential_Software
             this.txtMachineName.Location = new System.Drawing.Point(316, 80);
             this.txtMachineName.Name = "txtMachineName";
             this.txtMachineName.Size = new System.Drawing.Size(151, 24);
-            this.txtMachineName.TabIndex = 2;
+            this.txtMachineName.TabIndex = 1;
             // 
             // txtMachineID
             // 
@@ -583,7 +583,7 @@ namespace Experimential_Software
             this.txtMachineID.Location = new System.Drawing.Point(103, 80);
             this.txtMachineID.Name = "txtMachineID";
             this.txtMachineID.Size = new System.Drawing.Size(93, 24);
-            this.txtMachineID.TabIndex = 2;
+            this.txtMachineID.TabIndex = 0;
             this.txtMachineID.Leave += new System.EventHandler(this.CheckNumberValidTextBoxEventLeave);
             // 
             // lblBusConnTypeCode
@@ -672,7 +672,7 @@ namespace Experimential_Software
             this.btnOKGene.Location = new System.Drawing.Point(204, 686);
             this.btnOKGene.Name = "btnOKGene";
             this.btnOKGene.Size = new System.Drawing.Size(106, 26);
-            this.btnOKGene.TabIndex = 1;
+            this.btnOKGene.TabIndex = 0;
             this.btnOKGene.Text = "OK";
             this.btnOKGene.UseVisualStyleBackColor = true;
             this.btnOKGene.Click += new System.EventHandler(this.btnOKGene_Click);

@@ -29,9 +29,9 @@ namespace Experimential_Software
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend8 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.pnlinfoLoad = new System.Windows.Forms.Panel();
             this.lblStateSystem = new System.Windows.Forms.Label();
@@ -377,7 +377,7 @@ namespace Experimential_Software
             this.chkGetListPoints.Location = new System.Drawing.Point(27, 44);
             this.chkGetListPoints.Name = "chkGetListPoints";
             this.chkGetListPoints.Size = new System.Drawing.Size(131, 21);
-            this.chkGetListPoints.TabIndex = 1;
+            this.chkGetListPoints.TabIndex = 0;
             this.chkGetListPoints.Text = "Get List Of Points";
             this.chkGetListPoints.UseVisualStyleBackColor = true;
             this.chkGetListPoints.CheckStateChanged += new System.EventHandler(this.chkManyCurve_CheckStateChanged);
@@ -388,7 +388,7 @@ namespace Experimential_Software
             this.chkManyCurve.Location = new System.Drawing.Point(27, 126);
             this.chkManyCurve.Name = "chkManyCurve";
             this.chkManyCurve.Size = new System.Drawing.Size(101, 21);
-            this.chkManyCurve.TabIndex = 1;
+            this.chkManyCurve.TabIndex = 2;
             this.chkManyCurve.Text = "Many Curve";
             this.chkManyCurve.UseVisualStyleBackColor = true;
             this.chkManyCurve.CheckStateChanged += new System.EventHandler(this.chkManyCurve_CheckStateChanged);
@@ -399,7 +399,7 @@ namespace Experimential_Software
             this.chkOneCurve.Location = new System.Drawing.Point(27, 85);
             this.chkOneCurve.Name = "chkOneCurve";
             this.chkOneCurve.Size = new System.Drawing.Size(93, 21);
-            this.chkOneCurve.TabIndex = 0;
+            this.chkOneCurve.TabIndex = 1;
             this.chkOneCurve.Text = "One Curve";
             this.chkOneCurve.UseVisualStyleBackColor = true;
             this.chkOneCurve.CheckStateChanged += new System.EventHandler(this.chkOneCurve_CheckStateChanged);
@@ -589,17 +589,17 @@ namespace Experimential_Software
             // 
             this.chartCurveLimted.BackColor = System.Drawing.Color.Gainsboro;
             this.chartCurveLimted.BorderlineColor = System.Drawing.Color.WhiteSmoke;
-            chartArea8.Name = "ChartArea1";
-            this.chartCurveLimted.ChartAreas.Add(chartArea8);
+            chartArea1.Name = "ChartArea1";
+            this.chartCurveLimted.ChartAreas.Add(chartArea1);
             this.chartCurveLimted.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend8.Name = "Legend1";
-            this.chartCurveLimted.Legends.Add(legend8);
+            legend1.Name = "Legend1";
+            this.chartCurveLimted.Legends.Add(legend1);
             this.chartCurveLimted.Location = new System.Drawing.Point(0, 0);
             this.chartCurveLimted.Name = "chartCurveLimted";
-            series8.ChartArea = "ChartArea1";
-            series8.Legend = "Legend1";
-            series8.Name = "Series1";
-            this.chartCurveLimted.Series.Add(series8);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartCurveLimted.Series.Add(series1);
             this.chartCurveLimted.Size = new System.Drawing.Size(552, 380);
             this.chartCurveLimted.TabIndex = 1;
             this.chartCurveLimted.Text = "Miền làm việc ổn định trong mặt phẳng công suất P-Q";

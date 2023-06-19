@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Experimential_Software.DAO.DAO_PrintData;
+using Experimential_Software.BLL.BLL_PrintData;
 using Microsoft.Reporting.WinForms;
 
 namespace Experimential_Software
@@ -38,7 +38,7 @@ namespace Experimential_Software
         {
             this.reportViewer1.LocalReport.ReportEmbeddedResource = "Experimential_Software.ReportIEEESystem.rdlc";
 
-            ReportDataSource rds = DAOProcessPrintSystem.Instance.GetReportDataSourceNode(this._allEPowers);
+            ReportDataSource rds = BLLProcessPrintSystem.Instance.GetReportDataSourceNode(this._allEPowers);
             this.reportViewer1.LocalReport.DataSources.Add(rds);
 
             this.reportViewer1.RefreshReport();
@@ -49,7 +49,7 @@ namespace Experimential_Software
         {
             this.reportViewer1.LocalReport.ReportEmbeddedResource = "Experimential_Software.ReportIEEESystem.rdlc";
 
-            ReportDataSource rds = DAOProcessPrintSystem.Instance.GetReportDataSourceBranch(this._allEPowers);
+            ReportDataSource rds = BLLProcessPrintSystem.Instance.GetReportDataSourceBranch(this._allEPowers);
             this.reportViewer1.LocalReport.DataSources.Add(rds);
 
             this.reportViewer1.RefreshReport();

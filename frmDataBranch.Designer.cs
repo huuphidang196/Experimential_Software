@@ -396,7 +396,7 @@ namespace Experimential_Software
             this.txtChargingBPu.Location = new System.Drawing.Point(477, 68);
             this.txtChargingBPu.Name = "txtChargingBPu";
             this.txtChargingBPu.Size = new System.Drawing.Size(119, 23);
-            this.txtChargingBPu.TabIndex = 3;
+            this.txtChargingBPu.TabIndex = 2;
             this.txtChargingBPu.Text = "0.000000";
             this.txtChargingBPu.Leave += new System.EventHandler(this.EventDataIputIsNotNumber);
             // 
@@ -406,7 +406,7 @@ namespace Experimential_Software
             this.txtLengthBr.Location = new System.Drawing.Point(477, 215);
             this.txtLengthBr.Name = "txtLengthBr";
             this.txtLengthBr.Size = new System.Drawing.Size(119, 23);
-            this.txtLengthBr.TabIndex = 2;
+            this.txtLengthBr.TabIndex = 3;
             this.txtLengthBr.Text = "0.000";
             this.txtLengthBr.Leave += new System.EventHandler(this.EventDataIputIsNotNumber);
             // 
