@@ -50,7 +50,8 @@ namespace Experimential_Software.BLL.BLL_Curve.BLL_GeneratePath
             // Initialize SoundPlayer
             string pathLibrary = this.GetPathLibrary();
             // Kết hợp đường dẫn của thư mục cha và tên thư mục con
-            string LogoLoadingName = "Library Logo/LogoLoading.png";
+            // string LogoLoadingName = "Library Logo/LogoLoading.png";
+            string LogoLoadingName = "Library Logo/LogoBachKhoaDn.png";
             string fullPathSound = this.GetPathChildFolder(pathLibrary, LogoLoadingName);
 
             return fullPathSound;

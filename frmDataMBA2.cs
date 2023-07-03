@@ -231,7 +231,6 @@ namespace Experimential_Software
 
         #endregion Function_OK_Event
 
-
         #region Cancel_Event
         private void btnCancelMBA2_Click(object sender, EventArgs e)
         {
