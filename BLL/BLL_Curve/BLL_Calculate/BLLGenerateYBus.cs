@@ -52,7 +52,6 @@ namespace Experimential_Software.BLL.BLL_Curve.BLL_Calculate
                     }
 
                 }
-             //   this.ExperimentalGetYBusPerStep(Y_Temp);
 
             }
 
@@ -63,25 +62,6 @@ namespace Experimential_Software.BLL.BLL_Curve.BLL_Calculate
             // Trả về ma trận đẳng trị
             return Y_Bus;
         }
-
-        //Experimental
-        protected virtual void ExperimentalGetYBusPerStep(Complex[,] YTemp)
-        {
-            string str = "";
-            for (int i = 0; i < YTemp.GetLength(0); i++)
-            {
-                for (int j = 0; j < YTemp.GetLength(1); j++)
-                {
-                    str += new Complex(double.Parse(YTemp[i,j].Real.ToString("N4")),
-                       double.Parse(YTemp[i,j].Imaginary.ToString("N4"))) + new string(' ', 5);
-                }
-                str += "\n";
-            }
-
-            MessageBox.Show(str);
-        }
-        //Experimental
-
 
         protected virtual Complex[,] GetYTransferRowAndCol(int CountMF, int number_BusJ, Complex[,] YSate)
         {

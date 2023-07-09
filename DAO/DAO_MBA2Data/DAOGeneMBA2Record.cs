@@ -58,7 +58,7 @@ namespace Experimential_Software.DAO.DAO_MBA2Data
             return dtoMBA2;
         }
 
-        protected virtual VoltageEnds2P GenerateVoltageEnds(double Prim, double Sec)
+        public virtual VoltageEnds2P GenerateVoltageEnds(double Prim, double Sec)
         {
             VoltageEnds2P voltageEnds = new VoltageEnds2P();
             voltageEnds.VolPrim_kV = Prim;

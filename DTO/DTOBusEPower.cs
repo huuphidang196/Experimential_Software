@@ -27,16 +27,16 @@ namespace Experimential_Software.DTO
             set { _basekV = Math.Round(value, 1); }
         }
 
-        protected double _kChangerTap;
-        public double KChangerTap
-        {
-            get { if (_kChangerTap == 0) return 1; return _kChangerTap; }
-            set { _kChangerTap = Math.Round(value, 4); }
-        }
+        //protected double _kChangerTap;
+        //public double KChangerTap
+        //{
+        //    get { if (_kChangerTap == 0) return 1; return _kChangerTap; }
+        //    set { _kChangerTap = Math.Round(value, 4); }
+        //}
         protected double _voltage_pu;
         public double Voltage_pu
         {
-            get { return _voltage_pu * KChangerTap; }
+            get { return _voltage_pu; }// * KChangerTap; }
             set { _voltage_pu = Math.Round(value, 4); }
         }
 

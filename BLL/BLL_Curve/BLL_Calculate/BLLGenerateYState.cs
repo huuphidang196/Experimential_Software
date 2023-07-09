@@ -5,8 +5,6 @@ using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Experimential_Software.DTO;
-using Experimential_Software.CustomControl;
 using Experimential_Software.DAO.DAO_Curve;
 
 namespace Experimential_Software.BLL.BLL_Curve.BLL_Calculate
@@ -27,13 +25,6 @@ namespace Experimential_Software.BLL.BLL_Curve.BLL_Calculate
 
         public virtual Complex[,] CalculateMatrixYState(List<ConnectableE> allBus)
         {
-            //string s = "";
-            //foreach (ConnectableE ePower in allBus)
-            //{
-            //    s += ePower.ToString();
-            //}
-            //MessageBox.Show(s);
-
             //Size Ystate
             int lengthYState = allBus.Count;
             //Assignment
@@ -75,8 +66,6 @@ namespace Experimential_Software.BLL.BLL_Curve.BLL_Calculate
             return Y_State;
         }
        
-
-        
 
         #region CheckBusIsPrimOrSec
    

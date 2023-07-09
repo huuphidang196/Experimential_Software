@@ -9,9 +9,8 @@ namespace Experimential_Software.DTO
     [Serializable]
     public class DataRecordEPower
     {
-        public string ObjectName { get; set; }
-
         public int ObjectNumber { get; set; }
+        public string ObjectName { get; set; }
 
     }
 }

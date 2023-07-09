@@ -19,6 +19,7 @@ using Experimential_Software.BLL.BLL_Curve.BLL_Calculate;
 using Experimential_Software.BLL.BLL_Curve.BLL_Calculate_ManyCurve;
 using Experimential_Software.BLL.BLL_Curve.BLL_Check_Stability;
 using Experimential_Software.BLL.BLL_Curve.BLL_GeneratePath;
+using Experimential_Software.BLL.BLL_Curve.BLL_InteractServer;
 
 namespace Experimential_Software
 {
@@ -44,6 +45,10 @@ namespace Experimential_Software
         //Max P, Q
         protected double _PMax_Global = 100;
         protected double _QMax_Global = 100;
+
+        //Get Server
+        protected bool isGetServer = false;
+        public bool IsGetServer { set => isGetServer = value; }
 
         public frmDrawnCurve()
         {
@@ -164,6 +169,10 @@ namespace Experimential_Software
                 this.Close();
                 return;
             }
+
+            //Get set value server
+            if (this.isGetServer) this.GetAndSetDataSystemFromServer();
+
             //Set Variable
             this.SetVariableWhenResetPressed();
             //Add point Load Random if many curve mode
@@ -191,6 +200,11 @@ namespace Experimential_Software
 
             //Processing completed event
             this.ProcessingCompletedEvent(Dic_PQ_Old, stopwatch);
+        }
+
+        protected virtual void GetAndSetDataSystemFromServer()
+        {
+            BLLInteractServer.Instance.GetAndSetDataSystemFromServer(this._allEPowers, "huuphidang2804", "19062001Phi@");
         }
 
         protected virtual void SetVariableWhenResetPressed()
@@ -395,6 +409,7 @@ namespace Experimential_Software
         private void btnCancel_Click(object sender, EventArgs e)
         {
             this.Close();
+            this.isGetServer = false;
         }
 
 

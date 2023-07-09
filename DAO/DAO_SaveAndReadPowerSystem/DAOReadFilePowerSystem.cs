@@ -120,7 +120,6 @@ namespace Experimential_Software.DAO.DAO_SaveAndReadPowerSystem
                 ConnectableE StartEPower = this.GetEPowerByNameToString(frmCapstone, dataline.NameStartEPower);
                 ConnectableE EndEPower = this.GetEPowerByNameToString(frmCapstone, dataline.NameEndEPower);
 
-
                 //Point Start and End Line
                 Point StartPoint = dataline.StartPoint;
                 Point EndPoint = dataline.EndPoint;

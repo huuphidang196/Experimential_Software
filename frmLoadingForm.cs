@@ -23,7 +23,7 @@ namespace Experimential_Software
         private void frmLoadingForm_Load(object sender, EventArgs e)
         {
             this.SetImagePictureBoxLoading();
-           // this.PlayMusic();
+          //  this.PlayMusic();
             this.SetDataStartOnBar();
 
         }

@@ -137,6 +137,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BLL\BLL_Curve\BLL_InteractServer\BLLInteractServer.cs" />
     <Compile Include="BLL\BLL_ProcessBranch\BLLProcessBranchForm.cs" />
     <Compile Include="BLL\BLL_ProcessBus\BLLProcessBusForm.cs" />
     <Compile Include="BLL\BLL_ProcessFixedTapChanger\BLLProcessFixedTapChangerForm.cs" />
@@ -147,6 +148,12 @@
     <Compile Include="BLL\BLL_SaveAndReadPowerSystem\BLLProcessMenuFileStrip.cs" />
     <Compile Include="BLL\BLL_SaveAndReadPowerSystem\BLLReadFilePowerSystem.cs" />
     <Compile Include="BLL\BLL_SaveAndReadPowerSystem\BLLSaveFilePowerSystem.cs" />
+    <Compile Include="DAO\DAO_Curve\DAODataProvider.cs" />
+    <Compile Include="DAO\DAO_Curve\DAODataProviderLineEPower.cs" />
+    <Compile Include="DAO\DAO_Curve\DAODataProviderLoad.cs" />
+    <Compile Include="DAO\DAO_Curve\DAODataProviderMBA2P.cs" />
+    <Compile Include="DAO\DAO_Curve\DAODataProviderMF.cs" />
+    <Compile Include="DAO\DAO_Curve\DAODataProviderBus.cs" />
     <Compile Include="DAO\DAO_Curve\DAOGetDataOfEPower.cs" />
     <Compile Include="DAO\DAO_MBA2Data\DAOProcessMBA2Form.cs" />
     <Compile Include="DTO\DTODataInputPowerSystem.cs" />

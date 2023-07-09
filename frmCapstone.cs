@@ -461,8 +461,24 @@ namespace Experimential_Software
         //Isoval
         private void cxtMnuDCOperatingMode_Click(object sender, EventArgs e)
         {
+            //Drawn Curve in Operating Mode Simulate
+            bool isGetServer = false;
+            this.TurnOnFormCurve(isGetServer);
+        }
+        #region Get_Server
+        private void CalculateModeRealTime(object sender, EventArgs e)
+        {
+            //Drawn Curve in Operating Mode Real Time
+            bool isGetServer = true;
+            this.TurnOnFormCurve(isGetServer);
+        }
+        #endregion Get_Server
+
+        protected virtual void TurnOnFormCurve(bool isGetServer)
+        {
             //Drawn Curve in Operating Mode
             frmDrawnCurve frmDrawnCurve = new frmDrawnCurve();
+            frmDrawnCurve.IsGetServer = isGetServer;
             frmDrawnCurve.frmCapstone = this;
             frmDrawnCurve.AllEPowers = this._ePowers;
             frmDrawnCurve.BusLoadExamnined = this._ePowers.Find(x => x.IsSelected);
@@ -567,6 +583,7 @@ namespace Experimential_Software
             Point pointCenter = new Point(xCenter, yCenter);
             return pointCenter;
         }
+
 
 
 
